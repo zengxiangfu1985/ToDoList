@@ -47,8 +47,21 @@ if (-not $GitHubOwner -or -not $GitHubRepo) {
 }
 
 $updateJsonUrl = ""
+$jsDelivrJsonUrl = ""
+$gitCommit = ""
 if ($GitHubOwner -and $GitHubRepo -and $GitHubOwner -ne "your-github-user") {
     $updateJsonUrl = "https://raw.githubusercontent.com/$GitHubOwner/$GitHubRepo/$GitHubBranch/dist/update.json"
+    Push-Location $ProjectRoot
+    try {
+        $gitCommit = (git rev-parse HEAD 2>$null)
+    } finally {
+        Pop-Location
+    }
+    if ($gitCommit) {
+        $jsDelivrJsonUrl = "https://cdn.jsdelivr.net/gh/$GitHubOwner/$GitHubRepo@$gitCommit/dist/update.json"
+    } else {
+        $jsDelivrJsonUrl = "https://cdn.jsdelivr.net/gh/$GitHubOwner/$GitHubRepo@$GitHubBranch/dist/update.json"
+    }
     if (-not $PackageUrl) {
         $PackageUrl = "https://github.com/$GitHubOwner/$GitHubRepo/releases/download/v$($VersionInfo.Version)/ToDoList-Portable-$($VersionInfo.Version).zip"
     }
@@ -194,11 +207,16 @@ $updateConfigTemplate = Join-Path $ProjectRoot "resources\update-config.default.
 $updateConfigOut = Join-Path $OutDir "update-config.json"
 if (Test-Path $updateConfigTemplate) {
     Copy-Item $updateConfigTemplate $updateConfigOut -Force
-    if ($updateJsonUrl) {
+    if ($updateJsonUrl -and $jsDelivrJsonUrl) {
         $updateConfigObj = Get-Content $updateConfigOut -Raw | ConvertFrom-Json
-        if ($updateConfigObj.sources -and $updateConfigObj.sources.Count -gt 0) {
-            $updateConfigObj.sources[0].url = $updateJsonUrl
+        foreach ($source in $updateConfigObj.sources) {
+            if ($source.name -eq "jsDelivr") {
+                $source.url = $jsDelivrJsonUrl
+            } elseif ($source.name -eq "GitHub") {
+                $source.url = $updateJsonUrl
+            }
         }
+        $updateConfigObj.active_source = "jsDelivr"
         $updateConfigObj | ConvertTo-Json -Depth 6 | Set-Content $updateConfigOut -Encoding UTF8
     }
 }
@@ -222,12 +240,6 @@ $packageManifest = [ordered]@{
     release_notes = $ReleaseNotes
     mandatory = $false
     db_schema = 1
-    package = [ordered]@{
-        file_name = $zipName
-        size = 0
-        sha256 = ""
-        url = $PackageUrl
-    }
 }
 $packageManifestJson = ($packageManifest | ConvertTo-Json -Depth 5)
 Set-Content (Join-Path $OutDir "update.manifest.json") $packageManifestJson -Encoding UTF8
@@ -244,15 +256,31 @@ try {
 $zipSize = (Get-Item $zipPath).Length
 $sha256 = (Get-FileHash $zipPath -Algorithm SHA256).Hash.ToLower()
 
-$packageManifest.package.size = $zipSize
-$packageManifest.package.sha256 = $sha256
-$packageManifestJson = ($packageManifest | ConvertTo-Json -Depth 5)
-Set-Content (Join-Path $OutDir "update.manifest.json") $packageManifestJson -Encoding UTF8
+$remotePackage = [ordered]@{
+    file_name = $zipName
+    size = $zipSize
+    sha256 = $sha256
+    url = $PackageUrl
+}
+if ($PackageUrl -and $PackageUrl -like "https://github.com/*") {
+    $remotePackage.mirrors = @(
+        "https://ghproxy.net/$PackageUrl"
+    )
+}
 
+$remoteLatest = [ordered]@{
+    version = $VersionInfo.Version
+    build = $VersionInfo.Build
+    min_app_version = "1.0.0"
+    release_notes = $ReleaseNotes
+    mandatory = $false
+    db_schema = 1
+    package = $remotePackage
+}
 $remoteManifest = [ordered]@{
     schema = 1
     channel = "stable"
-    latest = $packageManifest
+    latest = $remoteLatest
 }
 $remoteManifestJson = ($remoteManifest | ConvertTo-Json -Depth 6)
 Set-Content (Join-Path $DistRoot "update.json") $remoteManifestJson -Encoding UTF8

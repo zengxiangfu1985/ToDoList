@@ -48,6 +48,7 @@ SOURCES += \
     src/ui/task_table_delegate.cpp \
     src/ui/windowtitlebar.cpp \
     src/ui/appsettingsdialog.cpp \
+    src/ui/aboutdialog.cpp \
     src/ui/updatedialog.cpp \
     src/ui/lock_screen_widget.cpp \
     src/ui/ai_busy_overlay.cpp \
@@ -106,6 +107,7 @@ HEADERS += \
     src/ui/task_table_delegate.h \
     src/ui/windowtitlebar.h \
     src/ui/appsettingsdialog.h \
+    src/ui/aboutdialog.h \
     src/ui/updatedialog.h \
     src/ui/lock_screen_widget.h \
     src/ui/ai_busy_overlay.h \
@@ -131,6 +133,7 @@ FORMS += \
     src/ui/top3popupdialog.ui \
     src/ui/m365settingsdialog.ui \
     src/ui/appsettingsdialog.ui \
+    src/ui/aboutdialog.ui \
     src/ui/updatedialog.ui
 
 RESOURCES += resources/resources.qrc

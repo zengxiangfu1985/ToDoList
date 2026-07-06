@@ -38,6 +38,7 @@ release/cyber_ai_panel.o
 release/task_table_delegate.o
 release/windowtitlebar.o
 release/appsettingsdialog.o
+release/aboutdialog.o
 release/updatedialog.o
 release/lock_screen_widget.o
 release/ai_busy_overlay.o
@@ -86,6 +87,7 @@ release/moc_cyber_ai_panel.o
 release/moc_task_table_delegate.o
 release/moc_windowtitlebar.o
 release/moc_appsettingsdialog.o
+release/moc_aboutdialog.o
 release/moc_updatedialog.o
 release/moc_lock_screen_widget.o
 release/moc_windows_hotkey_manager.o

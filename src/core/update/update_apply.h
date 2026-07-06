@@ -11,6 +11,9 @@ public:
     using LogFn = std::function<void(const QString &)>;
 
     static bool waitForProcess(qint64 pid, int timeoutMs, LogFn log = LogFn());
+    static bool waitUntilExecutableIdle(const QString &exePath, int timeoutMs,
+                                        LogFn log = LogFn());
+    static bool replaceFile(const QString &src, const QString &dst, QString *error);
     static bool extractZip(const QString &zipPath, const QString &destDir, QString *error,
                            LogFn log = LogFn());
     static bool applyPackage(const UpdatePendingInfo &pending, QString *error,

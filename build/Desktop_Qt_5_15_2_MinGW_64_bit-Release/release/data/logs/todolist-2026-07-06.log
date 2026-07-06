@@ -171,3 +171,14 @@
 2026-07-06 21:11:14.451 [INFO] [UPDATE] 无可用更新 (当前 1.0.3 build 2026070621, 远端 1.0.2 build 2026070620)
 2026-07-06 21:11:26.340 [INFO] [APP] === ToDoList 退出 ===
 2026-07-06 21:11:26.377 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47791328' is still in use, all queries will cease to work.
+2026-07-06 22:57:36.634 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 22:57:36.635 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 22:57:36.636 [INFO] [APP] 设置文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/settings.ini
+2026-07-06 22:57:37.289 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 22:57:37.490 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 22:57:37.493 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 22:57:37.555 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 22:57:37.840 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 22:57:37.840 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 22:57:39.707 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 22:57:39.725 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_25114624' is still in use, all queries will cease to work.

@@ -15,6 +15,7 @@ struct UpdatePackageInfo
     qint64 size = 0;
     QString sha256;
     QString url;
+    QStringList mirrorUrls;
     int dbSchema = 0;
     bool valid = false;
 };

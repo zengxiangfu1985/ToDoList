@@ -184,14 +184,16 @@ debug/main.o: ../../tools/updater/main.cpp ../../src/core/update/update_apply.h 
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qeventloop.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDir \
 		../../../../5.15.2/mingw81_64/include/QtCore/qdir.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qfileinfo.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qfile.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qfiledevice.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qiodevice.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QFile \
 		../../../../5.15.2/mingw81_64/include/QtCore/QProcess \
 		../../../../5.15.2/mingw81_64/include/QtCore/qprocess.h \
@@ -270,6 +272,9 @@ debug/update_apply.o: ../../src/core/update/update_apply.cpp ../../src/core/upda
 		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDeadlineTimer \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdeadlinetimer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qelapsedtimer.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDir \
 		../../../../5.15.2/mingw81_64/include/QtCore/qdir.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qfileinfo.h \
@@ -283,9 +288,7 @@ debug/update_apply.o: ../../src/core/update/update_apply.cpp ../../src/core/upda
 		../../../../5.15.2/mingw81_64/include/QtCore/QProcess \
 		../../../../5.15.2/mingw81_64/include/QtCore/qprocess.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QThread \
-		../../../../5.15.2/mingw81_64/include/QtCore/qthread.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qdeadlinetimer.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qelapsedtimer.h
+		../../../../5.15.2/mingw81_64/include/QtCore/qthread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/update_apply.o ../../src/core/update/update_apply.cpp
 
 debug/update_manifest.o: ../../src/core/update/update_manifest.cpp ../../src/core/update/update_manifest.h \
@@ -378,6 +381,8 @@ debug/update_manifest.o: ../../src/core/update/update_manifest.cpp ../../src/cor
 		../../../../5.15.2/mingw81_64/include/QtCore/qurl.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qurlquery.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/quuid.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QJsonArray \
+		../../../../5.15.2/mingw81_64/include/QtCore/qjsonarray.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QJsonObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qjsonobject.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QJsonValue

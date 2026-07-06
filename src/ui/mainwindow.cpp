@@ -12,6 +12,7 @@
 #include "aianalysistracedialog.h"
 #include "ai_busy_overlay.h"
 #include "appsettingsdialog.h"
+#include "aboutdialog.h"
 #include "lock_screen_widget.h"
 #include "windowtitlebar.h"
 
@@ -522,11 +523,17 @@ void MainWindow::onAppSettings()
     connect(&dlg, &AppSettingsDialog::viewAiTraceRequested, this, &MainWindow::onViewAiTrace);
     connect(&dlg, &AppSettingsDialog::m365SettingsRequested, this, &MainWindow::onM365Settings);
     connect(&dlg, &AppSettingsDialog::hotkeysChanged, this, [this]() { reloadGlobalHotkeys(true); });
-    connect(&dlg, &AppSettingsDialog::checkUpdateRequested, this, &MainWindow::onCheckForUpdates);
-    connect(&dlg, &AppSettingsDialog::importOfflineUpdateRequested, this,
-            &MainWindow::onImportOfflineUpdate);
     if (dlg.exec() == QDialog::Accepted)
         resetIdleTimer();
+}
+
+void MainWindow::onAbout()
+{
+    AboutDialog dlg(this);
+    connect(&dlg, &AboutDialog::checkUpdateRequested, this, &MainWindow::onCheckForUpdates);
+    connect(&dlg, &AboutDialog::importOfflineUpdateRequested, this,
+            &MainWindow::onImportOfflineUpdate);
+    dlg.exec();
 }
 
 void MainWindow::showUpdateDialog(UpdateDialog::Mode mode, const QString &offlineZipPath)
@@ -592,6 +599,7 @@ void MainWindow::setupConnections()
     connect(ui->btnDailyEval, &QPushButton::clicked, this, &MainWindow::onViewDailyEvaluations);
     connect(ui->btnWeeklyReport, &QPushButton::clicked, this, &MainWindow::onExportWeeklyReport);
     connect(ui->btnSettings, &QPushButton::clicked, this, &MainWindow::onAppSettings);
+    connect(ui->btnAbout, &QPushButton::clicked, this, &MainWindow::onAbout);
     connect(m_quadrantBoard, &QuadrantBoard::taskQuadrantChanged, this, &MainWindow::onQuadrantChanged);
     connect(m_quadrantBoard, &QuadrantBoard::taskCompletedToggled, this, &MainWindow::onTaskCompletedToggled);
     connect(m_learning, &BehaviorLearningEngine::weightsUpdated, this, [this](const ScoringWeights &w) {

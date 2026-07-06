@@ -49,6 +49,7 @@ public:
     QPushButton *btnDailyEval;
     QPushButton *btnWeeklyReport;
     QPushButton *btnSettings;
+    QPushButton *btnAbout;
     QSpacerItem *horizontalSpacer;
     QLabel *labelProviderStatus;
     QSplitter *splitterMain;
@@ -144,6 +145,11 @@ public:
         btnSettings->setObjectName(QString::fromUtf8("btnSettings"));
 
         toolbarLayout->addWidget(btnSettings);
+
+        btnAbout = new QPushButton(toolBarPanel);
+        btnAbout->setObjectName(QString::fromUtf8("btnAbout"));
+
+        toolbarLayout->addWidget(btnAbout);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -306,7 +312,11 @@ public:
 #endif // QT_CONFIG(tooltip)
         btnSettings->setText(QCoreApplication::translate("MainWindow", "\350\256\276\347\275\256", nullptr));
 #if QT_CONFIG(tooltip)
-        btnSettings->setToolTip(QCoreApplication::translate("MainWindow", "\345\257\206\347\240\201\343\200\201\351\224\201\345\261\217\343\200\201\347\211\210\346\234\254\345\217\267\347\255\211\345\270\270\347\224\250\350\256\276\347\275\256", nullptr));
+        btnSettings->setToolTip(QCoreApplication::translate("MainWindow", "\345\257\206\347\240\201\343\200\201\351\224\201\345\261\217\343\200\201\345\277\253\346\215\267\351\224\256\347\255\211\345\270\270\347\224\250\350\256\276\347\275\256", nullptr));
+#endif // QT_CONFIG(tooltip)
+        btnAbout->setText(QCoreApplication::translate("MainWindow", "\345\205\263\344\272\216", nullptr));
+#if QT_CONFIG(tooltip)
+        btnAbout->setToolTip(QCoreApplication::translate("MainWindow", "\347\211\210\346\234\254\345\217\267\343\200\201\346\243\200\346\237\245\346\233\264\346\226\260\344\270\216\347\246\273\347\272\277\345\215\207\347\272\247", nullptr));
 #endif // QT_CONFIG(tooltip)
         labelProviderStatus->setText(QCoreApplication::translate("MainWindow", "Provider: -", nullptr));
         groupQuadrants->setTitle(QCoreApplication::translate("MainWindow", "Eisenhower \345\233\233\350\261\241\351\231\220", nullptr));

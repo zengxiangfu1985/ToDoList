@@ -6,6 +6,7 @@
 #include <QDirIterator>
 #include <QFile>
 #include <QJsonDocument>
+#include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonValue>
 
@@ -16,7 +17,8 @@ QString appRootDir()
     return QCoreApplication::applicationDirPath();
 }
 
-UpdatePackageInfo parseLatestObject(const QJsonObject &latest, QString *error)
+UpdatePackageInfo parseLatestObject(const QJsonObject &latest, QString *error,
+                                    bool requireSha256)
 {
     UpdatePackageInfo info;
     if (latest.isEmpty()) {
@@ -37,8 +39,15 @@ UpdatePackageInfo parseLatestObject(const QJsonObject &latest, QString *error)
     info.size = package.value(QStringLiteral("size")).toVariant().toLongLong();
     info.sha256 = package.value(QStringLiteral("sha256")).toString().toLower();
     info.url = package.value(QStringLiteral("url")).toString();
+    const QJsonArray mirrors = package.value(QStringLiteral("mirrors")).toArray();
+    for (const QJsonValue &mirrorValue : mirrors) {
+        const QString mirrorUrl = mirrorValue.toString();
+        if (!mirrorUrl.isEmpty() && !info.mirrorUrls.contains(mirrorUrl))
+            info.mirrorUrls.append(mirrorUrl);
+    }
 
-    info.valid = !info.version.isEmpty() && info.build > 0 && !info.sha256.isEmpty();
+    info.valid = !info.version.isEmpty() && info.build > 0
+                 && (!requireSha256 || !info.sha256.isEmpty());
     if (!info.valid && error)
         *error = QStringLiteral("更新清单字段不完整");
     return info;
@@ -54,7 +63,8 @@ UpdatePackageInfo UpdateManifest::parseRemoteJson(const QByteArray &bytes, QStri
             *error = QStringLiteral("更新清单不是有效 JSON");
         return {};
     }
-    return parseLatestObject(doc.object().value(QStringLiteral("latest")).toObject(), error);
+    return parseLatestObject(doc.object().value(QStringLiteral("latest")).toObject(), error,
+                             true);
 }
 
 UpdatePackageInfo UpdateManifest::parsePackageJson(const QByteArray &bytes, QString *error)
@@ -65,7 +75,7 @@ UpdatePackageInfo UpdateManifest::parsePackageJson(const QByteArray &bytes, QStr
             *error = QStringLiteral("离线包 manifest 不是有效 JSON");
         return {};
     }
-    return parseLatestObject(doc.object(), error);
+    return parseLatestObject(doc.object(), error, false);
 }
 
 UpdatePackageInfo UpdateManifest::readPackageJsonFile(const QString &path, QString *error)

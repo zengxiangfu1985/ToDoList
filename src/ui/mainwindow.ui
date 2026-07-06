@@ -160,7 +160,17 @@
           <string>设置</string>
          </property>
          <property name="toolTip">
-          <string>密码、锁屏、版本号等常用设置</string>
+          <string>密码、锁屏、快捷键等常用设置</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnAbout">
+         <property name="text">
+          <string>关于</string>
+         </property>
+         <property name="toolTip">
+          <string>版本号、检查更新与离线升级</string>
          </property>
         </widget>
        </item>

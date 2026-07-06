@@ -2,6 +2,7 @@
 
 #include <QCoreApplication>
 #include <QDateTime>
+#include <QDeadlineTimer>
 #include <QDir>
 #include <QDirIterator>
 #include <QFile>
@@ -96,6 +97,71 @@ bool UpdateApplyEngine::waitForProcess(qint64 pid, int timeoutMs, LogFn log)
     writeLog(log, QStringLiteral("非 Windows 平台跳过进程等待 (pid=%1)").arg(pid));
     return true;
 #endif
+}
+
+bool UpdateApplyEngine::waitUntilExecutableIdle(const QString &exePath, int timeoutMs, LogFn log)
+{
+#ifdef Q_OS_WIN
+    const QString escapedPath = QString(exePath).replace(QLatin1Char('\''), QStringLiteral("''"));
+    const QString psScript = QStringLiteral(
+                                 "$p = Get-Process ToDoList -ErrorAction SilentlyContinue | "
+                                 "Where-Object { $_.Path -eq '%1' }; "
+                                 "if ($p) { exit 1 } else { exit 0 }")
+                                 .arg(escapedPath);
+    const QDeadlineTimer deadline(timeoutMs);
+    while (!deadline.hasExpired()) {
+        QProcess process;
+        process.start(QStringLiteral("powershell"),
+                      {QStringLiteral("-NoProfile"), QStringLiteral("-Command"), psScript});
+        if (!process.waitForFinished(15000)) {
+            process.kill();
+            writeLog(log, QStringLiteral("检测进程状态超时"));
+            return false;
+        }
+        if (process.exitCode() == 0)
+            return true;
+        writeLog(log, QStringLiteral("等待 %1 完全退出...").arg(QFileInfo(exePath).fileName()));
+        QThread::msleep(500);
+    }
+    writeLog(log, QStringLiteral("等待程序退出超时: %1").arg(exePath));
+    return false;
+#else
+    Q_UNUSED(exePath)
+    Q_UNUSED(timeoutMs)
+    Q_UNUSED(log)
+    return true;
+#endif
+}
+
+bool UpdateApplyEngine::replaceFile(const QString &src, const QString &dst, QString *error)
+{
+    QDir().mkpath(QFileInfo(dst).absolutePath());
+
+    if (QFile::exists(dst)) {
+        const QString backupPath = dst + QStringLiteral(".old");
+        QFile::remove(backupPath);
+        if (!QFile::rename(dst, backupPath)) {
+            if (error)
+                *error = QStringLiteral("无法替换文件: %1").arg(dst);
+            return false;
+        }
+        if (!QFile::copy(src, dst)) {
+            QFile::remove(dst);
+            QFile::rename(backupPath, dst);
+            if (error)
+                *error = QStringLiteral("复制失败: %1").arg(dst);
+            return false;
+        }
+        QFile::remove(backupPath);
+        return true;
+    }
+
+    if (!QFile::copy(src, dst)) {
+        if (error)
+            *error = QStringLiteral("复制失败: %1").arg(dst);
+        return false;
+    }
+    return true;
 }
 
 bool UpdateApplyEngine::extractZip(const QString &zipPath, const QString &destDir, QString *error,
@@ -207,14 +273,8 @@ bool UpdateApplyEngine::copyWhitelistedFiles(const QString &stagingRoot, const Q
         const QString dst = QDir(installDir).filePath(relative);
         if (!QFileInfo::exists(src))
             continue;
-        QDir().mkpath(QFileInfo(dst).absolutePath());
-        if (QFile::exists(dst))
-            QFile::remove(dst);
-        if (!QFile::copy(src, dst)) {
-            if (error)
-                *error = QStringLiteral("复制失败: %1").arg(relative);
+        if (!replaceFile(src, dst, error))
             return false;
-        }
     }
     return true;
 }
@@ -246,6 +306,13 @@ bool UpdateApplyEngine::applyPackage(const UpdatePendingInfo &pending, QString *
         return false;
     }
 
+    const QString exePath = QDir(installDir).filePath(QStringLiteral("ToDoList.exe"));
+    if (!waitUntilExecutableIdle(exePath, 120000, log)) {
+        if (error)
+            *error = QStringLiteral("ToDoList 仍在运行，请完全退出后重试");
+        return false;
+    }
+
     if (!extractZip(zipPath, stagingRoot, error, log))
         return false;
 
@@ -254,8 +321,12 @@ bool UpdateApplyEngine::applyPackage(const UpdatePendingInfo &pending, QString *
     const QString manifestPath = QDir(packageRoot).filePath(QStringLiteral("update.manifest.json"));
     if (QFile::exists(manifestPath)) {
         const UpdatePackageInfo package = UpdateManifest::readPackageJsonFile(manifestPath, error);
-        if (!package.valid)
+        if (!package.version.isEmpty() && package.version != pending.targetVersion) {
+            if (error)
+                *error = QStringLiteral("更新包版本不匹配: %1 != %2")
+                             .arg(package.version, pending.targetVersion);
             return false;
+        }
     }
 
     QStringList files = UpdateManifest::readFileManifestFromZipRoot(packageRoot, error);

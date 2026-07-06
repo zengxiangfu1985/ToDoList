@@ -71,13 +71,6 @@ public:
     QFormLayout *formAppearance;
     QLabel *labelLanguage;
     QComboBox *comboLanguage;
-    QGroupBox *groupAbout;
-    QFormLayout *formAbout;
-    QLabel *labelVersionTitle;
-    QLabel *labelVersion;
-    QHBoxLayout *layoutUpdateActions;
-    QPushButton *btnCheckUpdate;
-    QPushButton *btnImportOfflineUpdate;
     QHBoxLayout *buttonRow;
     QPushButton *btnLockNow;
     QPushButton *btnClearPassword;
@@ -272,38 +265,6 @@ public:
 
         scrollContentLayout->addWidget(groupAppearance);
 
-        groupAbout = new QGroupBox(scrollContent);
-        groupAbout->setObjectName(QString::fromUtf8("groupAbout"));
-        formAbout = new QFormLayout(groupAbout);
-        formAbout->setObjectName(QString::fromUtf8("formAbout"));
-        labelVersionTitle = new QLabel(groupAbout);
-        labelVersionTitle->setObjectName(QString::fromUtf8("labelVersionTitle"));
-
-        formAbout->setWidget(0, QFormLayout::LabelRole, labelVersionTitle);
-
-        labelVersion = new QLabel(groupAbout);
-        labelVersion->setObjectName(QString::fromUtf8("labelVersion"));
-
-        formAbout->setWidget(0, QFormLayout::FieldRole, labelVersion);
-
-        layoutUpdateActions = new QHBoxLayout();
-        layoutUpdateActions->setObjectName(QString::fromUtf8("layoutUpdateActions"));
-        btnCheckUpdate = new QPushButton(groupAbout);
-        btnCheckUpdate->setObjectName(QString::fromUtf8("btnCheckUpdate"));
-
-        layoutUpdateActions->addWidget(btnCheckUpdate);
-
-        btnImportOfflineUpdate = new QPushButton(groupAbout);
-        btnImportOfflineUpdate->setObjectName(QString::fromUtf8("btnImportOfflineUpdate"));
-
-        layoutUpdateActions->addWidget(btnImportOfflineUpdate);
-
-
-        formAbout->setLayout(1, QFormLayout::SpanningRole, layoutUpdateActions);
-
-
-        scrollContentLayout->addWidget(groupAbout);
-
         scrollArea->setWidget(scrollContent);
 
         verticalLayout->addWidget(scrollArea);
@@ -378,11 +339,6 @@ public:
 #endif // QT_CONFIG(tooltip)
         groupAppearance->setTitle(QCoreApplication::translate("AppSettingsDialog", "\347\225\214\351\235\242", nullptr));
         labelLanguage->setText(QCoreApplication::translate("AppSettingsDialog", "\350\257\255\350\250\200", nullptr));
-        groupAbout->setTitle(QCoreApplication::translate("AppSettingsDialog", "\345\205\263\344\272\216", nullptr));
-        labelVersionTitle->setText(QCoreApplication::translate("AppSettingsDialog", "\347\211\210\346\234\254\345\217\267", nullptr));
-        labelVersion->setText(QCoreApplication::translate("AppSettingsDialog", "-", nullptr));
-        btnCheckUpdate->setText(QCoreApplication::translate("AppSettingsDialog", "\346\243\200\346\237\245\346\233\264\346\226\260", nullptr));
-        btnImportOfflineUpdate->setText(QCoreApplication::translate("AppSettingsDialog", "\345\257\274\345\205\245\347\246\273\347\272\277\346\233\264\346\226\260\345\214\205", nullptr));
         btnLockNow->setText(QCoreApplication::translate("AppSettingsDialog", "\347\253\213\345\215\263\351\224\201\345\256\232", nullptr));
         btnClearPassword->setText(QCoreApplication::translate("AppSettingsDialog", "\346\270\205\351\231\244\345\257\206\347\240\201", nullptr));
         btnSave->setText(QCoreApplication::translate("AppSettingsDialog", "\344\277\235\345\255\230", nullptr));

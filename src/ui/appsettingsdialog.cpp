@@ -2,7 +2,6 @@
 #include "ui_appsettingsdialog.h"
 
 #include "../core/app_settings.h"
-#include "../utils/app_version.h"
 #include "../utils/global_hotkey.h"
 #include "../utils/app_theme.h"
 #include "../utils/app_translations.h"
@@ -10,7 +9,6 @@
 
 #include <QApplication>
 #include <QCoreApplication>
-#include <QFileDialog>
 #include <QMessageBox>
 #include <QShowEvent>
 #include <QEvent>
@@ -26,7 +24,6 @@ AppSettingsDialog::AppSettingsDialog(QWidget *parent)
     ui->verticalLayout->setStretch(0, 1);
     AppTheme::styleDialog(this);
 
-    ui->labelVersion->setText(AppVersion::displayString());
     ui->btnClearPassword->setEnabled(AppSettings::hasPassword());
     ui->checkLockOnStartup->setEnabled(AppSettings::hasPassword());
     ui->btnViewAiTrace->setEnabled(false);
@@ -41,9 +38,6 @@ AppSettingsDialog::AppSettingsDialog(QWidget *parent)
     connect(ui->btnLockNow, &QPushButton::clicked, this, &AppSettingsDialog::onLockNow);
     connect(ui->btnViewAiTrace, &QPushButton::clicked, this, &AppSettingsDialog::onViewAiTrace);
     connect(ui->btnM365, &QPushButton::clicked, this, &AppSettingsDialog::onM365Settings);
-    connect(ui->btnCheckUpdate, &QPushButton::clicked, this, &AppSettingsDialog::onCheckUpdate);
-    connect(ui->btnImportOfflineUpdate, &QPushButton::clicked, this,
-            &AppSettingsDialog::onImportOfflineUpdate);
 
     loadToUi();
 }
@@ -81,21 +75,6 @@ void AppSettingsDialog::onViewAiTrace()
 void AppSettingsDialog::onM365Settings()
 {
     emit m365SettingsRequested();
-}
-
-void AppSettingsDialog::onCheckUpdate()
-{
-    emit checkUpdateRequested();
-}
-
-void AppSettingsDialog::onImportOfflineUpdate()
-{
-    const QString zipPath = QFileDialog::getOpenFileName(
-        this, tr("选择离线更新包"), QString(),
-        tr("便携版更新包 (*.zip);;所有文件 (*.*)"));
-    if (zipPath.isEmpty())
-        return;
-    emit importOfflineUpdateRequested(zipPath);
 }
 
 AppSettingsDialog::~AppSettingsDialog()

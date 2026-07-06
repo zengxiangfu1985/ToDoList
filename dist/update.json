@@ -2,19 +2,19 @@
     "schema":  1,
     "channel":  "stable",
     "latest":  {
-                   "version":  "1.0.5",
-                   "build":  2026070624,
+                   "version":  "1.0.6",
+                   "build":  2026070707,
                    "min_app_version":  "1.0.0",
-                   "release_notes":  "Release1.0.5",
+                   "release_notes":  "Release1.0.6",
                    "mandatory":  false,
                    "db_schema":  1,
                    "package":  {
-                                   "file_name":  "ToDoList-Portable-1.0.5.zip",
-                                   "size":  16677504,
-                                   "sha256":  "6de4b4a46f898d4fd20abdf74533ba47a53f0c84ecfb53f3612effcb44cc2aaf",
-                                   "url":  "https://github.com/zengxiangfu1985/ToDoList/releases/download/v1.0.5/ToDoList-Portable-1.0.5.zip",
+                                   "file_name":  "ToDoList-Portable-1.0.6.zip",
+                                   "size":  16680725,
+                                   "sha256":  "0f90485c74c6782905301abb9732a2120e773579b9514128a118abdfd289d228",
+                                   "url":  "https://github.com/zengxiangfu1985/ToDoList/releases/download/v1.0.6/ToDoList-Portable-1.0.6.zip",
                                    "mirrors":  [
-                                                   "https://ghproxy.net/https://github.com/zengxiangfu1985/ToDoList/releases/download/v1.0.5/ToDoList-Portable-1.0.5.zip"
+                                                   "https://ghproxy.net/https://github.com/zengxiangfu1985/ToDoList/releases/download/v1.0.6/ToDoList-Portable-1.0.6.zip"
                                                ]
                                }
                }

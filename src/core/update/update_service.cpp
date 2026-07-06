@@ -6,6 +6,7 @@
 #include "../../utils/app_version.h"
 
 #include <QCoreApplication>
+#include <QDateTime>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -15,6 +16,7 @@
 #include <QProcess>
 #include <QStandardPaths>
 #include <QUrl>
+#include <QUrlQuery>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -105,10 +107,19 @@ void UpdateService::startNextManifestRequest()
     }
 
     const QString url = m_pendingManifestUrls.takeFirst();
-    const QUrl manifestUrl(url);
-    AppLogger::info("UPDATE", QStringLiteral("检查更新: %1").arg(url));
+    QUrl manifestUrl(url);
+    if (!manifestUrl.hasQuery()) {
+        QUrlQuery query;
+        query.addQueryItem(QStringLiteral("_"),
+                           QString::number(QDateTime::currentSecsSinceEpoch()));
+        manifestUrl.setQuery(query);
+    }
+    AppLogger::info("UPDATE", QStringLiteral("检查更新: %1").arg(manifestUrl.toString()));
 
     QNetworkRequest netRequest(manifestUrl);
+    netRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute,
+                            QNetworkRequest::AlwaysNetwork);
+    netRequest.setRawHeader("Cache-Control", "no-cache");
     netRequest.setHeader(QNetworkRequest::UserAgentHeader,
                          QStringLiteral("ToDoList/%1").arg(AppVersion::displayString()));
     m_reply = m_network->get(netRequest);
@@ -169,6 +180,14 @@ void UpdateService::onCheckFinished()
     }
 
     if (!AppVersion::isNewerThanCurrent(m_latest.version, m_latest.build)) {
+        if (!m_pendingManifestUrls.isEmpty()) {
+            AppLogger::info("UPDATE",
+                            QStringLiteral("远端版本 %1 (build %2) 不高于当前，尝试下一个源")
+                                .arg(m_latest.version)
+                                .arg(m_latest.build));
+            startNextManifestRequest();
+            return;
+        }
         finishCheckNoUpdate();
         return;
     }
@@ -210,16 +229,59 @@ void UpdateService::downloadUpdate(const UpdatePackageInfo &package)
 
     m_latest = package;
     m_downloadPath = downloadCachePath(package);
-    if (QFile::exists(m_downloadPath))
-        QFile::remove(m_downloadPath);
-
-    setState(State::Downloading);
+    m_pendingDownloadUrls = buildDownloadUrls(package);
     m_downloadProgress = 0;
     m_downloadReceived = 0;
     m_downloadTotal = package.size;
-    emit downloadProgressChanged(0);
+    m_lastError.clear();
 
-    QNetworkRequest request(QUrl(package.url));
+    setState(State::Downloading);
+    emit downloadProgressChanged(0);
+    startNextDownloadRequest();
+}
+
+QStringList UpdateService::buildDownloadUrls(const UpdatePackageInfo &package) const
+{
+    QStringList urls;
+    auto appendUnique = [&](const QString &url) {
+        if (!url.isEmpty() && !urls.contains(url))
+            urls.append(url);
+    };
+    appendUnique(package.url);
+    for (const QString &mirrorUrl : package.mirrorUrls)
+        appendUnique(mirrorUrl);
+    return urls;
+}
+
+void UpdateService::startNextDownloadRequest()
+{
+    if (m_pendingDownloadUrls.isEmpty()) {
+        setError(m_lastError.isEmpty()
+                     ? QStringLiteral("所有下载源均失败，请检查网络或使用「导入离线更新包」")
+                     : m_lastError);
+        emit downloadFinished(false);
+        return;
+    }
+
+    if (m_reply) {
+        m_reply->abort();
+        m_reply->deleteLater();
+        m_reply = nullptr;
+    }
+
+    if (QFile::exists(m_downloadPath))
+        QFile::remove(m_downloadPath);
+
+    const QString url = m_pendingDownloadUrls.takeFirst();
+    AppLogger::info("UPDATE", QStringLiteral("下载更新包: %1").arg(url));
+
+    const QUrl downloadUrl(url);
+    QNetworkRequest request(downloadUrl);
+    request.setAttribute(QNetworkRequest::RedirectPolicyAttribute,
+                         QNetworkRequest::NoLessSafeRedirectPolicy);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    request.setTransferTimeout(600000);
+#endif
     request.setHeader(QNetworkRequest::UserAgentHeader,
                       QStringLiteral("ToDoList/%1").arg(AppVersion::displayString()));
     m_reply = m_network->get(request);
@@ -260,12 +322,10 @@ void UpdateService::onDownloadFinished()
         const QString err = QStringLiteral("下载更新包失败: %1 (%2)")
                                 .arg(m_reply->errorString(), m_reply->url().toString());
         AppLogger::warn("UPDATE", err);
-        if (QFile::exists(m_downloadPath))
-            QFile::remove(m_downloadPath);
-        setError(err);
+        m_lastError = err;
         m_reply->deleteLater();
         m_reply = nullptr;
-        emit downloadFinished(false);
+        startNextDownloadRequest();
         return;
     }
 
@@ -275,11 +335,13 @@ void UpdateService::onDownloadFinished()
 
     QString validateError;
     if (!validateDownloadedPackage(m_latest, m_downloadPath, &validateError)) {
-        setError(validateError);
-        emit downloadFinished(false);
+        AppLogger::warn("UPDATE", validateError);
+        m_lastError = validateError;
+        startNextDownloadRequest();
         return;
     }
 
+    m_lastError.clear();
     setState(State::Ready);
     emit downloadFinished(true);
 }
@@ -294,18 +356,38 @@ bool UpdateService::validateDownloadedPackage(const UpdatePackageInfo &package,
     }
 
     const qint64 size = QFileInfo(path).size();
-    if (package.size > 0 && size != package.size) {
+    if (size == 0) {
         if (error)
-            *error = QStringLiteral("下载大小不匹配");
+            *error = QStringLiteral("下载文件为空");
         return false;
     }
 
-    const QString sha256 = UpdateManifest::sha256HexOfFile(path, error);
-    if (sha256.isEmpty())
+    if (package.size > 1024 * 1024 && size < 64 * 1024) {
+        if (error) {
+            *error = QStringLiteral("下载未完成（实际 %1 字节，期望约 %2 字节），请检查网络")
+                         .arg(size)
+                         .arg(package.size);
+        }
         return false;
-    if (!package.sha256.isEmpty() && sha256.compare(package.sha256, Qt::CaseInsensitive) != 0) {
+    }
+
+    if (!package.sha256.isEmpty()) {
+        const QString sha256 = UpdateManifest::sha256HexOfFile(path, error);
+        if (sha256.isEmpty())
+            return false;
+        if (sha256.compare(package.sha256, Qt::CaseInsensitive) == 0)
+            return true;
         if (error)
             *error = QStringLiteral("SHA256 校验失败");
+        return false;
+    }
+
+    if (package.size > 0 && size != package.size) {
+        if (error) {
+            *error = QStringLiteral("下载大小不匹配（期望 %1，实际 %2 字节）")
+                         .arg(package.size)
+                         .arg(size);
+        }
         return false;
     }
     return true;

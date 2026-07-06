@@ -51,6 +51,8 @@ private:
     void startNextManifestRequest();
     void finishCheckNoUpdate();
     void finishCheckWithUpdate();
+    void startNextDownloadRequest();
+    QStringList buildDownloadUrls(const UpdatePackageInfo &package) const;
     QString downloadCachePath(const UpdatePackageInfo &package) const;
     bool validateDownloadedPackage(const UpdatePackageInfo &package, const QString &path,
                                      QString *error) const;
@@ -63,6 +65,7 @@ private:
     UpdatePackageInfo m_latest;
     QString m_lastError;
     QStringList m_pendingManifestUrls;
+    QStringList m_pendingDownloadUrls;
     QString m_downloadPath;
     qint64 m_downloadTotal = 0;
     qint64 m_downloadReceived = 0;

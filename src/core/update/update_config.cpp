@@ -24,12 +24,19 @@ QString fallbackManifestUrl()
 UpdateConfig defaultConfig()
 {
     UpdateConfig config;
-    UpdateSource source;
-    source.name = QStringLiteral("GitHub");
-    source.type = QStringLiteral("static_json");
-    source.url = defaultManifestUrl();
-    config.sources.append(source);
-    config.activeSource = source.name;
+    UpdateSource jsDelivr;
+    jsDelivr.name = QStringLiteral("jsDelivr");
+    jsDelivr.type = QStringLiteral("static_json");
+    jsDelivr.url = fallbackManifestUrl();
+    config.sources.append(jsDelivr);
+
+    UpdateSource github;
+    github.name = QStringLiteral("GitHub");
+    github.type = QStringLiteral("static_json");
+    github.url = defaultManifestUrl();
+    config.sources.append(github);
+
+    config.activeSource = jsDelivr.name;
     config.checkOnStartup = true;
     config.checkIntervalHours = 168;
     return config;
@@ -100,7 +107,15 @@ QStringList UpdateConfigStore::manifestUrls()
         if (!url.isEmpty() && !urls.contains(url))
             urls.append(url);
     };
+    auto isJsDelivr = [](const QString &url) {
+        return url.contains(QStringLiteral("cdn.jsdelivr.net"));
+    };
 
+    appendUnique(fallbackManifestUrl());
+    for (const UpdateSource &source : config.sources) {
+        if (isJsDelivr(source.url))
+            appendUnique(source.url);
+    }
     for (const UpdateSource &source : config.sources) {
         if (source.name == config.activeSource)
             appendUnique(source.url);
@@ -109,6 +124,5 @@ QStringList UpdateConfigStore::manifestUrls()
         appendUnique(source.url);
 
     appendUnique(defaultManifestUrl());
-    appendUnique(fallbackManifestUrl());
     return urls;
 }

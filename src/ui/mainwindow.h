@@ -70,6 +70,7 @@ private slots:
     void onViewDailyEvaluations();
     void onExportWeeklyReport();
     void onAppSettings();
+    void onAbout();
     void onCheckForUpdates();
     void onImportOfflineUpdate(const QString &zipPath);
     void onStartupUpdateCheck();

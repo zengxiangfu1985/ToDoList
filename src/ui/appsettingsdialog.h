@@ -27,8 +27,6 @@ signals:
     void viewAiTraceRequested();
     void m365SettingsRequested();
     void hotkeysChanged();
-    void checkUpdateRequested();
-    void importOfflineUpdateRequested(const QString &zipPath);
 
 private slots:
     void onSave();
@@ -36,8 +34,6 @@ private slots:
     void onLockNow();
     void onViewAiTrace();
     void onM365Settings();
-    void onCheckUpdate();
-    void onImportOfflineUpdate();
 
 private:
     void loadToUi();
