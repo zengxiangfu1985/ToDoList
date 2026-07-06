@@ -2,6 +2,7 @@
 
 #include "update_apply.h"
 #include "update_config.h"
+#include "../../utils/app_logger.h"
 #include "../../utils/app_version.h"
 
 #include <QCoreApplication>
@@ -89,12 +90,52 @@ void UpdateService::checkForUpdates()
 
     setState(State::Checking);
     m_lastError.clear();
+    m_pendingManifestUrls = UpdateConfigStore::manifestUrls();
+    startNextManifestRequest();
+}
 
-    QNetworkRequest request(QUrl(UpdateConfigStore::activeManifestUrl()));
-    request.setHeader(QNetworkRequest::UserAgentHeader,
-                      QStringLiteral("ToDoList/%1").arg(AppVersion::displayString()));
-    m_reply = m_network->get(request);
+void UpdateService::startNextManifestRequest()
+{
+    if (m_pendingManifestUrls.isEmpty()) {
+        setError(m_lastError.isEmpty()
+                     ? QStringLiteral("无法连接更新服务器，请检查网络或稍后重试")
+                     : m_lastError);
+        emit checkFinished(false);
+        return;
+    }
+
+    const QString url = m_pendingManifestUrls.takeFirst();
+    const QUrl manifestUrl(url);
+    AppLogger::info("UPDATE", QStringLiteral("检查更新: %1").arg(url));
+
+    QNetworkRequest netRequest(manifestUrl);
+    netRequest.setHeader(QNetworkRequest::UserAgentHeader,
+                         QStringLiteral("ToDoList/%1").arg(AppVersion::displayString()));
+    m_reply = m_network->get(netRequest);
     connect(m_reply, &QNetworkReply::finished, this, &UpdateService::onCheckFinished);
+}
+
+void UpdateService::finishCheckNoUpdate()
+{
+    setState(State::Idle);
+    m_lastError.clear();
+    AppLogger::info("UPDATE",
+                    QStringLiteral("无可用更新 (当前 %1 build %2, 远端 %3 build %4)")
+                        .arg(AppVersion::versionString())
+                        .arg(AppVersion::buildNumber())
+                        .arg(m_latest.version)
+                        .arg(m_latest.build));
+    emit checkFinished(false);
+}
+
+void UpdateService::finishCheckWithUpdate()
+{
+    setState(State::Ready);
+    AppLogger::info("UPDATE",
+                    QStringLiteral("发现新版本: %1 (build %2)")
+                        .arg(m_latest.version)
+                        .arg(m_latest.build));
+    emit checkFinished(true);
 }
 
 void UpdateService::onCheckFinished()
@@ -102,28 +143,33 @@ void UpdateService::onCheckFinished()
     if (!m_reply)
         return;
 
+    const QByteArray body = m_reply->readAll();
     if (m_reply->error() != QNetworkReply::NoError) {
-        setError(m_reply->errorString());
+        const QString err = QStringLiteral("%1 (%2)")
+                                .arg(m_reply->errorString(), m_reply->url().toString());
+        AppLogger::warn("UPDATE", QStringLiteral("拉取失败: %1").arg(err));
+        m_lastError = err;
         m_reply->deleteLater();
         m_reply = nullptr;
-        emit checkFinished(false);
+        startNextManifestRequest();
         return;
     }
 
-    QString parseError;
-    m_latest = UpdateManifest::parseRemoteJson(m_reply->readAll(), &parseError);
     m_reply->deleteLater();
     m_reply = nullptr;
 
+    QString parseError;
+    m_latest = UpdateManifest::parseRemoteJson(body, &parseError);
     if (!m_latest.valid) {
-        setError(parseError.isEmpty() ? QStringLiteral("无法解析更新清单") : parseError);
-        emit checkFinished(false);
+        const QString err = parseError.isEmpty() ? QStringLiteral("无法解析更新清单") : parseError;
+        AppLogger::warn("UPDATE", err);
+        m_lastError = err;
+        startNextManifestRequest();
         return;
     }
 
     if (!AppVersion::isNewerThanCurrent(m_latest.version, m_latest.build)) {
-        setState(State::Idle);
-        emit checkFinished(false);
+        finishCheckNoUpdate();
         return;
     }
 
@@ -134,8 +180,7 @@ void UpdateService::onCheckFinished()
         return;
     }
 
-    setState(State::Ready);
-    emit checkFinished(true);
+    finishCheckWithUpdate();
 }
 
 QString UpdateService::downloadCachePath(const UpdatePackageInfo &package) const
@@ -212,7 +257,12 @@ void UpdateService::onDownloadFinished()
         return;
 
     if (m_reply->error() != QNetworkReply::NoError) {
-        setError(m_reply->errorString());
+        const QString err = QStringLiteral("下载更新包失败: %1 (%2)")
+                                .arg(m_reply->errorString(), m_reply->url().toString());
+        AppLogger::warn("UPDATE", err);
+        if (QFile::exists(m_downloadPath))
+            QFile::remove(m_downloadPath);
+        setError(err);
         m_reply->deleteLater();
         m_reply = nullptr;
         emit downloadFinished(false);

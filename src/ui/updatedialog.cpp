@@ -90,7 +90,18 @@ void UpdateDialog::onCheckFinished(bool hasUpdate)
 {
     m_hasUpdate = hasUpdate;
     if (!hasUpdate) {
-        setStatusText(tr("当前版本: %1\n已是最新版本。").arg(AppVersion::displayString()));
+        if (m_service && !m_service->lastError().isEmpty()) {
+            setStatusText(m_service->lastError());
+            return;
+        }
+        const UpdatePackageInfo remote = m_service ? m_service->latestPackage() : UpdatePackageInfo{};
+        if (remote.valid) {
+            setStatusText(tr("当前版本: %1\n服务器版本: %2 (build %3)\n已是最新版本。")
+                              .arg(AppVersion::displayString(), remote.version)
+                              .arg(remote.build));
+        } else {
+            setStatusText(tr("当前版本: %1\n已是最新版本。").arg(AppVersion::displayString()));
+        }
         return;
     }
 
@@ -117,12 +128,21 @@ void UpdateDialog::onDownloadProgressChanged(int percent)
 
 void UpdateDialog::onDownloadFinished(bool success)
 {
-    if (!success)
+    if (!success) {
+        ui->progressBar->setValue(0);
+        m_hasUpdate = false;
+        ui->btnUpgrade->setVisible(false);
+        if (m_service && !m_service->lastError().isEmpty())
+            setStatusText(m_service->lastError());
+        else
+            setStatusText(tr("下载更新包失败，请稍后重试或使用「导入离线更新包」。"));
         return;
+    }
 
     ui->progressBar->setValue(100);
     setStatusText(tr("下载完成，可以升级。"));
     ui->btnUpgrade->setVisible(true);
+    m_hasUpdate = true;
 }
 
 void UpdateDialog::onErrorOccurred(const QString &message)

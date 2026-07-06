@@ -1,0 +1,37 @@
+# Qt / qmake 构建产物
+build/
+*.pro.user
+.qtcreator/
+*.autosave
+
+# 编译中间文件
+*.o
+*.obj
+*.exe
+!scripts/
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+Makefile*
+object_script.*
+
+# 便携版打包输出（zip 不上传，update.json 要上传）
+dist/*.zip
+dist/ToDoList-Portable-*/
+
+# 本地运行数据（含 settings.ini、数据库）
+**/data/
+*.db
+*.log
+
+# IDE / 系统
+.vscode/
+.idea/
+*.user
+Thumbs.db
+Desktop.ini
+
+# 密钥（切勿上传）
+.env
+*.pem
+**/password.json

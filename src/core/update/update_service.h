@@ -48,6 +48,9 @@ private slots:
 private:
     void setState(State state);
     void setError(const QString &message);
+    void startNextManifestRequest();
+    void finishCheckNoUpdate();
+    void finishCheckWithUpdate();
     QString downloadCachePath(const UpdatePackageInfo &package) const;
     bool validateDownloadedPackage(const UpdatePackageInfo &package, const QString &path,
                                      QString *error) const;
@@ -59,6 +62,7 @@ private:
     State m_state = State::Idle;
     UpdatePackageInfo m_latest;
     QString m_lastError;
+    QStringList m_pendingManifestUrls;
     QString m_downloadPath;
     qint64 m_downloadTotal = 0;
     qint64 m_downloadReceived = 0;

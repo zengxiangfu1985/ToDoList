@@ -12,7 +12,13 @@ namespace {
 QString defaultManifestUrl()
 {
     return QStringLiteral(
-        "https://raw.githubusercontent.com/example/ToDoList/main/dist/update.json");
+        "https://raw.githubusercontent.com/zengxiangfu1985/ToDoList/main/dist/update.json");
+}
+
+QString fallbackManifestUrl()
+{
+    return QStringLiteral(
+        "https://cdn.jsdelivr.net/gh/zengxiangfu1985/ToDoList@main/dist/update.json");
 }
 
 UpdateConfig defaultConfig()
@@ -82,12 +88,27 @@ UpdateConfig UpdateConfigStore::load()
 
 QString UpdateConfigStore::activeManifestUrl()
 {
+    const QStringList urls = manifestUrls();
+    return urls.isEmpty() ? defaultManifestUrl() : urls.first();
+}
+
+QStringList UpdateConfigStore::manifestUrls()
+{
     const UpdateConfig config = load();
+    QStringList urls;
+    auto appendUnique = [&](const QString &url) {
+        if (!url.isEmpty() && !urls.contains(url))
+            urls.append(url);
+    };
+
     for (const UpdateSource &source : config.sources) {
         if (source.name == config.activeSource)
-            return source.url;
+            appendUnique(source.url);
     }
-    if (!config.sources.isEmpty())
-        return config.sources.first().url;
-    return defaultManifestUrl();
+    for (const UpdateSource &source : config.sources)
+        appendUnique(source.url);
+
+    appendUnique(defaultManifestUrl());
+    appendUnique(fallbackManifestUrl());
+    return urls;
 }

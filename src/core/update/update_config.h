@@ -2,6 +2,7 @@
 #define UPDATE_CONFIG_H
 
 #include <QString>
+#include <QStringList>
 #include <QVector>
 
 struct UpdateSource
@@ -25,6 +26,7 @@ public:
     static UpdateConfig load();
     static QString configFilePath();
     static QString activeManifestUrl();
+    static QStringList manifestUrls();
 };
 
 #endif // UPDATE_CONFIG_H
