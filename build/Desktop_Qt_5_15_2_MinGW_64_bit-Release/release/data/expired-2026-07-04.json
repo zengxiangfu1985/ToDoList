@@ -1,0 +1,159 @@
+{
+    "archived_at": "2026-07-05T08:33:23Z",
+    "date": "2026-07-04",
+    "tasks": [
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": true,
+            "completed_at": "2026-07-04T14:33:08Z",
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 14,
+            "quadrant": 1,
+            "rule_score": 8.299999999999999,
+            "title": "养成手机使用时间小于2小时的习惯"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": true,
+            "completed_at": "2026-07-04T14:33:09Z",
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 13,
+            "quadrant": 3,
+            "rule_score": 8.299999999999999,
+            "title": "握力训练200个"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": true,
+            "completed_at": "2026-07-04T14:33:10Z",
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 11,
+            "quadrant": 3,
+            "rule_score": 8.299999999999999,
+            "title": "清理办公桌抽屉"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": true,
+            "completed_at": "2026-07-04T14:33:11Z",
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 10,
+            "quadrant": 3,
+            "rule_score": 8.299999999999999,
+            "title": "清理耳朵"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": true,
+            "completed_at": "2026-07-04T14:33:13Z",
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 9,
+            "quadrant": 3,
+            "rule_score": 8.299999999999999,
+            "title": "晚餐节食不吃饭了"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": false,
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 8,
+            "quadrant": 3,
+            "rule_score": 8.299999999999999,
+            "title": "艾灸半小时"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": true,
+            "completed_at": "2026-07-04T14:33:15Z",
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 7,
+            "quadrant": 1,
+            "rule_score": 8.299999999999999,
+            "title": "fitness新版代码备份"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": false,
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 6,
+            "quadrant": 1,
+            "rule_score": 8.299999999999999,
+            "title": "羽毛球项目轨迹跟踪算法排除大跳跃干扰"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": false,
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 5,
+            "quadrant": 1,
+            "rule_score": 8.299999999999999,
+            "title": "跟家里联系沟通暑假游玩事宜"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": true,
+            "completed_at": "2026-07-04T14:33:20Z",
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 4,
+            "quadrant": 1,
+            "rule_score": 8.299999999999999,
+            "title": "淘宝购买的木粉取货"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": true,
+            "completed_at": "2026-07-04T14:33:21Z",
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 3,
+            "quadrant": 1,
+            "rule_score": 8.299999999999999,
+            "title": "历史项目skills提炼之后回顾"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": true,
+            "completed_at": "2026-07-04T14:33:22Z",
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 2,
+            "quadrant": 4,
+            "rule_score": 8.299999999999999,
+            "title": "做俯卧撑20个"
+        },
+        {
+            "ai_rank": 0,
+            "ai_reason": "",
+            "archived": false,
+            "completed": true,
+            "completed_at": "2026-07-04T14:33:24Z",
+            "due_at": "2026-07-04T15:59:00Z",
+            "id": 1,
+            "quadrant": 2,
+            "rule_score": 8.299999999999999,
+            "title": "编写AI todolist 软件MVP"
+        }
+    ]
+}

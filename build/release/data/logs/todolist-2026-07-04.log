@@ -1,0 +1,4 @@
+2026-07-04 16:14:01.259 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/release/ToDoList.exe
+2026-07-04 16:14:01.260 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/release/data/logs/todolist-2026-07-04.log
+2026-07-04 16:14:01.302 [WARN] [default] QSqlQuery::prepare: database not open
+2026-07-04 16:14:01.973 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/release/data/tasks.db

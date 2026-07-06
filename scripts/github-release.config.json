@@ -1,0 +1,8 @@
+{
+  "owner": "your-github-user",
+  "repo": "ToDoList",
+  "default_branch": "main",
+  "update_json_path": "dist/update.json",
+  "draft": false,
+  "prerelease": false
+}

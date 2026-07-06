@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Top3PopupDialog</class>
+ <widget class="QDialog" name="Top3PopupDialog">
+  <property name="windowTitle">
+   <string>今日 Top 3</string>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>420</width>
+    <height>280</height>
+   </size>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="labelHint">
+     <property name="text">
+      <string>AI 推荐今日优先完成的 3 项任务：</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="listTop3"/>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btnClose">
+     <property name="text">
+      <string>关闭</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <connections/>
+</ui>

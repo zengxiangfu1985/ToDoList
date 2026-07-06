@@ -1,0 +1,13 @@
+release/tst_core.o
+release/task_types.o
+release/task_repository.o
+release/priority_engine.o
+release/behavior_learning_engine.o
+release/llm_provider.o
+release/ollama_llm_provider.o
+release/openai_compatible_provider.o
+release/moc_task_repository.o
+release/moc_behavior_learning_engine.o
+release/moc_llm_provider.o
+release/moc_ollama_llm_provider.o
+release/moc_openai_compatible_provider.o

@@ -1,0 +1,135 @@
+2026-07-06 07:21:08.687 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 07:21:08.688 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 07:21:09.943 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 07:21:10.028 [INFO] [DB] 已归档 16 条过期任务
+2026-07-06 07:21:10.035 [INFO] [UI] 已恢复今日 Top3 推荐 (3 条)
+2026-07-06 07:22:51.476 [INFO] [AI] 周报 LLM 请求开始 provider=Ollama model=qwen3:4b tasks=20 week=2026-06-29~2026-07-05 maxTokens=2048 timeout=600000ms userPromptLen=3619
+2026-07-06 07:31:09.603 [DEBUG] [LLM] Ollama OK, 3309 chars, 498116 ms, format=0
+2026-07-06 07:31:09.608 [INFO] [AI] 周报 LLM 成功 provider=Ollama markdownLen=3126 rawLen=3309
+2026-07-06 07:31:09.617 [INFO] [DB] 保存周报 week=2026-06-29~2026-07-05 llm=1 model=qwen3:4b
+2026-07-06 07:34:26.459 [INFO] [AI] 周报 LLM 请求开始 provider=Kimi model=moonshot-v1-8k tasks=20 week=2026-06-29~2026-07-05 maxTokens=2560 timeout=30000ms userPromptLen=3532
+2026-07-06 07:34:31.905 [DEBUG] [LLM] Kimi (Moonshot) OK, 688 chars
+2026-07-06 07:34:31.916 [INFO] [AI] 周报 LLM 成功 provider=Kimi markdownLen=688 rawLen=688
+2026-07-06 07:34:31.926 [INFO] [DB] 保存周报 week=2026-06-29~2026-07-05 llm=1 model=moonshot-v1-8k
+2026-07-06 07:42:42.915 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 07:42:42.939 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_22465264' is still in use, all queries will cease to work.
+2026-07-06 07:42:54.286 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 07:42:54.287 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 07:42:55.042 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 07:42:55.054 [INFO] [UI] 已恢复今日 Top3 推荐 (3 条)
+2026-07-06 07:43:29.983 [INFO] [AI] 周报 Ollama 混合模式：程序生成章节 + LLM 概述 model=qwen3:4b tasks=20
+2026-07-06 07:44:38.507 [DEBUG] [LLM] Ollama OK, 925 chars, 68509 ms, format=0
+2026-07-06 07:44:38.513 [INFO] [AI] 周报 Ollama 混合完成 markdownLen=1414 titles=20
+2026-07-06 07:44:38.521 [INFO] [DB] 保存周报 week=2026-06-29~2026-07-05 llm=1 model=qwen3:4b
+2026-07-06 07:59:05.734 [INFO] [AI] 周报 LLM 请求开始 provider=Kimi model=moonshot-v1-8k tasks=20 week=2026-06-29~2026-07-05 maxTokens=2560 timeout=30000ms userPromptLen=3532
+2026-07-06 07:59:13.725 [DEBUG] [LLM] Kimi (Moonshot) OK, 684 chars
+2026-07-06 07:59:13.730 [WARN] [AI] 周报 LLM 输出不合规（rawLen=684 normLen=684 sections=1 titles=0），使用 Kimi 对齐模板
+2026-07-06 07:59:13.737 [INFO] [DB] 保存周报 week=2026-06-29~2026-07-05 llm=0 model=moonshot-v1-8k
+2026-07-06 08:07:19.376 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 08:07:19.397 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_24563248' is still in use, all queries will cease to work.
+2026-07-06 08:07:34.521 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 08:07:34.522 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 08:07:35.455 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 08:07:35.464 [INFO] [UI] 已恢复今日 Top3 推荐 (3 条)
+2026-07-06 08:07:58.419 [INFO] [AI] 周报 Ollama 模板模式：程序生成 Kimi 对齐周报 model=qwen3:4b tasks=20
+2026-07-06 08:07:58.419 [INFO] [AI] 周报 Ollama 模板完成 markdownLen=857
+2026-07-06 08:07:58.430 [INFO] [DB] 保存周报 week=2026-06-29~2026-07-05 llm=0 model=qwen3:4b
+2026-07-06 08:11:11.591 [INFO] [AI] 周报 Ollama 模板模式：程序生成 Kimi 对齐周报 model=qwen3:4b tasks=29
+2026-07-06 08:11:11.592 [INFO] [AI] 周报 Ollama 模板完成 markdownLen=1048
+2026-07-06 08:11:11.603 [INFO] [DB] 保存周报 week=2026-06-29~2026-07-05 llm=0 model=qwen3:4b
+2026-07-06 08:11:50.760 [INFO] [AI] 周报 Ollama 模板模式：程序生成 Kimi 对齐周报 model=qwen3:4b tasks=29
+2026-07-06 08:11:50.760 [INFO] [AI] 周报 Ollama 模板完成 markdownLen=1048
+2026-07-06 08:11:50.770 [INFO] [DB] 保存周报 week=2026-06-29~2026-07-05 llm=0 model=qwen3:4b
+2026-07-06 08:19:40.887 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 08:19:40.904 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_48483408' is still in use, all queries will cease to work.
+2026-07-06 08:19:48.707 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 08:19:48.708 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 08:19:49.603 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 08:19:49.616 [INFO] [UI] 已恢复今日 Top3 推荐 (3 条)
+2026-07-06 08:20:01.629 [INFO] [AI] 周报 LLM 请求开始 provider=Ollama model=qwen3:4b tasks=29 week=2026-06-29~2026-07-05 maxTokens=2048 timeout=600000ms userPromptLen=4797
+2026-07-06 08:28:30.150 [DEBUG] [LLM] Ollama OK, 3801 chars, 508503 ms, format=0
+2026-07-06 08:28:30.156 [WARN] [AI] 周报 LLM 输出不合规（rawLen=3801 normLen=3576 sections=1 titles=0），使用 Kimi 对齐模板
+2026-07-06 08:28:30.170 [INFO] [DB] 保存周报 week=2026-06-29~2026-07-05 llm=0 model=qwen3:4b
+2026-07-06 08:56:01.971 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 08:56:01.982 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47959344' is still in use, all queries will cease to work.
+2026-07-06 08:57:27.730 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 08:57:27.731 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 08:57:28.763 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 08:57:28.784 [INFO] [UI] 已恢复今日 Top3 推荐 (3 条)
+2026-07-06 08:57:54.693 [INFO] [AI] 周报 LLM 请求开始 provider=Ollama model=qwen3:4b tasks=29 week=2026-06-29~2026-07-05 maxTokens=2048 timeout=600000ms userPromptLen=4797
+2026-07-06 09:06:29.853 [DEBUG] [LLM] Ollama OK, 4592 chars, 515145 ms, format=0
+2026-07-06 09:06:29.863 [INFO] [AI] 周报 LLM 已接受（任务标题为概括表述，未逐字匹配）
+2026-07-06 09:06:29.863 [INFO] [AI] 周报 LLM 成功 provider=Ollama markdownLen=4372 rawLen=4592
+2026-07-06 09:06:29.876 [INFO] [DB] 保存周报 week=2026-06-29~2026-07-05 llm=1 model=qwen3:4b
+2026-07-06 09:19:57.052 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 09:19:57.068 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_22400816' is still in use, all queries will cease to work.
+2026-07-06 09:20:08.405 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 09:20:08.406 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 09:20:09.348 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 09:20:09.362 [INFO] [UI] 已恢复今日 Top3 推荐 (3 条)
+2026-07-06 09:20:30.004 [INFO] [AI] 周报 LLM 请求开始 provider=Ollama model=qwen3:4b tasks=29 week=2026-06-29~2026-07-05 maxTokens=2048 timeout=600000ms userPromptLen=4789
+2026-07-06 09:29:07.196 [DEBUG] [LLM] Ollama OK, 4019 chars, 517178 ms, format=0
+2026-07-06 09:29:07.218 [WARN] [AI] 周报 LLM 输出不合规（rawLen=4019 normLen=1532 sections=0 substantive=0 titlesStrict=0 titlesRelaxed=1），使用 Kimi 对齐模板
+2026-07-06 09:29:07.236 [INFO] [DB] 保存周报 week=2026-06-29~2026-07-05 llm=0 model=qwen3:4b
+2026-07-06 11:24:04.012 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 11:24:04.044 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47763568' is still in use, all queries will cease to work.
+2026-07-06 14:21:16.435 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 14:21:16.436 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 14:21:17.026 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 14:21:46.647 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 14:21:46.661 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47763440' is still in use, all queries will cease to work.
+2026-07-06 16:42:40.282 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 16:42:40.283 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 16:42:41.118 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 16:42:41.191 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 16:42:41.193 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47781536' is still in use, all queries will cease to work.
+2026-07-06 16:44:36.939 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 16:44:36.939 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 16:44:37.712 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 16:44:37.763 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 16:44:38.181 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 16:44:52.290 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 16:44:52.308 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_48503200' is still in use, all queries will cease to work.
+2026-07-06 16:49:47.839 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 16:49:47.840 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 16:49:48.631 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 16:49:48.875 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 16:49:48.879 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 16:49:48.948 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 16:49:49.326 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 16:49:49.327 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 17:12:55.652 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 17:12:55.672 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 17:13:03.171 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 17:13:03.193 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_22948272' is still in use, all queries will cease to work.
+2026-07-06 18:42:06.586 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 18:42:06.588 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 18:42:07.598 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 18:42:07.794 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 18:42:07.810 [INFO] [DB] 升级前已备份数据库: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/backup/db-20260706-184207/tasks.db
+2026-07-06 18:42:07.811 [INFO] [DB] 数据库迁移: 0 -> 1
+2026-07-06 18:42:07.821 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 18:42:07.865 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 18:42:07.870 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47987424' is still in use, all queries will cease to work.
+2026-07-06 18:43:45.022 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 18:43:45.023 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 18:43:45.586 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 18:43:45.725 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 18:43:45.726 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 18:43:45.744 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 18:43:45.883 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 18:43:45.883 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 18:45:28.914 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 18:45:28.922 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 18:56:00.674 [INFO] [APP] === ToDoList 退出 ===
+2026-07-06 18:56:00.674 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47725184' is still in use, all queries will cease to work.
+2026-07-06 18:56:07.165 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-06 18:56:07.166 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-06.log
+2026-07-06 18:56:07.170 [INFO] [APP] 正在从系统注册表迁移 34 项设置到 D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/settings.ini
+2026-07-06 18:56:07.177 [INFO] [APP] 设置文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/settings.ini
+2026-07-06 18:56:07.732 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 18:56:07.858 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-06 18:56:07.860 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)
+2026-07-06 18:56:07.879 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 18:56:08.044 [INFO] [UI] 今日 Top3 对应任务已不存在，跳过恢复
+2026-07-06 18:56:08.045 [INFO] [APP] 加载应用图标: :/icons/app.png (512x512)

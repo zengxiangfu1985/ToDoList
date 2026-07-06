@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AppSettingsDialog</class>
+ <widget class="QDialog" name="AppSettingsDialog">
+  <property name="windowTitle">
+   <string>设置</string>
+  </property>
+  <property name="objectName">
+   <string>appDialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>8</number>
+   </property>
+   <item>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollContent">
+      <layout class="QVBoxLayout" name="scrollContentLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="groupSecurity">
+         <property name="title">
+          <string>安全</string>
+         </property>
+         <layout class="QFormLayout" name="formSecurity">
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelCurrentPassword">
+            <property name="text">
+             <string>当前密码</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="editCurrentPassword">
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+            <property name="placeholderText">
+             <string>修改密码时填写</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="labelNewPassword">
+            <property name="text">
+             <string>新密码</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="editNewPassword">
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+            <property name="placeholderText">
+             <string>至少 4 位，留空表示不修改</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="labelConfirmPassword">
+            <property name="text">
+             <string>确认新密码</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="editConfirmPassword">
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="labelLockDelay">
+            <property name="text">
+             <string>系统锁屏后锁定</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <layout class="QHBoxLayout" name="layoutLockDelay">
+            <item>
+             <widget class="QSpinBox" name="spinLockAfterSystemLock">
+              <property name="suffix">
+               <string> 分钟</string>
+              </property>
+              <property name="maximum">
+               <number>120</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelLockDelayHint">
+              <property name="text">
+               <string>0 = 立即锁定</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="labelIdleLock">
+            <property name="text">
+             <string>空闲自动锁定</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <layout class="QHBoxLayout" name="layoutIdleLock">
+            <item>
+             <widget class="QSpinBox" name="spinLockOnIdle">
+              <property name="suffix">
+               <string> 分钟</string>
+              </property>
+              <property name="maximum">
+               <number>480</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelIdleHint">
+              <property name="text">
+               <string>0 = 不启用</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="labelLockOnStartup">
+            <property name="text">
+             <string>启动时需密码</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QCheckBox" name="checkLockOnStartup">
+            <property name="text">
+             <string>程序启动时要求输入密码</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="labelMinimizeToTray">
+            <property name="text">
+             <string>关闭行为</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QCheckBox" name="checkMinimizeToTray">
+            <property name="text">
+             <string>关闭窗口时最小化到托盘</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupHotkeys">
+         <property name="title">
+          <string>快捷键</string>
+         </property>
+         <layout class="QFormLayout" name="formHotkeys">
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelTodayTasksHotkey">
+            <property name="text">
+             <string>今日任务</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QKeySequenceEdit" name="editTodayTasksHotkey"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="labelTop3Hotkey">
+            <property name="text">
+             <string>Top 3 弹窗</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QKeySequenceEdit" name="editTop3Hotkey"/>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QLabel" name="labelHotkeyHint">
+            <property name="text">
+             <string>全局快捷键需包含 Win / Ctrl / Alt / Shift 之一。点击输入框后按下组合键即可录制。</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupTools">
+         <property name="title">
+          <string>工具</string>
+         </property>
+         <layout class="QVBoxLayout" name="toolsLayout">
+          <item>
+           <widget class="QPushButton" name="btnViewAiTrace">
+            <property name="text">
+             <string>AI 分析过程</string>
+            </property>
+            <property name="toolTip">
+             <string>查看最近一次 AI 分析的详细步骤与 LLM 请求/响应</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnM365">
+            <property name="text">
+             <string>Microsoft 365</string>
+            </property>
+            <property name="toolTip">
+             <string>登录并同步 Outlook 旗标邮件</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupAppearance">
+         <property name="title">
+          <string>界面</string>
+         </property>
+         <layout class="QFormLayout" name="formAppearance">
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelLanguage">
+            <property name="text">
+             <string>语言</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="comboLanguage"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupAbout">
+         <property name="title">
+          <string>关于</string>
+         </property>
+         <layout class="QFormLayout" name="formAbout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelVersionTitle">
+            <property name="text">
+             <string>版本号</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="labelVersion">
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <layout class="QHBoxLayout" name="layoutUpdateActions">
+            <item>
+             <widget class="QPushButton" name="btnCheckUpdate">
+              <property name="text">
+               <string>检查更新</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnImportOfflineUpdate">
+              <property name="text">
+               <string>导入离线更新包</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="buttonRow">
+     <item>
+      <widget class="QPushButton" name="btnLockNow">
+       <property name="text">
+        <string>立即锁定</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnClearPassword">
+       <property name="text">
+        <string>清除密码</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnSave">
+       <property name="text">
+        <string>保存</string>
+       </property>
+       <property name="objectName">
+        <string>btnOk</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnCancel">
+       <property name="text">
+        <string>取消</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

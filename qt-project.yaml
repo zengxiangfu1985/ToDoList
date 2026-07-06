@@ -1,0 +1,106 @@
+project:
+  name: ToDoList
+  description: Windows 原生 AI 智能待办 — Eisenhower 矩阵 + 动态优先级 + 可插拔 LLM（本地 Qwen/Ollama，预留 DeepSeek/Kimi 等云端 API）
+  methodology: Qt Specification Chain
+
+tech_stack:
+  ui: Qt Widgets
+  language: C++17
+  qt_version: "5.15.2"
+  build_system: qmake
+  database: SQLite
+  target_platforms:
+    - Windows
+  ai:
+    local: Ollama + Qwen
+    cloud_reserved:
+      - DeepSeek
+      - Kimi
+      - OpenAI-compatible
+
+architecture:
+  layers:
+    - ui
+    - core
+    - models
+    - utils
+  worker_threads:
+    - LlmWorker
+
+source_roots:
+  src:
+    - src
+    - .
+  test:
+    - tests
+
+scenarios:
+  - id: S01
+    name: 任务创建与 Eisenhower 四象限管理
+  - id: S02
+    name: AI 动态优先级评分与 Top 3 推荐
+  - id: S03
+    name: LLM 提供商配置与切换（本地 Qwen / 云端 API）
+  - id: S04
+    name: 系统托盘与全局快捷键
+
+resource_index:
+  - path: docs/Qt项目规格链.md
+    desc: Qt 项目规格链方法论。启动任何 Phase 前必读。
+  - path: docs/todo_ai_analysis.docx
+    desc: 产品市场分析与 MVP 路线图真源（AI 待办竞品、优先级算法、LLM 选型）。
+  - path: docs/prd/1-product-requirements/requirements.md
+    desc: 产品需求真源。场景 S01-S04、验收标准 AC。
+  - path: docs/prd/2-product-design/design-spec.md
+    desc: 主窗口布局、控件 objectName 契约、交互规格。
+  - path: docs/prd/2-product-design/prototypes/mainwindow.ui
+    desc: UI 规格原型（Designer 预览）。
+  - path: docs/prd/3-technical-plan/1-architecture/architecture-overview.md
+    desc: 模块分层、AI Provider 抽象、线程模型。
+  - path: docs/prd/3-technical-plan/2-scenario-implementation/scenario-overview.md
+    desc: 场景索引与跨场景信号总线。
+  - path: docs/prd/3-technical-plan/2-scenario-implementation/S01-task-management.md
+    desc: S01 任务管理时序图。
+  - path: docs/prd/3-technical-plan/2-scenario-implementation/S02-ai-priority.md
+    desc: S02 AI 优先级时序图。
+  - path: docs/prd/3-technical-plan/2-scenario-implementation/S03-llm-provider.md
+    desc: S03 LLM 提供商切换时序图。
+  - path: docs/api/api-spec.md
+    desc: C++ 公共 API 说明与线程约定。
+  - path: docs/api/llm_provider.h
+    desc: LLM 可插拔接口契约（Ollama/Qwen、DeepSeek/Kimi 预留）。
+  - path: docs/api/task_repository.h
+    desc: 任务持久化接口契约。
+  - path: docs/api/priority_engine.h
+    desc: 优先级引擎接口契约。
+  - path: docs/database/schema.sql
+    desc: SQLite DDL。
+  - path: docs/database/data-model.md
+    desc: 实体映射与 QSettings 键规范。
+  - path: docs/test/test-overview.md
+    desc: UT/ST 用例总览与 AC 追溯。
+  - path: docs/test/S01-test-cases.md
+    desc: S01 测试用例明细。
+  - path: docs/test/S02-test-cases.md
+    desc: S02 AI 优先级测试用例。
+  - path: docs/test/S03-test-cases.md
+    desc: S03 LLM Provider 测试用例。
+  - path: docs/prd/3-technical-plan/2-scenario-implementation/S04-tray-hotkeys.md
+    desc: S04 托盘与快捷键时序图。
+  - path: docs/test/S04-test-cases.md
+    desc: S04 GUI 测试用例（manual）。
+  - path: docs/verify/acceptance-report.md
+    desc: Phase 08 验收报告（Gate CONDITIONAL PASS）。
+  - path: docs/verify/test-results.xml
+    desc: Qt Test XML 输出。
+
+verify:
+  result_path: docs/verify/test-results.xml
+  acceptance_report: docs/verify/acceptance-report.md
+  pre_run_command: cd build-tests && qmake ../tests/tests.pro && mingw32-make && debug/tst_core.exe -xml -o ../docs/verify/test-results.xml
+
+conventions:
+  - 先规格，后代码——9 阶段按序推进
+  - 场景编号 S01-S04 贯穿全链路
+  - LLM 接入必须通过 LlmProvider 抽象，禁止 UI 直接调用 HTTP
+  - 用户可见字符串使用 tr()，AI 调用在 Worker 线程异步执行

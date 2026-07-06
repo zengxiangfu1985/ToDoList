@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>M365SettingsDialog</class>
+ <widget class="QDialog" name="M365SettingsDialog">
+  <property name="windowTitle">
+   <string>Microsoft 365</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="labelTenant">
+     <property name="text">
+      <string>Tenant ID</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="editTenant">
+     <property name="placeholderText">
+      <string>common 或组织租户 GUID</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="labelClient">
+     <property name="text">
+      <string>Client ID</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="editClientId"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="labelStatusTitle">
+     <property name="text">
+      <string>状态</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="labelAuthStatus"/>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="loginLayout">
+     <item>
+      <widget class="QPushButton" name="btnLogin">
+       <property name="text">
+        <string>设备码登录</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnPoll">
+       <property name="text">
+        <string>确认已授权</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="labelUrlTitle">
+     <property name="text">
+      <string>验证 URL</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLabel" name="labelDeviceUrl">
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="labelCodeTitle">
+     <property name="text">
+      <string>用户码</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <layout class="QHBoxLayout" name="codeLayout">
+     <item>
+      <widget class="QLabel" name="labelUserCode"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnCopyCode">
+       <property name="text">
+        <string>复制</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnOpenUrl">
+       <property name="text">
+        <string>打开浏览器</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QPushButton" name="btnSync">
+     <property name="text">
+      <string>同步 Outlook 旗标邮件为任务</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

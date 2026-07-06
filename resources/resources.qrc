@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/app.ico</file>
+        <file>icons/app.png</file>
+        <file>styles/cursor_dark.qss</file>
+    </qresource>
+    <qresource prefix="/translations">
+        <file alias="todolist_en.qm">../translations/todolist_en.qm</file>
+    </qresource>
+</RCC>

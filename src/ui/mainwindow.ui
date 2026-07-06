@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ToDoList</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QWidget" name="toolBarPanel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QHBoxLayout" name="toolbarLayout">
+       <property name="leftMargin">
+        <number>12</number>
+       </property>
+       <property name="topMargin">
+        <number>8</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <property name="bottomMargin">
+        <number>8</number>
+       </property>
+       <property name="spacing">
+        <number>8</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="btnTodayTasks">
+         <property name="text">
+          <string>今日任务</string>
+         </property>
+         <property name="toolTip">
+          <string>批量输入今日任务，可导入昨日未完成项</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnAddTask">
+         <property name="text">
+          <string>添加任务</string>
+         </property>
+         <property name="toolTip">
+          <string>添加单条任务，可手动指定象限</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnDeleteTasks">
+         <property name="text">
+          <string>删除任务</string>
+         </property>
+         <property name="toolTip">
+          <string>勾选多条任务后确认删除；单条可右键删除</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnCancelDelete">
+         <property name="text">
+          <string>取消</string>
+         </property>
+         <property name="visible">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>退出批量删除模式</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnAiAnalyze">
+         <property name="text">
+          <string>AI 分析优先级</string>
+         </property>
+         <property name="toolTip">
+          <string>使用 LLM 生成 Top 3 推荐</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnResetQuadrants">
+         <property name="text">
+          <string>重置象限</string>
+         </property>
+         <property name="toolTip">
+          <string>将所有任务的象限设为「不确定」，以便重新 AI 划分</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnLlmSettings">
+         <property name="text">
+          <string>设置 LLM</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnHistory">
+         <property name="text">
+          <string>历史记录</string>
+         </property>
+         <property name="toolTip">
+          <string>查看 data 目录中的每日任务归档</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnDailyEval">
+         <property name="text">
+          <string>每日评估</string>
+         </property>
+         <property name="toolTip">
+          <string>查看 AI 每日完成情况评估历史</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnWeeklyReport">
+         <property name="text">
+          <string>生成周报</string>
+         </property>
+         <property name="toolTip">
+          <string>勾选最近一周任务，AI 生成工作周报</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnSettings">
+         <property name="text">
+          <string>设置</string>
+         </property>
+         <property name="toolTip">
+          <string>密码、锁屏、版本号等常用设置</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelProviderStatus">
+         <property name="text">
+          <string>Provider: -</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSplitter" name="splitterMain">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>1</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="childrenCollapsible">
+       <bool>false</bool>
+      </property>
+      <widget class="QTableView" name="tableTasks">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>1</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QWidget" name="rightPanel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>1</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+       <layout class="QVBoxLayout" name="rightLayout">
+        <property name="leftMargin">
+         <number>8</number>
+        </property>
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="rightMargin">
+         <number>8</number>
+        </property>
+        <property name="bottomMargin">
+         <number>8</number>
+        </property>
+        <property name="spacing">
+         <number>8</number>
+        </property>
+        <item>
+         <widget class="QGroupBox" name="groupQuadrants">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>3</horstretch>
+            <verstretch>3</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Eisenhower 四象限</string>
+          </property>
+          <layout class="QGridLayout" name="gridQuadrants">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+           <item row="0" column="0">
+            <widget class="CyberQuadrantBox" name="quadrantQ1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>1</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="title">
+              <string>Q1 重要且紧急</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="CyberQuadrantBox" name="quadrantQ2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>1</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="title">
+              <string>Q2 重要不紧急</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="CyberQuadrantBox" name="quadrantQ3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>1</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="title">
+              <string>Q3 紧急不重要</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="CyberQuadrantBox" name="quadrantQ4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>1</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="title">
+              <string>Q4 不重要不紧急</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="CyberAiPanel" name="groupAi">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>2</horstretch>
+            <verstretch>2</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>AI Top 3 推荐</string>
+          </property>
+          <layout class="QVBoxLayout" name="aiLayout">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QListWidget" name="listTop3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>1</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextBrowser" name="textAiReason">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>1</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumHeight">
+              <number>80</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+ <customwidgets>
+  <customwidget>
+   <class>CyberQuadrantBox</class>
+   <extends>QGroupBox</extends>
+   <header>ui/cyber_quadrant_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CyberAiPanel</class>
+   <extends>QGroupBox</extends>
+   <header>ui/cyber_ai_panel.h</header>
+  </customwidget>
+ </customwidgets>
+</ui>

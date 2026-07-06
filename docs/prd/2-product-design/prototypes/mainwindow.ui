@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ToDoList</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="toolbarLayout">
+      <item>
+       <widget class="QPushButton" name="btnAddTask">
+        <property name="text">
+         <string>添加任务</string>
+        </property>
+        <property name="toolTip">
+         <string>快速添加待办任务</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnAiAnalyze">
+        <property name="text">
+         <string>AI 分析优先级</string>
+        </property>
+        <property name="toolTip">
+         <string>使用 LLM 生成 Top 3 推荐</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnLlmSettings">
+        <property name="text">
+         <string>设置 LLM</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelProviderStatus">
+        <property name="text">
+         <string>Provider: -</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QSplitter" name="splitterMain">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QTableView" name="tableTasks"/>
+      <widget class="QWidget" name="rightPanel" native="true">
+       <layout class="QVBoxLayout" name="rightLayout">
+        <item>
+         <widget class="QGroupBox" name="groupQuadrants">
+          <property name="title">
+           <string>Eisenhower 四象限</string>
+          </property>
+          <layout class="QGridLayout" name="gridQuadrants">
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="quadrantQ1">
+             <property name="title">
+              <string>Q1 重要且紧急</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QGroupBox" name="quadrantQ2">
+             <property name="title">
+              <string>Q2 重要不紧急</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QGroupBox" name="quadrantQ3">
+             <property name="title">
+              <string>Q3 紧急不重要</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QGroupBox" name="quadrantQ4">
+             <property name="title">
+              <string>Q4 不重要不紧急</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupAi">
+          <property name="title">
+           <string>AI Top 3 推荐</string>
+          </property>
+          <layout class="QVBoxLayout" name="aiLayout">
+           <item>
+            <widget class="QListWidget" name="listTop3"/>
+           </item>
+           <item>
+            <widget class="QTextBrowser" name="textAiReason">
+             <property name="minimumHeight">
+              <number>120</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

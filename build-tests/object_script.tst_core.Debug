@@ -1,0 +1,13 @@
+debug/tst_core.o
+debug/task_types.o
+debug/task_repository.o
+debug/priority_engine.o
+debug/behavior_learning_engine.o
+debug/llm_provider.o
+debug/ollama_llm_provider.o
+debug/openai_compatible_provider.o
+debug/moc_task_repository.o
+debug/moc_behavior_learning_engine.o
+debug/moc_llm_provider.o
+debug/moc_ollama_llm_provider.o
+debug/moc_openai_compatible_provider.o

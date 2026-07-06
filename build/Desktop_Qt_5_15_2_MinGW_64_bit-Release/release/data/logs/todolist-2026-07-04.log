@@ -1,0 +1,1468 @@
+2026-07-04 16:14:29.813 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 16:14:29.814 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 16:14:29.825 [WARN] [default] QSqlQuery::prepare: database not open
+2026-07-04 16:14:30.780 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 16:14:41.184 [INFO] [UI] 用户触发 AI 分析，任务数 14
+2026-07-04 16:14:41.187 [INFO] [AI] ========== AI 分析开始，任务总数 14 ==========
+2026-07-04 16:14:41.187 [INFO] [AI] 待分配象限任务 14 条
+2026-07-04 16:14:41.187 [DEBUG] [AI]   id=14 title=养成手机使用时间小于2小时的习惯 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.187 [DEBUG] [AI]   id=13 title=握力训练200个 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.187 [DEBUG] [AI]   id=12 title=fitness新版代码备份 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.187 [DEBUG] [AI]   id=11 title=清理办公桌抽屉 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.188 [DEBUG] [AI]   id=10 title=清理耳朵 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.188 [DEBUG] [AI]   id=9 title=晚餐节食不吃饭了 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.188 [DEBUG] [AI]   id=8 title=艾灸半小时 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.188 [DEBUG] [AI]   id=7 title=fitness新版代码备份 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.188 [DEBUG] [AI]   id=6 title=羽毛球项目轨迹跟踪算法排除大跳跃干扰 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.188 [DEBUG] [AI]   id=5 title=跟家里联系沟通暑假游玩事宜 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.189 [DEBUG] [AI]   id=4 title=淘宝购买的木粉取货 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.189 [DEBUG] [AI]   id=3 title=历史项目skills提炼之后回顾 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.189 [DEBUG] [AI]   id=2 title=做俯卧撑20个 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.189 [DEBUG] [AI]   id=1 title=编写AI todolist 软件 due=2026-07-04T15:59:00Z
+2026-07-04 16:14:41.189 [INFO] [LLM] 象限分类请求 provider=Kimi model=moonshot-v1-8k url=https://api.moonshot.cn/v1
+2026-07-04 16:14:41.189 [DEBUG] [LLM] System: 你是 Eisenhower 象限分类助手。根据任务标题和截止日期判断重要性与紧急性，为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。仅输出 JSON 数组，每项含 id, quadrant, reason(中文≥10字)，不要 markdown 代码块。
+2026-07-04 16:14:41.190 [DEBUG] [LLM] User: 以下任务的 Eisenhower 象限尚未确定。请为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。返回 JSON 数组，每项含 id, quadrant, reason(中文≥10字)。仅返回 JSON。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":12,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":11,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"title":"编写AI todolist 软件"}]}
+2026-07-04 16:14:49.035 [DEBUG] [LLM] Kimi (Moonshot) OK, 1243 chars
+2026-07-04 16:14:49.039 [INFO] [LLM] 象限分类响应 success=1 error= contentLen=1243
+2026-07-04 16:14:49.039 [DEBUG] [LLM] Raw: ```json
+[
+    {
+        "id": 14,
+        "quadrant": 2,
+        "reason": "养成习惯对健康重要，但非紧急"
+    },
+    {
+        "id": 13,
+        "quadrant": 3,
+        "reason": "握力训练对健康有益，但非紧急"
+    },
+    {
+        "id": 12,
+        "quadrant": 1,
+        "reason": "代码备份对项目安全至关重要且紧急"
+    },
+    {
+        "id": 11,
+        "quadrant": 4,
+        "reason": "清理抽屉非紧急也不重要"
+    },
+    {
+        "id": 10,
+        "quadrant": 4,
+        "reason": "清理耳朵非紧急也不重要"
+    },
+    {
+        "id": 9,
+        "quadrant": 3,
+        "reason": "节食对健康有益，但非紧急"
+    },
+    {
+        "id": 8,
+        "quadrant": 3,
+        "reason": "艾灸对健康有益，但非紧急"
+    },
+    {
+        "id": 7,
+        "quadrant": 1,
+        "reason": "代码备份对项目安全至关重要且紧急"
+    },
+    {
+        "id": 6,
+        "quadrant": 1,
+        "reason": "算法优化对产品性能至关重要且紧急"
+    },
+    {
+        "id": 5,
+        "quadrant": 2,
+        "reason": "家庭沟通重要，但非紧急"
+    },
+    {
+        "id": 4,
+        "quadrant": 3,
+        "reason": "取货虽紧急但相对不重要"
+    },
+    {
+        "id": 3,
+        "quadrant": 2,
+        "reason": "技能回顾对职业发展重要，非紧急"
+    },
+    {
+        "id": 2,
+        "quadrant": 3,
+        "reason": "俯卧撑对健康有益，但非紧急"
+    },
+    {
+        "id": 1,
+        "quadrant": 1,
+        "reason": "AI软件开发对工作至关重要且紧急"
+    }
+]
+```
+2026-07-04 16:14:49.040 [INFO] [AI] LLM 象限 id=14 -> Q2 reason=养成习惯对健康重要，但非紧急
+2026-07-04 16:14:49.040 [INFO] [AI] LLM 象限 id=13 -> Q3 reason=握力训练对健康有益，但非紧急
+2026-07-04 16:14:49.041 [INFO] [AI] LLM 象限 id=12 -> Q1 reason=代码备份对项目安全至关重要且紧急
+2026-07-04 16:14:49.041 [INFO] [AI] LLM 象限 id=11 -> Q4 reason=清理抽屉非紧急也不重要
+2026-07-04 16:14:49.041 [INFO] [AI] LLM 象限 id=10 -> Q4 reason=清理耳朵非紧急也不重要
+2026-07-04 16:14:49.041 [INFO] [AI] LLM 象限 id=9 -> Q3 reason=节食对健康有益，但非紧急
+2026-07-04 16:14:49.041 [INFO] [AI] LLM 象限 id=8 -> Q3 reason=艾灸对健康有益，但非紧急
+2026-07-04 16:14:49.041 [INFO] [AI] LLM 象限 id=7 -> Q1 reason=代码备份对项目安全至关重要且紧急
+2026-07-04 16:14:49.041 [INFO] [AI] LLM 象限 id=6 -> Q1 reason=算法优化对产品性能至关重要且紧急
+2026-07-04 16:14:49.041 [INFO] [AI] LLM 象限 id=5 -> Q2 reason=家庭沟通重要，但非紧急
+2026-07-04 16:14:49.041 [INFO] [AI] LLM 象限 id=4 -> Q3 reason=取货虽紧急但相对不重要
+2026-07-04 16:14:49.041 [INFO] [AI] LLM 象限 id=3 -> Q2 reason=技能回顾对职业发展重要，非紧急
+2026-07-04 16:14:49.042 [INFO] [AI] LLM 象限 id=2 -> Q3 reason=俯卧撑对健康有益，但非紧急
+2026-07-04 16:14:49.042 [INFO] [AI] LLM 象限 id=1 -> Q1 reason=AI软件开发对工作至关重要且紧急
+2026-07-04 16:14:49.042 [INFO] [AI] AI 成功划分 14 项
+2026-07-04 16:14:49.042 [DEBUG] [CALC] 规则得分 id=14 Q2 score=7.38
+2026-07-04 16:14:49.043 [DEBUG] [CALC] 规则得分 id=13 Q3 score=6.00
+2026-07-04 16:14:49.043 [DEBUG] [CALC] 规则得分 id=12 Q1 score=8.30
+2026-07-04 16:14:49.043 [DEBUG] [CALC] 规则得分 id=11 Q4 score=4.62
+2026-07-04 16:14:49.043 [DEBUG] [CALC] 规则得分 id=10 Q4 score=4.62
+2026-07-04 16:14:49.044 [DEBUG] [CALC] 规则得分 id=9 Q3 score=6.00
+2026-07-04 16:14:49.044 [DEBUG] [CALC] 规则得分 id=8 Q3 score=6.00
+2026-07-04 16:14:49.044 [DEBUG] [CALC] 规则得分 id=7 Q1 score=8.30
+2026-07-04 16:14:49.044 [DEBUG] [CALC] 规则得分 id=6 Q1 score=8.30
+2026-07-04 16:14:49.044 [DEBUG] [CALC] 规则得分 id=5 Q2 score=7.38
+2026-07-04 16:14:49.044 [DEBUG] [CALC] 规则得分 id=4 Q3 score=6.00
+2026-07-04 16:14:49.044 [DEBUG] [CALC] 规则得分 id=3 Q2 score=7.38
+2026-07-04 16:14:49.044 [DEBUG] [CALC] 规则得分 id=2 Q3 score=6.00
+2026-07-04 16:14:49.044 [DEBUG] [CALC] 规则得分 id=1 Q1 score=8.30
+2026-07-04 16:14:49.044 [INFO] [CALC] 规则层 Top3 候选 3 条
+2026-07-04 16:14:49.044 [INFO] [CALC]   #1 id=12 score=8.3 fitness新版代码备份
+2026-07-04 16:14:49.044 [INFO] [CALC]   #2 id=7 score=8.3 fitness新版代码备份
+2026-07-04 16:14:49.044 [INFO] [CALC]   #3 id=6 score=8.3 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+2026-07-04 16:14:49.044 [INFO] [LLM] Top3 请求 provider=Kimi model=moonshot-v1-8k
+2026-07-04 16:14:49.046 [DEBUG] [LLM] User: 请根据以下 JSON 任务列表，选出今天最应优先完成的 3 项。返回 JSON 数组，每项含 id, rank(1-3), reason(中文理由≥15字)。仅返回 JSON，无其他文字。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"quadrant":2,"rule_score":7.38,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"quadrant":3,"rule_score":5.999999999999999,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":12,"quadrant":1,"rule_score":8.299999999999999,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":11,"quadrant":4,"rule_score":4.62,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"quadrant":4,"rule_score":4.62,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"quadrant":3,"rule_score":5.999999999999999,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"quadrant":3,"rule_score":5.999999999999999,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"quadrant":1,"rule_score":8.299999999999999,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"quadrant":1,"rule_score":8.299999999999999,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"quadrant":2,"rule_score":7.38,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"quadrant":3,"rule_score":5.999999999999999,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"quadrant":2,"rule_score":7.38,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"quadrant":3,"rule_score":5.999999999999999,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"quadrant":1,"rule_score":8.299999999999999,"title":"编写AI todolist 软件"}]}
+2026-07-04 16:14:51.732 [DEBUG] [LLM] Kimi (Moonshot) OK, 216 chars
+2026-07-04 16:14:51.738 [INFO] [LLM] Top3 响应 success=1 error= contentLen=216
+2026-07-04 16:14:51.738 [DEBUG] [LLM] Raw: ```json
+[
+    {"id": 7, "rank": 1, "reason": "任务位于第一象限，重要且紧急，规则得分高，优先级最高"},
+    {"id": 6, "rank": 2, "reason": "同位于第一象限，规则得分高，紧急重要性仅次于任务7"},
+    {"id": 12, "rank": 3, "reason": "虽然位于第一象限，但规则得分略低于任务7和6，因此优先级稍低"}
+]
+```
+2026-07-04 16:14:51.738 [INFO] [AI] LLM Top3 id=7 rank=1 reason=任务位于第一象限，重要且紧急，规则得分高，优先级最高
+2026-07-04 16:14:51.738 [INFO] [AI] LLM Top3 id=6 rank=2 reason=同位于第一象限，规则得分高，紧急重要性仅次于任务7
+2026-07-04 16:14:51.738 [INFO] [AI] LLM Top3 id=12 rank=3 reason=虽然位于第一象限，但规则得分略低于任务7和6，因此优先级稍低
+2026-07-04 16:14:51.738 [INFO] [AI] ========== AI 分析结束 (LLM Top3 成功) ==========
+2026-07-04 16:14:51.749 [INFO] [DB] 更新象限 id=14 -> Q2
+2026-07-04 16:14:51.755 [INFO] [DB] 更新象限 id=13 -> Q3
+2026-07-04 16:14:51.760 [INFO] [DB] 更新象限 id=12 -> Q1
+2026-07-04 16:14:51.766 [INFO] [DB] 更新象限 id=11 -> Q4
+2026-07-04 16:14:51.771 [INFO] [DB] 更新象限 id=10 -> Q4
+2026-07-04 16:14:51.779 [INFO] [DB] 更新象限 id=9 -> Q3
+2026-07-04 16:14:51.787 [INFO] [DB] 更新象限 id=8 -> Q3
+2026-07-04 16:14:51.793 [INFO] [DB] 更新象限 id=7 -> Q1
+2026-07-04 16:14:51.799 [INFO] [DB] 更新象限 id=6 -> Q1
+2026-07-04 16:14:51.805 [INFO] [DB] 更新象限 id=5 -> Q2
+2026-07-04 16:14:51.811 [INFO] [DB] 更新象限 id=4 -> Q3
+2026-07-04 16:14:51.817 [INFO] [DB] 更新象限 id=3 -> Q2
+2026-07-04 16:14:51.824 [INFO] [DB] 更新象限 id=2 -> Q3
+2026-07-04 16:14:51.831 [INFO] [DB] 更新象限 id=1 -> Q1
+2026-07-04 16:14:51.840 [INFO] [UI] AI 分析完成，已划分 14 个待分配象限（AI 划分） — AI 成功划分 14 项
+2026-07-04 16:16:16.729 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 16:16:16.730 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 16:16:17.833 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 16:16:31.645 [INFO] [DB] 更新完成状态 id=12 completed=1
+2026-07-04 16:16:32.536 [INFO] [DB] 更新完成状态 id=12 completed=0
+2026-07-04 16:16:48.123 [INFO] [UI] 删除任务 ids=1
+2026-07-04 16:16:48.131 [INFO] [DB] 删除任务 id=12
+2026-07-04 16:16:51.280 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 16:16:51.281 [INFO] [AI] ========== AI 分析开始，任务总数 13 ==========
+2026-07-04 16:16:51.281 [INFO] [AI] 无待分配象限的任务，跳过象限分类
+2026-07-04 16:16:51.281 [DEBUG] [CALC] 规则得分 id=14 Q2 score=7.38
+2026-07-04 16:16:51.281 [DEBUG] [CALC] 规则得分 id=13 Q3 score=6.00
+2026-07-04 16:16:51.281 [DEBUG] [CALC] 规则得分 id=11 Q4 score=4.62
+2026-07-04 16:16:51.281 [DEBUG] [CALC] 规则得分 id=10 Q4 score=4.62
+2026-07-04 16:16:51.281 [DEBUG] [CALC] 规则得分 id=9 Q3 score=6.00
+2026-07-04 16:16:51.282 [DEBUG] [CALC] 规则得分 id=8 Q3 score=6.00
+2026-07-04 16:16:51.282 [DEBUG] [CALC] 规则得分 id=7 Q1 score=8.30
+2026-07-04 16:16:51.282 [DEBUG] [CALC] 规则得分 id=6 Q1 score=8.30
+2026-07-04 16:16:51.282 [DEBUG] [CALC] 规则得分 id=5 Q2 score=7.38
+2026-07-04 16:16:51.282 [DEBUG] [CALC] 规则得分 id=4 Q3 score=6.00
+2026-07-04 16:16:51.282 [DEBUG] [CALC] 规则得分 id=3 Q2 score=7.38
+2026-07-04 16:16:51.282 [DEBUG] [CALC] 规则得分 id=2 Q3 score=6.00
+2026-07-04 16:16:51.282 [DEBUG] [CALC] 规则得分 id=1 Q1 score=8.30
+2026-07-04 16:16:51.282 [INFO] [CALC] 规则层 Top3 候选 3 条
+2026-07-04 16:16:51.282 [INFO] [CALC]   #1 id=7 score=8.3 fitness新版代码备份
+2026-07-04 16:16:51.282 [INFO] [CALC]   #2 id=6 score=8.3 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+2026-07-04 16:16:51.282 [INFO] [CALC]   #3 id=1 score=8.3 编写AI todolist 软件
+2026-07-04 16:16:51.283 [INFO] [LLM] Top3 请求 provider=Kimi model=moonshot-v1-8k
+2026-07-04 16:16:51.283 [DEBUG] [LLM] User: 请根据以下 JSON 任务列表，选出今天最应优先完成的 3 项。返回 JSON 数组，每项含 id, rank(1-3), reason(中文理由≥15字)。仅返回 JSON，无其他文字。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"quadrant":2,"rule_score":7.38,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"quadrant":3,"rule_score":5.999999999999999,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":11,"quadrant":4,"rule_score":4.62,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"quadrant":4,"rule_score":4.62,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"quadrant":3,"rule_score":5.999999999999999,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"quadrant":3,"rule_score":5.999999999999999,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"quadrant":1,"rule_score":8.299999999999999,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"quadrant":1,"rule_score":8.299999999999999,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"quadrant":2,"rule_score":7.38,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"quadrant":3,"rule_score":5.999999999999999,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"quadrant":2,"rule_score":7.38,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"quadrant":3,"rule_score":5.999999999999999,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"quadrant":1,"rule_score":8.299999999999999,"title":"编写AI todolist 软件"}]}
+2026-07-04 16:16:54.035 [DEBUG] [LLM] Kimi (Moonshot) OK, 204 chars
+2026-07-04 16:16:54.038 [INFO] [LLM] Top3 响应 success=1 error= contentLen=204
+2026-07-04 16:16:54.040 [DEBUG] [LLM] Raw: [
+    {"id": 7, "rank": 1, "reason": "任务属于第一象限，紧急且重要，得分最高，应优先完成。"},
+    {"id": 6, "rank": 2, "reason": "同属于第一象限，紧急且重要，得分次高，紧随其后完成。"},
+    {"id": 1, "rank": 3, "reason": "同样属于第一象限，紧急且重要，得分高，是今天需要完成的任务。"}
+]
+2026-07-04 16:16:54.040 [INFO] [AI] LLM Top3 id=7 rank=1 reason=任务属于第一象限，紧急且重要，得分最高，应优先完成。
+2026-07-04 16:16:54.040 [INFO] [AI] LLM Top3 id=6 rank=2 reason=同属于第一象限，紧急且重要，得分次高，紧随其后完成。
+2026-07-04 16:16:54.040 [INFO] [AI] LLM Top3 id=1 rank=3 reason=同样属于第一象限，紧急且重要，得分高，是今天需要完成的任务。
+2026-07-04 16:16:54.040 [INFO] [AI] ========== AI 分析结束 (LLM Top3 成功) ==========
+2026-07-04 16:16:54.043 [INFO] [UI] AI 分析完成 — 无待分配任务
+2026-07-04 16:24:36.340 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 16:24:36.341 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 16:24:37.250 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 16:24:42.797 [INFO] [DB] 重置所有任务象限为不确定，影响 13 条
+2026-07-04 16:24:42.799 [INFO] [UI] 用户重置所有象限为不确定，影响 13 条
+2026-07-04 16:24:46.366 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 16:24:46.368 [INFO] [AI] ========== AI 分析开始 ==========
+2026-07-04 16:24:46.368 [INFO] [AI] 任务总数 13
+2026-07-04 16:24:46.368 [INFO] [LLM] Provider=Kimi Model=moonshot-v1-8k URL=https://api.moonshot.cn/v1
+2026-07-04 16:24:46.369 [INFO] [AI] 【阶段 1/2】象限分类 — 待分配 13 条任务
+2026-07-04 16:24:46.369 [DEBUG] [AI] 待分配任务列表
+id=14  养成手机使用时间小于2小时的习惯  due=2026-07-04T15:59:00Z
+  id=13  握力训练200个  due=2026-07-04T15:59:00Z
+  id=11  清理办公桌抽屉  due=2026-07-04T15:59:00Z
+  id=10  清理耳朵  due=2026-07-04T15:59:00Z
+  id=9  晚餐节食不吃饭了  due=2026-07-04T15:59:00Z
+  id=8  艾灸半小时  due=2026-07-04T15:59:00Z
+  id=7  fitness新版代码备份  due=2026-07-04T15:59:00Z
+  id=6  羽毛球项目轨迹跟踪算法排除大跳跃干扰  due=2026-07-04T15:59:00Z
+  id=5  跟家里联系沟通暑假游玩事宜  due=2026-07-04T15:59:00Z
+  id=4  淘宝购买的木粉取货  due=2026-07-04T15:59:00Z
+  id=3  历史项目skills提炼之后回顾  due=2026-07-04T15:59:00Z
+  id=2  做俯卧撑20个  due=2026-07-04T15:59:00Z
+  id=1  编写AI todolist 软件  due=2026-07-04T15:59:00Z
+2026-07-04 16:24:46.369 [INFO] [LLM] 发送象限分类请求 provider=Kimi model=moonshot-v1-8k
+URL: https://api.moonshot.cn/v1
+
+System:
+你是 Eisenhower 象限分类助手。根据任务标题和截止日期判断重要性与紧急性，为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。仅输出 JSON 数组，每项含 id, quadrant, reason(中文≥10字)，不要 markdown 代码块。
+
+User:
+以下任务的 Eisenhower 象限尚未确定。请为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。返回 JSON 数组，每项含 id, quadrant, reason(中文≥10字)。仅返回 JSON。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":11,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"title":"编写AI todolist 软件"}]}
+2026-07-04 16:24:55.681 [DEBUG] [LLM] Kimi (Moonshot) OK, 1135 chars
+2026-07-04 16:24:55.685 [INFO] [LLM] 象限分类响应 success=1 contentLen=1135
+```json
+[
+    {
+        "id": 14,
+        "quadrant": 2,
+        "reason": "养成习惯对健康有益，但非紧急"
+    },
+    {
+        "id": 13,
+        "quadrant": 3,
+        "reason": "握力训练对健康有益，但非紧急"
+    },
+    {
+        "id": 11,
+        "quadrant": 4,
+        "reason": "清理抽屉非紧急且非重要"
+    },
+    {
+        "id": 10,
+        "quadrant": 3,
+        "reason": "清理耳朵虽紧急但非重要"
+    },
+    {
+        "id": 9,
+        "quadrant": 3,
+        "reason": "晚餐节食虽紧急但非重要"
+    },
+    {
+        "id": 8,
+        "quadrant": 3,
+        "reason": "艾灸虽紧急但非重要"
+    },
+    {
+        "id": 7,
+        "quadrant": 1,
+        "reason": "代码备份紧急且对项目重要"
+    },
+    {
+        "id": 6,
+        "quadrant": 1,
+        "reason": "排除干扰对项目进展紧急且重要"
+    },
+    {
+        "id": 5,
+        "quadrant": 2,
+        "reason": "沟通游玩事宜重要但不紧急"
+    },
+    {
+        "id": 4,
+        "quadrant": 4,
+        "reason": "取货虽紧急但非重要"
+    },
+    {
+        "id": 3,
+        "quadrant": 2,
+        "reason": "回顾skills对职业发展重要"
+    },
+    {
+        "id": 2,
+        "quadrant": 3,
+        "reason": "做俯卧撑虽紧急但非重要"
+    },
+    {
+        "id": 1,
+        "quadrant": 1,
+        "reason": "编写软件紧急且对工作重要"
+    }
+]
+```
+2026-07-04 16:24:55.686 [INFO] [AI] LLM 象限 id=14 -> Q2
+养成习惯对健康有益，但非紧急
+2026-07-04 16:24:55.686 [INFO] [AI] LLM 象限 id=13 -> Q3
+握力训练对健康有益，但非紧急
+2026-07-04 16:24:55.686 [INFO] [AI] LLM 象限 id=11 -> Q4
+清理抽屉非紧急且非重要
+2026-07-04 16:24:55.686 [INFO] [AI] LLM 象限 id=10 -> Q3
+清理耳朵虽紧急但非重要
+2026-07-04 16:24:55.686 [INFO] [AI] LLM 象限 id=9 -> Q3
+晚餐节食虽紧急但非重要
+2026-07-04 16:24:55.686 [INFO] [AI] LLM 象限 id=8 -> Q3
+艾灸虽紧急但非重要
+2026-07-04 16:24:55.686 [INFO] [AI] LLM 象限 id=7 -> Q1
+代码备份紧急且对项目重要
+2026-07-04 16:24:55.687 [INFO] [AI] LLM 象限 id=6 -> Q1
+排除干扰对项目进展紧急且重要
+2026-07-04 16:24:55.687 [INFO] [AI] LLM 象限 id=5 -> Q2
+沟通游玩事宜重要但不紧急
+2026-07-04 16:24:55.687 [INFO] [AI] LLM 象限 id=4 -> Q4
+取货虽紧急但非重要
+2026-07-04 16:24:55.687 [INFO] [AI] LLM 象限 id=3 -> Q2
+回顾skills对职业发展重要
+2026-07-04 16:24:55.687 [INFO] [AI] LLM 象限 id=2 -> Q3
+做俯卧撑虽紧急但非重要
+2026-07-04 16:24:55.687 [INFO] [AI] LLM 象限 id=1 -> Q1
+编写软件紧急且对工作重要
+2026-07-04 16:24:55.687 [INFO] [AI] AI 成功划分 13 项
+2026-07-04 16:24:55.687 [DEBUG] [CALC] 规则得分计算完成
+id=14 Q2 score=7.38  养成手机使用时间小于2小时的习惯
+  id=13 Q3 score=6.00  握力训练200个
+  id=11 Q4 score=4.62  清理办公桌抽屉
+  id=10 Q3 score=6.00  清理耳朵
+  id=9 Q3 score=6.00  晚餐节食不吃饭了
+  id=8 Q3 score=6.00  艾灸半小时
+  id=7 Q1 score=8.30  fitness新版代码备份
+  id=6 Q1 score=8.30  羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  id=5 Q2 score=7.38  跟家里联系沟通暑假游玩事宜
+  id=4 Q4 score=4.62  淘宝购买的木粉取货
+  id=3 Q2 score=7.38  历史项目skills提炼之后回顾
+  id=2 Q3 score=6.00  做俯卧撑20个
+  id=1 Q1 score=8.30  编写AI todolist 软件
+2026-07-04 16:24:55.687 [INFO] [CALC] 规则层 Top3 候选 3 条
+2026-07-04 16:24:55.687 [DEBUG] [CALC] 规则 Top3 列表
+#1 id=7 score=8.3 fitness新版代码备份
+  #2 id=6 score=8.3 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  #3 id=1 score=8.3 编写AI todolist 软件
+2026-07-04 16:24:55.687 [INFO] [AI] 【阶段 2/2】Top 3 优先级推荐
+2026-07-04 16:24:55.687 [INFO] [LLM] 发送 Top3 请求 provider=Kimi model=moonshot-v1-8k
+System:
+你是待办优先级助手。根据任务象限、截止时间和规则得分，选出今天最应优先完成的 3 项。仅输出 JSON 数组，每项含 id, rank(1-3), reason(中文≥15字)，不要 markdown 代码块。
+
+User:
+请根据以下 JSON 任务列表，选出今天最应优先完成的 3 项。返回 JSON 数组，每项含 id, rank(1-3), reason(中文理由≥15字)。仅返回 JSON，无其他文字。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"quadrant":2,"rule_score":7.38,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"quadrant":3,"rule_score":5.999999999999999,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":11,"quadrant":4,"rule_score":4.62,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"quadrant":3,"rule_score":5.999999999999999,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"quadrant":3,"rule_score":5.999999999999999,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"quadrant":3,"rule_score":5.999999999999999,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"quadrant":1,"rule_score":8.299999999999999,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"quadrant":1,"rule_score":8.299999999999999,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"quadrant":2,"rule_score":7.38,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"quadrant":4,"rule_score":4.62,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"quadrant":2,"rule_score":7.38,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"quadrant":3,"rule_score":5.999999999999999,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"quadrant":1,"rule_score":8.299999999999999,"title":"编写AI todolist 软件"}]}
+2026-07-04 16:24:58.419 [DEBUG] [LLM] Kimi (Moonshot) OK, 192 chars
+2026-07-04 16:24:58.425 [INFO] [LLM] Top3 响应 success=1 contentLen=192
+[
+    {"id": 7, "rank": 1, "reason": "重要且紧急的任务，需要优先完成以确保项目进度。"},
+    {"id": 6, "rank": 2, "reason": "重要且紧急的任务，排除干扰对项目质量至关重要。"},
+    {"id": 1, "rank": 3, "reason": "重要且紧急的任务，编写软件对提高效率有直接影响。"}
+]
+2026-07-04 16:24:58.425 [INFO] [AI] LLM Top3 #1 id=7 fitness新版代码备份
+重要且紧急的任务，需要优先完成以确保项目进度。
+2026-07-04 16:24:58.426 [INFO] [AI] LLM Top3 #2 id=6 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+重要且紧急的任务，排除干扰对项目质量至关重要。
+2026-07-04 16:24:58.426 [INFO] [AI] LLM Top3 #3 id=1 编写AI todolist 软件
+重要且紧急的任务，编写软件对提高效率有直接影响。
+2026-07-04 16:24:58.426 [INFO] [AI] ========== AI 分析结束 (LLM Top3 成功) ==========
+2026-07-04 16:24:58.433 [INFO] [DB] 更新象限 id=14 -> Q2
+2026-07-04 16:24:58.438 [INFO] [DB] 更新象限 id=13 -> Q3
+2026-07-04 16:24:58.444 [INFO] [DB] 更新象限 id=11 -> Q4
+2026-07-04 16:24:58.448 [INFO] [DB] 更新象限 id=10 -> Q3
+2026-07-04 16:24:58.454 [INFO] [DB] 更新象限 id=9 -> Q3
+2026-07-04 16:24:58.459 [INFO] [DB] 更新象限 id=8 -> Q3
+2026-07-04 16:24:58.465 [INFO] [DB] 更新象限 id=7 -> Q1
+2026-07-04 16:24:58.470 [INFO] [DB] 更新象限 id=6 -> Q1
+2026-07-04 16:24:58.475 [INFO] [DB] 更新象限 id=5 -> Q2
+2026-07-04 16:24:58.481 [INFO] [DB] 更新象限 id=4 -> Q4
+2026-07-04 16:24:58.486 [INFO] [DB] 更新象限 id=3 -> Q2
+2026-07-04 16:24:58.492 [INFO] [DB] 更新象限 id=2 -> Q3
+2026-07-04 16:24:58.497 [INFO] [DB] 更新象限 id=1 -> Q1
+2026-07-04 16:24:58.520 [INFO] [UI] AI 分析完成，已划分 13 个待分配象限（AI 划分） — AI 成功划分 13 项
+2026-07-04 16:26:45.546 [INFO] [DB] 更新完成状态 id=13 completed=1
+2026-07-04 16:30:33.927 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 16:30:33.928 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 16:30:34.874 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 16:39:24.875 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 16:39:24.876 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 16:39:25.661 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 16:48:39.713 [INFO] [APP] === ToDoList 退出 ===
+2026-07-04 16:48:39.713 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_21769216' is still in use, all queries will cease to work.
+2026-07-04 16:48:57.624 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 16:48:57.625 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 16:48:58.577 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 16:49:19.175 [INFO] [DB] 更新完成状态 id=14 completed=1
+2026-07-04 16:49:19.894 [INFO] [DB] 更新完成状态 id=14 completed=0
+2026-07-04 16:51:44.873 [INFO] [APP] === ToDoList 退出 ===
+2026-07-04 16:51:44.873 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47787584' is still in use, all queries will cease to work.
+2026-07-04 16:51:57.920 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 16:51:57.921 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 16:51:58.833 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 16:52:20.899 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 16:52:20.900 [INFO] [AI] ========== AI 分析开始 ==========
+2026-07-04 16:52:20.900 [INFO] [AI] 任务总数 13
+2026-07-04 16:52:20.900 [INFO] [LLM] Provider=Kimi Model=moonshot-v1-8k URL=https://api.moonshot.cn/v1
+2026-07-04 16:52:20.900 [INFO] [AI] 无待分配象限的任务，跳过象限分类
+2026-07-04 16:52:20.900 [DEBUG] [CALC] 规则得分计算完成
+id=14 Q2 score=7.38  养成手机使用时间小于2小时的习惯
+  id=11 Q4 score=4.62  清理办公桌抽屉
+  id=10 Q3 score=6.00  清理耳朵
+  id=9 Q3 score=6.00  晚餐节食不吃饭了
+  id=8 Q3 score=6.00  艾灸半小时
+  id=7 Q1 score=8.30  fitness新版代码备份
+  id=6 Q1 score=8.30  羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  id=5 Q2 score=7.38  跟家里联系沟通暑假游玩事宜
+  id=4 Q4 score=4.62  淘宝购买的木粉取货
+  id=3 Q2 score=7.38  历史项目skills提炼之后回顾
+  id=2 Q3 score=6.00  做俯卧撑20个
+  id=1 Q1 score=8.30  编写AI todolist 软件
+2026-07-04 16:52:20.900 [INFO] [CALC] 规则层 Top3 候选 3 条
+2026-07-04 16:52:20.901 [DEBUG] [CALC] 规则 Top3 列表
+#1 id=7 score=8.3 fitness新版代码备份
+  #2 id=6 score=8.3 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  #3 id=1 score=8.3 编写AI todolist 软件
+2026-07-04 16:52:20.901 [INFO] [AI] 【阶段 2/2】Top 3 优先级推荐
+2026-07-04 16:52:20.901 [INFO] [LLM] 发送 Top3 请求 provider=Kimi model=moonshot-v1-8k
+System:
+你是待办优先级助手。根据任务象限、截止时间和规则得分，选出今天最应优先完成的 3 项。仅输出 JSON 数组，每项含 id, rank(1-3), reason(中文≥15字)，不要 markdown 代码块。
+
+User:
+请根据以下 JSON 任务列表，选出今天最应优先完成的 3 项。返回 JSON 数组，每项含 id, rank(1-3), reason(中文理由≥15字)。仅返回 JSON，无其他文字。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"quadrant":2,"rule_score":7.38,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":11,"quadrant":4,"rule_score":4.62,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"quadrant":3,"rule_score":5.999999999999999,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"quadrant":3,"rule_score":5.999999999999999,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"quadrant":3,"rule_score":5.999999999999999,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"quadrant":1,"rule_score":8.299999999999999,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"quadrant":1,"rule_score":8.299999999999999,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"quadrant":2,"rule_score":7.38,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"quadrant":4,"rule_score":4.62,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"quadrant":2,"rule_score":7.38,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"quadrant":3,"rule_score":5.999999999999999,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"quadrant":1,"rule_score":8.299999999999999,"title":"编写AI todolist 软件"}]}
+2026-07-04 16:52:23.620 [DEBUG] [LLM] Kimi (Moonshot) OK, 284 chars
+2026-07-04 16:52:23.624 [INFO] [LLM] Top3 响应 success=1 contentLen=284
+```json
+[
+    {
+        "id": 7,
+        "rank": 1,
+        "reason": "任务属于第一象限，紧急且重要，得分最高"
+    },
+    {
+        "id": 6,
+        "rank": 2,
+        "reason": "同样属于第一象限，紧急且重要，得分次高"
+    },
+    {
+        "id": 1,
+        "rank": 3,
+        "reason": "第一象限任务，紧急且重要，得分高，需优先处理"
+    }
+]
+```
+2026-07-04 16:52:23.624 [INFO] [AI] LLM Top3 #1 id=7 fitness新版代码备份
+任务属于第一象限，紧急且重要，得分最高
+2026-07-04 16:52:23.624 [INFO] [AI] LLM Top3 #2 id=6 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+同样属于第一象限，紧急且重要，得分次高
+2026-07-04 16:52:23.624 [INFO] [AI] LLM Top3 #3 id=1 编写AI todolist 软件
+第一象限任务，紧急且重要，得分高，需优先处理
+2026-07-04 16:52:23.625 [INFO] [AI] ========== AI 分析结束 (LLM Top3 成功) ==========
+2026-07-04 16:52:23.633 [INFO] [UI] AI 分析完成 — 无待分配任务
+2026-07-04 16:52:34.184 [INFO] [DB] 更新完成状态 id=2 completed=1
+2026-07-04 16:53:16.030 [INFO] [DB] 更新任务 id=1 title=编写AI todolist 软件MVP Q1 completed=0
+2026-07-04 16:53:28.237 [INFO] [DB] 更新完成状态 id=1 completed=1
+2026-07-04 17:19:10.246 [INFO] [DB] 更新完成状态 id=10 completed=1
+2026-07-04 17:19:22.720 [INFO] [DB] 更新完成状态 id=3 completed=1
+2026-07-04 17:59:03.120 [INFO] [DB] 更新完成状态 id=4 completed=1
+2026-07-04 18:06:22.295 [INFO] [DB] 更新完成状态 id=11 completed=1
+2026-07-04 18:16:46.467 [INFO] [DB] 更新完成状态 id=7 completed=1
+2026-07-04 19:05:16.173 [INFO] [APP] === ToDoList 退出 ===
+2026-07-04 19:05:16.178 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47983520' is still in use, all queries will cease to work.
+2026-07-04 19:05:18.319 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 19:05:18.320 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 19:05:19.722 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 19:06:13.419 [WARN] [LLM] Ollama 返回空内容
+2026-07-04 19:06:20.884 [WARN] [LLM] Ollama 返回空内容
+2026-07-04 19:11:35.074 [INFO] [APP] === ToDoList 退出 ===
+2026-07-04 19:11:35.074 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_22425024' is still in use, all queries will cease to work.
+2026-07-04 19:11:40.809 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 19:11:40.810 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 19:11:41.583 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 19:11:57.024 [ERROR] [LLM] Ollama 连接失败 (http://127.0.0.1:11434:11434): Error transferring http://127.0.0.1:11434/api/chat - server replied: Not Found
+2026-07-04 19:12:30.086 [DEBUG] [LLM] Ollama OK, 279 chars
+2026-07-04 19:14:14.341 [DEBUG] [LLM] Ollama OK, 295 chars
+2026-07-04 19:14:22.474 [INFO] [DB] 重置所有任务象限为不确定，影响 13 条
+2026-07-04 19:14:22.474 [INFO] [UI] 用户重置所有象限为不确定，影响 13 条
+2026-07-04 19:14:24.023 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 19:14:24.026 [INFO] [AI] ========== AI 分析开始 ==========
+2026-07-04 19:14:24.026 [INFO] [AI] 任务总数 13
+2026-07-04 19:14:24.026 [INFO] [LLM] Provider=Ollama Model=qwen3:4b URL=http://127.0.0.1:11434
+2026-07-04 19:14:24.026 [INFO] [AI] 【阶段 1/2】象限分类 — 待分配 5 条任务
+2026-07-04 19:14:24.026 [DEBUG] [AI] 待分配任务列表
+id=14  养成手机使用时间小于2小时的习惯  due=2026-07-04T15:59:00Z
+  id=9  晚餐节食不吃饭了  due=2026-07-04T15:59:00Z
+  id=8  艾灸半小时  due=2026-07-04T15:59:00Z
+  id=6  羽毛球项目轨迹跟踪算法排除大跳跃干扰  due=2026-07-04T15:59:00Z
+  id=5  跟家里联系沟通暑假游玩事宜  due=2026-07-04T15:59:00Z
+2026-07-04 19:14:24.026 [INFO] [LLM] 发送象限分类请求 provider=Ollama model=qwen3:4b
+URL: http://127.0.0.1:11434
+
+System:
+你是 Eisenhower 象限分类助手。根据任务标题和截止日期判断重要性与紧急性，为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。仅输出 JSON 数组，每项含 id, quadrant, reason(中文≥10字)，不要 markdown 代码块。
+
+User:
+以下任务的 Eisenhower 象限尚未确定。请为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。返回 JSON 数组，每项含 id, quadrant, reason(中文≥10字)。仅返回 JSON。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":9,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":6,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"title":"跟家里联系沟通暑假游玩事宜"}]}
+2026-07-04 19:16:42.185 [DEBUG] [LLM] Ollama OK, 1662 chars
+2026-07-04 19:16:42.195 [INFO] [LLM] 象限分类响应 success=1 contentLen=1662
+首先，用户要求我作为Eisenhower象限分类助手。我需要根据任务标题和截止日期判断重要性与紧急性，为每项任务分配quadrant（1-4）：1=重要且紧急，2=重要不紧急，3=紧急不重要，4=不重要不紧急。
+
+用户提供了JSON数据：{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":9,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":6,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"title":"跟家里联系沟通暑假游玩事宜"}]}
+
+所有任务的截止日期都是"2026-07-04T15:59:00Z"，这意味着它们都截止在同一天。但Eisenhower象限基于重要性和紧急性，而不是截止日期本身。紧急性通常指截止日期是否临近，但这里所有任务截止日期相同，所以紧急性可能相同或需要其他因素。
+
+关键点：Eisenhower象限的定义：
+- 重要且紧急：需要立即处理，有截止日期且对目标关键。
+- 重要不紧急：对长期目标重要，但可以安排时间。
+- 紧急不重要：有截止日期，但不关键，可以委托或删除。
+- 不重要不紧急：不关键，无截止日期，可以忽略。
+
+用户指定了：仅输出 JSON 数组，每项含 id, quadrant, reason(中文≥10字)。不要 markdown 代码块。
+
+所以，我需要为每个任务生成一个JSON对象，包含：
+- id: 从输入中取
+- quadrant: 1,2,3,4
+- reason: 中文字符串，至少10个字（中文字符）
+
+首先，分析每个任务：
+
+1. **id:14, title: "养成手机使用时间小于2小时的习惯"**  
+   - 这是关于养成健康习惯（手机使用时间限制）。重要性：健康相关，长期重要（重要）。紧急性：截止日期是2026-07-04，但习惯养成是长期过程，不紧急（因为截止日期很远）。所以，可能重要不紧急（quadrant 2）。
+
+2. **id:9, title: "晚餐节食不吃饭了"**  
+   - "节食不吃饭了" 意思是节食不吃东西了？这听起来不健康。重要性：健康问题，但可能不重要（如果只是短期行为）。紧急性：截止日期是2026-07-04，很远，但"晚餐"暗示日常，但"不吃饭了"可能表示问题。可能紧急不重要（quadrant 3）？等一下，"节食"通常指减肥，但"不吃饭了"可能表示饿了或问题。需要仔细。在上下文中，可能是个错误，但作为AI，我需基于标题判断。标题是"晚餐节食不吃饭了"，可能意思是"晚餐时节食不吃东西了"。重要性：健康，但紧急性低（截止日期远）。可能重要不紧急（quadrant 2），但"不吃饭"可能紧急？不，截止日期是2026年，很远。所以，可能重要不紧急（quadrant 2）。
+
+3. **id:8, title: "艾灸半小时"**  
+   - 艾灸是中医疗法。重要性：健康相关，可能重要。紧急性：截止日期是2026-07-04，但艾灸是定期活动，不紧急（因为有固定时间）。可能重要不紧急（quadrant 2）。
+
+4. **id:6, title: "羽毛球项目轨迹跟踪算法排除大跳跃干扰"**  
+   - 这是技术性任务：羽毛球运动中的算法。重要性：可能对运动分析重要，但"排除大跳跃干扰"是细节。紧急性：截止日期远，但算法开发可能不紧急（除非有项目截止）。可能不重要不紧急（quadrant 4），因为它是技术细节，不直接影响
+2026-07-04 19:16:42.196 [WARN] [AI] 启用规则推断象限（原因: 空结果）
+2026-07-04 19:16:42.197 [INFO] [CALC] 规则象限 id=14 title=养成手机使用时间小于2小时的习惯 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:16:42.198 [INFO] [CALC] 规则象限 id=9 title=晚餐节食不吃饭了 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:16:42.198 [INFO] [CALC] 规则象限 id=8 title=艾灸半小时 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:16:42.198 [INFO] [CALC] 规则象限 id=6 title=羽毛球项目轨迹跟踪算法排除大跳跃干扰 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:16:42.199 [INFO] [CALC] 规则象限 id=5 title=跟家里联系沟通暑假游玩事宜 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:16:42.199 [DEBUG] [CALC] 规则得分计算完成
+id=14 Q3 score=5.94  养成手机使用时间小于2小时的习惯
+  id=9 Q3 score=5.94  晚餐节食不吃饭了
+  id=8 Q3 score=5.94  艾灸半小时
+  id=6 Q3 score=5.94  羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  id=5 Q3 score=5.94  跟家里联系沟通暑假游玩事宜
+2026-07-04 19:16:42.199 [INFO] [CALC] 规则层 Top3 候选 3 条
+2026-07-04 19:16:42.200 [DEBUG] [CALC] 规则 Top3 列表
+#1 id=14 score=5.9 养成手机使用时间小于2小时的习惯
+  #2 id=9 score=5.9 晚餐节食不吃饭了
+  #3 id=8 score=5.9 艾灸半小时
+2026-07-04 19:16:42.200 [INFO] [AI] 【阶段 2/2】Top 3 优先级推荐
+2026-07-04 19:16:42.201 [INFO] [LLM] 发送 Top3 请求 provider=Ollama model=qwen3:4b
+System:
+你是待办优先级助手。根据任务象限、截止时间和规则得分，选出今天最应优先完成的 3 项。仅输出 JSON 数组，每项含 id, rank(1-3), reason(中文≥15字)，不要 markdown 代码块。
+
+User:
+请根据以下 JSON 任务列表，选出今天最应优先完成的 3 项。返回 JSON 数组，每项含 id, rank(1-3), reason(中文理由≥15字)。仅返回 JSON，无其他文字。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"quadrant":3,"rule_score":5.936108422071637,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":9,"quadrant":3,"rule_score":5.936108422071637,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"quadrant":3,"rule_score":5.936108422071637,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":6,"quadrant":3,"rule_score":5.936108422071637,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"quadrant":3,"rule_score":5.936108422071637,"title":"跟家里联系沟通暑假游玩事宜"}]}
+2026-07-04 19:17:20.555 [INFO] [APP] === ToDoList 退出 ===
+2026-07-04 19:17:20.556 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47000480' is still in use, all queries will cease to work.
+2026-07-04 19:17:30.787 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 19:17:30.787 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 19:17:31.740 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 19:17:50.184 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 19:17:50.188 [INFO] [AI] ========== AI 分析开始 ==========
+2026-07-04 19:17:50.189 [INFO] [AI] 任务总数 13
+2026-07-04 19:17:50.189 [INFO] [LLM] Provider=Ollama Model=qwen3:4b URL=http://127.0.0.1:11434
+2026-07-04 19:17:50.190 [INFO] [AI] 【阶段 1/2】象限分类 — 待分配 5 条任务
+2026-07-04 19:17:50.190 [DEBUG] [AI] 待分配任务列表
+id=14  养成手机使用时间小于2小时的习惯  due=2026-07-04T15:59:00Z
+  id=9  晚餐节食不吃饭了  due=2026-07-04T15:59:00Z
+  id=8  艾灸半小时  due=2026-07-04T15:59:00Z
+  id=6  羽毛球项目轨迹跟踪算法排除大跳跃干扰  due=2026-07-04T15:59:00Z
+  id=5  跟家里联系沟通暑假游玩事宜  due=2026-07-04T15:59:00Z
+2026-07-04 19:17:50.190 [INFO] [LLM] 发送象限分类请求 provider=Ollama model=qwen3:4b
+URL: http://127.0.0.1:11434
+
+System:
+你是 Eisenhower 象限分类助手。根据任务标题和截止日期判断重要性与紧急性，为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。仅输出 JSON 数组，每项含 id, quadrant, reason(中文≥10字)，不要 markdown 代码块。
+
+User:
+以下任务的 Eisenhower 象限尚未确定。请为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。返回 JSON 数组，每项含 id, quadrant, reason(中文≥10字)。仅返回 JSON。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":9,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":6,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"title":"跟家里联系沟通暑假游玩事宜"}]}
+2026-07-04 19:18:37.669 [DEBUG] [LLM] Kimi (Moonshot) OK, 2 chars
+2026-07-04 19:18:48.904 [INFO] [APP] === ToDoList 退出 ===
+2026-07-04 19:18:48.905 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_21704768' is still in use, all queries will cease to work.
+2026-07-04 19:18:51.186 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 19:18:51.187 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 19:18:52.001 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 19:19:00.195 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 19:19:00.197 [INFO] [AI] ========== AI 分析开始 ==========
+2026-07-04 19:19:00.197 [INFO] [AI] 任务总数 13
+2026-07-04 19:19:00.197 [INFO] [LLM] Provider=Kimi Model=moonshot-v1-8k URL=https://api.moonshot.cn/v1
+2026-07-04 19:19:00.197 [INFO] [AI] 【阶段 1/2】象限分类 — 待分配 5 条任务
+2026-07-04 19:19:00.198 [DEBUG] [AI] 待分配任务列表
+id=14  养成手机使用时间小于2小时的习惯  due=2026-07-04T15:59:00Z
+  id=9  晚餐节食不吃饭了  due=2026-07-04T15:59:00Z
+  id=8  艾灸半小时  due=2026-07-04T15:59:00Z
+  id=6  羽毛球项目轨迹跟踪算法排除大跳跃干扰  due=2026-07-04T15:59:00Z
+  id=5  跟家里联系沟通暑假游玩事宜  due=2026-07-04T15:59:00Z
+2026-07-04 19:19:00.198 [INFO] [LLM] 发送象限分类请求 provider=Kimi model=moonshot-v1-8k
+URL: https://api.moonshot.cn/v1
+
+System:
+你是 Eisenhower 象限分类助手。根据任务标题和截止日期判断重要性与紧急性，为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。仅输出 JSON 数组，每项含 id, quadrant, reason(中文≥10字)，不要 markdown 代码块。
+
+User:
+以下任务的 Eisenhower 象限尚未确定。请为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。返回 JSON 数组，每项含 id, quadrant, reason(中文≥10字)。仅返回 JSON。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":9,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":6,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"title":"跟家里联系沟通暑假游玩事宜"}]}
+2026-07-04 19:19:03.787 [DEBUG] [LLM] Kimi (Moonshot) OK, 476 chars
+2026-07-04 19:19:03.792 [INFO] [LLM] 象限分类响应 success=1 contentLen=476
+```json
+[
+    {
+        "id": 14,
+        "quadrant": 2,
+        "reason": "养成良好习惯对健康有益，但不是紧急事项"
+    },
+    {
+        "id": 9,
+        "quadrant": 3,
+        "reason": "节食是个人选择，紧急但对他人不重要"
+    },
+    {
+        "id": 8,
+        "quadrant": 2,
+        "reason": "艾灸对健康有益，但不是必须立即执行"
+    },
+    {
+        "id": 6,
+        "quadrant": 1,
+        "reason": "技术问题排除对项目进度至关重要且时间紧迫"
+    },
+    {
+        "id": 5,
+        "quadrant": 2,
+        "reason": "家庭沟通重要，但可以稍后安排，不紧急"
+    }
+]
+```
+2026-07-04 19:19:03.792 [INFO] [AI] LLM 象限 id=14 -> Q2
+养成良好习惯对健康有益，但不是紧急事项
+2026-07-04 19:19:03.792 [INFO] [AI] LLM 象限 id=9 -> Q3
+节食是个人选择，紧急但对他人不重要
+2026-07-04 19:19:03.792 [INFO] [AI] LLM 象限 id=8 -> Q2
+艾灸对健康有益，但不是必须立即执行
+2026-07-04 19:19:03.792 [INFO] [AI] LLM 象限 id=6 -> Q1
+技术问题排除对项目进度至关重要且时间紧迫
+2026-07-04 19:19:03.792 [INFO] [AI] LLM 象限 id=5 -> Q2
+家庭沟通重要，但可以稍后安排，不紧急
+2026-07-04 19:19:03.792 [INFO] [AI] AI 成功划分 5 项
+2026-07-04 19:19:03.792 [DEBUG] [CALC] 规则得分计算完成
+id=14 Q2 score=7.35  养成手机使用时间小于2小时的习惯
+  id=9 Q3 score=5.94  晚餐节食不吃饭了
+  id=8 Q2 score=7.35  艾灸半小时
+  id=6 Q1 score=8.29  羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  id=5 Q2 score=7.35  跟家里联系沟通暑假游玩事宜
+2026-07-04 19:19:03.792 [INFO] [CALC] 规则层 Top3 候选 3 条
+2026-07-04 19:19:03.793 [DEBUG] [CALC] 规则 Top3 列表
+#1 id=6 score=8.3 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  #2 id=14 score=7.3 养成手机使用时间小于2小时的习惯
+  #3 id=8 score=7.3 艾灸半小时
+2026-07-04 19:19:03.793 [INFO] [AI] 【阶段 2/2】Top 3 优先级推荐
+2026-07-04 19:19:03.793 [INFO] [LLM] 发送 Top3 请求 provider=Kimi model=moonshot-v1-8k
+System:
+你是待办优先级助手。根据任务象限、截止时间和规则得分，选出今天最应优先完成的 3 项。仅输出 JSON 数组，每项含 id, rank(1-3), reason(中文≥15字)，不要 markdown 代码块。
+
+User:
+请根据以下 JSON 任务列表，选出今天最应优先完成的 3 项。返回 JSON 数组，每项含 id, rank(1-3), reason(中文理由≥15字)。仅返回 JSON，无其他文字。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"quadrant":2,"rule_score":7.348693126815103,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":9,"quadrant":3,"rule_score":5.936108422071637,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"quadrant":2,"rule_score":7.348693126815103,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":6,"quadrant":1,"rule_score":8.290416263310746,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"quadrant":2,"rule_score":7.348693126815103,"title":"跟家里联系沟通暑假游玩事宜"}]}
+2026-07-04 19:19:06.206 [DEBUG] [LLM] Kimi (Moonshot) OK, 200 chars
+2026-07-04 19:19:06.212 [INFO] [LLM] Top3 响应 success=1 contentLen=200
+[
+    {"id":6,"rank":1,"reason":"任务属于第一象限，紧急且重要，规则得分最高，应优先完成。"},
+    {"id":14,"rank":2,"reason":"任务属于第二象限，重要但不紧急，规则得分较高，应次优先完成。"},
+    {"id":8,"rank":3,"reason":"任务属于第二象限，重要但不紧急，规则得分与14相同，按截止时间排序。"}
+]
+2026-07-04 19:19:06.212 [INFO] [AI] LLM Top3 #1 id=6 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+任务属于第一象限，紧急且重要，规则得分最高，应优先完成。
+2026-07-04 19:19:06.212 [INFO] [AI] LLM Top3 #2 id=14 养成手机使用时间小于2小时的习惯
+任务属于第二象限，重要但不紧急，规则得分较高，应次优先完成。
+2026-07-04 19:19:06.212 [INFO] [AI] LLM Top3 #3 id=8 艾灸半小时
+任务属于第二象限，重要但不紧急，规则得分与14相同，按截止时间排序。
+2026-07-04 19:19:06.212 [INFO] [AI] ========== AI 分析结束 (LLM Top3 成功) ==========
+2026-07-04 19:19:06.220 [INFO] [DB] 更新象限 id=14 -> Q2
+2026-07-04 19:19:06.226 [INFO] [DB] 更新象限 id=9 -> Q3
+2026-07-04 19:19:06.232 [INFO] [DB] 更新象限 id=8 -> Q2
+2026-07-04 19:19:06.237 [INFO] [DB] 更新象限 id=6 -> Q1
+2026-07-04 19:19:06.242 [INFO] [DB] 更新象限 id=5 -> Q2
+2026-07-04 19:19:06.251 [INFO] [UI] AI 分析完成，已划分 5 个待分配象限（AI 划分） — AI 成功划分 5 项
+2026-07-04 19:19:17.392 [INFO] [DB] 更新完成状态 id=13 completed=0
+2026-07-04 19:19:17.883 [INFO] [DB] 更新完成状态 id=11 completed=0
+2026-07-04 19:19:18.359 [INFO] [DB] 更新完成状态 id=10 completed=0
+2026-07-04 19:19:18.909 [INFO] [DB] 更新完成状态 id=7 completed=0
+2026-07-04 19:19:19.544 [INFO] [DB] 更新完成状态 id=4 completed=0
+2026-07-04 19:19:19.985 [INFO] [DB] 更新完成状态 id=3 completed=0
+2026-07-04 19:19:20.447 [INFO] [DB] 更新完成状态 id=2 completed=0
+2026-07-04 19:19:21.128 [INFO] [DB] 更新完成状态 id=1 completed=0
+2026-07-04 19:19:22.560 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 19:19:22.567 [INFO] [AI] ========== AI 分析开始 ==========
+2026-07-04 19:19:22.567 [INFO] [AI] 任务总数 13
+2026-07-04 19:19:22.567 [INFO] [LLM] Provider=Kimi Model=moonshot-v1-8k URL=https://api.moonshot.cn/v1
+2026-07-04 19:19:22.567 [INFO] [AI] 【阶段 1/2】象限分类 — 待分配 8 条任务
+2026-07-04 19:19:22.567 [DEBUG] [AI] 待分配任务列表
+id=13  握力训练200个  due=2026-07-04T15:59:00Z
+  id=11  清理办公桌抽屉  due=2026-07-04T15:59:00Z
+  id=10  清理耳朵  due=2026-07-04T15:59:00Z
+  id=7  fitness新版代码备份  due=2026-07-04T15:59:00Z
+  id=4  淘宝购买的木粉取货  due=2026-07-04T15:59:00Z
+  id=3  历史项目skills提炼之后回顾  due=2026-07-04T15:59:00Z
+  id=2  做俯卧撑20个  due=2026-07-04T15:59:00Z
+  id=1  编写AI todolist 软件MVP  due=2026-07-04T15:59:00Z
+2026-07-04 19:19:22.567 [INFO] [LLM] 发送象限分类请求 provider=Kimi model=moonshot-v1-8k
+URL: https://api.moonshot.cn/v1
+
+System:
+你是 Eisenhower 象限分类助手。根据任务标题和截止日期判断重要性与紧急性，为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。仅输出 JSON 数组，每项含 id, quadrant, reason(中文≥10字)，不要 markdown 代码块。
+
+User:
+以下任务的 Eisenhower 象限尚未确定。请为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。返回 JSON 数组，每项含 id, quadrant, reason(中文≥10字)。仅返回 JSON。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":13,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":11,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":7,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":4,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"title":"编写AI todolist 软件MVP"}]}
+2026-07-04 19:19:28.616 [DEBUG] [LLM] Kimi (Moonshot) OK, 784 chars
+2026-07-04 19:19:28.618 [INFO] [LLM] 象限分类响应 success=1 contentLen=784
+```json
+[
+    {
+        "id": 13,
+        "quadrant": 3,
+        "reason": "握力训练对健康有益，但不是紧急事项"
+    },
+    {
+        "id": 11,
+        "quadrant": 3,
+        "reason": "清理办公桌抽屉有助于提高工作效率，但不是紧急事项"
+    },
+    {
+        "id": 10,
+        "quadrant": 3,
+        "reason": "清理耳朵虽然重要，但非紧急事项"
+    },
+    {
+        "id": 7,
+        "quadrant": 1,
+        "reason": "代码备份对数据安全至关重要，且有明确截止日期"
+    },
+    {
+        "id": 4,
+        "quadrant": 3,
+        "reason": "取货虽重要，但考虑到时间限制，非紧急事项"
+    },
+    {
+        "id": 3,
+        "quadrant": 2,
+        "reason": "历史项目skills提炼回顾对个人发展重要，但非紧急"
+    },
+    {
+        "id": 2,
+        "quadrant": 3,
+        "reason": "做俯卧撑对健康有益，但不是紧急事项"
+    },
+    {
+        "id": 1,
+        "quadrant": 1,
+        "reason": "编写AI todolist软件MVP对工作至关重要，且有明确截止日期"
+    }
+]
+```
+2026-07-04 19:19:28.618 [INFO] [AI] LLM 象限 id=13 -> Q3
+握力训练对健康有益，但不是紧急事项
+2026-07-04 19:19:28.619 [INFO] [AI] LLM 象限 id=11 -> Q3
+清理办公桌抽屉有助于提高工作效率，但不是紧急事项
+2026-07-04 19:19:28.619 [INFO] [AI] LLM 象限 id=10 -> Q3
+清理耳朵虽然重要，但非紧急事项
+2026-07-04 19:19:28.619 [INFO] [AI] LLM 象限 id=7 -> Q1
+代码备份对数据安全至关重要，且有明确截止日期
+2026-07-04 19:19:28.619 [INFO] [AI] LLM 象限 id=4 -> Q3
+取货虽重要，但考虑到时间限制，非紧急事项
+2026-07-04 19:19:28.619 [INFO] [AI] LLM 象限 id=3 -> Q2
+历史项目skills提炼回顾对个人发展重要，但非紧急
+2026-07-04 19:19:28.619 [INFO] [AI] LLM 象限 id=2 -> Q3
+做俯卧撑对健康有益，但不是紧急事项
+2026-07-04 19:19:28.620 [INFO] [AI] LLM 象限 id=1 -> Q1
+编写AI todolist软件MVP对工作至关重要，且有明确截止日期
+2026-07-04 19:19:28.620 [INFO] [AI] AI 成功划分 8 项
+2026-07-04 19:19:28.620 [DEBUG] [CALC] 规则得分计算完成
+id=14 Q2 score=7.35  养成手机使用时间小于2小时的习惯
+  id=13 Q3 score=5.94  握力训练200个
+  id=11 Q3 score=5.94  清理办公桌抽屉
+  id=10 Q3 score=5.94  清理耳朵
+  id=9 Q3 score=5.94  晚餐节食不吃饭了
+  id=8 Q2 score=7.35  艾灸半小时
+  id=7 Q1 score=8.29  fitness新版代码备份
+  id=6 Q1 score=8.29  羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  id=5 Q2 score=7.35  跟家里联系沟通暑假游玩事宜
+  id=4 Q3 score=5.94  淘宝购买的木粉取货
+  id=3 Q2 score=7.35  历史项目skills提炼之后回顾
+  id=2 Q3 score=5.94  做俯卧撑20个
+  id=1 Q1 score=8.29  编写AI todolist 软件MVP
+2026-07-04 19:19:28.621 [INFO] [CALC] 规则层 Top3 候选 3 条
+2026-07-04 19:19:28.621 [DEBUG] [CALC] 规则 Top3 列表
+#1 id=7 score=8.3 fitness新版代码备份
+  #2 id=6 score=8.3 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  #3 id=1 score=8.3 编写AI todolist 软件MVP
+2026-07-04 19:19:28.621 [INFO] [AI] 【阶段 2/2】Top 3 优先级推荐
+2026-07-04 19:19:28.621 [INFO] [LLM] 发送 Top3 请求 provider=Kimi model=moonshot-v1-8k
+System:
+你是待办优先级助手。根据任务象限、截止时间和规则得分，选出今天最应优先完成的 3 项。仅输出 JSON 数组，每项含 id, rank(1-3), reason(中文≥15字)，不要 markdown 代码块。
+
+User:
+请根据以下 JSON 任务列表，选出今天最应优先完成的 3 项。返回 JSON 数组，每项含 id, rank(1-3), reason(中文理由≥15字)。仅返回 JSON，无其他文字。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"quadrant":2,"rule_score":7.348693126815103,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"quadrant":3,"rule_score":5.936108422071637,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":11,"quadrant":3,"rule_score":5.936108422071637,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"quadrant":3,"rule_score":5.936108422071637,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"quadrant":3,"rule_score":5.936108422071637,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"quadrant":2,"rule_score":7.348693126815103,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"quadrant":1,"rule_score":8.290416263310746,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"quadrant":1,"rule_score":8.290416263310746,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"quadrant":2,"rule_score":7.348693126815103,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"quadrant":3,"rule_score":5.936108422071637,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"quadrant":2,"rule_score":7.348693126815103,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"quadrant":3,"rule_score":5.936108422071637,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"quadrant":1,"rule_score":8.290416263310746,"title":"编写AI todolist 软件MVP"}]}
+2026-07-04 19:19:31.105 [DEBUG] [LLM] Kimi (Moonshot) OK, 216 chars
+2026-07-04 19:19:31.108 [INFO] [LLM] Top3 响应 success=1 contentLen=216
+```json
+[
+    {"id": 7, "rank": 1, "reason": "任务位于第一象限，紧急且重要，得分最高，应优先完成"},
+    {"id": 1, "rank": 2, "reason": "同样位于第一象限，紧急且重要，得分次之，应紧随其后完成"},
+    {"id": 6, "rank": 3, "reason": "位于第一象限，紧急且重要，得分第三，应作为第三优先级任务处理"}
+]
+```
+2026-07-04 19:19:31.108 [INFO] [AI] LLM Top3 #1 id=7 fitness新版代码备份
+任务位于第一象限，紧急且重要，得分最高，应优先完成
+2026-07-04 19:19:31.108 [INFO] [AI] LLM Top3 #2 id=1 编写AI todolist 软件MVP
+同样位于第一象限，紧急且重要，得分次之，应紧随其后完成
+2026-07-04 19:19:31.108 [INFO] [AI] LLM Top3 #3 id=6 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+位于第一象限，紧急且重要，得分第三，应作为第三优先级任务处理
+2026-07-04 19:19:31.108 [INFO] [AI] ========== AI 分析结束 (LLM Top3 成功) ==========
+2026-07-04 19:19:31.118 [INFO] [DB] 更新象限 id=13 -> Q3
+2026-07-04 19:19:31.123 [INFO] [DB] 更新象限 id=11 -> Q3
+2026-07-04 19:19:31.127 [INFO] [DB] 更新象限 id=10 -> Q3
+2026-07-04 19:19:31.133 [INFO] [DB] 更新象限 id=7 -> Q1
+2026-07-04 19:19:31.139 [INFO] [DB] 更新象限 id=4 -> Q3
+2026-07-04 19:19:31.144 [INFO] [DB] 更新象限 id=3 -> Q2
+2026-07-04 19:19:31.148 [INFO] [DB] 更新象限 id=2 -> Q3
+2026-07-04 19:19:31.152 [INFO] [DB] 更新象限 id=1 -> Q1
+2026-07-04 19:19:31.156 [INFO] [UI] AI 分析完成，已划分 8 个待分配象限（AI 划分） — AI 成功划分 8 项
+2026-07-04 19:19:36.653 [INFO] [DB] 重置所有任务象限为不确定，影响 13 条
+2026-07-04 19:19:36.654 [INFO] [UI] 用户重置所有象限为不确定，影响 13 条
+2026-07-04 19:19:52.604 [DEBUG] [LLM] Ollama OK, 290 chars
+2026-07-04 19:19:55.404 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 19:19:55.406 [INFO] [AI] ========== AI 分析开始 ==========
+2026-07-04 19:19:55.406 [INFO] [AI] 任务总数 13
+2026-07-04 19:19:55.406 [INFO] [LLM] Provider=Ollama Model=qwen3:4b URL=http://127.0.0.1:11434
+2026-07-04 19:19:55.406 [INFO] [AI] 【阶段 1/2】象限分类 — 待分配 13 条任务
+2026-07-04 19:19:55.406 [DEBUG] [AI] 待分配任务列表
+id=14  养成手机使用时间小于2小时的习惯  due=2026-07-04T15:59:00Z
+  id=13  握力训练200个  due=2026-07-04T15:59:00Z
+  id=11  清理办公桌抽屉  due=2026-07-04T15:59:00Z
+  id=10  清理耳朵  due=2026-07-04T15:59:00Z
+  id=9  晚餐节食不吃饭了  due=2026-07-04T15:59:00Z
+  id=8  艾灸半小时  due=2026-07-04T15:59:00Z
+  id=7  fitness新版代码备份  due=2026-07-04T15:59:00Z
+  id=6  羽毛球项目轨迹跟踪算法排除大跳跃干扰  due=2026-07-04T15:59:00Z
+  id=5  跟家里联系沟通暑假游玩事宜  due=2026-07-04T15:59:00Z
+  id=4  淘宝购买的木粉取货  due=2026-07-04T15:59:00Z
+  id=3  历史项目skills提炼之后回顾  due=2026-07-04T15:59:00Z
+  id=2  做俯卧撑20个  due=2026-07-04T15:59:00Z
+  id=1  编写AI todolist 软件MVP  due=2026-07-04T15:59:00Z
+2026-07-04 19:19:55.407 [INFO] [LLM] 发送象限分类请求 provider=Ollama model=qwen3:4b
+URL: http://127.0.0.1:11434
+
+System:
+你是 Eisenhower 象限分类助手。根据任务标题和截止日期判断重要性与紧急性，为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。仅输出 JSON 数组，每项含 id, quadrant, reason(中文≥10字)，不要 markdown 代码块。
+
+User:
+以下任务的 Eisenhower 象限尚未确定。请为每项分配 quadrant(1-4)：1=重要且紧急,2=重要不紧急,3=紧急不重要,4=不重要不紧急。返回 JSON 数组，每项含 id, quadrant, reason(中文≥10字)。仅返回 JSON。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":11,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"title":"编写AI todolist 软件MVP"}]}
+2026-07-04 19:22:11.385 [DEBUG] [LLM] Ollama OK, 1610 chars
+2026-07-04 19:22:11.394 [INFO] [LLM] 象限分类响应 success=1 contentLen=1610
+首先，用户要求我作为Eisenhower象限分类助手。我需要根据任务标题和截止日期来判断每项任务的重要性与紧急性，然后为每项分配quadrant（1-4）。quadrant的定义是：
+- 1: 重要且紧急
+- 2: 重要不紧急
+- 3: 紧急不重要
+- 4: 不重要不紧急
+
+用户提供了JSON数据，其中包含多个任务，每个任务有id、title和due_at（截止日期）。所有任务的截止日期都是"2026-07-04T15:59:00Z"，这意味着它们都截止在同一天，2026年7月4日。这可能影响紧急性，因为截止日期相同，但紧急性通常基于是否在近期需要完成。
+
+关键点是：所有任务的截止日期都相同。在Eisenhower矩阵中，紧急性通常指任务是否在短期内必须完成（例如，有截止日期）。既然所有任务都截止在同一天，它们在紧急性上可能被视为同样紧急，但重要性不同。
+
+我需要为每个任务分配quadrant。用户指定了输出格式：仅返回JSON数组，每项含id, quadrant, reason（中文≥10字）。reason必须是中文，且至少10个字。
+
+首先，回顾Eisenhower矩阵的逻辑：
+- **紧急性**：任务是否有明确的截止日期，且需要立即处理（例如，今天或很快）。
+- **重要性**：任务是否对长期目标、核心价值有贡献。
+
+在本例中，所有任务的截止日期都是2026-07-04（未来），但具体到当前时间（假设现在是2023年），这个截止日期很远，所以紧急性可能低。但用户说“截止日期”，我需要基于给定的due_at来判断。
+
+用户说：“根据任务标题和截止日期判断重要性与紧急性”。所以，我必须考虑任务标题和截止日期。
+
+所有任务的due_at都是"2026-07-04T15:59:00Z"，这表示它们都截止在同一天。在紧急性上，由于截止日期相同，但任务本身可能有不同优先级。
+
+在Eisenhower矩阵中，紧急性通常基于任务是否在短期内必须完成。既然所有任务都截止在2026年7月4日，这在当前（假设2023年）是远期，所以紧急性可能都低。但用户可能期望我基于任务标题来推断重要性。
+
+用户指定了“任务标题和截止日期”，所以我要结合两者。
+
+列出所有任务：
+- id:1, title: "编写AI todolist 软件MVP", due_at: "2026-07-04T15:59:00Z"
+- id:2, title: "做俯卧撑20个", due_at: "2026-07-04T15:59:00Z"
+- id:3, title: "历史项目skills提炼之后回顾", due_at: "2026-07-04T15:59:00Z"
+- id:4, title: "淘宝购买的木粉取货", due_at: "2026-07-04T15:59:00Z"
+- id:5, title: "跟家里联系沟通暑假游玩事宜", due_at: "2026-07-04T15:59:00Z"
+- id:6, title: "羽毛球项目轨迹跟踪算法排除大跳跃干扰", due_at: "2026-07-04T15:59:00Z"
+- id:7, title: "fitness新版代码备份", due_at: "2026-07-04T15:59:00Z"
+- id:8, title: "艾灸半小时", due_at: "2026-07-04T15:59:00Z"
+- id:9, title: "晚餐节食不吃饭了", due_at: "2026-07-04T15:59:00Z" （这标题有点奇怪，"晚餐节食不吃饭了" 可能意思是"晚餐节食，不吃饭了"）
+- id:10, title: "清理耳朵", due_at: "2026-07-04T15:59:00Z"
+- id:11, title: "清理
+2026-07-04 19:22:11.395 [WARN] [AI] LLM 响应 JSON 解析失败: illegal value，降级为规则推断
+首先，用户要求我作为Eisenhower象限分类助手。我需要根据任务标题和截止日期来判断每项任务的重要性与紧急性，然后为每项分配quadrant（1-4）。quadrant的定义是：
+- 1: 重要且紧急
+- 2: 重要不紧急
+- 3: 紧急不重要
+- 4: 不重要不紧急
+
+用户提供了JSON数据，其中包含多个任务，每个任务有id、title和due_at（截止日期）。所有任务的截止日期都是"2026-07-04T15:59:00Z"，这意味着它们都截止在同一天，2026年7月4日。这可能影响紧急性，因为截止日期相同，但紧急性通常基于是否在近期需要完成。
+
+关键点是：所有任务的截止日期都相同。在Eisenhower矩阵中，紧急性通常指任务是否在短期内必须完成（例如，有截止日期）。既然所有任务都截止在同一天，它们在紧急性上可能被视为同样紧急，但重要性不同。
+
+我需要为每个任务分配quadrant。用户指定了输出格式：仅返回JSON数组，每项含id, quadrant, reason（中文≥10字）。reason必须是中文，且至少10个字。
+
+首先，回顾Eisenhower矩阵的逻辑：
+- **紧急性**：任务是否有明确的截止日期，且需要立即处理（例如，今天或很快）。
+- **重要性**：任务是否对长期目标、核心价值有贡献。
+
+在本例中，所有任务的截止日期都是2026-07-04（未来），但具体到当前时间（假设现在是2023年），这个截止日期很远，所以紧急性可能低。但用户说“截止日期”，我需要基于给定的due_at来判断。
+
+用户说：“根据任务标题和截止日期判断重要性与紧急性”。所以，我必须考虑任务标题和截止日期。
+
+所有任务的due_at都是"2026-07-04T15:59:00Z"，这表示它们都截止在同一天。在紧急性上，由于截止日期相同，但任务本身可能有不同优先级。
+
+在Eisenhower矩阵中，紧急性通常基于任务是否在短期内必须完
+2026-07-04 19:22:11.395 [WARN] [AI] 启用规则推断象限（原因: 解析失败）
+2026-07-04 19:22:11.396 [INFO] [CALC] 规则象限 id=14 title=养成手机使用时间小于2小时的习惯 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.396 [INFO] [CALC] 规则象限 id=13 title=握力训练200个 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.397 [INFO] [CALC] 规则象限 id=11 title=清理办公桌抽屉 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.397 [INFO] [CALC] 规则象限 id=10 title=清理耳朵 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.397 [INFO] [CALC] 规则象限 id=9 title=晚餐节食不吃饭了 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.397 [INFO] [CALC] 规则象限 id=8 title=艾灸半小时 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.397 [INFO] [CALC] 规则象限 id=7 title=fitness新版代码备份 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.398 [INFO] [CALC] 规则象限 id=6 title=羽毛球项目轨迹跟踪算法排除大跳跃干扰 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.398 [INFO] [CALC] 规则象限 id=5 title=跟家里联系沟通暑假游玩事宜 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.399 [INFO] [CALC] 规则象限 id=4 title=淘宝购买的木粉取货 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.399 [INFO] [CALC] 规则象限 id=3 title=历史项目skills提炼之后回顾 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.399 [INFO] [CALC] 规则象限 id=2 title=做俯卧撑20个 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.400 [INFO] [CALC] 规则象限 id=1 title=编写AI todolist 软件MVP -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:22:11.400 [DEBUG] [CALC] 规则得分计算完成
+id=14 Q3 score=5.94  养成手机使用时间小于2小时的习惯
+  id=13 Q3 score=5.94  握力训练200个
+  id=11 Q3 score=5.94  清理办公桌抽屉
+  id=10 Q3 score=5.94  清理耳朵
+  id=9 Q3 score=5.94  晚餐节食不吃饭了
+  id=8 Q3 score=5.94  艾灸半小时
+  id=7 Q3 score=5.94  fitness新版代码备份
+  id=6 Q3 score=5.94  羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  id=5 Q3 score=5.94  跟家里联系沟通暑假游玩事宜
+  id=4 Q3 score=5.94  淘宝购买的木粉取货
+  id=3 Q3 score=5.94  历史项目skills提炼之后回顾
+  id=2 Q3 score=5.94  做俯卧撑20个
+  id=1 Q3 score=5.94  编写AI todolist 软件MVP
+2026-07-04 19:22:11.400 [INFO] [CALC] 规则层 Top3 候选 3 条
+2026-07-04 19:22:11.402 [DEBUG] [CALC] 规则 Top3 列表
+#1 id=14 score=5.9 养成手机使用时间小于2小时的习惯
+  #2 id=13 score=5.9 握力训练200个
+  #3 id=11 score=5.9 清理办公桌抽屉
+2026-07-04 19:22:11.402 [INFO] [AI] 【阶段 2/2】Top 3 优先级推荐
+2026-07-04 19:22:11.403 [INFO] [LLM] 发送 Top3 请求 provider=Ollama model=qwen3:4b
+System:
+你是待办优先级助手。根据任务象限、截止时间和规则得分，选出今天最应优先完成的 3 项。仅输出 JSON 数组，每项含 id, rank(1-3), reason(中文≥15字)，不要 markdown 代码块。
+
+User:
+请根据以下 JSON 任务列表，选出今天最应优先完成的 3 项。返回 JSON 数组，每项含 id, rank(1-3), reason(中文理由≥15字)。仅返回 JSON，无其他文字。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"quadrant":3,"rule_score":5.936108422071637,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"quadrant":3,"rule_score":5.936108422071637,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":11,"quadrant":3,"rule_score":5.936108422071637,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"quadrant":3,"rule_score":5.936108422071637,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"quadrant":3,"rule_score":5.936108422071637,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"quadrant":3,"rule_score":5.936108422071637,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"quadrant":3,"rule_score":5.936108422071637,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"quadrant":3,"rule_score":5.936108422071637,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"quadrant":3,"rule_score":5.936108422071637,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"quadrant":3,"rule_score":5.936108422071637,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"quadrant":3,"rule_score":5.936108422071637,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"quadrant":3,"rule_score":5.936108422071637,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"quadrant":3,"rule_score":5.936108422071637,"title":"编写AI todolist 软件MVP"}]}
+2026-07-04 19:24:55.621 [DEBUG] [LLM] Ollama OK, 1593 chars
+2026-07-04 19:24:55.632 [INFO] [LLM] Top3 响应 success=1 contentLen=1593
+首先，用户要求我作为待办优先级助手，根据任务象限、截止时间和规则得分，选出今天最应优先完成的3项。输出必须是JSON数组，每项包含id, rank(1-3), reason(中文理由≥15字)。不要有markdown代码块，只输出JSON。
+
+用户提供了JSON任务列表：所有任务的due_at都是"2026-07-04T15:59:00Z"，这意味着它们都截止在同一天（2026年7月4日）。规则得分都是5.936108422071637，相同。任务象限都是3（quadrant:3）。
+
+关键点：任务象限。在待办优先级中，通常有四象限（如艾兹钩矩阵）：
+- 象限1：紧急且重要
+- 象限2：重要但不紧急
+- 象限3：紧急但不重要
+- 象限4：不紧急也不重要
+
+这里所有任务的quadrant都是3。在标准中，象限3通常是“紧急但不重要”，意思是任务有截止日期（紧急），但可能不关键（不重要）。用户说“任务象限”，我假设是这个系统。
+
+规则得分：所有任务的rule_score相同（5.936...），所以没有区别。这可能表示规则得分是基于其他因素，但这里都一样。
+
+截止时间：所有任务的due_at都是同一天（2026-07-04），所以截止时间相同。这意味着在优先级上，截止时间不区分，因为都截止在同一天。
+
+用户说“今天”，但任务截止在2026-07-04，这可能不是今天的日期（假设当前是2023年），但用户指定“今天”，所以我应该基于给定的截止时间。在上下文中，所有任务都截止在同一天，所以优先级可能基于其他因素。
+
+规则得分相同，任务象限相同（3），截止时间相同。所以，我需要看任务的其他属性来决定优先级。
+
+用户没有指定其他规则。但作为优先级助手，我应该基于常见逻辑：例如，任务的紧急程度、重要性、影响等。
+
+回顾用户指令："根据任务象限、截止时间和规则得分"。但这里：
+- 任务象限：所有都是3
+- 截止时间：所有相同（2026-07-04）
+- 规则得分：所有相同（5.936...）
+
+所以，似乎没有区别。但用户要求选出3项，所以我必须假设规则得分或象限有细微差别，或者我需要基于任务标题来推断优先级。
+
+或许“规则得分”是关键。但所有任务的rule_score相同，所以可能规则得分是标准化的，或者我需要考虑任务的其他方面。
+
+另一个想法：在待办优先级中，象限3的任务通常是“紧急但不重要”，所以可能优先级较低，但用户要求选出最应优先完成的3项，所以可能所有任务都视为同样紧急。
+
+但用户说“今天最应优先完成的”，并且所有任务截止在同一天，所以可能我需要随机选3项？但那不合理。
+
+检查任务标题：
+- id:14 - 养成手机使用时间小于2小时的习惯
+- id:13 - 握力训练200个
+- id:11 - 清理办公桌抽屉
+- id:10 - 清理耳朵
+- id:9 - 晚餐节食不吃饭了
+- id:8 - 艾灸半小时
+- id:7 - fitness新版代码备份
+- id:6 - 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+- id:5 - 跟家里联系沟通暑假游玩事宜
+- id:4 - 淘宝购买的木粉取货
+- id:3 - 历史项目skills提炼之后回顾
+- id:2 - 做俯卧撑20个
+- id:1 - 编写AI todolist 软件MVP
+
+所有任务的quadrant都是3，rule_score相同，due_at相同。
+
+或许在规则得分中，5.936... 是一个分数，但所有相同，所以没有优先级。
+
+用户可能期望我基于任务的“重要性”或“影响”来排序。但指令说“根据任务象限、截止时间和规则得分”，这里都相同。
+
+另一个想法：或许“规则得分”是用于其他目的，但用户说“规则得分”，在上下文中，可能规则得分高表示优先级高，但这里所有相同。
+
+我需要
+2026-07-04 19:24:55.632 [WARN] [AI] LLM Top3 响应无法解析 (illegal value)，已降级为规则层
+2026-07-04 19:24:55.633 [INFO] [AI] ========== AI 分析结束 (Top3 解析降级) ==========
+2026-07-04 19:24:55.642 [INFO] [DB] 更新象限 id=14 -> Q3
+2026-07-04 19:24:55.653 [INFO] [DB] 更新象限 id=13 -> Q3
+2026-07-04 19:24:55.665 [INFO] [DB] 更新象限 id=11 -> Q3
+2026-07-04 19:24:55.673 [INFO] [DB] 更新象限 id=10 -> Q3
+2026-07-04 19:24:55.687 [INFO] [DB] 更新象限 id=9 -> Q3
+2026-07-04 19:24:55.697 [INFO] [DB] 更新象限 id=8 -> Q3
+2026-07-04 19:24:55.705 [INFO] [DB] 更新象限 id=7 -> Q3
+2026-07-04 19:24:55.715 [INFO] [DB] 更新象限 id=6 -> Q3
+2026-07-04 19:24:55.723 [INFO] [DB] 更新象限 id=5 -> Q3
+2026-07-04 19:24:55.731 [INFO] [DB] 更新象限 id=4 -> Q3
+2026-07-04 19:24:55.738 [INFO] [DB] 更新象限 id=3 -> Q3
+2026-07-04 19:24:55.747 [INFO] [DB] 更新象限 id=2 -> Q3
+2026-07-04 19:24:55.754 [INFO] [DB] 更新象限 id=1 -> Q3
+2026-07-04 19:24:55.769 [INFO] [UI] 已使用规则层 Top 3，已划分 13 个待分配象限（规则推断） — LLM 响应 JSON 解析失败: illegal value，降级为规则推断 — LLM Top3 响应无法解析 (illegal value)，已降级为规则层
+2026-07-04 19:28:58.418 [INFO] [APP] === ToDoList 退出 ===
+2026-07-04 19:28:58.419 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_46935072' is still in use, all queries will cease to work.
+2026-07-04 19:29:17.563 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 19:29:17.565 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 19:29:18.518 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 19:29:34.564 [INFO] [DB] 重置所有任务象限为不确定，影响 13 条
+2026-07-04 19:29:34.564 [INFO] [UI] 用户重置所有象限为不确定，影响 13 条
+2026-07-04 19:29:36.244 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 19:29:36.246 [INFO] [AI] ========== AI 分析开始 ==========
+2026-07-04 19:29:36.246 [INFO] [AI] 任务总数 13
+2026-07-04 19:29:36.246 [INFO] [LLM] Provider=Ollama Model=qwen3:4b URL=http://127.0.0.1:11434
+2026-07-04 19:29:36.246 [INFO] [AI] 【阶段 1/2】象限分类 — 待分配 13 条任务
+2026-07-04 19:29:36.246 [DEBUG] [AI] 待分配任务列表
+id=14  养成手机使用时间小于2小时的习惯  due=2026-07-04T15:59:00Z
+  id=13  握力训练200个  due=2026-07-04T15:59:00Z
+  id=11  清理办公桌抽屉  due=2026-07-04T15:59:00Z
+  id=10  清理耳朵  due=2026-07-04T15:59:00Z
+  id=9  晚餐节食不吃饭了  due=2026-07-04T15:59:00Z
+  id=8  艾灸半小时  due=2026-07-04T15:59:00Z
+  id=7  fitness新版代码备份  due=2026-07-04T15:59:00Z
+  id=6  羽毛球项目轨迹跟踪算法排除大跳跃干扰  due=2026-07-04T15:59:00Z
+  id=5  跟家里联系沟通暑假游玩事宜  due=2026-07-04T15:59:00Z
+  id=4  淘宝购买的木粉取货  due=2026-07-04T15:59:00Z
+  id=3  历史项目skills提炼之后回顾  due=2026-07-04T15:59:00Z
+  id=2  做俯卧撑20个  due=2026-07-04T15:59:00Z
+  id=1  编写AI todolist 软件MVP  due=2026-07-04T15:59:00Z
+2026-07-04 19:29:36.247 [INFO] [LLM] 发送象限分类请求 provider=Ollama model=qwen3:4b maxTokens=512
+URL: http://127.0.0.1:11434
+
+System:
+你是 Eisenhower 象限分类器。根据 title 和 due_at 分配 quadrant(1-4)。reason 用中文。只输出 JSON 数组，不要 markdown，不要解释。
+
+User:
+为每项任务分配 quadrant(1-4)。仅输出 JSON 数组 [{"id":1,"quadrant":2,"reason":"中文理由"}]。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":11,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"title":"编写AI todolist 软件MVP"}]}
+2026-07-04 19:30:05.859 [INFO] [APP] === ToDoList 退出 ===
+2026-07-04 19:30:05.860 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47983840' is still in use, all queries will cease to work.
+2026-07-04 19:30:10.994 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 19:30:10.994 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 19:30:11.927 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 19:30:15.604 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 19:30:15.605 [INFO] [AI] ========== AI 分析开始 ==========
+2026-07-04 19:30:15.605 [INFO] [AI] 任务总数 13
+2026-07-04 19:30:15.605 [INFO] [LLM] Provider=Ollama Model=qwen3:4b URL=http://127.0.0.1:11434
+2026-07-04 19:30:15.605 [INFO] [AI] 【阶段 1/2】象限分类 — 待分配 13 条任务
+2026-07-04 19:30:15.605 [DEBUG] [AI] 待分配任务列表
+id=14  养成手机使用时间小于2小时的习惯  due=2026-07-04T15:59:00Z
+  id=13  握力训练200个  due=2026-07-04T15:59:00Z
+  id=11  清理办公桌抽屉  due=2026-07-04T15:59:00Z
+  id=10  清理耳朵  due=2026-07-04T15:59:00Z
+  id=9  晚餐节食不吃饭了  due=2026-07-04T15:59:00Z
+  id=8  艾灸半小时  due=2026-07-04T15:59:00Z
+  id=7  fitness新版代码备份  due=2026-07-04T15:59:00Z
+  id=6  羽毛球项目轨迹跟踪算法排除大跳跃干扰  due=2026-07-04T15:59:00Z
+  id=5  跟家里联系沟通暑假游玩事宜  due=2026-07-04T15:59:00Z
+  id=4  淘宝购买的木粉取货  due=2026-07-04T15:59:00Z
+  id=3  历史项目skills提炼之后回顾  due=2026-07-04T15:59:00Z
+  id=2  做俯卧撑20个  due=2026-07-04T15:59:00Z
+  id=1  编写AI todolist 软件MVP  due=2026-07-04T15:59:00Z
+2026-07-04 19:30:15.606 [INFO] [LLM] 发送象限分类请求 provider=Ollama model=qwen3:4b maxTokens=512
+URL: http://127.0.0.1:11434
+
+System:
+你是 Eisenhower 象限分类器。根据 title 和 due_at 分配 quadrant(1-4)。reason 用中文。只输出 JSON 数组，不要 markdown，不要解释。
+
+User:
+为每项任务分配 quadrant(1-4)。仅输出 JSON 数组 [{"id":1,"quadrant":2,"reason":"中文理由"}]。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":11,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"},{"due_at":"2026-07-04T15:59:00Z","id":5,"title":"跟家里联系沟通暑假游玩事宜"},{"due_at":"2026-07-04T15:59:00Z","id":4,"title":"淘宝购买的木粉取货"},{"due_at":"2026-07-04T15:59:00Z","id":3,"title":"历史项目skills提炼之后回顾"},{"due_at":"2026-07-04T15:59:00Z","id":2,"title":"做俯卧撑20个"},{"due_at":"2026-07-04T15:59:00Z","id":1,"title":"编写AI todolist 软件MVP"}]}
+2026-07-04 19:30:45.616 [ERROR] [LLM] Ollama 请求超时 (30000 ms)，请检查模型是否过大或改用 qwen2.5:3b
+2026-07-04 19:30:45.633 [INFO] [LLM] 象限分类响应 success=0 contentLen=0
+Ollama 请求超时 (30000 ms)，请检查模型是否过大或改用 qwen2.5:3b
+2026-07-04 19:30:45.634 [WARN] [AI] 启用规则推断象限（原因: LLM失败）
+2026-07-04 19:30:45.634 [INFO] [CALC] 规则象限 id=14 title=养成手机使用时间小于2小时的习惯 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.634 [INFO] [CALC] 规则象限 id=13 title=握力训练200个 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.635 [INFO] [CALC] 规则象限 id=11 title=清理办公桌抽屉 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.635 [INFO] [CALC] 规则象限 id=10 title=清理耳朵 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.635 [INFO] [CALC] 规则象限 id=9 title=晚餐节食不吃饭了 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.635 [INFO] [CALC] 规则象限 id=8 title=艾灸半小时 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.636 [INFO] [CALC] 规则象限 id=7 title=fitness新版代码备份 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.636 [INFO] [CALC] 规则象限 id=6 title=羽毛球项目轨迹跟踪算法排除大跳跃干扰 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.636 [INFO] [CALC] 规则象限 id=5 title=跟家里联系沟通暑假游玩事宜 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.636 [INFO] [CALC] 规则象限 id=4 title=淘宝购买的木粉取货 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.636 [INFO] [CALC] 规则象限 id=3 title=历史项目skills提炼之后回顾 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.636 [INFO] [CALC] 规则象限 id=2 title=做俯卧撑20个 -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.636 [INFO] [CALC] 规则象限 id=1 title=编写AI todolist 软件MVP -> Q3
+2026-07-04T15:59:00Z
+2026-07-04 19:30:45.636 [DEBUG] [CALC] 规则得分计算完成
+id=14 Q3 score=5.94  养成手机使用时间小于2小时的习惯
+  id=13 Q3 score=5.94  握力训练200个
+  id=11 Q3 score=5.94  清理办公桌抽屉
+  id=10 Q3 score=5.94  清理耳朵
+  id=9 Q3 score=5.94  晚餐节食不吃饭了
+  id=8 Q3 score=5.94  艾灸半小时
+  id=7 Q3 score=5.94  fitness新版代码备份
+  id=6 Q3 score=5.94  羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  id=5 Q3 score=5.94  跟家里联系沟通暑假游玩事宜
+  id=4 Q3 score=5.94  淘宝购买的木粉取货
+  id=3 Q3 score=5.94  历史项目skills提炼之后回顾
+  id=2 Q3 score=5.94  做俯卧撑20个
+  id=1 Q3 score=5.94  编写AI todolist 软件MVP
+2026-07-04 19:30:45.637 [INFO] [CALC] 规则层 Top3 候选 3 条
+2026-07-04 19:30:45.637 [DEBUG] [CALC] 规则 Top3 列表
+#1 id=14 score=5.9 养成手机使用时间小于2小时的习惯
+  #2 id=13 score=5.9 握力训练200个
+  #3 id=11 score=5.9 清理办公桌抽屉
+2026-07-04 19:30:45.637 [INFO] [AI] 【阶段 2/2】Top 3 优先级推荐
+2026-07-04 19:30:45.637 [INFO] [LLM] 发送 Top3 请求 provider=Ollama model=qwen3:4b maxTokens=256
+System:
+你是待办优先级助手。根据 quadrant 和 rule_score 选出 Top 3。只输出 JSON 数组 [{"id":1,"rank":1,"reason":"..."}]，不要 markdown。
+
+User:
+从下列任务中选出今天最应优先完成的 3 项。仅输出 JSON 数组 [{"id":1,"rank":1,"reason":"中文理由"}]。
+{"tasks":[{"due_at":"2026-07-04T15:59:00Z","id":14,"quadrant":3,"rule_score":5.936108422071637,"title":"养成手机使用时间小于2小时的习惯"},{"due_at":"2026-07-04T15:59:00Z","id":13,"quadrant":3,"rule_score":5.936108422071637,"title":"握力训练200个"},{"due_at":"2026-07-04T15:59:00Z","id":11,"quadrant":3,"rule_score":5.936108422071637,"title":"清理办公桌抽屉"},{"due_at":"2026-07-04T15:59:00Z","id":10,"quadrant":3,"rule_score":5.936108422071637,"title":"清理耳朵"},{"due_at":"2026-07-04T15:59:00Z","id":9,"quadrant":3,"rule_score":5.936108422071637,"title":"晚餐节食不吃饭了"},{"due_at":"2026-07-04T15:59:00Z","id":8,"quadrant":3,"rule_score":5.936108422071637,"title":"艾灸半小时"},{"due_at":"2026-07-04T15:59:00Z","id":7,"quadrant":3,"rule_score":5.936108422071637,"title":"fitness新版代码备份"},{"due_at":"2026-07-04T15:59:00Z","id":6,"quadrant":3,"rule_score":5.936108422071637,"title":"羽毛球项目轨迹跟踪算法排除大跳跃干扰"}]}
+2026-07-04 19:31:15.631 [ERROR] [LLM] Ollama 请求超时 (30000 ms)，请检查模型是否过大或改用 qwen2.5:3b
+2026-07-04 19:31:15.643 [INFO] [LLM] Top3 响应 success=0 contentLen=0
+Ollama 请求超时 (30000 ms)，请检查模型是否过大或改用 qwen2.5:3b
+2026-07-04 19:31:15.645 [WARN] [AI] Top3 LLM 失败，使用规则层
+Ollama 请求超时 (30000 ms)，请检查模型是否过大或改用 qwen2.5:3b
+2026-07-04 19:31:15.645 [INFO] [AI] ========== AI 分析结束 (Top3 规则降级) ==========
+2026-07-04 19:31:15.660 [INFO] [DB] 更新象限 id=14 -> Q3
+2026-07-04 19:31:15.669 [INFO] [DB] 更新象限 id=13 -> Q3
+2026-07-04 19:31:15.678 [INFO] [DB] 更新象限 id=11 -> Q3
+2026-07-04 19:31:15.687 [INFO] [DB] 更新象限 id=10 -> Q3
+2026-07-04 19:31:15.696 [INFO] [DB] 更新象限 id=9 -> Q3
+2026-07-04 19:31:15.705 [INFO] [DB] 更新象限 id=8 -> Q3
+2026-07-04 19:31:15.713 [INFO] [DB] 更新象限 id=7 -> Q3
+2026-07-04 19:31:15.722 [INFO] [DB] 更新象限 id=6 -> Q3
+2026-07-04 19:31:15.729 [INFO] [DB] 更新象限 id=5 -> Q3
+2026-07-04 19:31:15.737 [INFO] [DB] 更新象限 id=4 -> Q3
+2026-07-04 19:31:15.746 [INFO] [DB] 更新象限 id=3 -> Q3
+2026-07-04 19:31:15.755 [INFO] [DB] 更新象限 id=2 -> Q3
+2026-07-04 19:31:15.762 [INFO] [DB] 更新象限 id=1 -> Q3
+2026-07-04 19:31:15.777 [INFO] [UI] 已使用规则层 Top 3，已划分 13 个待分配象限（规则推断） — LLM 调用失败: Ollama 请求超时 (30000 ms)，请检查模型是否过大或改用 qwen2.5:3b，降级为规则推断 — Ollama 请求超时 (30000 ms)，请检查模型是否过大或改用 qwen2.5:3b
+2026-07-04 22:17:35.281 [INFO] [APP] === ToDoList 退出 ===
+2026-07-04 22:17:35.281 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_24193536' is still in use, all queries will cease to work.
+2026-07-04 22:17:45.074 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 22:17:45.075 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 22:17:45.821 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-04 22:17:51.520 [INFO] [DB] 重置所有任务象限为不确定，影响 13 条
+2026-07-04 22:17:51.521 [INFO] [UI] 用户重置所有象限为不确定，影响 13 条
+2026-07-04 22:17:54.030 [INFO] [UI] 用户触发 AI 分析，任务数 13
+2026-07-04 22:17:54.031 [INFO] [AI] ========== AI 分析开始 ==========
+2026-07-04 22:17:54.031 [INFO] [AI] 任务总数 13
+2026-07-04 22:17:54.033 [INFO] [LLM] Provider=Ollama Model=qwen3:4b URL=http://127.0.0.1:11434
+2026-07-04 22:17:54.033 [INFO] [AI] 【阶段 1/2】象限分类 — 待分配 13 条任务
+2026-07-04 22:17:54.033 [DEBUG] [AI] 待分配任务列表
+id=14  养成手机使用时间小于2小时的习惯  due=2026-07-04T15:59:00Z
+  id=13  握力训练200个  due=2026-07-04T15:59:00Z
+  id=11  清理办公桌抽屉  due=2026-07-04T15:59:00Z
+  id=10  清理耳朵  due=2026-07-04T15:59:00Z
+  id=9  晚餐节食不吃饭了  due=2026-07-04T15:59:00Z
+  id=8  艾灸半小时  due=2026-07-04T15:59:00Z
+  id=7  fitness新版代码备份  due=2026-07-04T15:59:00Z
+  id=6  羽毛球项目轨迹跟踪算法排除大跳跃干扰  due=2026-07-04T15:59:00Z
+  id=5  跟家里联系沟通暑假游玩事宜  due=2026-07-04T15:59:00Z
+  id=4  淘宝购买的木粉取货  due=2026-07-04T15:59:00Z
+  id=3  历史项目skills提炼之后回顾  due=2026-07-04T15:59:00Z
+  id=2  做俯卧撑20个  due=2026-07-04T15:59:00Z
+  id=1  编写AI todolist 软件MVP  due=2026-07-04T15:59:00Z
+2026-07-04 22:17:54.033 [INFO] [AI] Ollama 分批象限分类：3 批 × 最多 5 条
+2026-07-04 22:17:54.033 [INFO] [LLM] 发送象限分类请求 [1/3] provider=Ollama model=qwen3:4b tasks=5 maxTokens=304 timeout=180000ms
+System:
+Eisenhower 象限分类。quadrant=1-4，reason 中文。只输出 JSON 数组。
+
+User:
+为每行任务分配 quadrant(1-4)。仅输出 JSON 数组 [{"id":1,"quadrant":2,"reason":"中文"}]:
+14 养成手机使用时间小于2小时的习惯
+13 握力训练200个
+11 清理办公桌抽屉
+10 清理耳朵
+9 晚餐节食不吃饭了
+
+2026-07-04 22:18:26.663 [DEBUG] [LLM] Ollama OK, 468 chars, 32609 ms, format=1
+2026-07-04 22:18:26.668 [INFO] [LLM] 象限分类响应 [1/3] success=1 contentLen=468
+[
+  {
+    "id": 1,
+    "quadrant": 1,
+    "reason": "紧急且重要：手机使用时间小于2小时是日常习惯，需要立即关注以避免影响健康和效率"
+  },
+  {
+    "id": 2,
+    "quadrant": 2,
+    "reason": "重要但不紧急：握力训练200个是长期健康目标，但当前没有紧迫性"
+  },
+  {
+    "id": 3,
+    "quadrant": 3,
+    "reason": "不紧急也不重要：清理办公桌抽屉是日常事务，但对当前任务和长期目标影响不大"
+  },
+  {
+    "id": 4,
+    "quadrant": 4,
+    "reason": "既不紧急也不重要：清理耳朵是日常小任务，对健康影响较小，且无需立即处理"
+  },
+  {
+    "id": 5,
+    "quadrant": 1,
+    "reason": "紧急且重要：晚餐节食不吃饭了涉及健康和饮食，需要立即调整以避免健康风险"
+  }
+]
+2026-07-04 22:18:26.668 [INFO] [AI] LLM 象限 id=1 -> Q1
+紧急且重要：手机使用时间小于2小时是日常习惯，需要立即关注以避免影响健康和效率
+2026-07-04 22:18:26.668 [INFO] [AI] LLM 象限 id=2 -> Q2
+重要但不紧急：握力训练200个是长期健康目标，但当前没有紧迫性
+2026-07-04 22:18:26.669 [INFO] [AI] LLM 象限 id=3 -> Q3
+不紧急也不重要：清理办公桌抽屉是日常事务，但对当前任务和长期目标影响不大
+2026-07-04 22:18:26.669 [INFO] [AI] LLM 象限 id=4 -> Q4
+既不紧急也不重要：清理耳朵是日常小任务，对健康影响较小，且无需立即处理
+2026-07-04 22:18:26.670 [INFO] [AI] LLM 象限 id=5 -> Q1
+紧急且重要：晚餐节食不吃饭了涉及健康和饮食，需要立即调整以避免健康风险
+2026-07-04 22:18:26.670 [WARN] [AI] 任务 id=14 未在 LLM 响应中，规则补全 -> Q1
+规则补全：AI 未返回此项，按标题+截止时间推断 Q1
+2026-07-04 22:18:26.670 [WARN] [AI] 任务 id=13 未在 LLM 响应中，规则补全 -> Q3
+规则补全：AI 未返回此项，按标题+截止时间推断 Q3
+2026-07-04 22:18:26.670 [WARN] [AI] 任务 id=11 未在 LLM 响应中，规则补全 -> Q3
+规则补全：AI 未返回此项，按标题+截止时间推断 Q3
+2026-07-04 22:18:26.670 [WARN] [AI] 任务 id=10 未在 LLM 响应中，规则补全 -> Q3
+规则补全：AI 未返回此项，按标题+截止时间推断 Q3
+2026-07-04 22:18:26.670 [WARN] [AI] 任务 id=9 未在 LLM 响应中，规则补全 -> Q3
+规则补全：AI 未返回此项，按标题+截止时间推断 Q3
+2026-07-04 22:18:26.670 [INFO] [LLM] 发送象限分类请求 [2/3] provider=Ollama model=qwen3:4b tasks=5 maxTokens=304 timeout=180000ms
+System:
+Eisenhower 象限分类。quadrant=1-4，reason 中文。只输出 JSON 数组。
+
+User:
+为每行任务分配 quadrant(1-4)。仅输出 JSON 数组 [{"id":1,"quadrant":2,"reason":"中文"}]:
+8 艾灸半小时
+7 fitness新版代码备份
+6 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+5 跟家里联系沟通暑假游玩事宜
+4 淘宝购买的木粉取货
+
+2026-07-04 22:18:39.900 [DEBUG] [LLM] Ollama OK, 258 chars, 13226 ms, format=1
+2026-07-04 22:18:39.903 [INFO] [LLM] 象限分类响应 [2/3] success=1 contentLen=258
+[
+  {
+    "id": 1,
+    "quadrant": 2,
+    "reason": "紧急且重要"
+  },
+  {
+    "id": 2,
+    "quadrant": 3,
+    "reason": "重要但不紧急"
+  },
+  {
+    "id": 3,
+    "quadrant": 4,
+    "reason": "不重要且不紧急"
+  },
+  {
+    "id": 4,
+    "quadrant": 1,
+    "reason": "紧急但不重要"
+  }
+]
+2026-07-04 22:18:39.904 [INFO] [AI] LLM 象限 id=1 -> Q2
+紧急且重要
+2026-07-04 22:18:39.904 [INFO] [AI] LLM 象限 id=2 -> Q3
+重要但不紧急
+2026-07-04 22:18:39.904 [INFO] [AI] LLM 象限 id=3 -> Q4
+不重要且不紧急
+2026-07-04 22:18:39.904 [INFO] [AI] LLM 象限 id=4 -> Q1
+紧急但不重要
+2026-07-04 22:18:39.904 [WARN] [AI] 任务 id=8 未在 LLM 响应中，规则补全 -> Q3
+规则补全：AI 未返回此项，按标题+截止时间推断 Q3
+2026-07-04 22:18:39.904 [WARN] [AI] 任务 id=7 未在 LLM 响应中，规则补全 -> Q1
+规则补全：AI 未返回此项，按标题+截止时间推断 Q1
+2026-07-04 22:18:39.904 [WARN] [AI] 任务 id=6 未在 LLM 响应中，规则补全 -> Q1
+规则补全：AI 未返回此项，按标题+截止时间推断 Q1
+2026-07-04 22:18:39.904 [WARN] [AI] 任务 id=5 未在 LLM 响应中，规则补全 -> Q1
+规则补全：AI 未返回此项，按标题+截止时间推断 Q1
+2026-07-04 22:18:39.904 [INFO] [LLM] 发送象限分类请求 [3/3] provider=Ollama model=qwen3:4b tasks=3 maxTokens=208 timeout=180000ms
+System:
+Eisenhower 象限分类。quadrant=1-4，reason 中文。只输出 JSON 数组。
+
+User:
+为每行任务分配 quadrant(1-4)。仅输出 JSON 数组 [{"id":1,"quadrant":2,"reason":"中文"}]:
+3 历史项目skills提炼之后回顾
+2 做俯卧撑20个
+1 编写AI todolist 软件MVP
+
+2026-07-04 22:18:50.322 [DEBUG] [LLM] Ollama OK, 198 chars, 10416 ms, format=1
+2026-07-04 22:18:50.328 [INFO] [LLM] 象限分类响应 [3/3] success=1 contentLen=198
+[
+  {
+    "id": 1,
+    "quadrant": 2,
+    "reason": "需要立即行动，但不紧急"
+  },
+  {
+    "id": 2,
+    "quadrant": 4,
+    "reason": "紧急但不重要"
+  },
+  {
+    "id": 3,
+    "quadrant": 1,
+    "reason": "重要且紧急"
+  }
+]
+2026-07-04 22:18:50.328 [INFO] [AI] LLM 象限 id=1 -> Q2
+需要立即行动，但不紧急
+2026-07-04 22:18:50.328 [INFO] [AI] LLM 象限 id=2 -> Q4
+紧急但不重要
+2026-07-04 22:18:50.328 [INFO] [AI] LLM 象限 id=3 -> Q1
+重要且紧急
+2026-07-04 22:18:50.328 [INFO] [AI] AI 成功划分 21 项（3/3 批走 LLM）
+2026-07-04 22:18:50.329 [DEBUG] [CALC] 规则得分计算完成
+id=14 Q1 score=8.29  养成手机使用时间小于2小时的习惯
+  id=13 Q3 score=5.94  握力训练200个
+  id=11 Q3 score=5.94  清理办公桌抽屉
+  id=10 Q3 score=5.94  清理耳朵
+  id=9 Q3 score=5.94  晚餐节食不吃饭了
+  id=8 Q3 score=5.94  艾灸半小时
+  id=7 Q1 score=8.29  fitness新版代码备份
+  id=6 Q1 score=8.29  羽毛球项目轨迹跟踪算法排除大跳跃干扰
+  id=5 Q1 score=8.29  跟家里联系沟通暑假游玩事宜
+  id=4 Q1 score=8.29  淘宝购买的木粉取货
+  id=3 Q1 score=8.29  历史项目skills提炼之后回顾
+  id=2 Q4 score=4.52  做俯卧撑20个
+  id=1 Q2 score=7.35  编写AI todolist 软件MVP
+2026-07-04 22:18:50.329 [INFO] [CALC] 规则层 Top3 候选 3 条
+2026-07-04 22:18:50.330 [DEBUG] [CALC] 规则 Top3 列表
+#1 id=14 score=8.3 养成手机使用时间小于2小时的习惯
+  #2 id=7 score=8.3 fitness新版代码备份
+  #3 id=6 score=8.3 羽毛球项目轨迹跟踪算法排除大跳跃干扰
+2026-07-04 22:18:50.330 [INFO] [AI] 【阶段 2/2】Top 3 优先级推荐
+2026-07-04 22:18:50.330 [INFO] [AI] Ollama 本地模型跳过 Top3 LLM，使用规则层 Top 3
+2026-07-04 22:18:50.330 [INFO] [AI] ========== AI 分析结束 (Ollama 规则 Top3) ==========
+2026-07-04 22:18:50.340 [INFO] [DB] 更新象限 id=1 -> Q1
+2026-07-04 22:18:50.347 [INFO] [DB] 更新象限 id=2 -> Q2
+2026-07-04 22:18:50.353 [INFO] [DB] 更新象限 id=3 -> Q3
+2026-07-04 22:18:50.359 [INFO] [DB] 更新象限 id=4 -> Q4
+2026-07-04 22:18:50.365 [INFO] [DB] 更新象限 id=5 -> Q1
+2026-07-04 22:18:50.371 [INFO] [DB] 更新象限 id=14 -> Q1
+2026-07-04 22:18:50.378 [INFO] [DB] 更新象限 id=13 -> Q3
+2026-07-04 22:18:50.384 [INFO] [DB] 更新象限 id=11 -> Q3
+2026-07-04 22:18:50.391 [INFO] [DB] 更新象限 id=10 -> Q3
+2026-07-04 22:18:50.398 [INFO] [DB] 更新象限 id=9 -> Q3
+2026-07-04 22:18:50.404 [INFO] [DB] 更新象限 id=1 -> Q2
+2026-07-04 22:18:50.410 [INFO] [DB] 更新象限 id=2 -> Q3
+2026-07-04 22:18:50.416 [INFO] [DB] 更新象限 id=3 -> Q4
+2026-07-04 22:18:50.421 [INFO] [DB] 更新象限 id=4 -> Q1
+2026-07-04 22:18:50.427 [INFO] [DB] 更新象限 id=8 -> Q3
+2026-07-04 22:18:50.433 [INFO] [DB] 更新象限 id=7 -> Q1
+2026-07-04 22:18:50.438 [INFO] [DB] 更新象限 id=6 -> Q1
+2026-07-04 22:18:50.439 [INFO] [DB] 更新象限 id=5 -> Q1
+2026-07-04 22:18:50.440 [INFO] [DB] 更新象限 id=1 -> Q2
+2026-07-04 22:18:50.445 [INFO] [DB] 更新象限 id=2 -> Q4
+2026-07-04 22:18:50.453 [INFO] [DB] 更新象限 id=3 -> Q1
+2026-07-04 22:18:50.464 [INFO] [UI] AI 分析完成，已划分 21 个待分配象限（AI 划分） — AI 成功划分 21 项（3/3 批走 LLM） — Ollama 本地模型跳过 Top3 LLM，使用规则层 Top 3
+2026-07-04 22:33:08.712 [INFO] [DB] 更新完成状态 id=14 completed=1
+2026-07-04 22:33:09.519 [INFO] [DB] 更新完成状态 id=13 completed=1
+2026-07-04 22:33:10.922 [INFO] [DB] 更新完成状态 id=11 completed=1
+2026-07-04 22:33:11.968 [INFO] [DB] 更新完成状态 id=10 completed=1
+2026-07-04 22:33:13.999 [INFO] [DB] 更新完成状态 id=9 completed=1
+2026-07-04 22:33:15.970 [INFO] [DB] 更新完成状态 id=7 completed=1
+2026-07-04 22:33:20.517 [INFO] [DB] 更新完成状态 id=4 completed=1
+2026-07-04 22:33:21.605 [INFO] [DB] 更新完成状态 id=3 completed=1
+2026-07-04 22:33:22.768 [INFO] [DB] 更新完成状态 id=2 completed=1
+2026-07-04 22:33:24.063 [INFO] [DB] 更新完成状态 id=1 completed=1
+2026-07-04 22:45:07.533 [INFO] [APP] === ToDoList 退出 ===
+2026-07-04 22:45:07.536 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47066912' is still in use, all queries will cease to work.
+2026-07-04 22:45:53.230 [INFO] [APP] === ToDoList 启动 === 可执行文件: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/ToDoList.exe
+2026-07-04 22:45:53.231 [INFO] [APP] 数据目录: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data | 日志: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/logs/todolist-2026-07-04.log
+2026-07-04 22:45:54.501 [INFO] [DB] 数据库已打开: D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/release/data/tasks.db
+2026-07-05 00:52:53.611 [WARN] [default] monitorData: Unable to obtain handle for monitor '\\.\DISPLAY1', defaulting to 96 DPI.
+2026-07-05 09:44:29.800 [INFO] [APP] === ToDoList 退出 ===
+2026-07-05 09:44:29.802 [WARN] [default] QSqlDatabasePrivate::removeDatabase: connection 'todolist_conn_47329056' is still in use, all queries will cease to work.
