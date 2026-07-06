@@ -10,8 +10,8 @@
                    "db_schema":  1,
                    "package":  {
                                    "file_name":  "ToDoList-Portable-1.0.3.zip",
-                                   "size":  16669713,
-                                   "sha256":  "290acdef41c8f51913ea1825cb783fd11045a17a22e7a6bd126f54dd12f3f6dd",
+                                   "size":  16672401,
+                                   "sha256":  "13915f7660640bda9e257479a6cafb8a22e66b796caaaf17960b0a32c2cb8e90",
                                    "url":  "https://github.com/zengxiangfu1985/ToDoList/releases/download/v1.0.3/ToDoList-Portable-1.0.3.zip",
                                    "mirrors":  [
                                                    "https://ghproxy.net/https://github.com/zengxiangfu1985/ToDoList/releases/download/v1.0.3/ToDoList-Portable-1.0.3.zip"
