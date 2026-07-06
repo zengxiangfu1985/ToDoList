@@ -1,0 +1,18 @@
+﻿{
+    "schema":  1,
+    "channel":  "stable",
+    "latest":  {
+                   "version":  "1.0.0",
+                   "build":  2026070618,
+                   "min_app_version":  "1.0.0",
+                   "release_notes":  "首个 Release",
+                   "mandatory":  false,
+                   "db_schema":  1,
+                   "package":  {
+                                   "file_name":  "ToDoList-Portable-1.0.0.zip",
+                                   "size":  16666855,
+                                   "sha256":  "983baf0b12dcc1e874b7812f14346d49ed657f8726d36e56eb19538b54eecfee",
+                                   "url":  "https://github.com/zengxiangfu1985/ToDoList/releases/download/v1.0.0/ToDoList-Portable-1.0.0.zip"
+                               }
+               }
+}
