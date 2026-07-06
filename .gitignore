@@ -35,3 +35,7 @@ Desktop.ini
 .env
 *.pem
 **/password.json
+
+# dist 目录仅保留 update.json
+dist/*
+!dist/update.json
