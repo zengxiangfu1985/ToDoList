@@ -530,20 +530,37 @@ void MainWindow::onAppSettings()
 void MainWindow::onAbout()
 {
     AboutDialog dlg(this);
-    connect(&dlg, &AboutDialog::checkUpdateRequested, this, &MainWindow::onCheckForUpdates);
+    connect(&dlg, &AboutDialog::checkUpdateRequested, this, [this, &dlg]() {
+        dlg.accept();
+        onCheckForUpdates();
+    });
     connect(&dlg, &AboutDialog::importOfflineUpdateRequested, this,
             &MainWindow::onImportOfflineUpdate);
     dlg.exec();
 }
 
-void MainWindow::showUpdateDialog(UpdateDialog::Mode mode, const QString &offlineZipPath)
+void MainWindow::showUpdateDialog(UpdateDialog::Mode mode, const QString &offlineZipPath,
+                                  bool recheckOnline)
 {
+    if (m_updateDialog) {
+        m_updateDialog->raise();
+        m_updateDialog->activateWindow();
+        return;
+    }
+
     auto *dialog = new UpdateDialog(m_updateService, this);
+    m_updateDialog = dialog;
     dialog->setAttribute(Qt::WA_DeleteOnClose);
-    if (mode == UpdateDialog::Mode::CheckOnline)
-        dialog->startOnlineCheck();
-    else
+    connect(dialog, &QObject::destroyed, this, [this]() { m_updateDialog = nullptr; });
+
+    if (mode == UpdateDialog::Mode::CheckOnline) {
+        if (recheckOnline)
+            dialog->startOnlineCheck(true);
+        else
+            dialog->startWithKnownUpdate();
+    } else {
         dialog->startOfflineImport(offlineZipPath);
+    }
     dialog->open();
 }
 
@@ -573,14 +590,14 @@ void MainWindow::onStartupUpdateCheck()
                 if (!hasUpdate)
                     return;
                 if (m_updateService->latestPackage().mandatory) {
-                    showUpdateDialog(UpdateDialog::Mode::CheckOnline);
+                    showUpdateDialog(UpdateDialog::Mode::CheckOnline, QString(), false);
                     return;
                 }
                 if (QMessageBox::information(this, tr("发现新版本"),
                                              tr("检测到 ToDoList 有新版本可用，是否查看并升级？"),
                                              QMessageBox::Yes | QMessageBox::No)
                     == QMessageBox::Yes)
-                    showUpdateDialog(UpdateDialog::Mode::CheckOnline);
+                    showUpdateDialog(UpdateDialog::Mode::CheckOnline, QString(), false);
             });
     m_updateService->checkForUpdates();
 }

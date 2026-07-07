@@ -123,7 +123,8 @@ private:
     void exitDeleteMode();
     void deleteTasksByIds(const QVector<qint64> &ids);
     ScoringWeights currentWeights() const;
-    void showUpdateDialog(UpdateDialog::Mode mode, const QString &offlineZipPath = QString());
+    void showUpdateDialog(UpdateDialog::Mode mode, const QString &offlineZipPath = QString(),
+                          bool recheckOnline = true);
 
     Ui::MainWindow *ui;
     WindowTitleBar *m_titleBar = nullptr;
@@ -153,6 +154,7 @@ private:
     LockScreenWidget *m_lockScreen = nullptr;
     AiBusyOverlay *m_aiBusyOverlay = nullptr;
     UpdateService *m_updateService = nullptr;
+    UpdateDialog *m_updateDialog = nullptr;
     WindowsSessionMonitor *m_sessionMonitor = nullptr;
     QTimer *m_systemLockTimer = nullptr;
     QTimer *m_idleTimer = nullptr;

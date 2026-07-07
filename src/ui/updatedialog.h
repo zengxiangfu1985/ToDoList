@@ -23,7 +23,8 @@ public:
     explicit UpdateDialog(UpdateService *service, QWidget *parent = nullptr);
     ~UpdateDialog() override;
 
-    void startOnlineCheck();
+    void startOnlineCheck(bool recheck = true);
+    void startWithKnownUpdate();
     void startOfflineImport(const QString &zipPath);
 
 protected:
@@ -40,11 +41,14 @@ private slots:
 private:
     void setStatusText(const QString &text);
     void showReleaseNotes(const UpdatePackageInfo &package);
+    void beginDownloadIfNeeded(const UpdatePackageInfo &package);
+    void syncDownloadUi();
 
     Ui::UpdateDialog *ui;
     UpdateService *m_service = nullptr;
     Mode m_mode = Mode::CheckOnline;
     bool m_hasUpdate = false;
+    bool m_downloadStarted = false;
 };
 
 #endif // UPDATEDIALOG_H

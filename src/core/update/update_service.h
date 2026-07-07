@@ -30,6 +30,7 @@ public:
 
     void checkForUpdates();
     void downloadUpdate(const UpdatePackageInfo &package);
+    bool hasValidCachedDownload(const UpdatePackageInfo &package) const;
     bool launchUpdaterAndExit(const UpdatePackageInfo &package, QString *error = nullptr);
     bool prepareOfflineUpdate(const QString &zipPath, QString *error = nullptr);
 

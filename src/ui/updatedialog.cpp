@@ -61,12 +61,99 @@ void UpdateDialog::showReleaseNotes(const UpdatePackageInfo &package)
             .arg(package.releaseNotes.isEmpty() ? tr("暂无更新说明") : package.releaseNotes));
 }
 
-void UpdateDialog::startOnlineCheck()
+void UpdateDialog::startOnlineCheck(bool recheck)
 {
     m_mode = Mode::CheckOnline;
+    m_downloadStarted = false;
+    if (!m_service) {
+        setStatusText(tr("当前版本: %1\n无法检查更新。").arg(AppVersion::displayString()));
+        return;
+    }
+
+    if (!recheck) {
+        startWithKnownUpdate();
+        return;
+    }
+
+    if (m_service->state() == UpdateService::State::Downloading) {
+        setStatusText(tr("当前版本: %1\n正在检查更新...").arg(AppVersion::displayString()));
+        syncDownloadUi();
+        return;
+    }
+
+    if (m_service->state() == UpdateService::State::Ready) {
+        const UpdatePackageInfo package = m_service->latestPackage();
+        if (AppVersion::isNewerThanCurrent(package.version, package.build)) {
+            startWithKnownUpdate();
+            return;
+        }
+    }
+
     setStatusText(tr("当前版本: %1\n正在检查更新...").arg(AppVersion::displayString()));
-    if (m_service)
-        m_service->checkForUpdates();
+    m_service->checkForUpdates();
+}
+
+void UpdateDialog::startWithKnownUpdate()
+{
+    m_mode = Mode::CheckOnline;
+    if (!m_service)
+        return;
+
+    const UpdatePackageInfo package = m_service->latestPackage();
+    if (!AppVersion::isNewerThanCurrent(package.version, package.build)) {
+        onCheckFinished(false);
+        return;
+    }
+
+    m_hasUpdate = true;
+    showReleaseNotes(package);
+    ui->btnUpgrade->setVisible(true);
+
+    if (m_service->state() == UpdateService::State::Ready
+        && m_service->hasValidCachedDownload(package)) {
+        syncDownloadUi();
+        onDownloadFinished(true);
+        return;
+    }
+
+    if (m_service->state() == UpdateService::State::Downloading) {
+        syncDownloadUi();
+        return;
+    }
+
+    beginDownloadIfNeeded(package);
+}
+
+void UpdateDialog::syncDownloadUi()
+{
+    if (!m_service)
+        return;
+
+    ui->progressBar->setVisible(true);
+    ui->progressBar->setRange(0, 100);
+    ui->progressBar->setValue(m_service->downloadProgress());
+    if (m_service->state() == UpdateService::State::Ready) {
+        setStatusText(tr("下载完成，可以升级。"));
+        ui->btnUpgrade->setVisible(true);
+        m_hasUpdate = true;
+    } else {
+        setStatusText(tr("正在下载更新包... %1%").arg(m_service->downloadProgress()));
+    }
+}
+
+void UpdateDialog::beginDownloadIfNeeded(const UpdatePackageInfo &package)
+{
+    if (!m_service || package.url.isEmpty())
+        return;
+    if (m_downloadStarted)
+        return;
+
+    m_downloadStarted = true;
+    ui->progressBar->setVisible(true);
+    ui->progressBar->setRange(0, 100);
+    ui->progressBar->setValue(0);
+    setStatusText(tr("正在下载更新包..."));
+    m_service->downloadUpdate(package);
 }
 
 void UpdateDialog::startOfflineImport(const QString &zipPath)
@@ -109,14 +196,7 @@ void UpdateDialog::onCheckFinished(bool hasUpdate)
     showReleaseNotes(package);
     ui->btnUpgrade->setVisible(true);
     setStatusText(tr("发现新版本，可立即升级。"));
-
-    if (!package.url.isEmpty()) {
-        ui->progressBar->setVisible(true);
-        ui->progressBar->setRange(0, 100);
-        ui->progressBar->setValue(0);
-        setStatusText(tr("正在下载更新包..."));
-        m_service->downloadUpdate(package);
-    }
+    beginDownloadIfNeeded(package);
 }
 
 void UpdateDialog::onDownloadProgressChanged(int percent)

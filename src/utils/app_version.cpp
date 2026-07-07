@@ -7,8 +7,8 @@
 
 namespace {
 
-constexpr const char *kVersion = "1.0.5";
-constexpr int kBuildNumber = 2026070624;
+constexpr const char *kVersion = "1.0.6";
+constexpr int kBuildNumber = 2026070707;
 constexpr int kVersionParts = 3;
 
 QVector<int> parseVersionParts(const QString &version)

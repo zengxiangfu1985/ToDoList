@@ -84,6 +84,11 @@ void UpdateService::setError(const QString &message)
 
 void UpdateService::checkForUpdates()
 {
+    if (m_state == State::Downloading) {
+        AppLogger::info("UPDATE", QStringLiteral("正在下载更新包，忽略重复检查"));
+        return;
+    }
+
     if (m_reply) {
         m_reply->abort();
         m_reply->deleteLater();
@@ -221,14 +226,33 @@ void UpdateService::downloadUpdate(const UpdatePackageInfo &package)
         return;
     }
 
+    m_latest = package;
+    m_downloadPath = downloadCachePath(package);
+
+    QString cacheError;
+    if (validateDownloadedPackage(package, m_downloadPath, &cacheError)) {
+        AppLogger::info("UPDATE",
+                        QStringLiteral("复用已下载的更新包: %1").arg(m_downloadPath));
+        m_lastError.clear();
+        m_downloadProgress = 100;
+        setState(State::Ready);
+        emit downloadProgressChanged(100);
+        emit downloadFinished(true);
+        return;
+    }
+
+    if (m_state == State::Downloading && m_latest.version == package.version
+        && m_latest.build == package.build) {
+        AppLogger::info("UPDATE", QStringLiteral("更新包正在下载中，忽略重复请求"));
+        return;
+    }
+
     if (m_reply) {
         m_reply->abort();
         m_reply->deleteLater();
         m_reply = nullptr;
     }
 
-    m_latest = package;
-    m_downloadPath = downloadCachePath(package);
     m_pendingDownloadUrls = buildDownloadUrls(package);
     m_downloadProgress = 0;
     m_downloadReceived = 0;
@@ -240,6 +264,13 @@ void UpdateService::downloadUpdate(const UpdatePackageInfo &package)
     startNextDownloadRequest();
 }
 
+bool UpdateService::hasValidCachedDownload(const UpdatePackageInfo &package) const
+{
+    const QString path = downloadCachePath(package);
+    QString error;
+    return validateDownloadedPackage(package, path, &error);
+}
+
 QStringList UpdateService::buildDownloadUrls(const UpdatePackageInfo &package) const
 {
     QStringList urls;
@@ -247,9 +278,9 @@ QStringList UpdateService::buildDownloadUrls(const UpdatePackageInfo &package) c
         if (!url.isEmpty() && !urls.contains(url))
             urls.append(url);
     };
-    appendUnique(package.url);
     for (const QString &mirrorUrl : package.mirrorUrls)
         appendUnique(mirrorUrl);
+    appendUnique(package.url);
     return urls;
 }
 
@@ -325,6 +356,8 @@ void UpdateService::onDownloadFinished()
         m_lastError = err;
         m_reply->deleteLater();
         m_reply = nullptr;
+        if (!m_pendingDownloadUrls.isEmpty())
+            AppLogger::info("UPDATE", QStringLiteral("切换备用下载源重试"));
         startNextDownloadRequest();
         return;
     }
@@ -337,6 +370,8 @@ void UpdateService::onDownloadFinished()
     if (!validateDownloadedPackage(m_latest, m_downloadPath, &validateError)) {
         AppLogger::warn("UPDATE", validateError);
         m_lastError = validateError;
+        if (!m_pendingDownloadUrls.isEmpty())
+            AppLogger::info("UPDATE", QStringLiteral("校验失败，切换备用下载源重试"));
         startNextDownloadRequest();
         return;
     }

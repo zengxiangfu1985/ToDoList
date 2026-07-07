@@ -200,8 +200,10 @@ Copy-Plugin "imageformats" "qjpeg.dll"
 
 Write-Host "[8/10] Create data dir and helper files"
 New-Item -ItemType Directory -Path (Join-Path $OutDir "data") -Force | Out-Null
-Copy-Item (Join-Path $PSScriptRoot "portable-readme.txt") (Join-Path $OutDir "使用说明.txt") -Force
-Copy-Item (Join-Path $PSScriptRoot "portable-start.bat") (Join-Path $OutDir "启动 ToDoList.bat") -Force
+$CopyHelperScript = Join-Path $PSScriptRoot "copy-portable-helper-files.py"
+if (-not (Test-Path $CopyHelperScript)) { throw "Missing helper copy script: $CopyHelperScript" }
+python $CopyHelperScript $OutDir
+if ($LASTEXITCODE -ne 0) { throw "Failed to create portable helper files" }
 
 $updateConfigTemplate = Join-Path $ProjectRoot "resources\update-config.default.json"
 $updateConfigOut = Join-Path $OutDir "update-config.json"
