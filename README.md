@@ -17,6 +17,7 @@
 - [软件使用方法](#软件使用方法)
 - [模型（LLM）配置方法](#模型llm配置方法)
 - [在线更新](#在线更新)
+- [匿名使用统计与隐私](#匿名使用统计与隐私)
 - [数据与日志](#数据与日志)
 - [插图说明（如何插入截图）](#插图说明如何插入截图)
 
@@ -33,7 +34,7 @@
 > 📷 **插图占位** [`docs/screenshots/01-quick-start.png`](docs/screenshots/01-quick-start.png)  
 > 解压后的便携版目录结构（含 `ToDoList.exe`、`data/`、`使用说明.txt`）
 
-![快速开始：便携版目录](docs/screenshots/01-quick-start.png)
+![快速开始：便携版目录](https://github.com/zengxiangfu1985/ToDoList/raw/main/docs/screenshots/01-quick-start.png)
 
 ---
 
@@ -66,7 +67,7 @@
 > 📷 **插图占位** [`docs/screenshots/02-main-window.png`](docs/screenshots/02-main-window.png)  
 > 主界面全貌：任务列表 + 四象限 + Top 3
 
-![主界面](docs/screenshots/02-main-window.png)
+![主界面](https://github.com/zengxiangfu1985/ToDoList/raw/main/docs/screenshots/02-main-window.png)
 
 ---
 
@@ -81,25 +82,27 @@
 **批量添加（今日任务）**
 
 1. 点击 **今日任务**（或托盘菜单 / 快捷键 `Alt+Shift+J`）。
-2. 每行输入一条任务，截止时间为当天 23:59。
-3. 可选择 **导入昨日未完成任务**。
+2. **已有任务**区：显示今日已有任务（带行号），可编辑标题或删除行。
+3. **新增任务**区：每行输入一条新任务，截止时间为当天 23:59。
+4. 底部 **导入昨日未完成** 会将任务追加到「新增任务」区。
+5. 点击 **保存** 可一次性完成新增、修改、删除。
 
 **编辑与完成**
 
 - **双击**任务行 → 编辑。
-- **勾选**完成列 → 标记完成（带删除线）。
+- **勾选**完成列 → 标记完成（带删除线）；任务列表、四象限、Top 3 **三处勾选状态互相同步**。
 - **右键** → 删除、改象限等。
 - **删除任务** 按钮 → 进入批量删除模式。
 
 > 📷 **插图占位** [`docs/screenshots/03-add-task.png`](docs/screenshots/03-add-task.png)  
 > 「添加任务」对话框
 
-![添加任务](docs/screenshots/03-add-task.png)
+![添加任务](https://github.com/zengxiangfu1985/ToDoList/raw/main/docs/screenshots/03-add-task.png)
 
 > 📷 **插图占位** [`docs/screenshots/04-today-tasks.png`](docs/screenshots/04-today-tasks.png)  
 > 「今日任务」批量录入
 
-![今日任务](docs/screenshots/04-today-tasks.png)
+![今日任务](https://github.com/zengxiangfu1985/ToDoList/raw/main/docs/screenshots/04-today-tasks.png)
 
 ---
 
@@ -120,22 +123,20 @@
 2. 点击 **AI 分析优先级**。
 3. 等待分析完成（界面显示「分析中请稍后」）。
 4. 查看四象限自动划分结果与右侧 **Top 3** 列表。
-5. 点击 Top 3 条目，下方显示 **推荐理由**。
+5. 点击 Top 3 条目文字，下方显示 **推荐理由**。
+6. 点击 Top 3 条目右侧 **勾选框** 可标记完成，与任务列表、四象限同步。
 
-> 📷 **插图占位** [`docs/screenshots/05-ai-analyze.png`](docs/screenshots/05-ai-analyze.png)  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/05-ai-analyze.png`](docs/screenshots/05-ai-analyze.png) 并 push 到仓库后自动显示  
 > AI 分析完成后的四象限与 Top 3
 
-![AI 分析结果](docs/screenshots/05-ai-analyze.png)
-
-> 📷 **插图占位** [`docs/screenshots/06-top3-popup.png`](docs/screenshots/06-top3-popup.png)  
-> Top 3 弹窗（快捷键 `Alt+Shift+3`）
-
-![Top 3 弹窗](docs/screenshots/06-top3-popup.png)
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/06-top3-popup.png`](docs/screenshots/06-top3-popup.png) 并 push 到仓库后自动显示  
+> Top 3 弹窗（快捷键 `Alt+Shift+3`，同样支持勾选完成）
 
 **说明**
 
 - LLM 不可用时，程序会自动使用 **规则层评分** 生成 Top 3，基本功能仍可用。
 - 当日 Top 3 会按模型自动保存，重启后可恢复。
+- 在 **任务列表 / 四象限 / Top 3 / Top 3 弹窗** 任意一处勾选完成，其余位置会自动同步。
 
 ---
 
@@ -152,10 +153,8 @@
 
 托盘右键菜单：显示主窗口、今日任务、添加任务、Top 3 弹窗、退出。
 
-> 📷 **插图占位** [`docs/screenshots/07-tray-menu.png`](docs/screenshots/07-tray-menu.png)  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/07-tray-menu.png`](docs/screenshots/07-tray-menu.png) 并 push 到仓库后自动显示  
 > 系统托盘右键菜单
-
-![托盘菜单](docs/screenshots/07-tray-menu.png)
 
 ---
 
@@ -166,6 +165,7 @@
 - 登录密码、锁屏策略、空闲锁定
 - 全局快捷键自定义
 - 界面语言（中文 / English）
+- **隐私**：发送匿名使用统计（默认开启，可随时关闭）
 - Microsoft 365 邮件同步（可选）
 
 **关于**（工具栏 **关于**）
@@ -174,15 +174,11 @@
 - **检查更新**（在线升级）
 - **导入离线更新包**（`.zip`）
 
-> 📷 **插图占位** [`docs/screenshots/08-settings.png`](docs/screenshots/08-settings.png)  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/08-settings.png`](docs/screenshots/08-settings.png) 并 push 到仓库后自动显示  
 > 设置对话框
 
-![设置](docs/screenshots/08-settings.png)
-
-> 📷 **插图占位** [`docs/screenshots/09-about-update.png`](docs/screenshots/09-about-update.png)  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/09-about-update.png`](docs/screenshots/09-about-update.png) 并 push 到仓库后自动显示  
 > 关于 · 检查更新
-
-![关于与更新](docs/screenshots/09-about-update.png)
 
 ---
 
@@ -211,10 +207,8 @@
 | **测试连接** | 验证配置；成功后加入「已保存模型」 |
 | **保存** | 保存并立即切换运行时 Provider |
 
-> 📷 **插图占位** [`docs/screenshots/10-llm-settings.png`](docs/screenshots/10-llm-settings.png)  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/10-llm-settings.png`](docs/screenshots/10-llm-settings.png) 并 push 到仓库后自动显示  
 > LLM 设置对话框
-
-![LLM 设置](docs/screenshots/10-llm-settings.png)
 
 ---
 
@@ -233,10 +227,8 @@
 4. 点击 **测试连接** → 成功后 **保存**。
 5. 返回主界面，点击 **AI 分析优先级** 验证。
 
-> 📷 **插图占位** [`docs/screenshots/11-llm-ollama.png`](docs/screenshots/11-llm-ollama.png)  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/11-llm-ollama.png`](docs/screenshots/11-llm-ollama.png) 并 push 到仓库后自动显示  
 > Ollama 本地配置示例（测试连接成功）
-
-![Ollama 配置](docs/screenshots/11-llm-ollama.png)
 
 ---
 
@@ -247,10 +239,8 @@
 3. 填写 **Base URL**、**API Key**、**模型名**（与平台文档一致）。
 4. 点击 **测试连接** → 成功后 **保存**。
 
-> 📷 **插图占位** [`docs/screenshots/12-llm-cloud-api.png`](docs/screenshots/12-llm-cloud-api.png)  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/12-llm-cloud-api.png`](docs/screenshots/12-llm-cloud-api.png) 并 push 到仓库后自动显示  
 > 云端 API 配置示例（DeepSeek / Kimi）
-
-![云端 API 配置](docs/screenshots/12-llm-cloud-api.png)
 
 **常见问题**
 
@@ -276,6 +266,31 @@
 
 ---
 
+## 匿名使用统计与隐私
+
+ToDoList 默认开启 **匿名使用统计**，用于了解版本分布与活跃情况，以便改进产品。**不含任务内容、API Key 或数据库**。
+
+### 上报内容
+
+| 字段 | 说明 |
+|------|------|
+| `install_id` | 首次启动生成的匿名 UUID |
+| `event` | `app_start` / `heartbeat` / `app_exit` / `upgrade_success` |
+| `version` / `build` | 程序版本与构建号 |
+| `os` / `locale` | 操作系统与语言 |
+| `from_version` | 仅在线升级成功时有值 |
+
+### 如何关闭
+
+**设置 → 隐私 → 取消勾选「发送匿名使用统计（帮助改进产品）」**，立即生效，无需重启。
+
+
+### 维护者
+
+Worker 示例与部署说明见 [`scripts/telemetry-worker/README.md`](scripts/telemetry-worker/README.md)。
+
+---
+
 ## 数据与日志
 
 | 路径 | 内容 |
@@ -284,10 +299,9 @@
 | `data/settings.ini` | 程序设置、LLM 配置 |
 | `data/logs/` | 运行日志 |
 | `data/top3-YYYY-MM-DD.json` | 当日 Top 3 缓存 |
+| `usage-endpoint.json` | 匿名统计接收地址（可被 `data/` 下同名文件覆盖） |
 
 迁移备份：复制整个程序目录（含 `data/`）即可。
-
----
 
 
 ## 许可证
