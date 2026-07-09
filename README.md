@@ -306,4 +306,8 @@ Worker 示例与部署说明见 [`scripts/telemetry-worker/README.md`](scripts/t
 
 ## 许可证
 
-请参阅仓库中的 LICENSE 文件（如有）。欢迎通过 [Issues](https://github.com/zengxiangfu1985/ToDoList/issues) 反馈问题与建议。
+本项目采用 [Apache License 2.0](LICENSE) 发布。
+
+第三方组件（如 Qt、OpenSSL）遵循其各自许可证，详见 [NOTICE](NOTICE) 与 `third_party/` 目录。
+
+欢迎通过 [Issues](https://github.com/zengxiangfu1985/ToDoList/issues) 反馈问题与建议。

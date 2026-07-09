@@ -1,0 +1,11 @@
+ToDoList
+Copyright 2026 zengxiangfu1985
+
+This product includes software developed as part of the ToDoList project.
+
+Third-party components bundled with binary releases may include:
+
+- Qt 5 (https://www.qt.io/) — Licensed under the GNU Lesser General Public License (LGPL)
+- OpenSSL (https://www.openssl.org/) — Licensed under the Apache License 2.0 and OpenSSL License
+
+See the respective third-party license files in third_party/ for full terms.
