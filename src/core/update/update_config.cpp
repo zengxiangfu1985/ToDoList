@@ -42,7 +42,7 @@ UpdateConfig defaultConfig()
     github.url = defaultManifestUrl();
     config.sources.append(github);
 
-    config.activeSource = jsDelivr.name;
+    config.activeSource = github.name;
     config.checkOnStartup = true;
     config.checkIntervalHours = 168;
     return config;
@@ -117,8 +117,9 @@ QStringList UpdateConfigStore::manifestUrls()
         return url.contains(QStringLiteral("cdn.jsdelivr.net"));
     };
 
-    appendUnique(fallbackManifestUrl());
+    appendUnique(defaultManifestUrl());
     appendUnique(ghProxyManifestUrl());
+    appendUnique(fallbackManifestUrl());
     for (const UpdateSource &source : config.sources) {
         if (isJsDelivr(source.url))
             appendUnique(source.url);
@@ -130,6 +131,5 @@ QStringList UpdateConfigStore::manifestUrls()
     for (const UpdateSource &source : config.sources)
         appendUnique(source.url);
 
-    appendUnique(defaultManifestUrl());
     return urls;
 }

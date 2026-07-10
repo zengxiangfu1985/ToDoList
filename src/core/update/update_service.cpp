@@ -216,6 +216,14 @@ void UpdateService::onCheckFinished()
     }
 
     if (!AppVersion::isNewerThanCurrent(m_latest.version, m_latest.build)) {
+        if (!m_pendingManifestUrls.isEmpty()) {
+            AppLogger::info("UPDATE",
+                            QStringLiteral("清单版本 %1 (build %2) 不高于当前，尝试下一更新源")
+                                .arg(m_latest.version)
+                                .arg(m_latest.build));
+            startNextManifestRequest();
+            return;
+        }
         finishCheckNoUpdate();
         return;
     }
@@ -301,9 +309,9 @@ QStringList UpdateService::buildDownloadUrls(const UpdatePackageInfo &package) c
         if (!url.isEmpty() && !urls.contains(url))
             urls.append(url);
     };
+    appendUnique(package.url);
     for (const QString &mirrorUrl : package.mirrorUrls)
         appendUnique(mirrorUrl);
-    appendUnique(package.url);
     return urls;
 }
 

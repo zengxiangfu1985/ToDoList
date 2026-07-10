@@ -11,7 +11,7 @@
       "url": "https://raw.githubusercontent.com/zengxiangfu1985/ToDoList/main/dist/update.json"
     }
   ],
-  "active_source": "jsDelivr",
+  "active_source": "GitHub",
   "check_on_startup": true,
   "check_interval_hours": 168
 }

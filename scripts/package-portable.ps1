@@ -218,7 +218,7 @@ if (Test-Path $updateConfigTemplate) {
                 $source.url = $updateJsonUrl
             }
         }
-        $updateConfigObj.active_source = "jsDelivr"
+        $updateConfigObj.active_source = "GitHub"
         $updateConfigObj | ConvertTo-Json -Depth 6 | Set-Content $updateConfigOut -Encoding UTF8
     }
 }
@@ -274,11 +274,7 @@ $remotePackage = [ordered]@{
     sha256 = $sha256
     url = $PackageUrl
 }
-if ($PackageUrl -and $PackageUrl -like "https://github.com/*") {
-    $remotePackage.mirrors = @(
-        "https://ghproxy.net/$PackageUrl"
-    )
-}
+# ghproxy 对大文件不稳定，不在清单中配置镜像；客户端优先 GitHub Releases 直链下载
 
 $remoteLatest = [ordered]@{
     version = $VersionInfo.Version
@@ -295,7 +291,8 @@ $remoteManifest = [ordered]@{
     latest = $remoteLatest
 }
 $remoteManifestJson = ($remoteManifest | ConvertTo-Json -Depth 6)
-Set-Content (Join-Path $DistRoot "update.json") $remoteManifestJson -Encoding UTF8
+$updateJsonOut = Join-Path $DistRoot "update.json"
+[System.IO.File]::WriteAllText($updateJsonOut, $remoteManifestJson, [System.Text.UTF8Encoding]::new($false))
 
 Write-Host ""
 Write-Host "Done."

@@ -99,6 +99,20 @@ $updateJsonPath = Join-Path $ProjectRoot "dist\update.json"
 if (-not (Test-Path $zipPath)) { throw "Package zip not found: $zipPath" }
 if (-not (Test-Path $updateJsonPath)) { throw "update.json not found: $updateJsonPath" }
 
+$manifest = Get-Content $updateJsonPath -Raw | ConvertFrom-Json
+$manifestSha = [string]$manifest.latest.package.sha256
+$manifestSize = [int64]$manifest.latest.package.size
+$zipSha = (Get-FileHash $zipPath -Algorithm SHA256).Hash.ToLower()
+$zipSize = (Get-Item $zipPath).Length
+if ($manifestSha -ne $zipSha -or $manifestSize -ne $zipSize) {
+    throw @"
+update.json does not match release zip.
+  zip:      size=$zipSize sha256=$zipSha
+  manifest: size=$manifestSize sha256=$manifestSha
+Re-run package-portable.ps1 and push the regenerated dist/update.json.
+"@
+}
+
 $isDraft = [bool]$Draft -or [bool]$config.draft
 $isPrerelease = [bool]$Prerelease -or [bool]$config.prerelease
 
@@ -129,3 +143,13 @@ Write-Host "Next: commit and push dist/update.json so clients can check updates:
 Write-Host "  git add dist/update.json"
 Write-Host "  git commit -m ""chore: publish update manifest for $tag"""
 Write-Host "  git push origin $branch"
+Write-Host ""
+Write-Host "Purge jsDelivr cache (required after pushing update.json):"
+$jsDelivrPurgeUrl = "https://purge.jsdelivr.net/gh/$owner/$repo@$branch/dist/update.json"
+Write-Host "  $jsDelivrPurgeUrl"
+try {
+    Invoke-WebRequest -Uri $jsDelivrPurgeUrl -Method Get -UseBasicParsing -TimeoutSec 30 | Out-Null
+    Write-Host "jsDelivr cache purged."
+} catch {
+    Write-Warning "jsDelivr purge failed (run manually in browser): $jsDelivrPurgeUrl"
+}
