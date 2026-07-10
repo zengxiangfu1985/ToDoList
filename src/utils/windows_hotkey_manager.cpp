@@ -14,6 +14,7 @@ namespace {
 #ifdef Q_OS_WIN
 constexpr int kHotkeyQuickAdd = 1;
 constexpr int kHotkeyTop3 = 2;
+constexpr int kHotkeyQuickCapture = 3;
 #endif
 
 } // namespace
@@ -45,6 +46,10 @@ public:
             emit m_owner->top3PopupTriggered();
             return true;
         }
+        if (msg->wParam == kHotkeyQuickCapture) {
+            emit m_owner->quickCaptureTriggered();
+            return true;
+        }
 #else
         Q_UNUSED(eventType);
         Q_UNUSED(message);
@@ -72,7 +77,7 @@ WindowsHotkeyManager::~WindowsHotkeyManager()
 }
 
 bool WindowsHotkeyManager::install(quintptr windowId, const QKeySequence &todayTasks,
-                                   const QKeySequence &top3Popup)
+                                   const QKeySequence &top3Popup, const QKeySequence &quickCapture)
 {
 #ifdef Q_OS_WIN
     uninstall();
@@ -85,32 +90,29 @@ bool WindowsHotkeyManager::install(quintptr windowId, const QKeySequence &todayT
         return false;
     }
 
+    auto registerOne = [&](int id, const GlobalHotkeyBinding &binding, bool *flag, const QString &label) -> bool {
+        if (!binding.valid)
+            return true;
+        if (RegisterHotKey(hwnd, id, binding.mods, binding.vk)) {
+            *flag = true;
+            return true;
+        }
+        if (m_lastError.isEmpty())
+            m_lastError = QStringLiteral("「%1」快捷键已被其他程序占用").arg(label);
+        else
+            m_lastError += QStringLiteral("；「%1」快捷键已被其他程序占用").arg(label);
+        return false;
+    };
+
     const GlobalHotkeyBinding todayBinding = globalHotkeyFromSequence(todayTasks);
     const GlobalHotkeyBinding top3Binding = globalHotkeyFromSequence(top3Popup);
+    const GlobalHotkeyBinding captureBinding = globalHotkeyFromSequence(quickCapture);
 
-    if (todayBinding.valid) {
-        if (RegisterHotKey(hwnd, kHotkeyQuickAdd, todayBinding.mods, todayBinding.vk))
-            m_todayRegistered = true;
-        else
-            m_lastError = QStringLiteral("「今日任务」快捷键已被其他程序占用");
-    }
+    registerOne(kHotkeyQuickAdd, todayBinding, &m_todayRegistered, QStringLiteral("今日任务"));
+    registerOne(kHotkeyTop3, top3Binding, &m_top3Registered, QStringLiteral("Top 3 弹窗"));
+    registerOne(kHotkeyQuickCapture, captureBinding, &m_quickCaptureRegistered, QStringLiteral("闪记"));
 
-    if (top3Binding.valid) {
-        if (RegisterHotKey(hwnd, kHotkeyTop3, top3Binding.mods, top3Binding.vk))
-            m_top3Registered = true;
-        else {
-            if (m_todayRegistered) {
-                UnregisterHotKey(hwnd, kHotkeyQuickAdd);
-                m_todayRegistered = false;
-            }
-            if (m_lastError.isEmpty())
-                m_lastError = QStringLiteral("「Top 3 弹窗」快捷键已被其他程序占用");
-            else
-                m_lastError += QStringLiteral("；「Top 3 弹窗」快捷键已被其他程序占用");
-        }
-    }
-
-    if (!m_todayRegistered && !m_top3Registered) {
+    if (!m_todayRegistered && !m_top3Registered && !m_quickCaptureRegistered) {
         if (m_lastError.isEmpty())
             return true;
         return false;
@@ -126,6 +128,7 @@ bool WindowsHotkeyManager::install(quintptr windowId, const QKeySequence &todayT
     Q_UNUSED(windowId);
     Q_UNUSED(todayTasks);
     Q_UNUSED(top3Popup);
+    Q_UNUSED(quickCapture);
     m_lastError = QStringLiteral("当前平台不支持全局快捷键");
     return false;
 #endif
@@ -140,10 +143,13 @@ void WindowsHotkeyManager::uninstall()
             UnregisterHotKey(hwnd, kHotkeyQuickAdd);
         if (m_top3Registered)
             UnregisterHotKey(hwnd, kHotkeyTop3);
+        if (m_quickCaptureRegistered)
+            UnregisterHotKey(hwnd, kHotkeyQuickCapture);
     }
 #endif
     m_todayRegistered = false;
     m_top3Registered = false;
+    m_quickCaptureRegistered = false;
     m_windowId = 0;
 }
 

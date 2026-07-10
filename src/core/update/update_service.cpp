@@ -39,6 +39,36 @@ qint64 currentProcessId()
 #endif
 }
 
+QString friendlyNetworkError(QNetworkReply *reply, bool forDownload)
+{
+    if (!reply)
+        return forDownload ? QStringLiteral("下载更新包失败，请稍后重试。")
+                           : QStringLiteral("无法检查更新，请稍后重试。");
+
+    const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    if (status == 429)
+        return QStringLiteral("访问更新服务器过于频繁，请稍后再试或使用「导入离线更新包」。");
+    if (status == 403)
+        return QStringLiteral("更新服务器拒绝访问，请稍后再试或使用「导入离线更新包」。");
+    if (status >= 500)
+        return QStringLiteral("更新服务器暂时不可用，请稍后再试。");
+
+    switch (reply->error()) {
+    case QNetworkReply::TimeoutError:
+    case QNetworkReply::OperationCanceledError:
+        return forDownload ? QStringLiteral("下载更新包超时，请检查网络后重试。")
+                           : QStringLiteral("连接更新服务器超时，请检查网络后重试。");
+    case QNetworkReply::HostNotFoundError:
+    case QNetworkReply::ConnectionRefusedError:
+        return QStringLiteral("无法连接更新服务器，请检查网络后重试。");
+    default:
+        break;
+    }
+
+    return forDownload ? QStringLiteral("下载更新包失败，请稍后重试或使用「导入离线更新包」。")
+                     : QStringLiteral("无法检查更新，请检查网络或稍后重试。");
+}
+
 } // namespace
 
 UpdateService::UpdateService(QObject *parent)
@@ -104,9 +134,10 @@ void UpdateService::checkForUpdates()
 void UpdateService::startNextManifestRequest()
 {
     if (m_pendingManifestUrls.isEmpty()) {
-        setError(m_lastError.isEmpty()
-                     ? QStringLiteral("无法连接更新服务器，请检查网络或稍后重试")
-                     : m_lastError);
+        const QString message = m_lastError.isEmpty()
+                                    ? QStringLiteral("无法连接更新服务器，请检查网络或稍后重试")
+                                    : m_lastError;
+        setError(message);
         emit checkFinished(false);
         return;
     }
@@ -161,10 +192,10 @@ void UpdateService::onCheckFinished()
 
     const QByteArray body = m_reply->readAll();
     if (m_reply->error() != QNetworkReply::NoError) {
-        const QString err = QStringLiteral("%1 (%2)")
-                                .arg(m_reply->errorString(), m_reply->url().toString());
-        AppLogger::warn("UPDATE", QStringLiteral("拉取失败: %1").arg(err));
-        m_lastError = err;
+        const QString detail = QStringLiteral("%1 (%2)")
+                                   .arg(m_reply->errorString(), m_reply->url().toString());
+        AppLogger::warn("UPDATE", QStringLiteral("拉取失败: %1").arg(detail));
+        m_lastError = friendlyNetworkError(m_reply, false);
         m_reply->deleteLater();
         m_reply = nullptr;
         startNextManifestRequest();
@@ -185,14 +216,6 @@ void UpdateService::onCheckFinished()
     }
 
     if (!AppVersion::isNewerThanCurrent(m_latest.version, m_latest.build)) {
-        if (!m_pendingManifestUrls.isEmpty()) {
-            AppLogger::info("UPDATE",
-                            QStringLiteral("远端版本 %1 (build %2) 不高于当前，尝试下一个源")
-                                .arg(m_latest.version)
-                                .arg(m_latest.build));
-            startNextManifestRequest();
-            return;
-        }
         finishCheckNoUpdate();
         return;
     }
@@ -287,9 +310,10 @@ QStringList UpdateService::buildDownloadUrls(const UpdatePackageInfo &package) c
 void UpdateService::startNextDownloadRequest()
 {
     if (m_pendingDownloadUrls.isEmpty()) {
-        setError(m_lastError.isEmpty()
-                     ? QStringLiteral("所有下载源均失败，请检查网络或使用「导入离线更新包」")
-                     : m_lastError);
+        const QString message = m_lastError.isEmpty()
+                                    ? QStringLiteral("所有下载源均失败，请检查网络或使用「导入离线更新包」")
+                                    : m_lastError;
+        setError(message);
         emit downloadFinished(false);
         return;
     }
@@ -350,10 +374,10 @@ void UpdateService::onDownloadFinished()
         return;
 
     if (m_reply->error() != QNetworkReply::NoError) {
-        const QString err = QStringLiteral("下载更新包失败: %1 (%2)")
-                                .arg(m_reply->errorString(), m_reply->url().toString());
-        AppLogger::warn("UPDATE", err);
-        m_lastError = err;
+        const QString detail = QStringLiteral("下载更新包失败: %1 (%2)")
+                                   .arg(m_reply->errorString(), m_reply->url().toString());
+        AppLogger::warn("UPDATE", detail);
+        m_lastError = friendlyNetworkError(m_reply, true);
         m_reply->deleteLater();
         m_reply = nullptr;
         if (!m_pendingDownloadUrls.isEmpty())

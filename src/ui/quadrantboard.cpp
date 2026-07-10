@@ -69,3 +69,11 @@ void QuadrantBoard::setTasks(const QVector<TaskItem> &tasks)
     m_q3->setTaskItems(tasks);
     m_q4->setTaskItems(tasks);
 }
+
+void QuadrantBoard::removeTask(qint64 taskId)
+{
+    m_q1->removeTask(taskId);
+    m_q2->removeTask(taskId);
+    m_q3->removeTask(taskId);
+    m_q4->removeTask(taskId);
+}

@@ -1,5 +1,7 @@
 #include "task_archive.h"
 
+#include "ai/ai_prompts.h"
+
 #include <QCoreApplication>
 #include <QDateTime>
 #include <QDir>
@@ -243,6 +245,7 @@ SavedDailyTop3 TaskArchive::loadDailyTop3(const QDate &date)
         rec.rank = o.value(QStringLiteral("rank")).toInt();
         rec.score = o.value(QStringLiteral("score")).toDouble();
         rec.reason = o.value(QStringLiteral("reason")).toString();
+        rec.reason = AiPrompts::sanitizeTop3Reason(rec.reason);
         saved.top3.append(rec);
     }
     saved.usedLlm = root.value(QStringLiteral("used_llm")).toBool();
@@ -277,7 +280,9 @@ QVector<PriorityRecommendation> TaskArchive::hydrateTop3Recommendations(
         rec.title = it.value().title;
         rec.score = it.value().ruleScore;
         if (rec.reason.trimmed().isEmpty())
-            rec.reason = QStringLiteral("AI 推荐：") + rec.title;
+            rec.reason = QStringLiteral("建议优先处理：") + rec.title;
+        else
+            rec.reason = AiPrompts::sanitizeTop3Reason(rec.reason);
         result.append(rec);
     }
 
@@ -341,6 +346,11 @@ bool TaskArchive::saveDailyTop3(const QDate &date, const LlmConfig &config,
     }
     file.write(QJsonDocument(root).toJson(QJsonDocument::Indented));
     return true;
+}
+
+bool TaskArchive::clearDailyTop3(const QDate &date)
+{
+    return QFile::remove(dailyTop3Path(date));
 }
 
 QVector<TaskItem> TaskArchive::loadSnapshot(const QDate &date, QString *errorMsg)

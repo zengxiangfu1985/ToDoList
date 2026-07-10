@@ -5,13 +5,13 @@
                    "version":  "1.0.7",
                    "build":  2026070722,
                    "min_app_version":  "1.0.0",
-                   "release_notes":  "1.0.7: Top3勾选同步、今日任务分区编辑、历史记录列宽优化",
+                   "release_notes":  "ToDoList portable release.",
                    "mandatory":  false,
                    "db_schema":  1,
                    "package":  {
                                    "file_name":  "ToDoList-Portable-1.0.7.zip",
-                                   "size":  16695851,
-                                   "sha256":  "40e9fab5b5b2ece60bb4d1aabe8942a53e37a00564a494cb1e894f1a36160ce5",
+                                   "size":  16704836,
+                                   "sha256":  "6b5ab8206a00d2b466dd2b6816b57dea3821e6f6f876fdeaeb68548825126e03",
                                    "url":  "https://github.com/zengxiangfu1985/ToDoList/releases/download/v1.0.7/ToDoList-Portable-1.0.7.zip",
                                    "mirrors":  [
                                                    "https://ghproxy.net/https://github.com/zengxiangfu1985/ToDoList/releases/download/v1.0.7/ToDoList-Portable-1.0.7.zip"

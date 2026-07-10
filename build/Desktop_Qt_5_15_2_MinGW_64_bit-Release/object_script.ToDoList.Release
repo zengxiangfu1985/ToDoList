@@ -7,11 +7,14 @@ release/task_archive.o
 release/daily_evaluation_service.o
 release/weekly_report_service.o
 release/app_settings.o
+release/quick_capture_service.o
 release/schema_migrator.o
 release/update_manifest.o
 release/update_config.o
 release/update_apply.o
 release/update_service.o
+release/usage_report_config.o
+release/usage_report_service.o
 release/llm_provider.o
 release/ai_prompts.o
 release/ollama_llm_provider.o
@@ -24,8 +27,11 @@ release/task_table_model.o
 release/mainwindow.o
 release/addtaskdialog.o
 release/todaytasksdialog.o
+release/quick_capture_dialog.o
+release/line_number_plain_text_edit.o
 release/llmsettingsdialog.o
 release/top3popupdialog.o
+release/top3listwidget.o
 release/m365settingsdialog.o
 release/taskhistorydialog.o
 release/daily_evaluation_dialog.o
@@ -62,6 +68,7 @@ release/moc_behavior_learning_engine.o
 release/moc_daily_evaluation_service.o
 release/moc_weekly_report_service.o
 release/moc_update_service.o
+release/moc_usage_report_service.o
 release/moc_llm_provider.o
 release/moc_ollama_llm_provider.o
 release/moc_openai_compatible_provider.o
@@ -73,8 +80,11 @@ release/moc_task_table_model.o
 release/moc_mainwindow.o
 release/moc_addtaskdialog.o
 release/moc_todaytasksdialog.o
+release/moc_quick_capture_dialog.o
+release/moc_line_number_plain_text_edit.o
 release/moc_llmsettingsdialog.o
 release/moc_top3popupdialog.o
+release/moc_top3listwidget.o
 release/moc_m365settingsdialog.o
 release/moc_taskhistorydialog.o
 release/moc_daily_evaluation_dialog.o

@@ -18,6 +18,18 @@ static double importanceFromQuadrant(EisenhowerQuadrant q)
     return 5.0;
 }
 
+static QString quadrantUserLabel(EisenhowerQuadrant q)
+{
+    switch (q) {
+    case EisenhowerQuadrant::Q1_UrgentImportant: return QStringLiteral("重要且紧急");
+    case EisenhowerQuadrant::Q2_NotUrgentImportant: return QStringLiteral("重要不紧急");
+    case EisenhowerQuadrant::Q3_UrgentNotImportant: return QStringLiteral("紧急不重要");
+    case EisenhowerQuadrant::Q4_NotUrgentNotImportant: return QStringLiteral("不重要不紧急");
+    case EisenhowerQuadrant::Unassigned: return QStringLiteral("待划分优先级");
+    }
+    return QStringLiteral("待划分优先级");
+}
+
 static double urgencyFromDue(const QDateTime &due)
 {
     if (!due.isValid())
@@ -78,8 +90,8 @@ QVector<PriorityRecommendation> PriorityEngine::top3FromRules(const QVector<Task
         rec.title = t.title;
         rec.rank = rank++;
         rec.score = t.ruleScore;
-        rec.reason = QStringLiteral("规则评分（学习权重）：象限 Q%1，综合得分 %2")
-                         .arg(static_cast<int>(t.quadrant))
+        rec.reason = QStringLiteral("%1，综合评分 %2")
+                         .arg(quadrantUserLabel(t.quadrant))
                          .arg(t.ruleScore, 0, 'f', 1);
         top.append(rec);
         if (top.size() >= 3)

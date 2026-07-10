@@ -33,6 +33,7 @@ public:
         const QVector<PriorityRecommendation> &saved, const QVector<TaskItem> &activeTasks);
     static bool saveDailyTop3(const QDate &date, const LlmConfig &config,
                               const PriorityAnalysisResult &result, QString *errorMsg = nullptr);
+    static bool clearDailyTop3(const QDate &date = QDate::currentDate());
 };
 
 #endif // TASK_ARCHIVE_H

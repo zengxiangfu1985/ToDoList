@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[56];
-    char stringdata0[834];
+    QByteArrayData data[57];
+    char stringdata0[851];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -82,12 +82,13 @@ QT_MOC_LITERAL(46, 679, 17), // "onProviderChanged"
 QT_MOC_LITERAL(47, 697, 15), // "LlmProviderType"
 QT_MOC_LITERAL(48, 713, 4), // "type"
 QT_MOC_LITERAL(49, 718, 13), // "onTop3Clicked"
-QT_MOC_LITERAL(50, 732, 14), // "showMainWindow"
-QT_MOC_LITERAL(51, 747, 13), // "showTop3Popup"
-QT_MOC_LITERAL(52, 761, 15), // "quitApplication"
-QT_MOC_LITERAL(53, 777, 15), // "onTrayActivated"
-QT_MOC_LITERAL(54, 793, 33), // "QSystemTrayIcon::ActivationRe..."
-QT_MOC_LITERAL(55, 827, 6) // "reason"
+QT_MOC_LITERAL(50, 732, 16), // "showQuickCapture"
+QT_MOC_LITERAL(51, 749, 14), // "showMainWindow"
+QT_MOC_LITERAL(52, 764, 13), // "showTop3Popup"
+QT_MOC_LITERAL(53, 778, 15), // "quitApplication"
+QT_MOC_LITERAL(54, 794, 15), // "onTrayActivated"
+QT_MOC_LITERAL(55, 810, 33), // "QSystemTrayIcon::ActivationRe..."
+QT_MOC_LITERAL(56, 844, 6) // "reason"
 
     },
     "MainWindow\0requestShowFromAnotherInstance\0"
@@ -109,9 +110,10 @@ QT_MOC_LITERAL(55, 827, 6) // "reason"
     "DailyEvaluation\0onWeeklyReportFinished\0"
     "WeeklyReportRecord\0record\0WeeklyReportResult\0"
     "onProviderChanged\0LlmProviderType\0"
-    "type\0onTop3Clicked\0showMainWindow\0"
-    "showTop3Popup\0quitApplication\0"
-    "onTrayActivated\0QSystemTrayIcon::ActivationReason\0"
+    "type\0onTop3Clicked\0showQuickCapture\0"
+    "showMainWindow\0showTop3Popup\0"
+    "quitApplication\0onTrayActivated\0"
+    "QSystemTrayIcon::ActivationReason\0"
     "reason"
 };
 #undef QT_MOC_LITERAL
@@ -122,7 +124,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      34,   14, // methods
+      35,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -130,40 +132,41 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  184,    2, 0x0a /* Public */,
-       3,    0,  185,    2, 0x08 /* Private */,
-       4,    0,  186,    2, 0x08 /* Private */,
-       5,    0,  187,    2, 0x08 /* Private */,
-       6,    0,  188,    2, 0x08 /* Private */,
-       7,    0,  189,    2, 0x08 /* Private */,
-       8,    0,  190,    2, 0x08 /* Private */,
-       9,    0,  191,    2, 0x08 /* Private */,
-      10,    0,  192,    2, 0x08 /* Private */,
-      11,    0,  193,    2, 0x08 /* Private */,
-      12,    0,  194,    2, 0x08 /* Private */,
-      13,    0,  195,    2, 0x08 /* Private */,
-      14,    0,  196,    2, 0x08 /* Private */,
-      15,    0,  197,    2, 0x08 /* Private */,
-      16,    0,  198,    2, 0x08 /* Private */,
-      17,    0,  199,    2, 0x08 /* Private */,
-      18,    1,  200,    2, 0x08 /* Private */,
-      20,    0,  203,    2, 0x08 /* Private */,
-      21,    0,  204,    2, 0x08 /* Private */,
-      22,    0,  205,    2, 0x08 /* Private */,
-      23,    1,  206,    2, 0x08 /* Private */,
-      25,    1,  209,    2, 0x08 /* Private */,
-      28,    2,  212,    2, 0x08 /* Private */,
-      31,    3,  217,    2, 0x08 /* Private */,
-      35,    0,  224,    2, 0x08 /* Private */,
-      36,    1,  225,    2, 0x08 /* Private */,
-      39,    2,  228,    2, 0x08 /* Private */,
-      42,    2,  233,    2, 0x08 /* Private */,
-      46,    1,  238,    2, 0x08 /* Private */,
-      49,    0,  241,    2, 0x08 /* Private */,
-      50,    0,  242,    2, 0x08 /* Private */,
-      51,    0,  243,    2, 0x08 /* Private */,
-      52,    0,  244,    2, 0x08 /* Private */,
-      53,    1,  245,    2, 0x08 /* Private */,
+       1,    0,  189,    2, 0x0a /* Public */,
+       3,    0,  190,    2, 0x08 /* Private */,
+       4,    0,  191,    2, 0x08 /* Private */,
+       5,    0,  192,    2, 0x08 /* Private */,
+       6,    0,  193,    2, 0x08 /* Private */,
+       7,    0,  194,    2, 0x08 /* Private */,
+       8,    0,  195,    2, 0x08 /* Private */,
+       9,    0,  196,    2, 0x08 /* Private */,
+      10,    0,  197,    2, 0x08 /* Private */,
+      11,    0,  198,    2, 0x08 /* Private */,
+      12,    0,  199,    2, 0x08 /* Private */,
+      13,    0,  200,    2, 0x08 /* Private */,
+      14,    0,  201,    2, 0x08 /* Private */,
+      15,    0,  202,    2, 0x08 /* Private */,
+      16,    0,  203,    2, 0x08 /* Private */,
+      17,    0,  204,    2, 0x08 /* Private */,
+      18,    1,  205,    2, 0x08 /* Private */,
+      20,    0,  208,    2, 0x08 /* Private */,
+      21,    0,  209,    2, 0x08 /* Private */,
+      22,    0,  210,    2, 0x08 /* Private */,
+      23,    1,  211,    2, 0x08 /* Private */,
+      25,    1,  214,    2, 0x08 /* Private */,
+      28,    2,  217,    2, 0x08 /* Private */,
+      31,    3,  222,    2, 0x08 /* Private */,
+      35,    0,  229,    2, 0x08 /* Private */,
+      36,    1,  230,    2, 0x08 /* Private */,
+      39,    2,  233,    2, 0x08 /* Private */,
+      42,    2,  238,    2, 0x08 /* Private */,
+      46,    1,  243,    2, 0x08 /* Private */,
+      49,    0,  246,    2, 0x08 /* Private */,
+      50,    0,  247,    2, 0x08 /* Private */,
+      51,    0,  248,    2, 0x08 /* Private */,
+      52,    0,  249,    2, 0x08 /* Private */,
+      53,    0,  250,    2, 0x08 /* Private */,
+      54,    1,  251,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -199,7 +202,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 54,   55,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 55,   56,
 
        0        // eod
 };
@@ -240,10 +244,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 27: _t->onWeeklyReportFinished((*reinterpret_cast< const WeeklyReportRecord(*)>(_a[1])),(*reinterpret_cast< const WeeklyReportResult(*)>(_a[2]))); break;
         case 28: _t->onProviderChanged((*reinterpret_cast< LlmProviderType(*)>(_a[1]))); break;
         case 29: _t->onTop3Clicked(); break;
-        case 30: _t->showMainWindow(); break;
-        case 31: _t->showTop3Popup(); break;
-        case 32: _t->quitApplication(); break;
-        case 33: _t->onTrayActivated((*reinterpret_cast< QSystemTrayIcon::ActivationReason(*)>(_a[1]))); break;
+        case 30: _t->showQuickCapture(); break;
+        case 31: _t->showMainWindow(); break;
+        case 32: _t->showTop3Popup(); break;
+        case 33: _t->quitApplication(); break;
+        case 34: _t->onTrayActivated((*reinterpret_cast< QSystemTrayIcon::ActivationReason(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -296,13 +301,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 34)
+        if (_id < 35)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 34;
+        _id -= 35;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 34)
+        if (_id < 35)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 34;
+        _id -= 35;
     }
     return _id;
 }

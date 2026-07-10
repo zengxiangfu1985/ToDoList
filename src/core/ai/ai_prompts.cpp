@@ -1,5 +1,6 @@
 #include "ai_prompts.h"
 
+#include <QRegularExpression>
 #include <QtGlobal>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -33,16 +34,60 @@ QString top3SystemPrompt()
         "你是待办优先级助手。根据用户 JSON 中 tasks 的 title、quadrant、due_at、rule_score，"
         "选出今天最应优先完成的 3 项，所有 LLM 输出格式保持一致。\n\n"
         "【选择原则】\n"
-        "1. 综合象限（Q1>Q2>Q3>Q4）、rule_score 与截止日期紧迫性。\n"
-        "2. 优先选 rule_score 高且象限重要的任务；同分时优先截止更近者。\n"
+        "1. 综合任务重要性与截止日期紧迫性（重要且紧急 > 重要不紧急 > 紧急不重要 > 不重要不紧急）。\n"
+        "2. 优先选综合评分高且重要的任务；同分时优先截止更近者。\n"
         "3. 只从 tasks 列表中选择，不得编造 id。\n\n"
         "【输出要求】\n"
         "1. 只输出 JSON 数组，每项含 id、rank(1-3)、reason 三个字段。\n"
-        "2. rank 从 1 到 3 不重复；reason 用 15～50 字中文说明推荐理由。\n"
-        "3. 恰好输出 3 项（若候选不足 3 项则输出全部）。\n"
-        "4. 不要 markdown，不要 ``` 代码围栏，不要附加解释。\n\n"
+        "2. rank 从 1 到 3 不重复。\n"
+        "3. reason 必须用 15～50 字中文，面向普通用户说明「为什么今天应优先做这件事」。\n"
+        "4. reason 禁止出现：rule_score、JSON 字段名、Q1/Q2/Q3/Q4、象限编号、"
+        "「次高」「最高」等排序术语；请用自然表述，如「重要且紧急」「今日截止」「建议优先推进」。\n"
+        "5. 恰好输出 3 项（若候选不足 3 项则输出全部）。\n"
+        "6. 不要 markdown，不要 ``` 代码围栏，不要附加解释。\n\n"
         "【格式示例】\n"
-        "[{\"id\":3,\"rank\":1,\"reason\":\"Q1 任务且今日截止，rule_score 最高\"}]");
+        "[{\"id\":3,\"rank\":1,\"reason\":\"工作重要且今天必须提交，建议优先完成\"}]");
+}
+
+QString sanitizeTop3Reason(const QString &raw)
+{
+    QString text = raw.trimmed();
+    if (text.isEmpty())
+        return text;
+
+    text.replace(QRegularExpression(QStringLiteral("rule_score"), QRegularExpression::CaseInsensitiveOption),
+                 QStringLiteral("综合评分"));
+    text.replace(QRegularExpression(QStringLiteral("rule\\s*score"), QRegularExpression::CaseInsensitiveOption),
+                 QStringLiteral("综合评分"));
+    text.replace(QStringLiteral("规则评分（学习权重）："), QString());
+    text.replace(QStringLiteral("规则评分（学习权重）:"), QString());
+    text.replace(QStringLiteral("规则推断("), QStringLiteral("系统推断("));
+    text.replace(QStringLiteral("象限 "), QString());
+    text.replace(QStringLiteral("综合得分"), QStringLiteral("综合评分"));
+
+    text.replace(QStringLiteral("Q1"), QStringLiteral("重要且紧急"));
+    text.replace(QStringLiteral("Q2"), QStringLiteral("重要不紧急"));
+    text.replace(QStringLiteral("Q3"), QStringLiteral("紧急不重要"));
+    text.replace(QStringLiteral("Q4"), QStringLiteral("不重要不紧急"));
+
+    text.replace(QStringLiteral("重要且紧急 任务"), QStringLiteral("重要且紧急"));
+    text.replace(QStringLiteral("重要且紧急任务"), QStringLiteral("重要且紧急"));
+    text.replace(QStringLiteral("重要不紧急 任务"), QStringLiteral("重要不紧急"));
+    text.replace(QStringLiteral("重要不紧急任务"), QStringLiteral("重要不紧急"));
+
+    text.replace(QStringLiteral("次高"), QStringLiteral("较高"));
+    text.replace(QStringLiteral("最高"), QStringLiteral("较高"));
+
+    text.replace(QRegularExpression(QStringLiteral("\\s*,\\s*")), QStringLiteral("，"));
+    text = text.simplified();
+    while (text.contains(QStringLiteral("，，")))
+        text.replace(QStringLiteral("，，"), QStringLiteral("，"));
+    if (text.startsWith(QStringLiteral("，")))
+        text.remove(0, 1);
+    if (text.endsWith(QStringLiteral("，")))
+        text.chop(1);
+
+    return text.trimmed();
 }
 
 QString dailyEvaluationSystemPrompt()
@@ -232,6 +277,47 @@ int weeklyReportOllamaTimeoutMs()
 int quadrantBatchSize(LlmProviderType provider)
 {
     return provider == LlmProviderType::Ollama ? 5 : 10000;
+}
+
+QString quickCaptureSystemPrompt()
+{
+    return QStringLiteral(
+        "你是待办任务速记解析器。用户会输入一段自然语言、清单或会议纪要片段，"
+        "你需要拆成 1～20 条可执行待办。\n\n"
+        "【输出要求】\n"
+        "1. 只输出 JSON 数组，每项含 title、due、quadrant、notes 四个字段。\n"
+        "2. title 为简洁中文任务标题，不要编号前缀。\n"
+        "3. due 使用 ISO 8601 本地时间，如 2026-07-11T15:00:00；无明确时间则当天 23:59:00。\n"
+        "4. quadrant 为 0～4：0=不确定，1=Q1，2=Q2，3=Q3，4=Q4；不确定时用 0。\n"
+        "5. notes 可留空字符串。\n"
+        "6. 不要 markdown，不要 ``` 代码围栏，不要附加解释。\n\n"
+        "【格式示例】\n"
+        "[{\"title\":\"完成月报\",\"due\":\"2026-07-11T15:00:00\",\"quadrant\":2,\"notes\":\"\"}]");
+}
+
+QString quickCaptureUserPrompt(const QString &text)
+{
+    const QString now = QDateTime::currentDateTime().toString(Qt::ISODateWithMs);
+    QJsonObject root;
+    root.insert(QStringLiteral("now"), now);
+    root.insert(QStringLiteral("text"), text);
+    return QString::fromUtf8(QJsonDocument(root).toJson(QJsonDocument::Compact));
+}
+
+int quickCaptureMaxTokens(LlmProviderType provider)
+{
+    return provider == LlmProviderType::Ollama ? 1024 : 768;
+}
+
+LlmOutputFormat quickCaptureOutputFormat(LlmProviderType provider)
+{
+    return provider == LlmProviderType::Ollama ? LlmOutputFormat::JsonQuickCaptureArray
+                                               : LlmOutputFormat::Default;
+}
+
+int quickCaptureTimeoutMs(LlmProviderType provider)
+{
+    return provider == LlmProviderType::Ollama ? 90000 : 30000;
 }
 
 } // namespace AiPrompts

@@ -15,13 +15,15 @@ public:
     explicit WindowsHotkeyManager(QObject *parent = nullptr);
     ~WindowsHotkeyManager() override;
 
-    bool install(quintptr windowId, const QKeySequence &todayTasks, const QKeySequence &top3Popup);
+    bool install(quintptr windowId, const QKeySequence &todayTasks, const QKeySequence &top3Popup,
+                 const QKeySequence &quickCapture);
     void uninstall();
     QString lastError() const;
 
 signals:
     void quickAddTriggered();
     void top3PopupTriggered();
+    void quickCaptureTriggered();
 
 private:
     friend class HotkeyNativeFilter;
@@ -29,6 +31,7 @@ private:
     quintptr m_windowId = 0;
     bool m_todayRegistered = false;
     bool m_top3Registered = false;
+    bool m_quickCaptureRegistered = false;
     QString m_lastError;
     HotkeyNativeFilter *m_filter = nullptr;
 };

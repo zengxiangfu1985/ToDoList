@@ -122,6 +122,23 @@ LlmResponse OllamaLlmProvider::complete(const LlmRequest &request)
                 }}
             }}
         });
+    } else if (request.outputFormat == LlmOutputFormat::JsonQuickCaptureArray) {
+        body.insert(QStringLiteral("format"), QJsonObject{
+            {QStringLiteral("type"), QStringLiteral("array")},
+            {QStringLiteral("items"), QJsonObject{
+                {QStringLiteral("type"), QStringLiteral("object")},
+                {QStringLiteral("properties"), QJsonObject{
+                    {QStringLiteral("title"), QJsonObject{{QStringLiteral("type"), QStringLiteral("string")}}},
+                    {QStringLiteral("due"), QJsonObject{{QStringLiteral("type"), QStringLiteral("string")}}},
+                    {QStringLiteral("quadrant"), QJsonObject{{QStringLiteral("type"), QStringLiteral("integer")}}},
+                    {QStringLiteral("notes"), QJsonObject{{QStringLiteral("type"), QStringLiteral("string")}}}
+                }},
+                {QStringLiteral("required"), QJsonArray{
+                    QStringLiteral("title"), QStringLiteral("due"), QStringLiteral("quadrant"),
+                    QStringLiteral("notes")
+                }}
+            }}
+        });
     }
     body.insert(QStringLiteral("options"), QJsonObject{
         {QStringLiteral("temperature"), request.temperature},

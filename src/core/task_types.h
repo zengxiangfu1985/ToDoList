@@ -94,7 +94,8 @@ struct M365SyncResult {
 enum class LlmOutputFormat {
     Default,
     JsonQuadrantArray,
-    JsonTop3Array
+    JsonTop3Array,
+    JsonQuickCaptureArray
 };
 
 struct LlmRequest {

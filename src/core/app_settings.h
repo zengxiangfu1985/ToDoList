@@ -3,6 +3,7 @@
 
 #include <QString>
 
+#include <QDateTime>
 #include <QKeySequence>
 
 class AppSettings
@@ -30,9 +31,19 @@ public:
     static void setTodayTasksHotkey(const QKeySequence &sequence);
     static QKeySequence top3PopupHotkey();
     static void setTop3PopupHotkey(const QKeySequence &sequence);
+    static QKeySequence quickCaptureHotkey();
+    static void setQuickCaptureHotkey(const QKeySequence &sequence);
+    static bool quickCaptureAutoAnalyze();
+    static void setQuickCaptureAutoAnalyze(bool enabled);
 
     static QString uiLanguage();
     static void setUiLanguage(const QString &code);
+
+    static bool usageStatisticsEnabled();
+    static void setUsageStatisticsEnabled(bool enabled);
+    static QString installId();
+    static QDateTime lastUsageHeartbeat();
+    static void setLastUsageHeartbeat(const QDateTime &atUtc);
 
     static QString passwordFilePath();
 

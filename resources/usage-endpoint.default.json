@@ -1,0 +1,5 @@
+{
+  "enabled": true,
+  "endpoint": "https://todolist-telemetry.275491856.workers.dev/v1/report",
+  "heartbeat_hours": 24
+}

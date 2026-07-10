@@ -278,6 +278,7 @@ Makefile: ../ToDoList.pro ../../../5.15.2/mingw81_64/mkspecs/features/spec_pre.p
 		../ToDoList.pro \
 		../../../5.15.2/mingw81_64/lib/Qt5Svg.prl \
 		../../../5.15.2/mingw81_64/lib/Qt5Widgets.prl \
+		../../../5.15.2/mingw81_64/lib/Qt5WinExtras.prl \
 		../../../5.15.2/mingw81_64/lib/Qt5Gui.prl \
 		../../../5.15.2/mingw81_64/lib/Qt5Sql.prl \
 		../../../5.15.2/mingw81_64/lib/Qt5Network.prl \
@@ -495,6 +496,7 @@ Makefile: ../ToDoList.pro ../../../5.15.2/mingw81_64/mkspecs/features/spec_pre.p
 ../ToDoList.pro:
 ../../../5.15.2/mingw81_64/lib/Qt5Svg.prl:
 ../../../5.15.2/mingw81_64/lib/Qt5Widgets.prl:
+../../../5.15.2/mingw81_64/lib/Qt5WinExtras.prl:
 ../../../5.15.2/mingw81_64/lib/Qt5Gui.prl:
 ../../../5.15.2/mingw81_64/lib/Qt5Sql.prl:
 ../../../5.15.2/mingw81_64/lib/Qt5Network.prl:
@@ -514,6 +516,13 @@ clean: release-clean debug-clean  FORCE
 distclean: release-distclean debug-distclean  FORCE
 	-$(DEL_FILE) Makefile
 	-$(DEL_FILE) .qmake.stash
+
+D:/Qt/QtProjects/ToDoList/resources/icons/app.ico: D:/Qt/QtProjects/ToDoList/resources/icons/app_source.png D:/Qt/QtProjects/ToDoList/scripts/generate-app-icon.py
+	python /D/Qt/QtProjects/ToDoList/scripts/generate-app-icon.py
+
+D:/Qt/QtProjects/ToDoList/build/release/.win_res_icon_sync: D:/Qt/QtProjects/ToDoList/resources/icons/app.ico
+	rm -f D:/Qt/QtProjects/ToDoList/build/release/ToDoList_resource_res.o 
+	 echo synced > D:/Qt/QtProjects/ToDoList/build/release/.win_res_icon_sync
 
 release-mocclean:
 	$(MAKE) -f $(MAKEFILE).Release mocclean

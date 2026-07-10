@@ -16,6 +16,7 @@ public:
 
     void bindQuadrantContainers(QGroupBox *q1, QGroupBox *q2, QGroupBox *q3, QGroupBox *q4);
     void setTasks(const QVector<TaskItem> &tasks);
+    void removeTask(qint64 taskId);
 
 signals:
     void taskQuadrantChanged(qint64 taskId, EisenhowerQuadrant from, EisenhowerQuadrant to);

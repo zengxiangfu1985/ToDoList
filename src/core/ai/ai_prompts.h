@@ -33,6 +33,14 @@ int weeklyReportOllamaTimeoutMs();
 
 int quadrantBatchSize(LlmProviderType provider);
 
+QString sanitizeTop3Reason(const QString &raw);
+
+QString quickCaptureSystemPrompt();
+QString quickCaptureUserPrompt(const QString &text);
+int quickCaptureMaxTokens(LlmProviderType provider);
+LlmOutputFormat quickCaptureOutputFormat(LlmProviderType provider);
+int quickCaptureTimeoutMs(LlmProviderType provider);
+
 } // namespace AiPrompts
 
 #endif // AI_PROMPTS_H

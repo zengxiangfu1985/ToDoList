@@ -3,10 +3,12 @@
 #include "addtaskdialog.h"
 #include "llmsettingsdialog.h"
 #include "top3popupdialog.h"
+#include "ui/top3listwidget.h"
 #include "m365settingsdialog.h"
 #include "quadrantboard.h"
 #include "taskhistorydialog.h"
 #include "todaytasksdialog.h"
+#include "quick_capture_dialog.h"
 #include "daily_evaluation_dialog.h"
 #include "weekly_report_dialog.h"
 #include "aianalysistracedialog.h"
@@ -20,6 +22,7 @@
 
 #include "../core/task_repository.h"
 #include "../core/task_archive.h"
+#include "../core/ai/ai_prompts.h"
 #include "../core/priority_engine.h"
 #include "../core/behavior_learning_engine.h"
 #include "../core/daily_evaluation_service.h"
@@ -70,6 +73,7 @@
 
 #include "../core/update/update_config.h"
 #include "../core/update/update_service.h"
+#include "../core/telemetry/usage_report_service.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -87,6 +91,8 @@ MainWindow::MainWindow(QWidget *parent)
     , m_trayIcon(new QSystemTrayIcon(qApp))
     , m_hotkeyManager(new WindowsHotkeyManager(this))
     , m_updateService(new UpdateService(this))
+    , m_usageReport(new UsageReportService(this))
+    , m_usageHeartbeatTimer(new QTimer(this))
 {
     ui->setupUi(this);
     setWindowTitle(tr("ToDoList — AI 智能待办"));
@@ -155,6 +161,16 @@ MainWindow::MainWindow(QWidget *parent)
     m_weeklyReportService->setLlmConfig(m_llmService->config());
     m_dailyEvalService->start();
     restoreSavedTop3();
+
+    m_usageHeartbeatTimer->setInterval(60 * 60 * 1000);
+    connect(m_usageHeartbeatTimer, &QTimer::timeout, this, [this]() {
+        m_usageReport->reportHeartbeatIfDue();
+    });
+    m_usageHeartbeatTimer->start();
+    QTimer::singleShot(3000, this, [this]() {
+        m_usageReport->reportAppStart();
+        m_usageReport->reportHeartbeatIfDue();
+    });
 
     QTimer::singleShot(5000, this, &MainWindow::onStartupUpdateCheck);
 }
@@ -631,6 +647,7 @@ void MainWindow::setupConnections()
             &MainWindow::onDailyEvaluationFinished);
     connect(m_weeklyReportService, &WeeklyReportService::generationFinished, this,
             &MainWindow::onWeeklyReportFinished);
+    connect(ui->listTop3, &Top3ListWidget::taskCompletedToggled, this, &MainWindow::onTaskCompletedToggled);
     connect(ui->listTop3, &QListWidget::itemClicked, this, [this](QListWidgetItem *item) {
         onTop3Clicked();
         if (item)
@@ -649,6 +666,7 @@ void MainWindow::setupConnections()
         onTodayTasks();
     });
     connect(m_hotkeyManager, &WindowsHotkeyManager::top3PopupTriggered, this, &MainWindow::showTop3Popup);
+    connect(m_hotkeyManager, &WindowsHotkeyManager::quickCaptureTriggered, this, &MainWindow::showQuickCapture);
 }
 
 void MainWindow::setupTrayIcon()
@@ -669,6 +687,7 @@ void MainWindow::setupTrayIcon()
     menu->addAction(tr("显示主窗口"), this, &MainWindow::showMainWindow);
     m_trayTodayTasksAction = menu->addAction(QString(), this, &MainWindow::onTodayTasks);
     menu->addAction(tr("添加任务"), this, &MainWindow::onAddTask);
+    m_trayQuickCaptureAction = menu->addAction(QString(), this, &MainWindow::showQuickCapture);
     m_trayTop3Action = menu->addAction(QString(), this, &MainWindow::showTop3Popup);
     menu->addSeparator();
     menu->addAction(tr("退出"), this, &MainWindow::quitApplication);
@@ -683,6 +702,8 @@ void MainWindow::updateTrayHotkeyLabels()
 {
     if (m_trayTodayTasksAction)
         m_trayTodayTasksAction->setText(globalHotkeyMenuLabel(tr("今日任务"), AppSettings::todayTasksHotkey()));
+    if (m_trayQuickCaptureAction)
+        m_trayQuickCaptureAction->setText(globalHotkeyMenuLabel(tr("闪记"), AppSettings::quickCaptureHotkey()));
     if (m_trayTop3Action)
         m_trayTop3Action->setText(globalHotkeyMenuLabel(tr("Top 3 弹窗"), AppSettings::top3PopupHotkey()));
 }
@@ -702,7 +723,8 @@ void MainWindow::reloadGlobalHotkeys(bool fromSettings)
 
     m_hotkeyManager->uninstall();
     const bool ok = m_hotkeyManager->install(nativeId, AppSettings::todayTasksHotkey(),
-                                             AppSettings::top3PopupHotkey());
+                                             AppSettings::top3PopupHotkey(),
+                                             AppSettings::quickCaptureHotkey());
     m_hotkeysInstalled = ok;
     updateTrayHotkeyLabels();
 
@@ -824,6 +846,36 @@ void MainWindow::requestShowFromAnotherInstance()
     showMainWindow();
 }
 
+void MainWindow::showQuickCapture()
+{
+    if (m_locked) {
+        if (m_trayIcon && m_trayIcon->isVisible()) {
+            m_trayIcon->showMessage(tr("闪记"), tr("请先解锁应用"), QSystemTrayIcon::Information, 2500);
+        }
+        return;
+    }
+
+    QuickCaptureDialog dlg(m_repo, nullptr);
+    dlg.setLlmConfig(m_llmService->config());
+    dlg.setAutoAnalyzeDefault(AppSettings::quickCaptureAutoAnalyze());
+    if (dlg.exec() != QDialog::Accepted)
+        return;
+
+    reloadTasks();
+    archiveTodaySnapshot();
+
+    QString msg = tr("闪记已保存 %1 条任务").arg(dlg.savedCount());
+    if (dlg.usedLlm())
+        msg += tr("（AI 解析）");
+    if (isVisible() && statusBar())
+        statusBar()->showMessage(msg, 5000);
+    else if (m_trayIcon && m_trayIcon->isVisible())
+        m_trayIcon->showMessage(tr("闪记"), msg, QSystemTrayIcon::Information, 3000);
+
+    if (dlg.autoAnalyzeRequested())
+        onAiAnalyze();
+}
+
 void MainWindow::showTop3Popup()
 {
     PriorityAnalysisResult result = m_lastAnalysis;
@@ -840,7 +892,8 @@ void MainWindow::showTop3Popup()
     }
 
     Top3PopupDialog dlg(nullptr);
-    dlg.setRecommendations(result.top3);
+    dlg.setRecommendations(result.top3, taskCompletionMap());
+    connect(&dlg, &Top3PopupDialog::taskCompletedToggled, this, &MainWindow::onTaskCompletedToggled);
     dlg.move(QCursor::pos());
     dlg.show();
     dlg.raise();
@@ -850,6 +903,7 @@ void MainWindow::showTop3Popup()
 
 void MainWindow::quitApplication()
 {
+    m_usageReport->reportAppExit();
     m_hotkeyManager->uninstall();
     m_trayIcon->hide();
     qApp->quit();
@@ -881,6 +935,21 @@ void MainWindow::reloadTasks()
     const QVector<TaskItem> scored = PriorityEngine::applyRuleScores(m_repo->activeTasks(), currentWeights());
     m_model->setTasks(scored);
     m_quadrantBoard->setTasks(scored);
+    syncTop3WithTasks(scored);
+}
+
+QHash<qint64, bool> MainWindow::taskCompletionMap() const
+{
+    QHash<qint64, bool> map;
+    for (int row = 0; row < m_model->rowCount(); ++row) {
+        const TaskItem task = m_model->taskAt(row);
+        map.insert(task.id, task.completed);
+    }
+    if (map.isEmpty() && m_repo && m_repo->isOpen()) {
+        for (const TaskItem &task : m_repo->activeTasks())
+            map.insert(task.id, task.completed);
+    }
+    return map;
 }
 
 void MainWindow::archiveTodaySnapshot()
@@ -1066,8 +1135,10 @@ void MainWindow::deleteTasksByIds(const QVector<qint64> &ids)
     QString err;
     int deleted = 0;
     for (qint64 id : ids) {
-        if (m_repo->deleteTask(id, &err))
-            deleted++;
+        if (m_repo->deleteTask(id, &err)) {
+            ++deleted;
+            removeTaskFromSyncedViews(id);
+        }
     }
     if (!err.isEmpty() && deleted == 0)
         QMessageBox::warning(this, tr("删除任务"), err);
@@ -1110,31 +1181,56 @@ void MainWindow::onTodayTasks()
     if (dlg.exec() != QDialog::Accepted)
         return;
 
-    const QStringList titles = dlg.newTaskTitles();
-    if (titles.isEmpty()) {
-        statusBar()->showMessage(tr("没有新增任务（已有任务已保留）"), 3000);
+    if (!dlg.hasAnyChanges()) {
+        statusBar()->showMessage(tr("没有变更"), 3000);
         return;
     }
 
-    const QDateTime dueToday(QDate::currentDate(), QTime(23, 59));
+    QString err;
+    int deleted = 0;
+    int updated = 0;
     int added = 0;
+
+    for (qint64 id : dlg.deletedExistingTaskIds()) {
+        if (m_repo->deleteTask(id, &err))
+            ++deleted;
+        else
+            QMessageBox::warning(this, tr("今日任务"), err);
+    }
+
+    for (const TaskItem &task : dlg.updatedExistingTasks()) {
+        if (m_repo->updateTask(task, &err))
+            ++updated;
+        else
+            QMessageBox::warning(this, tr("今日任务"), err);
+    }
+
+    const QStringList titles = dlg.newTaskTitles();
+    const QDateTime dueToday(QDate::currentDate(), QTime(23, 59));
     for (const QString &title : titles) {
         TaskItem task;
         task.title = title;
         task.dueAt = dueToday;
         task.quadrant = EisenhowerQuadrant::Unassigned;
-        QString err;
         if (m_repo->addTask(&task, &err))
             ++added;
         else
             QMessageBox::warning(this, tr("今日任务"), err);
     }
 
-    if (added > 0) {
+    if (deleted > 0 || updated > 0 || added > 0) {
         reloadTasks();
         archiveTodaySnapshot();
-        statusBar()->showMessage(tr("已追加 %1 条今日任务").arg(added), 5000);
     }
+
+    QStringList parts;
+    if (added > 0)
+        parts.append(tr("新增 %1 条").arg(added));
+    if (updated > 0)
+        parts.append(tr("修改 %1 条").arg(updated));
+    if (deleted > 0)
+        parts.append(tr("删除 %1 条").arg(deleted));
+    statusBar()->showMessage(parts.join(QStringLiteral("，")), 5000);
 }
 
 void MainWindow::onAiAnalyze()
@@ -1231,17 +1327,8 @@ void MainWindow::onAnalysisStarted()
 
 void MainWindow::applyTop3ToUi(const PriorityAnalysisResult &result)
 {
-    ui->listTop3->clear();
     ui->textAiReason->clear();
-
-    for (const PriorityRecommendation &rec : result.top3) {
-        auto *item = new QListWidgetItem(
-            tr("#%1 %2 (%3)").arg(rec.rank).arg(rec.title).arg(rec.score, 0, 'f', 1));
-        item->setData(Qt::UserRole, rec.taskId);
-        item->setData(Qt::UserRole + 1, rec.reason);
-        item->setToolTip(rec.reason.isEmpty() ? tr("点击或双击查看推荐理由") : rec.reason);
-        ui->listTop3->addItem(item);
-    }
+    ui->listTop3->setRecommendations(result.top3, taskCompletionMap());
 
     if (!result.top3.isEmpty()) {
         ui->listTop3->setCurrentRow(0);
@@ -1253,6 +1340,55 @@ void MainWindow::clearTop3Ui()
 {
     ui->listTop3->clear();
     ui->textAiReason->clear();
+}
+
+void MainWindow::syncTop3WithTasks(const QVector<TaskItem> &tasks)
+{
+    const QVector<PriorityRecommendation> synced =
+        TaskArchive::hydrateTop3Recommendations(m_lastAnalysis.top3, tasks);
+    m_lastAnalysis.top3 = synced;
+
+    if (synced.isEmpty()) {
+        clearTop3Ui();
+        TaskArchive::clearDailyTop3(QDate::currentDate());
+        m_loadedTop3ModelKey.clear();
+        return;
+    }
+
+    ui->listTop3->setRecommendations(synced, taskCompletionMap());
+    saveCurrentTop3();
+}
+
+void MainWindow::removeTaskFromSyncedViews(qint64 taskId)
+{
+    m_quadrantBoard->removeTask(taskId);
+    ui->listTop3->removeTask(taskId);
+
+    QVector<PriorityRecommendation> pruned;
+    pruned.reserve(m_lastAnalysis.top3.size());
+    for (const PriorityRecommendation &rec : m_lastAnalysis.top3) {
+        if (rec.taskId != taskId)
+            pruned.append(rec);
+    }
+
+    if (pruned.size() == m_lastAnalysis.top3.size())
+        return;
+
+    for (int i = 0; i < pruned.size(); ++i)
+        pruned[i].rank = i + 1;
+    m_lastAnalysis.top3 = pruned;
+
+    if (pruned.isEmpty()) {
+        clearTop3Ui();
+        TaskArchive::clearDailyTop3(QDate::currentDate());
+        m_loadedTop3ModelKey.clear();
+        ui->textAiReason->clear();
+        return;
+    }
+
+    saveCurrentTop3();
+    if (ui->listTop3->currentItem() == nullptr && ui->listTop3->count() > 0)
+        ui->listTop3->setCurrentRow(0);
 }
 
 void MainWindow::restoreSavedTop3()
@@ -1272,6 +1408,10 @@ void MainWindow::restoreSavedTop3()
         TaskArchive::hydrateTop3Recommendations(saved.top3, scored);
     if (top3.isEmpty()) {
         AppLogger::info("UI", QStringLiteral("今日 Top3 对应任务已不存在，跳过恢复"));
+        TaskArchive::clearDailyTop3(QDate::currentDate());
+        m_lastAnalysis.top3.clear();
+        clearTop3Ui();
+        m_loadedTop3ModelKey.clear();
         return;
     }
 
@@ -1358,7 +1498,7 @@ void MainWindow::onTop3Clicked()
     const QListWidgetItem *item = ui->listTop3->currentItem();
     if (!item)
         return;
-    const QString reason = item->data(Qt::UserRole + 1).toString();
+    const QString reason = AiPrompts::sanitizeTop3Reason(item->data(Qt::UserRole + 1).toString());
     ui->textAiReason->setPlainText(reason.isEmpty()
                                        ? tr("选中: %1").arg(item->text())
                                        : reason);

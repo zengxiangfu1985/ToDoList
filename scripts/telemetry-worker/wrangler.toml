@@ -1,0 +1,13 @@
+name = "todolist-telemetry"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "TELEMETRY_KV"
+id = "020d815dc68243fd9b20e19f494a9349"
+preview_id = "771d6e00ec004fd599b3c1c68782055b"
+
+[[d1_databases]]
+binding = "TELEMETRY_DB"
+database_name = "todolist-telemetry"
+database_id = "11a25be0-03c8-4362-9a88-30e7304fd0d4"

@@ -365,8 +365,9 @@ static PriorityAnalysisResult runAnalysis(LlmConfig config, ScoringWeights weigh
         rec.rank = o.value(QStringLiteral("rank")).toInt();
         rec.score = byId.value(id).ruleScore;
         rec.reason = o.value(QStringLiteral("reason")).toString();
-        if (rec.reason.size() < 10)
-            rec.reason = QStringLiteral("AI 推荐：") + rec.title;
+        rec.reason = AiPrompts::sanitizeTop3Reason(rec.reason);
+        if (rec.reason.size() < 8)
+            rec.reason = QStringLiteral("建议优先处理：") + rec.title;
         llmTop.append(rec);
         trace.info("AI",
                    QStringLiteral("LLM Top3 #%1 id=%2 %3").arg(rec.rank).arg(id).arg(rec.title),

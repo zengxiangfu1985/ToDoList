@@ -62,6 +62,9 @@ public:
     QKeySequenceEdit *editTodayTasksHotkey;
     QLabel *labelTop3Hotkey;
     QKeySequenceEdit *editTop3Hotkey;
+    QLabel *labelQuickCaptureHotkey;
+    QKeySequenceEdit *editQuickCaptureHotkey;
+    QCheckBox *checkQuickCaptureAutoAnalyze;
     QLabel *labelHotkeyHint;
     QGroupBox *groupTools;
     QVBoxLayout *toolsLayout;
@@ -71,6 +74,10 @@ public:
     QFormLayout *formAppearance;
     QLabel *labelLanguage;
     QComboBox *comboLanguage;
+    QGroupBox *groupPrivacy;
+    QVBoxLayout *privacyLayout;
+    QCheckBox *checkUsageStatistics;
+    QLabel *labelUsageStatisticsHint;
     QHBoxLayout *buttonRow;
     QPushButton *btnLockNow;
     QPushButton *btnClearPassword;
@@ -222,11 +229,27 @@ public:
 
         formHotkeys->setWidget(1, QFormLayout::FieldRole, editTop3Hotkey);
 
+        labelQuickCaptureHotkey = new QLabel(groupHotkeys);
+        labelQuickCaptureHotkey->setObjectName(QString::fromUtf8("labelQuickCaptureHotkey"));
+
+        formHotkeys->setWidget(2, QFormLayout::LabelRole, labelQuickCaptureHotkey);
+
+        editQuickCaptureHotkey = new QKeySequenceEdit(groupHotkeys);
+        editQuickCaptureHotkey->setObjectName(QString::fromUtf8("editQuickCaptureHotkey"));
+
+        formHotkeys->setWidget(2, QFormLayout::FieldRole, editQuickCaptureHotkey);
+
+        checkQuickCaptureAutoAnalyze = new QCheckBox(groupHotkeys);
+        checkQuickCaptureAutoAnalyze->setObjectName(QString::fromUtf8("checkQuickCaptureAutoAnalyze"));
+        checkQuickCaptureAutoAnalyze->setChecked(true);
+
+        formHotkeys->setWidget(3, QFormLayout::SpanningRole, checkQuickCaptureAutoAnalyze);
+
         labelHotkeyHint = new QLabel(groupHotkeys);
         labelHotkeyHint->setObjectName(QString::fromUtf8("labelHotkeyHint"));
         labelHotkeyHint->setWordWrap(true);
 
-        formHotkeys->setWidget(2, QFormLayout::SpanningRole, labelHotkeyHint);
+        formHotkeys->setWidget(4, QFormLayout::SpanningRole, labelHotkeyHint);
 
 
         scrollContentLayout->addWidget(groupHotkeys);
@@ -264,6 +287,25 @@ public:
 
 
         scrollContentLayout->addWidget(groupAppearance);
+
+        groupPrivacy = new QGroupBox(scrollContent);
+        groupPrivacy->setObjectName(QString::fromUtf8("groupPrivacy"));
+        privacyLayout = new QVBoxLayout(groupPrivacy);
+        privacyLayout->setObjectName(QString::fromUtf8("privacyLayout"));
+        checkUsageStatistics = new QCheckBox(groupPrivacy);
+        checkUsageStatistics->setObjectName(QString::fromUtf8("checkUsageStatistics"));
+        checkUsageStatistics->setChecked(true);
+
+        privacyLayout->addWidget(checkUsageStatistics);
+
+        labelUsageStatisticsHint = new QLabel(groupPrivacy);
+        labelUsageStatisticsHint->setObjectName(QString::fromUtf8("labelUsageStatisticsHint"));
+        labelUsageStatisticsHint->setWordWrap(true);
+
+        privacyLayout->addWidget(labelUsageStatisticsHint);
+
+
+        scrollContentLayout->addWidget(groupPrivacy);
 
         scrollArea->setWidget(scrollContent);
 
@@ -327,6 +369,8 @@ public:
         groupHotkeys->setTitle(QCoreApplication::translate("AppSettingsDialog", "\345\277\253\346\215\267\351\224\256", nullptr));
         labelTodayTasksHotkey->setText(QCoreApplication::translate("AppSettingsDialog", "\344\273\212\346\227\245\344\273\273\345\212\241", nullptr));
         labelTop3Hotkey->setText(QCoreApplication::translate("AppSettingsDialog", "Top 3 \345\274\271\347\252\227", nullptr));
+        labelQuickCaptureHotkey->setText(QCoreApplication::translate("AppSettingsDialog", "\351\227\252\350\256\260", nullptr));
+        checkQuickCaptureAutoAnalyze->setText(QCoreApplication::translate("AppSettingsDialog", "\351\227\252\350\256\260\344\277\235\345\255\230\345\220\216\350\207\252\345\212\250 AI \345\210\206\346\236\220\344\274\230\345\205\210\347\272\247", nullptr));
         labelHotkeyHint->setText(QCoreApplication::translate("AppSettingsDialog", "\345\205\250\345\261\200\345\277\253\346\215\267\351\224\256\351\234\200\345\214\205\345\220\253 Win / Ctrl / Alt / Shift \344\271\213\344\270\200\343\200\202\347\202\271\345\207\273\350\276\223\345\205\245\346\241\206\345\220\216\346\214\211\344\270\213\347\273\204\345\220\210\351\224\256\345\215\263\345\217\257\345\275\225\345\210\266\343\200\202", nullptr));
         groupTools->setTitle(QCoreApplication::translate("AppSettingsDialog", "\345\267\245\345\205\267", nullptr));
         btnViewAiTrace->setText(QCoreApplication::translate("AppSettingsDialog", "AI \345\210\206\346\236\220\350\277\207\347\250\213", nullptr));
@@ -339,6 +383,9 @@ public:
 #endif // QT_CONFIG(tooltip)
         groupAppearance->setTitle(QCoreApplication::translate("AppSettingsDialog", "\347\225\214\351\235\242", nullptr));
         labelLanguage->setText(QCoreApplication::translate("AppSettingsDialog", "\350\257\255\350\250\200", nullptr));
+        groupPrivacy->setTitle(QCoreApplication::translate("AppSettingsDialog", "\351\232\220\347\247\201", nullptr));
+        checkUsageStatistics->setText(QCoreApplication::translate("AppSettingsDialog", "\345\217\221\351\200\201\345\214\277\345\220\215\344\275\277\347\224\250\347\273\237\350\256\241\357\274\210\345\270\256\345\212\251\346\224\271\350\277\233\344\272\247\345\223\201\357\274\211", nullptr));
+        labelUsageStatisticsHint->setText(QCoreApplication::translate("AppSettingsDialog", "\344\273\205\344\270\212\346\212\245\347\211\210\346\234\254\345\217\267\343\200\201\345\220\257\345\212\250/\351\200\200\345\207\272\346\227\266\351\227\264\344\270\216\345\214\277\345\220\215\345\256\211\350\243\205 ID\357\274\214\344\270\215\345\220\253\344\273\273\345\212\241\345\206\205\345\256\271\344\270\216 API Key\343\200\202\345\217\257\345\234\250\350\256\276\347\275\256\344\270\255\351\232\217\346\227\266\345\205\263\351\227\255\343\200\202", nullptr));
         btnLockNow->setText(QCoreApplication::translate("AppSettingsDialog", "\347\253\213\345\215\263\351\224\201\345\256\232", nullptr));
         btnClearPassword->setText(QCoreApplication::translate("AppSettingsDialog", "\346\270\205\351\231\244\345\257\206\347\240\201", nullptr));
         btnSave->setText(QCoreApplication::translate("AppSettingsDialog", "\344\277\235\345\255\230", nullptr));

@@ -16,7 +16,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
@@ -26,6 +25,7 @@
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <ui/top3listwidget.h>
 #include "ui/cyber_ai_panel.h"
 #include "ui/cyber_quadrant_box.h"
 
@@ -64,7 +64,7 @@ public:
     CyberQuadrantBox *quadrantQ4;
     CyberAiPanel *groupAi;
     QVBoxLayout *aiLayout;
-    QListWidget *listTop3;
+    Top3ListWidget *listTop3;
     QTextBrowser *textAiReason;
     QStatusBar *statusbar;
 
@@ -238,7 +238,7 @@ public:
         aiLayout = new QVBoxLayout(groupAi);
         aiLayout->setSpacing(6);
         aiLayout->setObjectName(QString::fromUtf8("aiLayout"));
-        listTop3 = new QListWidget(groupAi);
+        listTop3 = new Top3ListWidget(groupAi);
         listTop3->setObjectName(QString::fromUtf8("listTop3"));
         sizePolicy1.setHeightForWidth(listTop3->sizePolicy().hasHeightForWidth());
         listTop3->setSizePolicy(sizePolicy1);

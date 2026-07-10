@@ -10,6 +10,7 @@
 #include <QJsonObject>
 #include <QRandomGenerator>
 #include <QSettings>
+#include <QUuid>
 
 namespace {
 
@@ -23,7 +24,14 @@ constexpr auto kMinimizeToTray = "minimizeToTray";
 constexpr auto kHotkeyGroup = "hotkeys";
 constexpr auto kTodayTasksHotkey = "todayTasks";
 constexpr auto kTop3PopupHotkey = "top3Popup";
+constexpr auto kQuickCaptureHotkey = "quickCapture";
+constexpr auto kQuickCaptureGroup = "quickCapture";
+constexpr auto kQuickCaptureAutoAnalyze = "autoAnalyze";
 constexpr auto kUiLanguage = "uiLanguage";
+constexpr auto kUsageGroup = "usage";
+constexpr auto kUsageStatisticsEnabled = "statisticsEnabled";
+constexpr auto kInstallId = "installId";
+constexpr auto kLastUsageHeartbeat = "lastHeartbeatUtc";
 
 QSettings settings()
 {
@@ -38,6 +46,11 @@ QKeySequence defaultTodayTasksHotkey()
 QKeySequence defaultTop3PopupHotkey()
 {
     return QKeySequence(QStringLiteral("Alt+Shift+3"));
+}
+
+QKeySequence defaultQuickCaptureHotkey()
+{
+    return QKeySequence(QStringLiteral("Alt+Shift+N"));
 }
 
 QKeySequence readHotkey(const char *key, const QKeySequence &fallback)
@@ -283,6 +296,33 @@ void AppSettings::setTop3PopupHotkey(const QKeySequence &sequence)
     writeHotkey(kTop3PopupHotkey, sequence);
 }
 
+QKeySequence AppSettings::quickCaptureHotkey()
+{
+    return readHotkey(kQuickCaptureHotkey, defaultQuickCaptureHotkey());
+}
+
+void AppSettings::setQuickCaptureHotkey(const QKeySequence &sequence)
+{
+    writeHotkey(kQuickCaptureHotkey, sequence);
+}
+
+bool AppSettings::quickCaptureAutoAnalyze()
+{
+    QSettings s;
+    s.beginGroup(kQuickCaptureGroup);
+    const bool enabled = s.value(kQuickCaptureAutoAnalyze, true).toBool();
+    s.endGroup();
+    return enabled;
+}
+
+void AppSettings::setQuickCaptureAutoAnalyze(bool enabled)
+{
+    QSettings s;
+    s.beginGroup(kQuickCaptureGroup);
+    s.setValue(kQuickCaptureAutoAnalyze, enabled);
+    s.endGroup();
+}
+
 QString AppSettings::uiLanguage()
 {
     const QString stored = settings().value(QStringLiteral("general/%1").arg(kUiLanguage)).toString();
@@ -296,6 +336,52 @@ void AppSettings::setUiLanguage(const QString &code)
     QSettings s;
     s.beginGroup(QStringLiteral("general"));
     s.setValue(kUiLanguage, code == QStringLiteral("en") ? QStringLiteral("en") : QStringLiteral("zh"));
+    s.endGroup();
+}
+
+bool AppSettings::usageStatisticsEnabled()
+{
+    QSettings s;
+    s.beginGroup(kUsageGroup);
+    const bool enabled = s.value(kUsageStatisticsEnabled, true).toBool();
+    s.endGroup();
+    return enabled;
+}
+
+void AppSettings::setUsageStatisticsEnabled(bool enabled)
+{
+    QSettings s;
+    s.beginGroup(kUsageGroup);
+    s.setValue(kUsageStatisticsEnabled, enabled);
+    s.endGroup();
+}
+
+QString AppSettings::installId()
+{
+    QSettings s;
+    s.beginGroup(kUsageGroup);
+    QString id = s.value(kInstallId).toString().trimmed();
+    if (id.isEmpty()) {
+        id = QUuid::createUuid().toString(QUuid::WithoutBraces);
+        s.setValue(kInstallId, id);
+    }
+    s.endGroup();
+    return id;
+}
+
+QDateTime AppSettings::lastUsageHeartbeat()
+{
+    const QString raw = settings().value(QStringLiteral("%1/%2").arg(kUsageGroup, kLastUsageHeartbeat)).toString();
+    if (raw.isEmpty())
+        return {};
+    return QDateTime::fromString(raw, Qt::ISODateWithMs);
+}
+
+void AppSettings::setLastUsageHeartbeat(const QDateTime &atUtc)
+{
+    QSettings s;
+    s.beginGroup(kUsageGroup);
+    s.setValue(kLastUsageHeartbeat, atUtc.toString(Qt::ISODateWithMs));
     s.endGroup();
 }
 

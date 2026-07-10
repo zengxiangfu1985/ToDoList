@@ -17,11 +17,14 @@ SOURCES += \
     src/core/daily_evaluation_service.cpp \
     src/core/weekly_report_service.cpp \
     src/core/app_settings.cpp \
+    src/core/quick_capture_service.cpp \
     src/core/schema_migrator.cpp \
     src/core/update/update_manifest.cpp \
     src/core/update/update_config.cpp \
     src/core/update/update_apply.cpp \
     src/core/update/update_service.cpp \
+    src/core/telemetry/usage_report_config.cpp \
+    src/core/telemetry/usage_report_service.cpp \
     src/core/ai/llm_provider.cpp \
     src/core/ai/ai_prompts.cpp \
     src/core/ai/ollama_llm_provider.cpp \
@@ -34,8 +37,11 @@ SOURCES += \
     src/ui/mainwindow.cpp \
     src/ui/addtaskdialog.cpp \
     src/ui/todaytasksdialog.cpp \
+    src/ui/quick_capture_dialog.cpp \
+    src/ui/line_number_plain_text_edit.cpp \
     src/ui/llmsettingsdialog.cpp \
     src/ui/top3popupdialog.cpp \
+    src/ui/top3listwidget.cpp \
     src/ui/m365settingsdialog.cpp \
     src/ui/taskhistorydialog.cpp \
     src/ui/daily_evaluation_dialog.cpp \
@@ -76,11 +82,14 @@ HEADERS += \
     src/core/daily_evaluation_service.h \
     src/core/weekly_report_service.h \
     src/core/app_settings.h \
+    src/core/quick_capture_service.h \
     src/core/schema_migrator.h \
     src/core/update/update_manifest.h \
     src/core/update/update_config.h \
     src/core/update/update_apply.h \
     src/core/update/update_service.h \
+    src/core/telemetry/usage_report_config.h \
+    src/core/telemetry/usage_report_service.h \
     src/core/ai/llm_provider.h \
     src/core/ai/ai_prompts.h \
     src/core/ai/ollama_llm_provider.h \
@@ -93,8 +102,12 @@ HEADERS += \
     src/ui/mainwindow.h \
     src/ui/addtaskdialog.h \
     src/ui/todaytasksdialog.h \
+    src/ui/quick_capture_dialog.h \
+    src/ui/line_number_plain_text_edit.h \
     src/ui/llmsettingsdialog.h \
     src/ui/top3popupdialog.h \
+    src/ui/top3listwidget.h \
+    src/ui/task_checkbox_utils.h \
     src/ui/m365settingsdialog.h \
     src/ui/taskhistorydialog.h \
     src/ui/daily_evaluation_dialog.h \
@@ -129,6 +142,7 @@ HEADERS += \
 FORMS += \
     src/ui/mainwindow.ui \
     src/ui/addtaskdialog.ui \
+    src/ui/quick_capture_dialog.ui \
     src/ui/llmsettingsdialog.ui \
     src/ui/top3popupdialog.ui \
     src/ui/m365settingsdialog.ui \

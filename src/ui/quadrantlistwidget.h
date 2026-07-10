@@ -15,6 +15,7 @@ public:
 
     EisenhowerQuadrant quadrant() const { return m_quadrant; }
     void setTaskItems(const QVector<TaskItem> &tasks);
+    void removeTask(qint64 taskId);
 
 signals:
     void taskQuadrantChanged(qint64 taskId, EisenhowerQuadrant from, EisenhowerQuadrant to);

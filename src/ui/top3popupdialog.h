@@ -4,8 +4,8 @@
 #include "../core/task_types.h"
 
 #include <QDialog>
+#include <QHash>
 #include <QVector>
-
 namespace Ui {
 class Top3PopupDialog;
 }
@@ -17,7 +17,11 @@ public:
     explicit Top3PopupDialog(QWidget *parent = nullptr);
     ~Top3PopupDialog() override;
 
-    void setRecommendations(const QVector<PriorityRecommendation> &items);
+    void setRecommendations(const QVector<PriorityRecommendation> &items,
+                            const QHash<qint64, bool> &completedById = {});
+
+signals:
+    void taskCompletedToggled(qint64 taskId, bool completed);
 
 private:
     Ui::Top3PopupDialog *ui;

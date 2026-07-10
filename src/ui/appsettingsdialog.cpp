@@ -88,8 +88,11 @@ void AppSettingsDialog::loadToUi()
     ui->spinLockOnIdle->setValue(AppSettings::lockOnIdleMinutes());
     ui->checkLockOnStartup->setChecked(AppSettings::lockOnStartup());
     ui->checkMinimizeToTray->setChecked(AppSettings::minimizeToTray());
+    ui->checkUsageStatistics->setChecked(AppSettings::usageStatisticsEnabled());
     ui->editTodayTasksHotkey->setKeySequence(AppSettings::todayTasksHotkey());
     ui->editTop3Hotkey->setKeySequence(AppSettings::top3PopupHotkey());
+    ui->editQuickCaptureHotkey->setKeySequence(AppSettings::quickCaptureHotkey());
+    ui->checkQuickCaptureAutoAnalyze->setChecked(AppSettings::quickCaptureAutoAnalyze());
     ui->editCurrentPassword->clear();
     ui->editNewPassword->clear();
     ui->editConfirmPassword->clear();
@@ -150,9 +153,11 @@ void AppSettingsDialog::onSave()
     AppSettings::setLockOnIdleMinutes(ui->spinLockOnIdle->value());
     AppSettings::setLockOnStartup(ui->checkLockOnStartup->isChecked());
     AppSettings::setMinimizeToTray(ui->checkMinimizeToTray->isChecked());
+    AppSettings::setUsageStatisticsEnabled(ui->checkUsageStatistics->isChecked());
 
     const QKeySequence todayHotkey = ui->editTodayTasksHotkey->keySequence();
     const QKeySequence top3Hotkey = ui->editTop3Hotkey->keySequence();
+    const QKeySequence captureHotkey = ui->editQuickCaptureHotkey->keySequence();
     QString hotkeyErr;
     if (!globalHotkeySequenceValid(todayHotkey, &hotkeyErr)) {
         QMessageBox::warning(this, tr("设置"), tr("今日任务：%1").arg(hotkeyErr));
@@ -162,13 +167,19 @@ void AppSettingsDialog::onSave()
         QMessageBox::warning(this, tr("设置"), tr("Top 3 弹窗：%1").arg(hotkeyErr));
         return;
     }
-    if (todayHotkey == top3Hotkey) {
-        QMessageBox::warning(this, tr("设置"), tr("两个快捷键不能相同"));
+    if (!globalHotkeySequenceValid(captureHotkey, &hotkeyErr)) {
+        QMessageBox::warning(this, tr("设置"), tr("闪记：%1").arg(hotkeyErr));
+        return;
+    }
+    if (todayHotkey == top3Hotkey || todayHotkey == captureHotkey || top3Hotkey == captureHotkey) {
+        QMessageBox::warning(this, tr("设置"), tr("快捷键不能相同"));
         return;
     }
 
     AppSettings::setTodayTasksHotkey(todayHotkey);
     AppSettings::setTop3PopupHotkey(top3Hotkey);
+    AppSettings::setQuickCaptureHotkey(captureHotkey);
+    AppSettings::setQuickCaptureAutoAnalyze(ui->checkQuickCaptureAutoAnalyze->isChecked());
 
     const QString selectedLanguage = ui->comboLanguage->currentData().toString();
     AppSettings::setUiLanguage(selectedLanguage);

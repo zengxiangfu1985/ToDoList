@@ -11,6 +11,8 @@
 #include <QListWidget>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QResizeEvent>
+#include <QShowEvent>
 #include <QTableView>
 #include <QVBoxLayout>
 
@@ -29,17 +31,29 @@ TaskHistoryDialog::TaskHistoryDialog(QWidget *parent)
     auto *dateList = new QListWidget(this);
     dateList->setMinimumWidth(160);
 
-    auto *table = new QTableView(this);
-    auto *model = new TaskTableModel(table);
-    table->setModel(model);
-    table->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-    table->horizontalHeader()->setStretchLastSection(true);
-    table->verticalHeader()->setVisible(false);
-    table->setSelectionBehavior(QAbstractItemView::SelectRows);
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_table = new QTableView(this);
+    auto *model = new TaskTableModel(m_table);
+    m_table->setModel(model);
+    m_table->verticalHeader()->setVisible(false);
+    m_table->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_table->setWordWrap(false);
+    m_table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    m_table->setColumnHidden(TaskTableModel::ColSelect, true);
+    m_table->setColumnHidden(TaskTableModel::ColCompleted, true);
+
+    QHeaderView *header = m_table->horizontalHeader();
+    header->setStretchLastSection(false);
+    header->setDefaultAlignment(Qt::AlignCenter);
+    header->setMinimumSectionSize(32);
+    header->setSectionResizeMode(TaskTableModel::ColIndex, QHeaderView::Fixed);
+    header->setSectionResizeMode(TaskTableModel::ColTitle, QHeaderView::Fixed);
+    header->setSectionResizeMode(TaskTableModel::ColDue, QHeaderView::Fixed);
+    header->setSectionResizeMode(TaskTableModel::ColQuadrant, QHeaderView::Fixed);
+    header->setSectionResizeMode(TaskTableModel::ColScore, QHeaderView::Fixed);
 
     split->addWidget(dateList);
-    split->addWidget(table, 1);
+    split->addWidget(m_table, 1);
     root->addLayout(split, 1);
 
     auto *btnClose = new QPushButton(tr("关闭"), this);
@@ -74,4 +88,47 @@ TaskHistoryDialog::TaskHistoryDialog(QWidget *parent)
     connect(dateList, &QListWidget::currentRowChanged, this, loadDate);
     if (!dates.isEmpty())
         loadDate(0);
+}
+
+void TaskHistoryDialog::resizeEvent(QResizeEvent *event)
+{
+    QDialog::resizeEvent(event);
+    updateTableColumnWidths();
+}
+
+void TaskHistoryDialog::showEvent(QShowEvent *event)
+{
+    QDialog::showEvent(event);
+    updateTableColumnWidths();
+}
+
+void TaskHistoryDialog::updateTableColumnWidths()
+{
+    if (!m_table)
+        return;
+
+    const int viewportWidth = m_table->viewport()->width();
+    if (viewportWidth <= 0)
+        return;
+
+    constexpr int indexWidth = 44;
+    constexpr int quadrantWidth = 56;
+    constexpr int scoreWidth = 56;
+    const int fixedTotal = indexWidth + quadrantWidth + scoreWidth;
+    int flexWidth = viewportWidth - fixedTotal;
+    if (flexWidth <= 0)
+        return;
+
+    int dueWidth = qMax(140, flexWidth * 35 / 100);
+    int titleWidth = flexWidth - dueWidth;
+    if (titleWidth < 120) {
+        titleWidth = 120;
+        dueWidth = qMax(120, flexWidth - titleWidth);
+    }
+
+    m_table->setColumnWidth(TaskTableModel::ColIndex, indexWidth);
+    m_table->setColumnWidth(TaskTableModel::ColTitle, titleWidth);
+    m_table->setColumnWidth(TaskTableModel::ColDue, dueWidth);
+    m_table->setColumnWidth(TaskTableModel::ColQuadrant, quadrantWidth);
+    m_table->setColumnWidth(TaskTableModel::ColScore, scoreWidth);
 }

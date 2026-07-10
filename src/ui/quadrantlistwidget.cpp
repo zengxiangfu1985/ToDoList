@@ -1,5 +1,7 @@
 #include "quadrantlistwidget.h"
 
+#include "task_checkbox_utils.h"
+
 #include <QDrag>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
@@ -15,59 +17,6 @@
 
 static const char kTaskMime[] = "application/x-todolist-task";
 static const int kCompletedRole = Qt::UserRole + 1;
-
-static const int kCheckboxSize = 22;
-static const int kCheckboxRightPad = 8;
-
-static QRect checkboxRect(const QRect &itemRect)
-{
-    return QRect(itemRect.right() - kCheckboxRightPad - kCheckboxSize,
-                 itemRect.center().y() - kCheckboxSize / 2,
-                 kCheckboxSize, kCheckboxSize);
-}
-
-static void paintTaskCheckbox(QPainter *p, const QRect &rect, bool checked, bool hover)
-{
-    p->save();
-    p->setRenderHint(QPainter::Antialiasing);
-
-    QColor bg(0x0c, 0x14, 0x24);
-    QColor borderTop(0x18, 0x20, 0x30);
-    QColor borderBottom(0x06, 0x0a, 0x12);
-    if (checked) {
-        bg = hover ? QColor(0x20, 0x58, 0x88) : QColor(0x1a, 0x50, 0x80);
-        borderTop = hover ? QColor(0x4a, 0x80, 0xa8) : QColor(0x3a, 0x70, 0x98);
-        borderBottom = QColor(0x12, 0x30, 0x50);
-    } else if (hover) {
-        bg = QColor(0x10, 0x18, 0x28);
-        borderTop = QColor(0x28, 0x40, 0x60);
-    }
-
-    p->setPen(Qt::NoPen);
-    p->setBrush(bg);
-    p->drawRoundedRect(rect, 6, 6);
-
-    p->setPen(QPen(borderTop, 1));
-    p->drawLine(rect.topLeft() + QPoint(1, 0), rect.topRight() + QPoint(-1, 0));
-    p->setPen(QPen(borderBottom, 1));
-    p->drawLine(rect.bottomLeft() + QPoint(1, 0), rect.bottomRight() + QPoint(-1, 0));
-    p->setPen(QPen(QColor(0x0a, 0x10, 0x1c), 1));
-    p->setBrush(Qt::NoBrush);
-    p->drawRoundedRect(rect.adjusted(0, 0, -1, -1), 6, 6);
-
-    if (checked) {
-        QPen tickPen(Qt::white, 2.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
-        p->setPen(tickPen);
-        const QPoint c = rect.center();
-        QPainterPath tick;
-        tick.moveTo(c.x() - 5, c.y());
-        tick.lineTo(c.x() - 1, c.y() + 4);
-        tick.lineTo(c.x() + 6, c.y() - 5);
-        p->drawPath(tick);
-    }
-
-    p->restore();
-}
 
 class QuadrantItemDelegate : public QStyledItemDelegate
 {
@@ -96,13 +45,13 @@ public:
         painter->setFont(font);
         painter->setPen(completed ? QColor(0x8f, 0xa8, 0x88) : opt.palette.text().color());
 
-        const QRect checkR = checkboxRect(opt.rect);
-        QRect textRect = opt.rect.adjusted(8, 0, -(kCheckboxSize + kCheckboxRightPad + 4), 0);
+        const QRect checkR = TaskCheckbox::rectForItem(opt.rect);
+        QRect textRect = opt.rect.adjusted(8, 0, -(TaskCheckbox::kSize + TaskCheckbox::kRightPad + 4), 0);
         const QString title = index.data(Qt::DisplayRole).toString();
         const QString elided = opt.fontMetrics.elidedText(title, Qt::ElideRight, textRect.width());
         painter->drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, elided);
 
-        paintTaskCheckbox(painter, checkR, completed, hover);
+        TaskCheckbox::paint(painter, checkR, completed, hover);
 
         painter->restore();
     }
@@ -136,6 +85,24 @@ void QuadrantListWidget::setTaskItems(const QVector<TaskItem> &tasks)
     }
 }
 
+void QuadrantListWidget::removeTask(qint64 taskId)
+{
+    if (taskId <= 0)
+        return;
+
+    QSignalBlocker blocker(this);
+    for (int i = count() - 1; i >= 0; --i) {
+        QListWidgetItem *item = this->item(i);
+        if (!item)
+            continue;
+        if (item->data(Qt::UserRole).toLongLong() == taskId) {
+            delete takeItem(i);
+            viewport()->update();
+            return;
+        }
+    }
+}
+
 void QuadrantListWidget::toggleItemCompleted(QListWidgetItem *item)
 {
     if (!item)
@@ -152,7 +119,7 @@ void QuadrantListWidget::mousePressEvent(QMouseEvent *event)
 {
     QListWidgetItem *item = itemAt(event->pos());
     if (item && event->button() == Qt::LeftButton) {
-        const QRect checkR = checkboxRect(visualItemRect(item));
+        const QRect checkR = TaskCheckbox::rectForItem(visualItemRect(item));
         if (checkR.contains(event->pos())) {
             toggleItemCompleted(item);
             event->accept();

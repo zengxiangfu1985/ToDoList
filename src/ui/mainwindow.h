@@ -7,6 +7,7 @@
 #include "updatedialog.h"
 
 #include <QDate>
+#include <QHash>
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 #include <QTimer>
@@ -33,6 +34,7 @@ class WindowsSessionMonitor;
 class AiBusyOverlay;
 class UpdateService;
 class UpdateDialog;
+class UsageReportService;
 
 namespace Ui {
 class MainWindow;
@@ -86,6 +88,7 @@ private slots:
     void onWeeklyReportFinished(const WeeklyReportRecord &record, const WeeklyReportResult &result);
     void onProviderChanged(LlmProviderType type);
     void onTop3Clicked();
+    void showQuickCapture();
     void showMainWindow();
     void showTop3Popup();
     void quitApplication();
@@ -118,6 +121,9 @@ private:
     void restoreSavedTop3();
     void saveCurrentTop3();
     void clearTop3Ui();
+    void syncTop3WithTasks(const QVector<TaskItem> &tasks);
+    void removeTaskFromSyncedViews(qint64 taskId);
+    QHash<qint64, bool> taskCompletionMap() const;
     void archiveTodaySnapshot();
     void enterDeleteMode();
     void exitDeleteMode();
@@ -149,12 +155,15 @@ private:
     M365SyncService *m_m365Sync;
     QSystemTrayIcon *m_trayIcon;
     QAction *m_trayTodayTasksAction = nullptr;
+    QAction *m_trayQuickCaptureAction = nullptr;
     QAction *m_trayTop3Action = nullptr;
     WindowsHotkeyManager *m_hotkeyManager;
     LockScreenWidget *m_lockScreen = nullptr;
     AiBusyOverlay *m_aiBusyOverlay = nullptr;
     UpdateService *m_updateService = nullptr;
     UpdateDialog *m_updateDialog = nullptr;
+    UsageReportService *m_usageReport = nullptr;
+    QTimer *m_usageHeartbeatTimer = nullptr;
     WindowsSessionMonitor *m_sessionMonitor = nullptr;
     QTimer *m_systemLockTimer = nullptr;
     QTimer *m_idleTimer = nullptr;

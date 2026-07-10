@@ -334,7 +334,7 @@
             <number>6</number>
            </property>
            <item>
-            <widget class="QListWidget" name="listTop3">
+            <widget class="Top3ListWidget" name="listTop3">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>1</horstretch>
@@ -379,6 +379,11 @@
    <class>CyberAiPanel</class>
    <extends>QGroupBox</extends>
    <header>ui/cyber_ai_panel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Top3ListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">ui/top3listwidget.h</header>
   </customwidget>
  </customwidgets>
 </ui>

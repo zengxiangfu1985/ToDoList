@@ -2,7 +2,9 @@
 #include "ui_updatedialog.h"
 
 #include "../core/update/update_service.h"
+#include "../core/telemetry/usage_report_service.h"
 #include "../utils/app_theme.h"
+#include "../utils/app_version.h"
 #include "../utils/app_version.h"
 #include "../utils/window_fit.h"
 
@@ -178,7 +180,8 @@ void UpdateDialog::onCheckFinished(bool hasUpdate)
     m_hasUpdate = hasUpdate;
     if (!hasUpdate) {
         if (m_service && !m_service->lastError().isEmpty()) {
-            setStatusText(m_service->lastError());
+            setStatusText(tr("当前版本: %1\n%2")
+                              .arg(AppVersion::displayString(), m_service->lastError()));
             return;
         }
         const UpdatePackageInfo remote = m_service ? m_service->latestPackage() : UpdatePackageInfo{};
@@ -245,6 +248,9 @@ void UpdateDialog::onUpgradeClicked()
         QMessageBox::warning(this, tr("升级失败"), error);
         return;
     }
+
+    UsageReportService reporter(this);
+    reporter.reportUpgradeSuccess(AppVersion::versionString());
 
     QApplication::quit();
 }

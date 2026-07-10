@@ -207,7 +207,27 @@
           <item row="1" column="1">
            <widget class="QKeySequenceEdit" name="editTop3Hotkey"/>
           </item>
-          <item row="2" column="0" colspan="2">
+          <item row="2" column="0">
+           <widget class="QLabel" name="labelQuickCaptureHotkey">
+            <property name="text">
+             <string>闪记</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QKeySequenceEdit" name="editQuickCaptureHotkey"/>
+          </item>
+          <item row="3" column="0" colspan="2">
+           <widget class="QCheckBox" name="checkQuickCaptureAutoAnalyze">
+            <property name="text">
+             <string>闪记保存后自动 AI 分析优先级</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" colspan="2">
            <widget class="QLabel" name="labelHotkeyHint">
             <property name="text">
              <string>全局快捷键需包含 Win / Ctrl / Alt / Shift 之一。点击输入框后按下组合键即可录制。</string>
@@ -264,6 +284,35 @@
           </item>
           <item row="0" column="1">
            <widget class="QComboBox" name="comboLanguage"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupPrivacy">
+         <property name="title">
+          <string>隐私</string>
+         </property>
+         <layout class="QVBoxLayout" name="privacyLayout">
+          <item>
+           <widget class="QCheckBox" name="checkUsageStatistics">
+            <property name="text">
+             <string>发送匿名使用统计（帮助改进产品）</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelUsageStatisticsHint">
+            <property name="text">
+             <string>仅上报版本号、启动/退出时间与匿名安装 ID，不含任务内容与 API Key。可在设置中随时关闭。</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

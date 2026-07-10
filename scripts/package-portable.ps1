@@ -223,6 +223,16 @@ if (Test-Path $updateConfigTemplate) {
     }
 }
 
+$usageEndpointTemplate = Join-Path $ProjectRoot "resources\usage-endpoint.default.json"
+$usageEndpointOut = Join-Path $OutDir "usage-endpoint.json"
+if (Test-Path $usageEndpointTemplate) {
+    Copy-Item $usageEndpointTemplate $usageEndpointOut -Force
+}
+$usageEndpointDist = Join-Path $ProjectRoot "dist\usage-endpoint.json"
+if (Test-Path $usageEndpointDist) {
+    Copy-Item $usageEndpointDist $usageEndpointOut -Force
+}
+
 Write-Host "[9/10] Generate update manifests"
 $manifestFiles = Get-ChildItem $OutDir -Recurse -File | ForEach-Object {
     $_.FullName.Substring($OutDir.Length + 1).Replace("\", "/")

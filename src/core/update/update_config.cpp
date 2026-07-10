@@ -21,6 +21,12 @@ QString fallbackManifestUrl()
         "https://cdn.jsdelivr.net/gh/zengxiangfu1985/ToDoList@main/dist/update.json");
 }
 
+QString ghProxyManifestUrl()
+{
+    return QStringLiteral(
+        "https://ghproxy.net/https://raw.githubusercontent.com/zengxiangfu1985/ToDoList/main/dist/update.json");
+}
+
 UpdateConfig defaultConfig()
 {
     UpdateConfig config;
@@ -112,6 +118,7 @@ QStringList UpdateConfigStore::manifestUrls()
     };
 
     appendUnique(fallbackManifestUrl());
+    appendUnique(ghProxyManifestUrl());
     for (const UpdateSource &source : config.sources) {
         if (isJsDelivr(source.url))
             appendUnique(source.url);

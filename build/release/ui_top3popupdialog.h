@@ -13,9 +13,9 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
+#include <ui/top3listwidget.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -24,7 +24,7 @@ class Ui_Top3PopupDialog
 public:
     QVBoxLayout *verticalLayout;
     QLabel *labelHint;
-    QListWidget *listTop3;
+    Top3ListWidget *listTop3;
     QPushButton *btnClose;
 
     void setupUi(QDialog *Top3PopupDialog)
@@ -39,7 +39,7 @@ public:
 
         verticalLayout->addWidget(labelHint);
 
-        listTop3 = new QListWidget(Top3PopupDialog);
+        listTop3 = new Top3ListWidget(Top3PopupDialog);
         listTop3->setObjectName(QString::fromUtf8("listTop3"));
 
         verticalLayout->addWidget(listTop3);
