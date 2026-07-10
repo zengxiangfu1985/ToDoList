@@ -129,6 +129,8 @@ if ($isPrerelease) { $releaseArgs += "--prerelease" }
 if (-not $SkipUpload) {
     & gh @releaseArgs
     if ($LASTEXITCODE -ne 0) { throw "gh release create failed" }
+    & gh release upload $tag $updateJsonPath --repo "$owner/$repo" --clobber
+    if ($LASTEXITCODE -ne 0) { throw "gh release upload update.json failed" }
 } else {
     Write-Host "SkipUpload set; release not created."
 }

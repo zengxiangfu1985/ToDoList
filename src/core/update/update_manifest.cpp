@@ -53,11 +53,18 @@ UpdatePackageInfo parseLatestObject(const QJsonObject &latest, QString *error,
     return info;
 }
 
+QByteArray normalizeJsonBytes(const QByteArray &bytes)
+{
+    if (bytes.startsWith("\xEF\xBB\xBF"))
+        return bytes.mid(3);
+    return bytes;
+}
+
 } // namespace
 
 UpdatePackageInfo UpdateManifest::parseRemoteJson(const QByteArray &bytes, QString *error)
 {
-    const QJsonDocument doc = QJsonDocument::fromJson(bytes);
+    const QJsonDocument doc = QJsonDocument::fromJson(normalizeJsonBytes(bytes));
     if (!doc.isObject()) {
         if (error)
             *error = QStringLiteral("更新清单不是有效 JSON");

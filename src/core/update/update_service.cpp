@@ -158,6 +158,9 @@ void UpdateService::startNextManifestRequest()
     netRequest.setRawHeader("Cache-Control", "no-cache");
     netRequest.setHeader(QNetworkRequest::UserAgentHeader,
                          QStringLiteral("ToDoList/%1").arg(AppVersion::displayString()));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    netRequest.setTransferTimeout(60000);
+#endif
     m_reply = m_network->get(netRequest);
     connect(m_reply, &QNetworkReply::finished, this, &UpdateService::onCheckFinished);
 }

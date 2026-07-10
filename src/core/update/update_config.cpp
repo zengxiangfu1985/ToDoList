@@ -27,9 +27,33 @@ QString ghProxyManifestUrl()
         "https://ghproxy.net/https://raw.githubusercontent.com/zengxiangfu1985/ToDoList/main/dist/update.json");
 }
 
+QString ghProxyMirrorManifestUrl()
+{
+    return QStringLiteral(
+        "https://mirror.ghproxy.com/https://raw.githubusercontent.com/zengxiangfu1985/ToDoList/main/dist/update.json");
+}
+
+QString releaseLatestManifestUrl()
+{
+    return QStringLiteral(
+        "https://github.com/zengxiangfu1985/ToDoList/releases/latest/download/update.json");
+}
+
 UpdateConfig defaultConfig()
 {
     UpdateConfig config;
+    UpdateSource ghProxy;
+    ghProxy.name = QStringLiteral("ghproxy");
+    ghProxy.type = QStringLiteral("static_json");
+    ghProxy.url = ghProxyManifestUrl();
+    config.sources.append(ghProxy);
+
+    UpdateSource release;
+    release.name = QStringLiteral("Release");
+    release.type = QStringLiteral("static_json");
+    release.url = releaseLatestManifestUrl();
+    config.sources.append(release);
+
     UpdateSource jsDelivr;
     jsDelivr.name = QStringLiteral("jsDelivr");
     jsDelivr.type = QStringLiteral("static_json");
@@ -42,7 +66,7 @@ UpdateConfig defaultConfig()
     github.url = defaultManifestUrl();
     config.sources.append(github);
 
-    config.activeSource = github.name;
+    config.activeSource = release.name;
     config.checkOnStartup = true;
     config.checkIntervalHours = 168;
     return config;
@@ -117,8 +141,10 @@ QStringList UpdateConfigStore::manifestUrls()
         return url.contains(QStringLiteral("cdn.jsdelivr.net"));
     };
 
-    appendUnique(defaultManifestUrl());
+    appendUnique(releaseLatestManifestUrl());
     appendUnique(ghProxyManifestUrl());
+    appendUnique(ghProxyMirrorManifestUrl());
+    appendUnique(defaultManifestUrl());
     appendUnique(fallbackManifestUrl());
     for (const UpdateSource &source : config.sources) {
         if (isJsDelivr(source.url))
