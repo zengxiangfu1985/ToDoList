@@ -65,6 +65,7 @@ public:
     CyberAiPanel *groupAi;
     QVBoxLayout *aiLayout;
     Top3ListWidget *listTop3;
+    QPushButton *btnFocus25;
     QTextBrowser *textAiReason;
     QStatusBar *statusbar;
 
@@ -245,6 +246,11 @@ public:
 
         aiLayout->addWidget(listTop3);
 
+        btnFocus25 = new QPushButton(groupAi);
+        btnFocus25->setObjectName(QString::fromUtf8("btnFocus25"));
+
+        aiLayout->addWidget(btnFocus25);
+
         textAiReason = new QTextBrowser(groupAi);
         textAiReason->setObjectName(QString::fromUtf8("textAiReason"));
         sizePolicy1.setHeightForWidth(textAiReason->sizePolicy().hasHeightForWidth());
@@ -325,6 +331,7 @@ public:
         quadrantQ3->setTitle(QCoreApplication::translate("MainWindow", "Q3 \347\264\247\346\200\245\344\270\215\351\207\215\350\246\201", nullptr));
         quadrantQ4->setTitle(QCoreApplication::translate("MainWindow", "Q4 \344\270\215\351\207\215\350\246\201\344\270\215\347\264\247\346\200\245", nullptr));
         groupAi->setTitle(QCoreApplication::translate("MainWindow", "AI Top 3 \346\216\250\350\215\220", nullptr));
+        btnFocus25->setText(QCoreApplication::translate("MainWindow", "Focus 25", nullptr));
     } // retranslateUi
 
 };

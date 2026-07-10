@@ -25,6 +25,7 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *labelHint;
     Top3ListWidget *listTop3;
+    QPushButton *btnFocus25;
     QPushButton *btnClose;
 
     void setupUi(QDialog *Top3PopupDialog)
@@ -44,6 +45,11 @@ public:
 
         verticalLayout->addWidget(listTop3);
 
+        btnFocus25 = new QPushButton(Top3PopupDialog);
+        btnFocus25->setObjectName(QString::fromUtf8("btnFocus25"));
+
+        verticalLayout->addWidget(btnFocus25);
+
         btnClose = new QPushButton(Top3PopupDialog);
         btnClose->setObjectName(QString::fromUtf8("btnClose"));
 
@@ -59,6 +65,7 @@ public:
     {
         Top3PopupDialog->setWindowTitle(QCoreApplication::translate("Top3PopupDialog", "\344\273\212\346\227\245 Top 3", nullptr));
         labelHint->setText(QCoreApplication::translate("Top3PopupDialog", "AI \346\216\250\350\215\220\344\273\212\346\227\245\344\274\230\345\205\210\345\256\214\346\210\220\347\232\204 3 \351\241\271\344\273\273\345\212\241\357\274\232", nullptr));
+        btnFocus25->setText(QCoreApplication::translate("Top3PopupDialog", "Focus 25", nullptr));
         btnClose->setText(QCoreApplication::translate("Top3PopupDialog", "\345\205\263\351\227\255", nullptr));
     } // retranslateUi
 

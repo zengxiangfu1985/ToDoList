@@ -54,6 +54,8 @@ void BehaviorLearningEngine::recomputeWeights()
     // 接受 AI 推荐次数多 → 略增 urgency（用户倾向追赶截止）
     w.urgency += qMin(0.04, stats.aiAcceptedCount * 0.01);
 
+    w.business += qMin(0.05, stats.focusCompletedCount * 0.008);
+
     w.normalize();
     m_weights = w;
 }

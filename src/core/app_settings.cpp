@@ -27,6 +27,9 @@ constexpr auto kTop3PopupHotkey = "top3Popup";
 constexpr auto kQuickCaptureHotkey = "quickCapture";
 constexpr auto kQuickCaptureGroup = "quickCapture";
 constexpr auto kQuickCaptureAutoAnalyze = "autoAnalyze";
+constexpr auto kFocusGroup = "focus";
+constexpr auto kFocusDurationMinutes = "durationMinutes";
+constexpr auto kFocusTrayCountdown = "trayCountdown";
 constexpr auto kUiLanguage = "uiLanguage";
 constexpr auto kUsageGroup = "usage";
 constexpr auto kUsageStatisticsEnabled = "statisticsEnabled";
@@ -320,6 +323,45 @@ void AppSettings::setQuickCaptureAutoAnalyze(bool enabled)
     QSettings s;
     s.beginGroup(kQuickCaptureGroup);
     s.setValue(kQuickCaptureAutoAnalyze, enabled);
+    s.endGroup();
+}
+
+int AppSettings::focusDurationMinutes()
+{
+    QSettings s;
+    s.beginGroup(kFocusGroup);
+    const int minutes = s.value(kFocusDurationMinutes, 25).toInt();
+    s.endGroup();
+    if (minutes == 15 || minutes == 25 || minutes == 50)
+        return minutes;
+    return 25;
+}
+
+void AppSettings::setFocusDurationMinutes(int minutes)
+{
+    int value = 25;
+    if (minutes == 15 || minutes == 25 || minutes == 50)
+        value = minutes;
+    QSettings s;
+    s.beginGroup(kFocusGroup);
+    s.setValue(kFocusDurationMinutes, value);
+    s.endGroup();
+}
+
+bool AppSettings::focusTrayCountdown()
+{
+    QSettings s;
+    s.beginGroup(kFocusGroup);
+    const bool enabled = s.value(kFocusTrayCountdown, true).toBool();
+    s.endGroup();
+    return enabled;
+}
+
+void AppSettings::setFocusTrayCountdown(bool enabled)
+{
+    QSettings s;
+    s.beginGroup(kFocusGroup);
+    s.setValue(kFocusTrayCountdown, enabled);
     s.endGroup();
 }
 

@@ -35,6 +35,8 @@ class AiBusyOverlay;
 class UpdateService;
 class UpdateDialog;
 class UsageReportService;
+class FocusSessionService;
+class FocusSessionDialog;
 
 namespace Ui {
 class MainWindow;
@@ -91,6 +93,7 @@ private slots:
     void showQuickCapture();
     void showMainWindow();
     void showTop3Popup();
+    void startFocus25(qint64 taskId);
     void quitApplication();
     void onTrayActivated(QSystemTrayIcon::ActivationReason reason);
 
@@ -123,6 +126,17 @@ private:
     void clearTop3Ui();
     void syncTop3WithTasks(const QVector<TaskItem> &tasks);
     void removeTaskFromSyncedViews(qint64 taskId);
+    void setupFocusSession();
+    void onFocus25Clicked();
+    void onFocusTick(int remainingSec);
+    void onFocusSessionEnded();
+    void updateTrayTooltipForFocus(int remainingSec);
+    void restoreDefaultTrayTooltip();
+    void endFocusUi();
+    void closeFocusSessionRecord(bool completed, bool abandoned);
+    QString taskTitleForId(qint64 taskId) const;
+    int focusDurationSeconds() const;
+    EisenhowerQuadrant quadrantForTaskId(qint64 taskId) const;
     QHash<qint64, bool> taskCompletionMap() const;
     void archiveTodaySnapshot();
     void enterDeleteMode();
@@ -163,6 +177,8 @@ private:
     UpdateService *m_updateService = nullptr;
     UpdateDialog *m_updateDialog = nullptr;
     UsageReportService *m_usageReport = nullptr;
+    FocusSessionService *m_focusService = nullptr;
+    FocusSessionDialog *m_focusDialog = nullptr;
     QTimer *m_usageHeartbeatTimer = nullptr;
     WindowsSessionMonitor *m_sessionMonitor = nullptr;
     QTimer *m_systemLockTimer = nullptr;

@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_WindowsHotkeyManager_t {
-    QByteArrayData data[4];
-    char stringdata0[59];
+    QByteArrayData data[5];
+    char stringdata0[81];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,11 +35,12 @@ static const qt_meta_stringdata_WindowsHotkeyManager_t qt_meta_stringdata_Window
 QT_MOC_LITERAL(0, 0, 20), // "WindowsHotkeyManager"
 QT_MOC_LITERAL(1, 21, 17), // "quickAddTriggered"
 QT_MOC_LITERAL(2, 39, 0), // ""
-QT_MOC_LITERAL(3, 40, 18) // "top3PopupTriggered"
+QT_MOC_LITERAL(3, 40, 18), // "top3PopupTriggered"
+QT_MOC_LITERAL(4, 59, 21) // "quickCaptureTriggered"
 
     },
     "WindowsHotkeyManager\0quickAddTriggered\0"
-    "\0top3PopupTriggered"
+    "\0top3PopupTriggered\0quickCaptureTriggered"
 };
 #undef QT_MOC_LITERAL
 
@@ -49,18 +50,20 @@ static const uint qt_meta_data_WindowsHotkeyManager[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x06 /* Public */,
-       3,    0,   25,    2, 0x06 /* Public */,
+       1,    0,   29,    2, 0x06 /* Public */,
+       3,    0,   30,    2, 0x06 /* Public */,
+       4,    0,   31,    2, 0x06 /* Public */,
 
  // signals: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -75,6 +78,7 @@ void WindowsHotkeyManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c,
         switch (_id) {
         case 0: _t->quickAddTriggered(); break;
         case 1: _t->top3PopupTriggered(); break;
+        case 2: _t->quickCaptureTriggered(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -90,6 +94,13 @@ void WindowsHotkeyManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c,
             using _t = void (WindowsHotkeyManager::*)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&WindowsHotkeyManager::top3PopupTriggered)) {
                 *result = 1;
+                return;
+            }
+        }
+        {
+            using _t = void (WindowsHotkeyManager::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&WindowsHotkeyManager::quickCaptureTriggered)) {
+                *result = 2;
                 return;
             }
         }
@@ -126,13 +137,13 @@ int WindowsHotkeyManager::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
@@ -147,6 +158,12 @@ void WindowsHotkeyManager::quickAddTriggered()
 void WindowsHotkeyManager::top3PopupTriggered()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+}
+
+// SIGNAL 2
+void WindowsHotkeyManager::quickCaptureTriggered()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

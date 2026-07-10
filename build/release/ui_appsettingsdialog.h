@@ -62,7 +62,15 @@ public:
     QKeySequenceEdit *editTodayTasksHotkey;
     QLabel *labelTop3Hotkey;
     QKeySequenceEdit *editTop3Hotkey;
+    QLabel *labelQuickCaptureHotkey;
+    QKeySequenceEdit *editQuickCaptureHotkey;
+    QCheckBox *checkQuickCaptureAutoAnalyze;
     QLabel *labelHotkeyHint;
+    QGroupBox *groupFocus;
+    QFormLayout *formFocus;
+    QLabel *labelFocusDuration;
+    QComboBox *comboFocusDuration;
+    QCheckBox *checkFocusTrayCountdown;
     QGroupBox *groupTools;
     QVBoxLayout *toolsLayout;
     QPushButton *btnViewAiTrace;
@@ -226,14 +234,53 @@ public:
 
         formHotkeys->setWidget(1, QFormLayout::FieldRole, editTop3Hotkey);
 
+        labelQuickCaptureHotkey = new QLabel(groupHotkeys);
+        labelQuickCaptureHotkey->setObjectName(QString::fromUtf8("labelQuickCaptureHotkey"));
+
+        formHotkeys->setWidget(2, QFormLayout::LabelRole, labelQuickCaptureHotkey);
+
+        editQuickCaptureHotkey = new QKeySequenceEdit(groupHotkeys);
+        editQuickCaptureHotkey->setObjectName(QString::fromUtf8("editQuickCaptureHotkey"));
+
+        formHotkeys->setWidget(2, QFormLayout::FieldRole, editQuickCaptureHotkey);
+
+        checkQuickCaptureAutoAnalyze = new QCheckBox(groupHotkeys);
+        checkQuickCaptureAutoAnalyze->setObjectName(QString::fromUtf8("checkQuickCaptureAutoAnalyze"));
+        checkQuickCaptureAutoAnalyze->setChecked(true);
+
+        formHotkeys->setWidget(3, QFormLayout::SpanningRole, checkQuickCaptureAutoAnalyze);
+
         labelHotkeyHint = new QLabel(groupHotkeys);
         labelHotkeyHint->setObjectName(QString::fromUtf8("labelHotkeyHint"));
         labelHotkeyHint->setWordWrap(true);
 
-        formHotkeys->setWidget(2, QFormLayout::SpanningRole, labelHotkeyHint);
+        formHotkeys->setWidget(4, QFormLayout::SpanningRole, labelHotkeyHint);
 
 
         scrollContentLayout->addWidget(groupHotkeys);
+
+        groupFocus = new QGroupBox(scrollContent);
+        groupFocus->setObjectName(QString::fromUtf8("groupFocus"));
+        formFocus = new QFormLayout(groupFocus);
+        formFocus->setObjectName(QString::fromUtf8("formFocus"));
+        labelFocusDuration = new QLabel(groupFocus);
+        labelFocusDuration->setObjectName(QString::fromUtf8("labelFocusDuration"));
+
+        formFocus->setWidget(0, QFormLayout::LabelRole, labelFocusDuration);
+
+        comboFocusDuration = new QComboBox(groupFocus);
+        comboFocusDuration->setObjectName(QString::fromUtf8("comboFocusDuration"));
+
+        formFocus->setWidget(0, QFormLayout::FieldRole, comboFocusDuration);
+
+        checkFocusTrayCountdown = new QCheckBox(groupFocus);
+        checkFocusTrayCountdown->setObjectName(QString::fromUtf8("checkFocusTrayCountdown"));
+        checkFocusTrayCountdown->setChecked(true);
+
+        formFocus->setWidget(1, QFormLayout::SpanningRole, checkFocusTrayCountdown);
+
+
+        scrollContentLayout->addWidget(groupFocus);
 
         groupTools = new QGroupBox(scrollContent);
         groupTools->setObjectName(QString::fromUtf8("groupTools"));
@@ -350,7 +397,12 @@ public:
         groupHotkeys->setTitle(QCoreApplication::translate("AppSettingsDialog", "\345\277\253\346\215\267\351\224\256", nullptr));
         labelTodayTasksHotkey->setText(QCoreApplication::translate("AppSettingsDialog", "\344\273\212\346\227\245\344\273\273\345\212\241", nullptr));
         labelTop3Hotkey->setText(QCoreApplication::translate("AppSettingsDialog", "Top 3 \345\274\271\347\252\227", nullptr));
+        labelQuickCaptureHotkey->setText(QCoreApplication::translate("AppSettingsDialog", "\351\227\252\350\256\260", nullptr));
+        checkQuickCaptureAutoAnalyze->setText(QCoreApplication::translate("AppSettingsDialog", "\351\227\252\350\256\260\344\277\235\345\255\230\345\220\216\350\207\252\345\212\250 AI \345\210\206\346\236\220\344\274\230\345\205\210\347\272\247", nullptr));
         labelHotkeyHint->setText(QCoreApplication::translate("AppSettingsDialog", "\345\205\250\345\261\200\345\277\253\346\215\267\351\224\256\351\234\200\345\214\205\345\220\253 Win / Ctrl / Alt / Shift \344\271\213\344\270\200\343\200\202\347\202\271\345\207\273\350\276\223\345\205\245\346\241\206\345\220\216\346\214\211\344\270\213\347\273\204\345\220\210\351\224\256\345\215\263\345\217\257\345\275\225\345\210\266\343\200\202", nullptr));
+        groupFocus->setTitle(QCoreApplication::translate("AppSettingsDialog", "Focus 25", nullptr));
+        labelFocusDuration->setText(QCoreApplication::translate("AppSettingsDialog", "\347\225\252\350\214\204\346\227\266\351\225\277", nullptr));
+        checkFocusTrayCountdown->setText(QCoreApplication::translate("AppSettingsDialog", "\346\211\230\347\233\230\346\217\220\347\244\272\346\230\276\347\244\272\344\270\223\346\263\250\345\200\222\350\256\241\346\227\266", nullptr));
         groupTools->setTitle(QCoreApplication::translate("AppSettingsDialog", "\345\267\245\345\205\267", nullptr));
         btnViewAiTrace->setText(QCoreApplication::translate("AppSettingsDialog", "AI \345\210\206\346\236\220\350\277\207\347\250\213", nullptr));
 #if QT_CONFIG(tooltip)

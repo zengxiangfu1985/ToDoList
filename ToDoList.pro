@@ -18,6 +18,7 @@ SOURCES += \
     src/core/weekly_report_service.cpp \
     src/core/app_settings.cpp \
     src/core/quick_capture_service.cpp \
+    src/core/focus/focus_session_service.cpp \
     src/core/schema_migrator.cpp \
     src/core/update/update_manifest.cpp \
     src/core/update/update_config.cpp \
@@ -38,6 +39,7 @@ SOURCES += \
     src/ui/addtaskdialog.cpp \
     src/ui/todaytasksdialog.cpp \
     src/ui/quick_capture_dialog.cpp \
+    src/ui/focus_session_dialog.cpp \
     src/ui/line_number_plain_text_edit.cpp \
     src/ui/llmsettingsdialog.cpp \
     src/ui/top3popupdialog.cpp \
@@ -83,6 +85,7 @@ HEADERS += \
     src/core/weekly_report_service.h \
     src/core/app_settings.h \
     src/core/quick_capture_service.h \
+    src/core/focus/focus_session_service.h \
     src/core/schema_migrator.h \
     src/core/update/update_manifest.h \
     src/core/update/update_config.h \
@@ -103,6 +106,7 @@ HEADERS += \
     src/ui/addtaskdialog.h \
     src/ui/todaytasksdialog.h \
     src/ui/quick_capture_dialog.h \
+    src/ui/focus_session_dialog.h \
     src/ui/line_number_plain_text_edit.h \
     src/ui/llmsettingsdialog.h \
     src/ui/top3popupdialog.h \
@@ -143,6 +147,7 @@ FORMS += \
     src/ui/mainwindow.ui \
     src/ui/addtaskdialog.ui \
     src/ui/quick_capture_dialog.ui \
+    src/ui/focus_session_dialog.ui \
     src/ui/llmsettingsdialog.ui \
     src/ui/top3popupdialog.ui \
     src/ui/m365settingsdialog.ui \

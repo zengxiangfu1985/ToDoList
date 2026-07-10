@@ -8,6 +8,7 @@ debug/daily_evaluation_service.o
 debug/weekly_report_service.o
 debug/app_settings.o
 debug/quick_capture_service.o
+debug/focus_session_service.o
 debug/schema_migrator.o
 debug/update_manifest.o
 debug/update_config.o
@@ -28,6 +29,7 @@ debug/mainwindow.o
 debug/addtaskdialog.o
 debug/todaytasksdialog.o
 debug/quick_capture_dialog.o
+debug/focus_session_dialog.o
 debug/line_number_plain_text_edit.o
 debug/llmsettingsdialog.o
 debug/top3popupdialog.o
@@ -67,6 +69,7 @@ debug/moc_task_repository.o
 debug/moc_behavior_learning_engine.o
 debug/moc_daily_evaluation_service.o
 debug/moc_weekly_report_service.o
+debug/moc_focus_session_service.o
 debug/moc_update_service.o
 debug/moc_usage_report_service.o
 debug/moc_llm_provider.o
@@ -81,6 +84,7 @@ debug/moc_mainwindow.o
 debug/moc_addtaskdialog.o
 debug/moc_todaytasksdialog.o
 debug/moc_quick_capture_dialog.o
+debug/moc_focus_session_dialog.o
 debug/moc_line_number_plain_text_edit.o
 debug/moc_llmsettingsdialog.o
 debug/moc_top3popupdialog.o

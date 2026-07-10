@@ -24,6 +24,9 @@ static QString behaviorEventTypeName(BehaviorEventType type)
     case BehaviorEventType::QuadrantChanged: return QStringLiteral("quadrant_changed");
     case BehaviorEventType::TaskCompleted: return QStringLiteral("task_completed");
     case BehaviorEventType::AiRecommendationAccepted: return QStringLiteral("ai_accepted");
+    case BehaviorEventType::FocusStarted: return QStringLiteral("focus_started");
+    case BehaviorEventType::FocusCompleted: return QStringLiteral("focus_completed");
+    case BehaviorEventType::FocusAbandoned: return QStringLiteral("focus_abandoned");
     }
     return QStringLiteral("unknown");
 }
@@ -449,8 +452,51 @@ BehaviorStats TaskRepository::behaviorStatsLast30Days() const
             stats.completionCount++;
         else if (type == QStringLiteral("ai_accepted"))
             stats.aiAcceptedCount++;
+        else if (type == QStringLiteral("focus_completed"))
+            stats.focusCompletedCount++;
     }
     return stats;
+}
+
+bool TaskRepository::insertFocusSession(qint64 taskId, int durationSec, int pomodoroIndex, qint64 *sessionId,
+                                        QString *errorMsg)
+{
+    QSqlQuery q(d->db);
+    q.prepare(QStringLiteral(
+        "INSERT INTO focus_sessions (task_id, started_at, duration_sec, pomodoro_index) "
+        "VALUES (?, ?, ?, ?)"));
+    q.addBindValue(taskId);
+    q.addBindValue(QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+    q.addBindValue(durationSec);
+    q.addBindValue(pomodoroIndex);
+    if (!q.exec()) {
+        if (errorMsg)
+            *errorMsg = q.lastError().text();
+        return false;
+    }
+    if (sessionId)
+        *sessionId = q.lastInsertId().toLongLong();
+    return true;
+}
+
+bool TaskRepository::finishFocusSession(qint64 sessionId, bool completed, bool abandoned, QString *errorMsg)
+{
+    if (sessionId <= 0)
+        return false;
+
+    QSqlQuery q(d->db);
+    q.prepare(QStringLiteral(
+        "UPDATE focus_sessions SET ended_at=?, completed=?, abandoned=? WHERE id=?"));
+    q.addBindValue(QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+    q.addBindValue(completed ? 1 : 0);
+    q.addBindValue(abandoned ? 1 : 0);
+    q.addBindValue(sessionId);
+    if (!q.exec()) {
+        if (errorMsg)
+            *errorMsg = q.lastError().text();
+        return false;
+    }
+    return true;
 }
 
 static bool isLocalDate(const QDateTime &dt, const QDate &localDate)

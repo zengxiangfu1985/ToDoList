@@ -30,7 +30,10 @@ enum class LlmProviderType {
 enum class BehaviorEventType {
     QuadrantChanged,
     TaskCompleted,
-    AiRecommendationAccepted
+    AiRecommendationAccepted,
+    FocusStarted,
+    FocusCompleted,
+    FocusAbandoned
 };
 
 struct ScoringWeights {

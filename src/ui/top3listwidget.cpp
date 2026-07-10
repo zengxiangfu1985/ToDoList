@@ -4,6 +4,8 @@
 
 #include "task_checkbox_utils.h"
 
+#include <QContextMenuEvent>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QSet>
@@ -18,7 +20,11 @@ constexpr int kReasonRole = Qt::UserRole + 1;
 class Top3ItemDelegate : public QStyledItemDelegate
 {
 public:
-    using QStyledItemDelegate::QStyledItemDelegate;
+    explicit Top3ItemDelegate(Top3ListWidget *owner)
+        : QStyledItemDelegate(owner)
+        , m_owner(owner)
+    {
+    }
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option,
                const QModelIndex &index) const override
@@ -28,13 +34,22 @@ public:
 
         const bool completed = index.data(kCompletedRole).toBool();
         const bool hover = opt.state & QStyle::State_MouseOver;
+        const qint64 taskId = index.data(Qt::UserRole).toLongLong();
+        const bool focused = m_owner && taskId > 0 && taskId == m_owner->focusedTaskId();
 
         painter->save();
 
-        if (opt.state & QStyle::State_Selected)
+        if (focused)
+            painter->fillRect(opt.rect, QColor(0x1a, 0x4d, 0x3a, 140));
+        else if (opt.state & QStyle::State_Selected)
             painter->fillRect(opt.rect, opt.palette.highlight());
         else if (hover)
             painter->fillRect(opt.rect, QColor(0x14, 0x22, 0x3c, 120));
+
+        if (focused) {
+            painter->setPen(QColor(0x4a, 0xd4, 0x8a));
+            painter->drawRect(opt.rect.adjusted(0, 0, -1, -1));
+        }
 
         QFont font = opt.font;
         if (completed)
@@ -52,6 +67,9 @@ public:
 
         painter->restore();
     }
+
+private:
+    Top3ListWidget *m_owner = nullptr;
 };
 
 } // namespace
@@ -62,6 +80,7 @@ Top3ListWidget::Top3ListWidget(QWidget *parent)
     setSelectionMode(QAbstractItemView::SingleSelection);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setObjectName(QStringLiteral("top3List"));
+    setContextMenuPolicy(Qt::DefaultContextMenu);
     setItemDelegate(new Top3ItemDelegate(this));
 }
 
@@ -79,10 +98,11 @@ void Top3ListWidget::setRecommendations(const QVector<PriorityRecommendation> &r
         item->setData(kReasonRole, reason);
         item->setData(kCompletedRole, completedById.value(rec.taskId, false));
         item->setToolTip(reason.isEmpty()
-                             ? QObject::tr("点击或双击查看推荐理由")
+                             ? QObject::tr("点击或双击查看推荐理由；右键开始 Focus 25")
                              : reason);
         addItem(item);
     }
+    viewport()->update();
 }
 
 void Top3ListWidget::syncFromTasks(const QVector<TaskItem> &tasks)
@@ -127,6 +147,22 @@ void Top3ListWidget::removeTask(qint64 taskId)
     }
 }
 
+void Top3ListWidget::setFocusedTaskId(qint64 taskId)
+{
+    if (m_focusedTaskId == taskId)
+        return;
+    m_focusedTaskId = taskId;
+    viewport()->update();
+}
+
+qint64 Top3ListWidget::taskIdAtRow(int row) const
+{
+    const QListWidgetItem *item = this->item(row);
+    if (!item)
+        return 0;
+    return item->data(Qt::UserRole).toLongLong();
+}
+
 void Top3ListWidget::toggleItemCompleted(QListWidgetItem *item)
 {
     if (!item)
@@ -142,6 +178,23 @@ void Top3ListWidget::toggleItemCompleted(QListWidgetItem *item)
     emit taskCompletedToggled(taskId, completed);
 }
 
+void Top3ListWidget::showItemContextMenu(const QPoint &pos)
+{
+    QListWidgetItem *item = itemAt(pos);
+    if (!item)
+        return;
+
+    const qint64 taskId = item->data(Qt::UserRole).toLongLong();
+    if (taskId <= 0)
+        return;
+
+    QMenu menu(this);
+    QAction *focusAction = menu.addAction(tr("开始 Focus 25"));
+    const QAction *chosen = menu.exec(viewport()->mapToGlobal(pos));
+    if (chosen == focusAction)
+        emit focusRequested(taskId);
+}
+
 void Top3ListWidget::mousePressEvent(QMouseEvent *event)
 {
     QListWidgetItem *item = itemAt(event->pos());
@@ -154,4 +207,9 @@ void Top3ListWidget::mousePressEvent(QMouseEvent *event)
         }
     }
     QListWidget::mousePressEvent(event);
+}
+
+void Top3ListWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+    showItemContextMenu(event->pos());
 }

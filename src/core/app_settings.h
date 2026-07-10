@@ -36,6 +36,11 @@ public:
     static bool quickCaptureAutoAnalyze();
     static void setQuickCaptureAutoAnalyze(bool enabled);
 
+    static int focusDurationMinutes();
+    static void setFocusDurationMinutes(int minutes);
+    static bool focusTrayCountdown();
+    static void setFocusTrayCountdown(bool enabled);
+
     static QString uiLanguage();
     static void setUiLanguage(const QString &code);
 

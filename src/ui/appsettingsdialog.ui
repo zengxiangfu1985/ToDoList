@@ -241,6 +241,35 @@
         </widget>
        </item>
        <item>
+        <widget class="QGroupBox" name="groupFocus">
+         <property name="title">
+          <string>Focus 25</string>
+         </property>
+         <layout class="QFormLayout" name="formFocus">
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelFocusDuration">
+            <property name="text">
+             <string>番茄时长</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="comboFocusDuration"/>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QCheckBox" name="checkFocusTrayCountdown">
+            <property name="text">
+             <string>托盘提示显示专注倒计时</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="QGroupBox" name="groupTools">
          <property name="title">
           <string>工具</string>

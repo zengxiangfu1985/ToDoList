@@ -22,8 +22,15 @@
    <item>
     <widget class="Top3ListWidget" name="listTop3"/>
    </item>
-   <item>
-    <widget class="QPushButton" name="btnClose">
+    <item>
+     <widget class="QPushButton" name="btnFocus25">
+      <property name="text">
+       <string>Focus 25</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnClose">
      <property name="text">
       <string>关闭</string>
      </property>

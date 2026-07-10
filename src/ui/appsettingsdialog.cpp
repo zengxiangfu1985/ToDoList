@@ -32,6 +32,11 @@ AppSettingsDialog::AppSettingsDialog(QWidget *parent)
     ui->comboLanguage->addItem(tr("中文"), QStringLiteral("zh"));
     ui->comboLanguage->addItem(QStringLiteral("English"), QStringLiteral("en"));
 
+    ui->comboFocusDuration->clear();
+    ui->comboFocusDuration->addItem(tr("15 分钟"), 15);
+    ui->comboFocusDuration->addItem(tr("25 分钟"), 25);
+    ui->comboFocusDuration->addItem(tr("50 分钟"), 50);
+
     connect(ui->btnSave, &QPushButton::clicked, this, &AppSettingsDialog::onSave);
     connect(ui->btnCancel, &QPushButton::clicked, this, &QDialog::reject);
     connect(ui->btnClearPassword, &QPushButton::clicked, this, &AppSettingsDialog::onClearPassword);
@@ -93,6 +98,9 @@ void AppSettingsDialog::loadToUi()
     ui->editTop3Hotkey->setKeySequence(AppSettings::top3PopupHotkey());
     ui->editQuickCaptureHotkey->setKeySequence(AppSettings::quickCaptureHotkey());
     ui->checkQuickCaptureAutoAnalyze->setChecked(AppSettings::quickCaptureAutoAnalyze());
+    ui->comboFocusDuration->setCurrentIndex(
+        ui->comboFocusDuration->findData(AppSettings::focusDurationMinutes()));
+    ui->checkFocusTrayCountdown->setChecked(AppSettings::focusTrayCountdown());
     ui->editCurrentPassword->clear();
     ui->editNewPassword->clear();
     ui->editConfirmPassword->clear();
@@ -180,6 +188,8 @@ void AppSettingsDialog::onSave()
     AppSettings::setTop3PopupHotkey(top3Hotkey);
     AppSettings::setQuickCaptureHotkey(captureHotkey);
     AppSettings::setQuickCaptureAutoAnalyze(ui->checkQuickCaptureAutoAnalyze->isChecked());
+    AppSettings::setFocusDurationMinutes(ui->comboFocusDuration->currentData().toInt());
+    AppSettings::setFocusTrayCountdown(ui->checkFocusTrayCountdown->isChecked());
 
     const QString selectedLanguage = ui->comboLanguage->currentData().toString();
     AppSettings::setUiLanguage(selectedLanguage);

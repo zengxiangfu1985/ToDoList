@@ -11,6 +11,7 @@ struct BehaviorStats {
     QHash<int, int> quadrantMoveCounts;
     int completionCount = 0;
     int aiAcceptedCount = 0;
+    int focusCompletedCount = 0;
 };
 
 class TaskRepository : public QObject
@@ -55,6 +56,10 @@ public:
     bool recordBehaviorEvent(BehaviorEventType type, qint64 taskId, EisenhowerQuadrant quadrant,
                              const QDateTime &at, QString *errorMsg = nullptr);
     BehaviorStats behaviorStatsLast30Days() const;
+
+    bool insertFocusSession(qint64 taskId, int durationSec, int pomodoroIndex, qint64 *sessionId,
+                            QString *errorMsg = nullptr);
+    bool finishFocusSession(qint64 sessionId, bool completed, bool abandoned, QString *errorMsg = nullptr);
 
 signals:
     void tasksChanged();

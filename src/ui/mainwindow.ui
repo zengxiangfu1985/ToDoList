@@ -344,6 +344,13 @@
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="btnFocus25">
+             <property name="text">
+              <string>Focus 25</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QTextBrowser" name="textAiReason">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">

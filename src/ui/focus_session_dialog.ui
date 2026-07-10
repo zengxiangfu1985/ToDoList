@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FocusSessionDialog</class>
+ <widget class="QDialog" name="FocusSessionDialog">
+  <property name="windowTitle">
+   <string>Focus 25</string>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>360</width>
+    <height>260</height>
+   </size>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="labelTaskTitle">
+     <property name="text">
+      <string>专注任务</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelCountdown">
+     <property name="text">
+      <string>25:00</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelStatus">
+     <property name="text">
+      <string>专注中…</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="runningPanel" native="true">
+     <layout class="QHBoxLayout" name="runningLayout">
+      <item>
+       <widget class="QPushButton" name="btnPause">
+        <property name="text">
+         <string>暂停</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnExtend">
+        <property name="text">
+         <string>+5 分钟</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnAbandon">
+        <property name="text">
+         <string>放弃</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="resultPanel" native="true">
+     <layout class="QVBoxLayout" name="resultLayout">
+      <item>
+       <widget class="QLabel" name="labelResultHint">
+        <property name="text">
+         <string>时间到！这次专注完成了吗？</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="resultButtons">
+        <item>
+         <widget class="QPushButton" name="btnComplete">
+          <property name="text">
+           <string>完成</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnAnotherRound">
+          <property name="text">
+           <string>再来一轮</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnSkip">
+          <property name="text">
+           <string>跳过</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

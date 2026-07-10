@@ -22,6 +22,7 @@ public:
 
 signals:
     void taskCompletedToggled(qint64 taskId, bool completed);
+    void focusRequested(qint64 taskId);
 
 private:
     Ui::Top3PopupDialog *ui;

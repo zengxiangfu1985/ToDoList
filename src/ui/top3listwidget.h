@@ -18,13 +18,23 @@ public:
     void syncFromTasks(const QVector<TaskItem> &tasks);
     void removeTask(qint64 taskId);
 
+    void setFocusedTaskId(qint64 taskId);
+    qint64 focusedTaskId() const { return m_focusedTaskId; }
+
+    qint64 taskIdAtRow(int row) const;
+
 signals:
     void taskCompletedToggled(qint64 taskId, bool completed);
+    void focusRequested(qint64 taskId);
 
 private:
     void toggleItemCompleted(QListWidgetItem *item);
+    void showItemContextMenu(const QPoint &pos);
 
     void mousePressEvent(QMouseEvent *event) override;
+    void contextMenuEvent(QContextMenuEvent *event) override;
+
+    qint64 m_focusedTaskId = 0;
 };
 
 #endif // TOP3LISTWIDGET_H

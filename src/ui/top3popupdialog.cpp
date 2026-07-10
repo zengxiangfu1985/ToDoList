@@ -15,8 +15,17 @@ Top3PopupDialog::Top3PopupDialog(QWidget *parent)
     setWindowTitle(tr("今日 Top 3"));
     setWindowFlags(windowFlags() | Qt::Tool | Qt::WindowStaysOnTopHint);
     connect(ui->btnClose, &QPushButton::clicked, this, &QDialog::accept);
+    connect(ui->btnFocus25, &QPushButton::clicked, this, [this]() {
+        const int row = ui->listTop3->currentRow();
+        if (row < 0 && ui->listTop3->count() > 0)
+            ui->listTop3->setCurrentRow(0);
+        const qint64 taskId = ui->listTop3->taskIdAtRow(ui->listTop3->currentRow());
+        if (taskId > 0)
+            emit focusRequested(taskId);
+    });
     connect(ui->listTop3, &Top3ListWidget::taskCompletedToggled, this,
             &Top3PopupDialog::taskCompletedToggled);
+    connect(ui->listTop3, &Top3ListWidget::focusRequested, this, &Top3PopupDialog::focusRequested);
 }
 
 Top3PopupDialog::~Top3PopupDialog()

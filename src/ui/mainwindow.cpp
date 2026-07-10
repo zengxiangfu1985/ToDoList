@@ -74,6 +74,8 @@
 #include "../core/update/update_config.h"
 #include "../core/update/update_service.h"
 #include "../core/telemetry/usage_report_service.h"
+#include "../core/focus/focus_session_service.h"
+#include "focus_session_dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -148,6 +150,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupQuadrantBoard();
     applyPanelElevation();
     setupConnections();
+    setupFocusSession();
     setupTrayIcon();
     setupSecurity();
     m_aiBusyOverlay = new AiBusyOverlay(this);
@@ -656,6 +659,8 @@ void MainWindow::setupConnections()
                                     EisenhowerQuadrant::Q2_NotUrgentImportant);
     });
     connect(ui->listTop3, &QListWidget::itemDoubleClicked, this, [this]() { onTop3Clicked(); });
+    connect(ui->listTop3, &Top3ListWidget::focusRequested, this, &MainWindow::startFocus25);
+    connect(ui->btnFocus25, &QPushButton::clicked, this, &MainWindow::onFocus25Clicked);
 
     connect(ui->tableTasks, &QTableView::doubleClicked, this, &MainWindow::onTaskDoubleClicked);
     connect(ui->tableTasks, &QTableView::customContextMenuRequested, this, &MainWindow::onTaskContextMenu);
@@ -894,6 +899,10 @@ void MainWindow::showTop3Popup()
     Top3PopupDialog dlg(nullptr);
     dlg.setRecommendations(result.top3, taskCompletionMap());
     connect(&dlg, &Top3PopupDialog::taskCompletedToggled, this, &MainWindow::onTaskCompletedToggled);
+    connect(&dlg, &Top3PopupDialog::focusRequested, this, [this, &dlg](qint64 taskId) {
+        dlg.accept();
+        startFocus25(taskId);
+    });
     dlg.move(QCursor::pos());
     dlg.show();
     dlg.raise();
@@ -903,6 +912,10 @@ void MainWindow::showTop3Popup()
 
 void MainWindow::quitApplication()
 {
+    if (m_focusService && m_focusService->isActive()) {
+        closeFocusSessionRecord(false, true);
+        endFocusUi();
+    }
     m_usageReport->reportAppExit();
     m_hotkeyManager->uninstall();
     m_trayIcon->hide();
@@ -1361,6 +1374,11 @@ void MainWindow::syncTop3WithTasks(const QVector<TaskItem> &tasks)
 
 void MainWindow::removeTaskFromSyncedViews(qint64 taskId)
 {
+    if (m_focusService && m_focusService->isActive() && m_focusService->current().taskId == taskId) {
+        closeFocusSessionRecord(false, true);
+        endFocusUi();
+    }
+
     m_quadrantBoard->removeTask(taskId);
     ui->listTop3->removeTask(taskId);
 
@@ -1532,4 +1550,221 @@ QString MainWindow::providerDisplayName(LlmProviderType type) const
     case LlmProviderType::CustomOpenAI: return tr("Custom");
     }
     return tr("Unknown");
+}
+
+void MainWindow::setupFocusSession()
+{
+    m_focusService = new FocusSessionService(this);
+    m_focusDialog = new FocusSessionDialog(nullptr);
+    m_focusDialog->bindSession(m_focusService);
+
+    connect(m_focusService, &FocusSessionService::tick, this, &MainWindow::onFocusTick);
+    connect(m_focusService, &FocusSessionService::stateChanged, this, [this]() {
+        if (m_focusDialog)
+            m_focusDialog->refreshUi();
+    });
+    connect(m_focusService, &FocusSessionService::awaitingResult, this, [this]() {
+        if (m_focusDialog)
+            m_focusDialog->refreshUi();
+        if (m_trayIcon && m_trayIcon->isVisible())
+            m_trayIcon->showMessage(tr("Focus 25"), tr("专注时间到！"), QSystemTrayIcon::Information, 5000);
+    });
+    connect(m_focusService, &FocusSessionService::sessionEnded, this, &MainWindow::onFocusSessionEnded);
+
+    connect(m_focusDialog, &FocusSessionDialog::pauseRequested, m_focusService, &FocusSessionService::pause);
+    connect(m_focusDialog, &FocusSessionDialog::resumeRequested, m_focusService, &FocusSessionService::resume);
+    connect(m_focusDialog, &FocusSessionDialog::extendRequested, this, [this]() {
+        if (m_focusService)
+            m_focusService->extendMinutes(5);
+    });
+    connect(m_focusDialog, &FocusSessionDialog::abandonRequested, this, [this]() {
+        if (!m_focusService || !m_focusService->isActive())
+            return;
+        closeFocusSessionRecord(false, true);
+        m_repo->recordBehaviorEvent(BehaviorEventType::FocusAbandoned,
+                                    m_focusService->current().taskId,
+                                    quadrantForTaskId(m_focusService->current().taskId),
+                                    QDateTime::currentDateTimeUtc(), nullptr);
+        endFocusUi();
+        statusBar()->showMessage(tr("已放弃本次专注"), 3000);
+    });
+    connect(m_focusDialog, &FocusSessionDialog::completeRequested, this, [this]() {
+        if (!m_focusService || !m_focusService->isActive())
+            return;
+        const ActiveFocusSession session = m_focusService->current();
+        closeFocusSessionRecord(true, false);
+        m_repo->recordBehaviorEvent(BehaviorEventType::FocusCompleted, session.taskId,
+                                    quadrantForTaskId(session.taskId),
+                                    QDateTime::currentDateTimeUtc(), nullptr);
+        onTaskCompletedToggled(session.taskId, true);
+        endFocusUi();
+        statusBar()->showMessage(tr("专注完成，任务已勾选"), 4000);
+    });
+    connect(m_focusDialog, &FocusSessionDialog::skipRequested, this, [this]() {
+        if (!m_focusService || !m_focusService->isActive())
+            return;
+        closeFocusSessionRecord(false, false);
+        endFocusUi();
+        statusBar()->showMessage(tr("已跳过，任务仍保留在 Top 3"), 4000);
+    });
+    connect(m_focusDialog, &FocusSessionDialog::anotherRoundRequested, this, [this]() {
+        if (!m_focusService || !m_focusService->isActive())
+            return;
+        const ActiveFocusSession session = m_focusService->current();
+        closeFocusSessionRecord(false, false);
+        const int durationSec = focusDurationSeconds();
+        qint64 sessionId = 0;
+        m_repo->insertFocusSession(session.taskId, durationSec, session.pomodoroIndex + 1, &sessionId, nullptr);
+        m_focusService->restartRound(durationSec);
+        m_focusService->setDbSessionId(sessionId);
+        if (m_focusDialog)
+            m_focusDialog->refreshUi();
+        statusBar()->showMessage(tr("已开始新一轮 Focus 25"), 3000);
+    });
+}
+
+int MainWindow::focusDurationSeconds() const
+{
+    return AppSettings::focusDurationMinutes() * 60;
+}
+
+QString MainWindow::taskTitleForId(qint64 taskId) const
+{
+    const int row = m_model->rowForTaskId(taskId);
+    if (row >= 0)
+        return m_model->taskAt(row).title;
+
+    if (!m_repo)
+        return {};
+
+    for (const TaskItem &task : m_repo->activeTasks()) {
+        if (task.id == taskId)
+            return task.title;
+    }
+    return {};
+}
+
+EisenhowerQuadrant MainWindow::quadrantForTaskId(qint64 taskId) const
+{
+    const int row = m_model->rowForTaskId(taskId);
+    if (row >= 0)
+        return m_model->taskAt(row).quadrant;
+    return EisenhowerQuadrant::Unassigned;
+}
+
+void MainWindow::onFocus25Clicked()
+{
+    int row = ui->listTop3->currentRow();
+    if (row < 0 && ui->listTop3->count() > 0)
+        row = 0;
+    startFocus25(ui->listTop3->taskIdAtRow(row));
+}
+
+void MainWindow::startFocus25(qint64 taskId)
+{
+    if (m_locked) {
+        if (m_trayIcon && m_trayIcon->isVisible())
+            m_trayIcon->showMessage(tr("Focus 25"), tr("请先解锁应用"), QSystemTrayIcon::Information, 2500);
+        return;
+    }
+
+    if (taskId <= 0) {
+        QMessageBox::information(this, tr("Focus 25"), tr("请先在 Top 3 中选择一项任务"));
+        return;
+    }
+
+    if (m_focusService && m_focusService->isActive()) {
+        if (m_focusDialog) {
+            m_focusDialog->show();
+            m_focusDialog->raise();
+            m_focusDialog->activateWindow();
+        }
+        return;
+    }
+
+    const QString title = taskTitleForId(taskId);
+    if (title.isEmpty()) {
+        QMessageBox::warning(this, tr("Focus 25"), tr("任务不存在或已被删除"));
+        return;
+    }
+
+    const int durationSec = focusDurationSeconds();
+    qint64 sessionId = 0;
+    QString err;
+    if (!m_repo->insertFocusSession(taskId, durationSec, 1, &sessionId, &err)) {
+        QMessageBox::warning(this, tr("Focus 25"), err.isEmpty() ? tr("无法记录专注会话") : err);
+        return;
+    }
+
+    m_repo->recordBehaviorEvent(BehaviorEventType::FocusStarted, taskId, quadrantForTaskId(taskId),
+                                QDateTime::currentDateTimeUtc(), nullptr);
+    m_focusService->start(taskId, title, durationSec, sessionId);
+    ui->listTop3->setFocusedTaskId(taskId);
+    if (m_focusDialog) {
+        m_focusDialog->refreshUi();
+        m_focusDialog->show();
+        m_focusDialog->raise();
+        m_focusDialog->activateWindow();
+    }
+    onFocusTick(durationSec);
+    statusBar()->showMessage(tr("Focus 25 已开始：%1").arg(title), 4000);
+    AppLogger::info("UI", QStringLiteral("用户开始 Focus 25 taskId=%1").arg(taskId));
+}
+
+void MainWindow::onFocusTick(int remainingSec)
+{
+    if (m_focusDialog)
+        m_focusDialog->refreshUi();
+    updateTrayTooltipForFocus(remainingSec);
+}
+
+void MainWindow::updateTrayTooltipForFocus(int remainingSec)
+{
+    if (!m_trayIcon || !m_focusService || !m_focusService->isActive())
+        return;
+
+    if (!AppSettings::focusTrayCountdown()) {
+        m_trayIcon->setToolTip(tr("ToDoList — 专注中"));
+        return;
+    }
+
+    const ActiveFocusSession session = m_focusService->current();
+    const int clamped = qMax(0, remainingSec);
+    const int minutes = clamped / 60;
+    const int seconds = clamped % 60;
+    m_trayIcon->setToolTip(tr("专注中 %1:%2 — %3")
+                               .arg(minutes)
+                               .arg(seconds, 2, 10, QLatin1Char('0'))
+                               .arg(session.taskTitle));
+}
+
+void MainWindow::restoreDefaultTrayTooltip()
+{
+    if (m_trayIcon)
+        m_trayIcon->setToolTip(tr("ToDoList — AI 智能待办"));
+}
+
+void MainWindow::onFocusSessionEnded()
+{
+    ui->listTop3->setFocusedTaskId(0);
+    restoreDefaultTrayTooltip();
+    if (m_focusDialog)
+        m_focusDialog->hide();
+}
+
+void MainWindow::endFocusUi()
+{
+    if (m_focusService)
+        m_focusService->reset();
+}
+
+void MainWindow::closeFocusSessionRecord(bool completed, bool abandoned)
+{
+    if (!m_focusService || !m_repo)
+        return;
+    const qint64 sessionId = m_focusService->current().dbSessionId;
+    if (sessionId <= 0)
+        return;
+    QString err;
+    m_repo->finishFocusSession(sessionId, completed, abandoned, &err);
 }

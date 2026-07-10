@@ -167,11 +167,34 @@ bool SchemaMigrator::migrateFrom0To1(QSqlDatabase db, QString *errorMsg)
     return true;
 }
 
+bool SchemaMigrator::migrateFrom1To2(QSqlDatabase db, QString *errorMsg)
+{
+    QSqlQuery q(db);
+    if (!q.exec(QStringLiteral(
+            "CREATE TABLE IF NOT EXISTS focus_sessions ("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            "task_id INTEGER NOT NULL,"
+            "started_at TEXT NOT NULL,"
+            "ended_at TEXT,"
+            "duration_sec INTEGER NOT NULL,"
+            "completed INTEGER NOT NULL DEFAULT 0,"
+            "abandoned INTEGER NOT NULL DEFAULT 0,"
+            "pomodoro_index INTEGER NOT NULL DEFAULT 1"
+            ")"))) {
+        if (errorMsg)
+            *errorMsg = q.lastError().text();
+        return false;
+    }
+    return true;
+}
+
 bool SchemaMigrator::migrateStep(QSqlDatabase db, int fromVersion, QString *errorMsg)
 {
     switch (fromVersion) {
     case 0:
         return migrateFrom0To1(db, errorMsg);
+    case 1:
+        return migrateFrom1To2(db, errorMsg);
     default:
         if (errorMsg)
             *errorMsg = QStringLiteral("未知 schema 版本: %1").arg(fromVersion);

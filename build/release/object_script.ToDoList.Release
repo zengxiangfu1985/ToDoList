@@ -7,6 +7,8 @@ release/task_archive.o
 release/daily_evaluation_service.o
 release/weekly_report_service.o
 release/app_settings.o
+release/quick_capture_service.o
+release/focus_session_service.o
 release/schema_migrator.o
 release/update_manifest.o
 release/update_config.o
@@ -26,6 +28,8 @@ release/task_table_model.o
 release/mainwindow.o
 release/addtaskdialog.o
 release/todaytasksdialog.o
+release/quick_capture_dialog.o
+release/focus_session_dialog.o
 release/line_number_plain_text_edit.o
 release/llmsettingsdialog.o
 release/top3popupdialog.o
@@ -65,6 +69,7 @@ release/moc_task_repository.o
 release/moc_behavior_learning_engine.o
 release/moc_daily_evaluation_service.o
 release/moc_weekly_report_service.o
+release/moc_focus_session_service.o
 release/moc_update_service.o
 release/moc_usage_report_service.o
 release/moc_llm_provider.o
@@ -78,6 +83,8 @@ release/moc_task_table_model.o
 release/moc_mainwindow.o
 release/moc_addtaskdialog.o
 release/moc_todaytasksdialog.o
+release/moc_quick_capture_dialog.o
+release/moc_focus_session_dialog.o
 release/moc_line_number_plain_text_edit.o
 release/moc_llmsettingsdialog.o
 release/moc_top3popupdialog.o
