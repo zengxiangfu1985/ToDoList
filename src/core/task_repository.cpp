@@ -504,6 +504,38 @@ static bool isLocalDate(const QDateTime &dt, const QDate &localDate)
     return dt.isValid() && dt.toLocalTime().date() == localDate;
 }
 
+bool TaskRepository::focusStatsForDate(const QDate &localDate, FocusDayStats *out) const
+{
+    if (!out || !localDate.isValid())
+        return false;
+
+    FocusDayStats stats;
+    QSqlQuery q(d->db);
+    if (!q.exec(QStringLiteral(
+            "SELECT started_at, ended_at, duration_sec, completed, abandoned FROM focus_sessions")))
+        return false;
+
+    while (q.next()) {
+        const QDateTime started = QDateTime::fromString(q.value(0).toString(), Qt::ISODate);
+        if (!isLocalDate(started, localDate))
+            continue;
+
+        ++stats.sessionCount;
+        if (q.value(3).toInt())
+            ++stats.completedSessions;
+        if (q.value(4).toInt())
+            ++stats.abandonedSessions;
+
+        if (!q.value(1).toString().isEmpty()) {
+            const int minutes = q.value(2).toInt() / 60;
+            stats.totalFocusMinutes += qMax(1, minutes);
+        }
+    }
+
+    *out = stats;
+    return true;
+}
+
 QVector<TaskItem> TaskRepository::tasksCompletedOnDate(const QDate &localDate) const
 {
     QVector<TaskItem> out;

@@ -25,6 +25,7 @@ struct DayEvalContext {
     QVector<TaskItem> plannedTasks;
     QVector<TaskItem> adhocTasks;
     QDateTime firstBatchAt;
+    FocusDayStats focusStats;
 };
 
 void enrichCreatedAtFromRepo(TaskRepository *repo, QVector<TaskItem> &tasks)
@@ -106,6 +107,7 @@ DayEvalContext buildDayContext(TaskRepository *repo, const QDate &date)
                 ctx.pendingAtEnd.append(t);
         }
     }
+    repo->focusStatsForDate(date, &ctx.focusStats);
     return ctx;
 }
 
@@ -173,6 +175,15 @@ QJsonObject buildDayEvalJson(const DayEvalContext &ctx)
 
     if (ctx.firstBatchAt.isValid())
         root.insert(QStringLiteral("first_batch_at"), ctx.firstBatchAt.toString(Qt::ISODate));
+
+    if (ctx.focusStats.sessionCount > 0) {
+        QJsonObject focus;
+        focus.insert(QStringLiteral("sessions"), ctx.focusStats.sessionCount);
+        focus.insert(QStringLiteral("completed_sessions"), ctx.focusStats.completedSessions);
+        focus.insert(QStringLiteral("abandoned_sessions"), ctx.focusStats.abandonedSessions);
+        focus.insert(QStringLiteral("total_focus_minutes"), ctx.focusStats.totalFocusMinutes);
+        root.insert(QStringLiteral("focus_stats"), focus);
+    }
 
     return root;
 }
@@ -243,6 +254,12 @@ QJsonObject buildRuleEvalJson(const DayEvalContext &ctx)
     QString summary = QStringLiteral("完成 %1 项").arg(completedCount);
     if (dueTotal > 0)
         summary += QStringLiteral("，到期任务完成 %1/%2").arg(dueCompleted).arg(dueTotal);
+    if (ctx.focusStats.sessionCount > 0) {
+        summary += QStringLiteral("，专注 %1 分钟（完成 %2/%3 轮）")
+                       .arg(ctx.focusStats.totalFocusMinutes)
+                       .arg(ctx.focusStats.completedSessions)
+                       .arg(ctx.focusStats.sessionCount);
+    }
 
     QString planReview;
     if (!ctx.dueOnDay.isEmpty()) {
@@ -287,12 +304,19 @@ QJsonObject buildRuleEvalJson(const DayEvalContext &ctx)
         highlights.append(QStringLiteral("完成 %1 项任务").arg(completedCount));
     if (ctx.adhocTasks.isEmpty() && dueTotal > 0)
         highlights.append(QStringLiteral("无计划外临时插入，执行节奏稳定"));
+    if (ctx.focusStats.completedSessions > 0)
+        highlights.append(QStringLiteral("专注 %1 分钟，完成 %2 轮")
+                              .arg(ctx.focusStats.totalFocusMinutes)
+                              .arg(ctx.focusStats.completedSessions));
 
     QJsonArray improvements;
     if (!ctx.adhocTasks.isEmpty())
         improvements.append(QStringLiteral("控制计划外临时任务的插入频率"));
     if (pendingCount > 0)
         improvements.append(QStringLiteral("优先处理 %1 项未完结任务").arg(pendingCount));
+    if (ctx.focusStats.abandonedSessions > 0)
+        improvements.append(QStringLiteral("减少专注中断，今日有 %1 轮未完成")
+                              .arg(ctx.focusStats.abandonedSessions));
     if (dueTotal > 0 && dueCompleted < dueTotal / 2)
         improvements.append(QStringLiteral("提高到期任务的完成率"));
 

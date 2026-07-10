@@ -672,6 +672,10 @@ void MainWindow::setupConnections()
     });
     connect(m_hotkeyManager, &WindowsHotkeyManager::top3PopupTriggered, this, &MainWindow::showTop3Popup);
     connect(m_hotkeyManager, &WindowsHotkeyManager::quickCaptureTriggered, this, &MainWindow::showQuickCapture);
+    connect(m_hotkeyManager, &WindowsHotkeyManager::focus25Triggered, this, [this]() {
+        showMainWindow();
+        onFocus25Clicked();
+    });
 }
 
 void MainWindow::setupTrayIcon()
@@ -694,6 +698,7 @@ void MainWindow::setupTrayIcon()
     menu->addAction(tr("添加任务"), this, &MainWindow::onAddTask);
     m_trayQuickCaptureAction = menu->addAction(QString(), this, &MainWindow::showQuickCapture);
     m_trayTop3Action = menu->addAction(QString(), this, &MainWindow::showTop3Popup);
+    m_trayFocus25Action = menu->addAction(QString(), this, &MainWindow::onFocus25Clicked);
     menu->addSeparator();
     menu->addAction(tr("退出"), this, &MainWindow::quitApplication);
     m_trayIcon->setContextMenu(menu);
@@ -711,6 +716,8 @@ void MainWindow::updateTrayHotkeyLabels()
         m_trayQuickCaptureAction->setText(globalHotkeyMenuLabel(tr("闪记"), AppSettings::quickCaptureHotkey()));
     if (m_trayTop3Action)
         m_trayTop3Action->setText(globalHotkeyMenuLabel(tr("Top 3 弹窗"), AppSettings::top3PopupHotkey()));
+    if (m_trayFocus25Action)
+        m_trayFocus25Action->setText(globalHotkeyMenuLabel(tr("Focus 25"), AppSettings::focus25Hotkey()));
 }
 
 void MainWindow::setupGlobalHotkeys()
@@ -729,7 +736,8 @@ void MainWindow::reloadGlobalHotkeys(bool fromSettings)
     m_hotkeyManager->uninstall();
     const bool ok = m_hotkeyManager->install(nativeId, AppSettings::todayTasksHotkey(),
                                              AppSettings::top3PopupHotkey(),
-                                             AppSettings::quickCaptureHotkey());
+                                             AppSettings::quickCaptureHotkey(),
+                                             AppSettings::focus25Hotkey());
     m_hotkeysInstalled = ok;
     updateTrayHotkeyLabels();
 

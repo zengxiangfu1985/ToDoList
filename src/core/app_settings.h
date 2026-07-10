@@ -33,6 +33,8 @@ public:
     static void setTop3PopupHotkey(const QKeySequence &sequence);
     static QKeySequence quickCaptureHotkey();
     static void setQuickCaptureHotkey(const QKeySequence &sequence);
+    static QKeySequence focus25Hotkey();
+    static void setFocus25Hotkey(const QKeySequence &sequence);
     static bool quickCaptureAutoAnalyze();
     static void setQuickCaptureAutoAnalyze(bool enabled);
 

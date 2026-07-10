@@ -16,7 +16,7 @@ public:
     ~WindowsHotkeyManager() override;
 
     bool install(quintptr windowId, const QKeySequence &todayTasks, const QKeySequence &top3Popup,
-                 const QKeySequence &quickCapture);
+                 const QKeySequence &quickCapture, const QKeySequence &focus25);
     void uninstall();
     QString lastError() const;
 
@@ -24,6 +24,7 @@ signals:
     void quickAddTriggered();
     void top3PopupTriggered();
     void quickCaptureTriggered();
+    void focus25Triggered();
 
 private:
     friend class HotkeyNativeFilter;
@@ -32,6 +33,7 @@ private:
     bool m_todayRegistered = false;
     bool m_top3Registered = false;
     bool m_quickCaptureRegistered = false;
+    bool m_focus25Registered = false;
     QString m_lastError;
     HotkeyNativeFilter *m_filter = nullptr;
 };

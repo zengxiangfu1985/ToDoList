@@ -217,7 +217,17 @@
           <item row="2" column="1">
            <widget class="QKeySequenceEdit" name="editQuickCaptureHotkey"/>
           </item>
-          <item row="3" column="0" colspan="2">
+          <item row="3" column="0">
+           <widget class="QLabel" name="labelFocus25Hotkey">
+            <property name="text">
+             <string>Focus 25</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QKeySequenceEdit" name="editFocus25Hotkey"/>
+          </item>
+          <item row="4" column="0" colspan="2">
            <widget class="QCheckBox" name="checkQuickCaptureAutoAnalyze">
             <property name="text">
              <string>闪记保存后自动 AI 分析优先级</string>
@@ -227,7 +237,7 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="0" colspan="2">
+          <item row="5" column="0" colspan="2">
            <widget class="QLabel" name="labelHotkeyHint">
             <property name="text">
              <string>全局快捷键需包含 Win / Ctrl / Alt / Shift 之一。点击输入框后按下组合键即可录制。</string>

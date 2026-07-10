@@ -10,6 +10,7 @@
 #include <QApplication>
 #include <QCoreApplication>
 #include <QMessageBox>
+#include <QSet>
 #include <QShowEvent>
 #include <QEvent>
 
@@ -97,6 +98,7 @@ void AppSettingsDialog::loadToUi()
     ui->editTodayTasksHotkey->setKeySequence(AppSettings::todayTasksHotkey());
     ui->editTop3Hotkey->setKeySequence(AppSettings::top3PopupHotkey());
     ui->editQuickCaptureHotkey->setKeySequence(AppSettings::quickCaptureHotkey());
+    ui->editFocus25Hotkey->setKeySequence(AppSettings::focus25Hotkey());
     ui->checkQuickCaptureAutoAnalyze->setChecked(AppSettings::quickCaptureAutoAnalyze());
     ui->comboFocusDuration->setCurrentIndex(
         ui->comboFocusDuration->findData(AppSettings::focusDurationMinutes()));
@@ -166,6 +168,7 @@ void AppSettingsDialog::onSave()
     const QKeySequence todayHotkey = ui->editTodayTasksHotkey->keySequence();
     const QKeySequence top3Hotkey = ui->editTop3Hotkey->keySequence();
     const QKeySequence captureHotkey = ui->editQuickCaptureHotkey->keySequence();
+    const QKeySequence focusHotkey = ui->editFocus25Hotkey->keySequence();
     QString hotkeyErr;
     if (!globalHotkeySequenceValid(todayHotkey, &hotkeyErr)) {
         QMessageBox::warning(this, tr("设置"), tr("今日任务：%1").arg(hotkeyErr));
@@ -179,7 +182,12 @@ void AppSettingsDialog::onSave()
         QMessageBox::warning(this, tr("设置"), tr("闪记：%1").arg(hotkeyErr));
         return;
     }
-    if (todayHotkey == top3Hotkey || todayHotkey == captureHotkey || top3Hotkey == captureHotkey) {
+    if (!globalHotkeySequenceValid(focusHotkey, &hotkeyErr)) {
+        QMessageBox::warning(this, tr("设置"), tr("Focus 25：%1").arg(hotkeyErr));
+        return;
+    }
+    const QSet<QKeySequence> uniqueHotkeys{todayHotkey, top3Hotkey, captureHotkey, focusHotkey};
+    if (uniqueHotkeys.size() < 4) {
         QMessageBox::warning(this, tr("设置"), tr("快捷键不能相同"));
         return;
     }
@@ -187,6 +195,7 @@ void AppSettingsDialog::onSave()
     AppSettings::setTodayTasksHotkey(todayHotkey);
     AppSettings::setTop3PopupHotkey(top3Hotkey);
     AppSettings::setQuickCaptureHotkey(captureHotkey);
+    AppSettings::setFocus25Hotkey(focusHotkey);
     AppSettings::setQuickCaptureAutoAnalyze(ui->checkQuickCaptureAutoAnalyze->isChecked());
     AppSettings::setFocusDurationMinutes(ui->comboFocusDuration->currentData().toInt());
     AppSettings::setFocusTrayCountdown(ui->checkFocusTrayCountdown->isChecked());

@@ -56,6 +56,7 @@
 |------|------|
 | **今日任务** | 批量录入今日待办，可导入昨日未完成项 |
 | **闪记** | 全局快捷键唤起居中小窗，AI 拆分自然语言为多条任务 |
+| **Focus 25** | 对 Top 3 任务启动番茄专注（15/25/50 分钟可配置） |
 | **添加任务** | 添加单条任务 |
 | **AI 分析优先级** | 调用 LLM 划分象限并生成 Top 3 |
 | **设置 LLM** | 配置 AI 提供商与模型 |
@@ -95,6 +96,26 @@
 - **右键** → 删除、改象限等。
 - **删除任务** 按钮 → 进入批量删除模式。
 
+**闪记（快速录入）**
+
+1. 按 `Alt+Shift+N`（或工具栏 **闪记** / 托盘菜单）。
+2. 在居中小窗输入自然语言，如「明天开会，之后写周报，晚上健身」。
+3. 点击 **保存**；若开启「闪记保存后自动 AI 分析」，将自动划分象限并更新 Top 3。
+4. 保存成功后窗口约 1 秒自动关闭。
+
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/05-quick-capture.png`](docs/screenshots/05-quick-capture.png) 并 push 到仓库后自动显示  
+> 闪记居中小窗
+
+**Focus 25（番茄专注）**
+
+1. 在 Top 3 中选中一项（或保持默认第一项）。
+2. 点击工具栏 **Focus 25**、Top 3 右键菜单，或按 `Alt+Shift+F`。
+3. 倒计时结束后选择：**完成**（勾选任务）、**再来一轮** 或 **跳过**（任务保留在 Top 3）。
+4. 可在 **设置 → Focus 25** 调整番茄时长与托盘倒计时显示。
+
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/06-focus-25.png`](docs/screenshots/06-focus-25.png) 并 push 到仓库后自动显示  
+> Focus 25 专注对话框
+
 > 📷 **插图占位** [`docs/screenshots/03-add-task.png`](docs/screenshots/03-add-task.png)  
 > 「添加任务」对话框
 
@@ -127,11 +148,11 @@
 5. 点击 Top 3 条目文字，下方显示 **推荐理由**。
 6. 点击 Top 3 条目右侧 **勾选框** 可标记完成，与任务列表、四象限同步。
 
-> 📷 **截图待补充** · 保存为 [`docs/screenshots/05-ai-analyze.png`](docs/screenshots/05-ai-analyze.png) 并 push 到仓库后自动显示  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/07-ai-analyze.png`](docs/screenshots/07-ai-analyze.png) 并 push 到仓库后自动显示  
 > AI 分析完成后的四象限与 Top 3
 
-> 📷 **截图待补充** · 保存为 [`docs/screenshots/06-top3-popup.png`](docs/screenshots/06-top3-popup.png) 并 push 到仓库后自动显示  
-> Top 3 弹窗（快捷键 `Alt+Shift+3`，同样支持勾选完成）
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/08-top3-popup.png`](docs/screenshots/08-top3-popup.png) 并 push 到仓库后自动显示  
+> Top 3 弹窗（快捷键 `Alt+Shift+3`，同样支持勾选完成与 Focus 25）
 
 **说明**
 
@@ -150,23 +171,38 @@
 | `Alt+Shift+J` | 显示主窗口并打开「今日任务」 |
 | `Alt+Shift+N` | 打开「闪记」居中小窗（AI 拆任务） |
 | `Alt+Shift+3` | 弹出 Top 3 小窗 |
+| `Alt+Shift+F` | 对 Top 3 首项（或当前选中项）启动 Focus 25 |
 | `Ctrl+M` | 最小化 |
 | `F11` | 最大化 / 还原 |
 
-托盘右键菜单：显示主窗口、今日任务、闪记、添加任务、Top 3 弹窗、退出。
+托盘右键菜单：显示主窗口、今日任务、闪记、添加任务、Top 3 弹窗、Focus 25、退出。
 
-> 📷 **截图待补充** · 保存为 [`docs/screenshots/07-tray-menu.png`](docs/screenshots/07-tray-menu.png) 并 push 到仓库后自动显示  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/09-tray-menu.png`](docs/screenshots/09-tray-menu.png) 并 push 到仓库后自动显示  
 > 系统托盘右键菜单
 
 ---
 
-### 5. 设置与关于
+### 5. 每日评估
+
+**每日评估**（工具栏按钮）在每天 23:59 自动生成当日总结；启动时会补评遗漏日期。
+
+- 列表 **任务与专注** 列显示：完成 / 到期 / 未完结任务数，以及当日专注分钟与完成轮数（如「专注 75 分 · 2/3 轮」）。
+- 选中某日可查看详情、编辑摘要，或 **重新生成**（使用当前 LLM 配置）。
+- AI 评估会将 `focus_stats` 纳入 prompt；无 LLM 时规则模板也会在摘要中体现专注数据。
+
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/12-daily-evaluation.png`](docs/screenshots/12-daily-evaluation.png) 并 push 到仓库后自动显示  
+> 每日评估历史（含专注统计）
+
+---
+
+### 6. 设置与关于
 
 **设置**（工具栏 **设置**）
 
 - 登录密码、锁屏策略、空闲锁定
-- 全局快捷键自定义（含闪记 `Alt+Shift+N`）
+- 全局快捷键自定义（今日任务 / 闪记 / Top 3 / Focus 25）
 - 闪记：保存后是否自动 AI 分析
+- Focus 25：番茄时长（15/25/50 分钟）、托盘倒计时
 - 界面语言（中文 / English）
 - **隐私**：发送匿名使用统计（默认开启，可随时关闭）
 - Microsoft 365 邮件同步（可选）
@@ -177,10 +213,10 @@
 - **检查更新**（在线升级）
 - **导入离线更新包**（`.zip`）
 
-> 📷 **截图待补充** · 保存为 [`docs/screenshots/08-settings.png`](docs/screenshots/08-settings.png) 并 push 到仓库后自动显示  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/10-settings.png`](docs/screenshots/10-settings.png) 并 push 到仓库后自动显示  
 > 设置对话框
 
-> 📷 **截图待补充** · 保存为 [`docs/screenshots/09-about-update.png`](docs/screenshots/09-about-update.png) 并 push 到仓库后自动显示  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/11-about-update.png`](docs/screenshots/11-about-update.png) 并 push 到仓库后自动显示  
 > 关于 · 检查更新
 
 ---
@@ -210,7 +246,7 @@
 | **测试连接** | 验证配置；成功后加入「已保存模型」 |
 | **保存** | 保存并立即切换运行时 Provider |
 
-> 📷 **截图待补充** · 保存为 [`docs/screenshots/10-llm-settings.png`](docs/screenshots/10-llm-settings.png) 并 push 到仓库后自动显示  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/13-llm-settings.png`](docs/screenshots/13-llm-settings.png) 并 push 到仓库后自动显示  
 > LLM 设置对话框
 
 ---
@@ -230,7 +266,7 @@
 4. 点击 **测试连接** → 成功后 **保存**。
 5. 返回主界面，点击 **AI 分析优先级** 验证。
 
-> 📷 **截图待补充** · 保存为 [`docs/screenshots/11-llm-ollama.png`](docs/screenshots/11-llm-ollama.png) 并 push 到仓库后自动显示  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/14-llm-ollama.png`](docs/screenshots/14-llm-ollama.png) 并 push 到仓库后自动显示  
 > Ollama 本地配置示例（测试连接成功）
 
 ---
@@ -242,7 +278,7 @@
 3. 填写 **Base URL**、**API Key**、**模型名**（与平台文档一致）。
 4. 点击 **测试连接** → 成功后 **保存**。
 
-> 📷 **截图待补充** · 保存为 [`docs/screenshots/12-llm-cloud-api.png`](docs/screenshots/12-llm-cloud-api.png) 并 push 到仓库后自动显示  
+> 📷 **截图待补充** · 保存为 [`docs/screenshots/15-llm-cloud-api.png`](docs/screenshots/15-llm-cloud-api.png) 并 push 到仓库后自动显示  
 > 云端 API 配置示例（DeepSeek / Kimi）
 
 **常见问题**
@@ -298,7 +334,7 @@ Worker 示例与部署说明见 [`scripts/telemetry-worker/README.md`](scripts/t
 
 | 路径 | 内容 |
 |------|------|
-| `data/tasks.db` | 任务数据库 |
+| `data/tasks.db` | 任务、专注会话（`focus_sessions`）、每日评估等 |
 | `data/settings.ini` | 程序设置、LLM 配置 |
 | `data/logs/` | 运行日志 |
 | `data/top3-YYYY-MM-DD.json` | 当日 Top 3 缓存 |
@@ -306,6 +342,16 @@ Worker 示例与部署说明见 [`scripts/telemetry-worker/README.md`](scripts/t
 
 迁移备份：复制整个程序目录（含 `data/`）即可。
 
+---
+
+## 插图说明（如何插入截图）
+
+1. 按 [`docs/screenshots/README.md`](docs/screenshots/README.md) 中的清单截取界面。
+2. 将 PNG 保存到 `docs/screenshots/`，文件名与 README 引用一致。
+3. 提交并 push 到 GitHub；README 中的 `raw/main/docs/screenshots/...` 链接会自动显示图片。
+4. 已有图（01–04）使用 GitHub raw 链接；05–15 在补图前显示「截图待补充」占位说明。
+
+---
 
 ## 许可证
 

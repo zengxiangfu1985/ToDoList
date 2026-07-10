@@ -171,6 +171,7 @@ private:
     QAction *m_trayTodayTasksAction = nullptr;
     QAction *m_trayQuickCaptureAction = nullptr;
     QAction *m_trayTop3Action = nullptr;
+    QAction *m_trayFocus25Action = nullptr;
     WindowsHotkeyManager *m_hotkeyManager;
     LockScreenWidget *m_lockScreen = nullptr;
     AiBusyOverlay *m_aiBusyOverlay = nullptr;

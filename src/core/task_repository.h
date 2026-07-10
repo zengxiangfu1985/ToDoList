@@ -14,6 +14,13 @@ struct BehaviorStats {
     int focusCompletedCount = 0;
 };
 
+struct FocusDayStats {
+    int sessionCount = 0;
+    int completedSessions = 0;
+    int abandonedSessions = 0;
+    int totalFocusMinutes = 0;
+};
+
 class TaskRepository : public QObject
 {
     Q_OBJECT
@@ -60,6 +67,7 @@ public:
     bool insertFocusSession(qint64 taskId, int durationSec, int pomodoroIndex, qint64 *sessionId,
                             QString *errorMsg = nullptr);
     bool finishFocusSession(qint64 sessionId, bool completed, bool abandoned, QString *errorMsg = nullptr);
+    bool focusStatsForDate(const QDate &localDate, FocusDayStats *out) const;
 
 signals:
     void tasksChanged();

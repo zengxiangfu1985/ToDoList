@@ -59,7 +59,7 @@ DailyEvaluationDialog::DailyEvaluationDialog(TaskRepository *repo, DailyEvaluati
     m_table = new QTableWidget(this);
     m_table->setColumnCount(ColCount);
     m_table->setHorizontalHeaderLabels(
-        {tr("日期"), tr("AI 模型"), tr("任务统计"), tr("评估方式")});
+        {tr("日期"), tr("AI 模型"), tr("任务与专注"), tr("评估方式")});
     m_table->horizontalHeader()->setStretchLastSection(true);
     m_table->horizontalHeader()->setSectionResizeMode(ColDate, QHeaderView::ResizeToContents);
     m_table->horizontalHeader()->setSectionResizeMode(ColModel, QHeaderView::Stretch);
@@ -144,6 +144,25 @@ QString DailyEvaluationDialog::modelDisplayText(const DailyEvaluation &eval)
     return provider + QStringLiteral(" / ") + eval.llmModel;
 }
 
+QString DailyEvaluationDialog::focusStatsSummary(const FocusDayStats &stats)
+{
+    if (stats.sessionCount <= 0)
+        return tr("专注 —");
+    return tr("专注 %1 分 · %2/%3 轮")
+        .arg(stats.totalFocusMinutes)
+        .arg(stats.completedSessions)
+        .arg(stats.sessionCount);
+}
+
+QString DailyEvaluationDialog::evalStatsSummary(const DailyEvaluation &eval, const FocusDayStats &focusStats)
+{
+    return tr("完成 %1 / 到期 %2 / 未完结 %3 · %4")
+        .arg(eval.tasksCompleted)
+        .arg(eval.tasksDue)
+        .arg(eval.tasksPending)
+        .arg(focusStatsSummary(focusStats));
+}
+
 void DailyEvaluationDialog::refreshList()
 {
     m_table->setRowCount(0);
@@ -154,13 +173,11 @@ void DailyEvaluationDialog::refreshList()
     m_table->setRowCount(list.size());
     for (int i = 0; i < list.size(); ++i) {
         const DailyEvaluation &eval = list.at(i);
+        FocusDayStats focusStats;
+        m_repo->focusStatsForDate(eval.evalDate, &focusStats);
         m_table->setItem(i, ColDate, new QTableWidgetItem(eval.evalDate.toString(QStringLiteral("yyyy-MM-dd"))));
         m_table->setItem(i, ColModel, new QTableWidgetItem(modelDisplayText(eval)));
-        m_table->setItem(i, ColStats,
-                         new QTableWidgetItem(tr("完成 %1 / 到期 %2 / 未完结 %3")
-                                                  .arg(eval.tasksCompleted)
-                                                  .arg(eval.tasksDue)
-                                                  .arg(eval.tasksPending)));
+        m_table->setItem(i, ColStats, new QTableWidgetItem(evalStatsSummary(eval, focusStats)));
         const QString typeText = eval.usedLlm ? tr("AI 评估") : tr("规则评估");
         m_table->setItem(i, ColType, new QTableWidgetItem(typeText));
     }
@@ -207,16 +224,20 @@ void DailyEvaluationDialog::loadEvaluationIntoDetail(const DailyEvaluation &eval
     }
 
     m_dateEdit->setDate(eval.evalDate);
+    FocusDayStats focusStats;
+    if (m_repo)
+        m_repo->focusStatsForDate(eval.evalDate, &focusStats);
     const QString created = eval.createdAt.isValid()
         ? eval.createdAt.toLocalTime().toString(QStringLiteral("yyyy-MM-dd HH:mm"))
         : QStringLiteral("-");
     m_statsLabel->setText(
-        tr("日期：%1  |  完成 %2 项  |  到期 %3 项  |  未完结 %4 项\n"
-           "评估方式：%5  |  AI 模型：%6  |  生成时间：%7")
+        tr("日期：%1  |  完成 %2 项  |  到期 %3 项  |  未完结 %4 项  |  %5\n"
+           "评估方式：%6  |  AI 模型：%7  |  生成时间：%8")
             .arg(eval.evalDate.toString(QStringLiteral("yyyy-MM-dd")))
             .arg(eval.tasksCompleted)
             .arg(eval.tasksDue)
             .arg(eval.tasksPending)
+            .arg(focusStatsSummary(focusStats))
             .arg(eval.usedLlm ? tr("AI 评估") : tr("规则评估"))
             .arg(modelDisplayText(eval))
             .arg(created));

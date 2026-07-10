@@ -15,6 +15,7 @@ namespace {
 constexpr int kHotkeyQuickAdd = 1;
 constexpr int kHotkeyTop3 = 2;
 constexpr int kHotkeyQuickCapture = 3;
+constexpr int kHotkeyFocus25 = 4;
 #endif
 
 } // namespace
@@ -50,6 +51,10 @@ public:
             emit m_owner->quickCaptureTriggered();
             return true;
         }
+        if (msg->wParam == kHotkeyFocus25) {
+            emit m_owner->focus25Triggered();
+            return true;
+        }
 #else
         Q_UNUSED(eventType);
         Q_UNUSED(message);
@@ -77,7 +82,8 @@ WindowsHotkeyManager::~WindowsHotkeyManager()
 }
 
 bool WindowsHotkeyManager::install(quintptr windowId, const QKeySequence &todayTasks,
-                                   const QKeySequence &top3Popup, const QKeySequence &quickCapture)
+                                   const QKeySequence &top3Popup, const QKeySequence &quickCapture,
+                                   const QKeySequence &focus25)
 {
 #ifdef Q_OS_WIN
     uninstall();
@@ -107,12 +113,14 @@ bool WindowsHotkeyManager::install(quintptr windowId, const QKeySequence &todayT
     const GlobalHotkeyBinding todayBinding = globalHotkeyFromSequence(todayTasks);
     const GlobalHotkeyBinding top3Binding = globalHotkeyFromSequence(top3Popup);
     const GlobalHotkeyBinding captureBinding = globalHotkeyFromSequence(quickCapture);
+    const GlobalHotkeyBinding focusBinding = globalHotkeyFromSequence(focus25);
 
     registerOne(kHotkeyQuickAdd, todayBinding, &m_todayRegistered, QStringLiteral("今日任务"));
     registerOne(kHotkeyTop3, top3Binding, &m_top3Registered, QStringLiteral("Top 3 弹窗"));
     registerOne(kHotkeyQuickCapture, captureBinding, &m_quickCaptureRegistered, QStringLiteral("闪记"));
+    registerOne(kHotkeyFocus25, focusBinding, &m_focus25Registered, QStringLiteral("Focus 25"));
 
-    if (!m_todayRegistered && !m_top3Registered && !m_quickCaptureRegistered) {
+    if (!m_todayRegistered && !m_top3Registered && !m_quickCaptureRegistered && !m_focus25Registered) {
         if (m_lastError.isEmpty())
             return true;
         return false;
@@ -129,6 +137,7 @@ bool WindowsHotkeyManager::install(quintptr windowId, const QKeySequence &todayT
     Q_UNUSED(todayTasks);
     Q_UNUSED(top3Popup);
     Q_UNUSED(quickCapture);
+    Q_UNUSED(focus25);
     m_lastError = QStringLiteral("当前平台不支持全局快捷键");
     return false;
 #endif
@@ -145,11 +154,14 @@ void WindowsHotkeyManager::uninstall()
             UnregisterHotKey(hwnd, kHotkeyTop3);
         if (m_quickCaptureRegistered)
             UnregisterHotKey(hwnd, kHotkeyQuickCapture);
+        if (m_focus25Registered)
+            UnregisterHotKey(hwnd, kHotkeyFocus25);
     }
 #endif
     m_todayRegistered = false;
     m_top3Registered = false;
     m_quickCaptureRegistered = false;
+    m_focus25Registered = false;
     m_windowId = 0;
 }
 

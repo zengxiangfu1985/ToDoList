@@ -25,6 +25,7 @@ constexpr auto kHotkeyGroup = "hotkeys";
 constexpr auto kTodayTasksHotkey = "todayTasks";
 constexpr auto kTop3PopupHotkey = "top3Popup";
 constexpr auto kQuickCaptureHotkey = "quickCapture";
+constexpr auto kFocus25Hotkey = "focus25";
 constexpr auto kQuickCaptureGroup = "quickCapture";
 constexpr auto kQuickCaptureAutoAnalyze = "autoAnalyze";
 constexpr auto kFocusGroup = "focus";
@@ -54,6 +55,11 @@ QKeySequence defaultTop3PopupHotkey()
 QKeySequence defaultQuickCaptureHotkey()
 {
     return QKeySequence(QStringLiteral("Alt+Shift+N"));
+}
+
+QKeySequence defaultFocus25Hotkey()
+{
+    return QKeySequence(QStringLiteral("Alt+Shift+F"));
 }
 
 QKeySequence readHotkey(const char *key, const QKeySequence &fallback)
@@ -307,6 +313,16 @@ QKeySequence AppSettings::quickCaptureHotkey()
 void AppSettings::setQuickCaptureHotkey(const QKeySequence &sequence)
 {
     writeHotkey(kQuickCaptureHotkey, sequence);
+}
+
+QKeySequence AppSettings::focus25Hotkey()
+{
+    return readHotkey(kFocus25Hotkey, defaultFocus25Hotkey());
+}
+
+void AppSettings::setFocus25Hotkey(const QKeySequence &sequence)
+{
+    writeHotkey(kFocus25Hotkey, sequence);
 }
 
 bool AppSettings::quickCaptureAutoAnalyze()

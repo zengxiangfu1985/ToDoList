@@ -2,6 +2,7 @@
 #define DAILY_EVALUATION_DIALOG_H
 
 #include "../core/task_types.h"
+#include "../core/task_repository.h"
 
 #include <QDialog>
 #include <QDate>
@@ -37,6 +38,8 @@ private:
     void setBusy(bool busy);
     static QString providerLabel(LlmProviderType type);
     static QString modelDisplayText(const DailyEvaluation &eval);
+    static QString focusStatsSummary(const FocusDayStats &stats);
+    static QString evalStatsSummary(const DailyEvaluation &eval, const FocusDayStats &focusStats);
 
     TaskRepository *m_repo = nullptr;
     DailyEvaluationService *m_evalService = nullptr;
