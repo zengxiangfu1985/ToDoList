@@ -419,6 +419,34 @@ QDialog#appDialog QPushButton#btnCancel {
     min-width: 88px;
 }
 
+/* ---- Focus 25 compact floater ---- */
+QDialog#focusSessionDialog {
+    background-color: #0a1220;
+    border: 1px solid #1e3050;
+    border-radius: 10px;
+}
+
+QWidget#collapsedBar {
+    background-color: #0c1828;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+QDialog#focusSessionDialog QLabel#labelCompact {
+    color: #e8eef8;
+}
+
+QDialog#focusSessionDialog QPushButton {
+    min-height: 26px;
+    padding: 4px 8px;
+    font-size: {{FONT_BASE}}px;
+}
+
+QDialog#focusSessionDialog QPushButton#btnAbandon:hover {
+    background-color: #4a2028;
+    border-color: #6a3040;
+}
+
 /* ---- Inputs (dialogs) ---- */
 QLineEdit, QComboBox, QDateEdit, QTextEdit, QSpinBox, QTextBrowser#aiTraceBrowser {
     background-color: #0c1424;

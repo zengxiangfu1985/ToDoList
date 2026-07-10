@@ -5,67 +5,63 @@
   <property name="windowTitle">
    <string>Focus 25</string>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>360</width>
-    <height>260</height>
-   </size>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
-    <widget class="QLabel" name="labelTaskTitle">
-     <property name="text">
-      <string>专注任务</string>
+    <widget class="QWidget" name="collapsedBar" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>36</height>
+      </size>
      </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="labelCountdown">
-     <property name="text">
-      <string>25:00</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="labelStatus">
-     <property name="text">
-      <string>专注中…</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QWidget" name="runningPanel" native="true">
-     <layout class="QHBoxLayout" name="runningLayout">
+     <layout class="QHBoxLayout" name="collapsedLayout">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="leftMargin">
+       <number>12</number>
+      </property>
+      <property name="topMargin">
+       <number>6</number>
+      </property>
+      <property name="rightMargin">
+       <number>12</number>
+      </property>
+      <property name="bottomMargin">
+       <number>6</number>
+      </property>
       <item>
-       <widget class="QPushButton" name="btnPause">
+       <widget class="QLabel" name="labelCompact">
         <property name="text">
-         <string>暂停</string>
+         <string>25:00 · 专注任务</string>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnExtend">
+       <widget class="QLabel" name="labelExpandHint">
         <property name="text">
-         <string>+5 分钟</string>
+         <string>▾</string>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnAbandon">
-        <property name="text">
-         <string>放弃</string>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -73,45 +69,133 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="resultPanel" native="true">
-     <layout class="QVBoxLayout" name="resultLayout">
+    <widget class="QWidget" name="expandedPanel" native="true">
+     <layout class="QVBoxLayout" name="expandedLayout">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
+       <number>8</number>
+      </property>
       <item>
-       <widget class="QLabel" name="labelResultHint">
+       <widget class="QLabel" name="labelStatus">
         <property name="text">
-         <string>时间到！这次专注完成了吗？</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
+         <string>专注中…</string>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="resultButtons">
-        <item>
-         <widget class="QPushButton" name="btnComplete">
-          <property name="text">
-           <string>完成</string>
+       <widget class="QStackedWidget" name="stackPanels">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="runningPanel">
+         <layout class="QHBoxLayout" name="runningLayout">
+          <property name="spacing">
+           <number>6</number>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnAnotherRound">
-          <property name="text">
-           <string>再来一轮</string>
+          <property name="leftMargin">
+           <number>0</number>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnSkip">
-          <property name="text">
-           <string>跳过</string>
+          <property name="topMargin">
+           <number>0</number>
           </property>
-         </widget>
-        </item>
-       </layout>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="btnPause">
+            <property name="text">
+             <string>暂停</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnExtend">
+            <property name="text">
+             <string>+5 分</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnAbandon">
+            <property name="text">
+             <string>放弃</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="resultPanel">
+         <layout class="QVBoxLayout" name="resultLayout">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="labelResultHint">
+            <property name="text">
+             <string>时间到！完成了吗？</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="resultButtons">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="btnComplete">
+              <property name="text">
+               <string>完成</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnAnotherRound">
+              <property name="text">
+               <string>再来一轮</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnSkip">
+              <property name="text">
+               <string>跳过</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </item>
      </layout>
     </widget>

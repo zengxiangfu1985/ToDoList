@@ -154,6 +154,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupTrayIcon();
     setupSecurity();
     m_aiBusyOverlay = new AiBusyOverlay(this);
+    restoreSavedTop3();
     reloadTasks();
     archiveTodaySnapshot();
     updateProviderStatus();
@@ -163,7 +164,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_dailyEvalService->setLlmConfig(m_llmService->config());
     m_weeklyReportService->setLlmConfig(m_llmService->config());
     m_dailyEvalService->start();
-    restoreSavedTop3();
 
     m_usageHeartbeatTimer->setInterval(60 * 60 * 1000);
     connect(m_usageHeartbeatTimer, &QTimer::timeout, this, [this]() {
@@ -1365,6 +1365,9 @@ void MainWindow::clearTop3Ui()
 
 void MainWindow::syncTop3WithTasks(const QVector<TaskItem> &tasks)
 {
+    if (m_lastAnalysis.top3.isEmpty())
+        return;
+
     const QVector<PriorityRecommendation> synced =
         TaskArchive::hydrateTop3Recommendations(m_lastAnalysis.top3, tasks);
     m_lastAnalysis.top3 = synced;
