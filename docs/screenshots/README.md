@@ -2,6 +2,34 @@
 
 将截图保存为本目录下的 PNG 文件，文件名与 [README.md](../../README.md) 中引用一致，提交到 `main` 分支后 GitHub 会自动显示。
 
+## 自动截取（推荐）
+
+```bat
+scripts\capture-screenshots.bat
+```
+
+或：
+
+```bash
+pip install -r scripts/requirements-screenshots.txt
+python scripts/capture-readme-screenshots.py --attach
+```
+
+已手动启动 ToDoList 时请加 **`--attach`**，脚本会附着到当前进程，不会再次启动或关闭应用。
+
+常用参数：
+
+| 参数 | 说明 |
+|------|------|
+| `--attach` | 附着已运行的 ToDoList（推荐：应用已提前打开时使用） |
+| `--pid 12345` | 指定要附着的进程 PID |
+| `--only 02,07` | 只截指定编号 |
+| `--list` | 列出全部 14 项任务 |
+| `--ollama-test` | 第 14 图尝试 Ollama 测试连接 |
+| `--tray-wait 12` | 托盘菜单等待秒数（默认 8） |
+
+脚本会复制程序到临时目录并写入演示数据，**不会修改你正在使用的 `data/`**。主窗口截图前会**自动最大化**；窗口定位按 **ToDoList.exe 进程**过滤，避免误截 IDE。第 01 图在启动应用前截取；第 09 图请在倒计时内右键托盘，检测到菜单后**立即**截取。
+
 ## 已有（01–04）
 
 | 文件 | 内容 |
