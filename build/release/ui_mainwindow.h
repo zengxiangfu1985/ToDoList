@@ -241,21 +241,31 @@ public:
         aiLayout->setObjectName(QString::fromUtf8("aiLayout"));
         listTop3 = new Top3ListWidget(groupAi);
         listTop3->setObjectName(QString::fromUtf8("listTop3"));
-        sizePolicy1.setHeightForWidth(listTop3->sizePolicy().hasHeightForWidth());
-        listTop3->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(1);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(listTop3->sizePolicy().hasHeightForWidth());
+        listTop3->setSizePolicy(sizePolicy4);
 
         aiLayout->addWidget(listTop3);
 
         btnFocus25 = new QPushButton(groupAi);
         btnFocus25->setObjectName(QString::fromUtf8("btnFocus25"));
+        QSizePolicy sizePolicy5(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(btnFocus25->sizePolicy().hasHeightForWidth());
+        btnFocus25->setSizePolicy(sizePolicy5);
+        btnFocus25->setMaximumSize(QSize(16777215, 32));
 
         aiLayout->addWidget(btnFocus25);
 
         textAiReason = new QTextBrowser(groupAi);
         textAiReason->setObjectName(QString::fromUtf8("textAiReason"));
-        sizePolicy1.setHeightForWidth(textAiReason->sizePolicy().hasHeightForWidth());
-        textAiReason->setSizePolicy(sizePolicy1);
-        textAiReason->setMinimumHeight(80);
+        sizePolicy4.setHeightForWidth(textAiReason->sizePolicy().hasHeightForWidth());
+        textAiReason->setSizePolicy(sizePolicy4);
+        textAiReason->setMinimumSize(QSize(0, 40));
+        textAiReason->setMaximumSize(QSize(16777215, 56));
 
         aiLayout->addWidget(textAiReason);
 

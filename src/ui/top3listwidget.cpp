@@ -1,10 +1,12 @@
 #include "top3listwidget.h"
 
 #include "../core/ai/ai_prompts.h"
+#include "../utils/app_theme.h"
 
 #include "task_checkbox_utils.h"
 
 #include <QContextMenuEvent>
+#include <QFontMetrics>
 #include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
@@ -72,16 +74,40 @@ private:
     Top3ListWidget *m_owner = nullptr;
 };
 
+int preferredTop3RowHeight(const QFont &font)
+{
+    const ThemeMetrics &m = AppTheme::metrics();
+    return qMax(34, QFontMetrics(font).height() + m.listItemPadV * 2 + 2);
+}
+
 } // namespace
+
+int Top3ListWidget::preferredRowHeight() const
+{
+    return preferredTop3RowHeight(font());
+}
+
+void Top3ListWidget::applyRowHeights()
+{
+    const int rowH = preferredRowHeight();
+    for (int i = 0; i < count(); ++i) {
+        if (QListWidgetItem *row = item(i))
+            row->setSizeHint(QSize(0, rowH));
+    }
+    setFixedHeight(rowH * 3 + 8);
+}
 
 Top3ListWidget::Top3ListWidget(QWidget *parent)
     : QListWidget(parent)
 {
     setSelectionMode(QAbstractItemView::SingleSelection);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setSpacing(0);
     setObjectName(QStringLiteral("top3List"));
     setContextMenuPolicy(Qt::DefaultContextMenu);
     setItemDelegate(new Top3ItemDelegate(this));
+    applyRowHeights();
 }
 
 void Top3ListWidget::setRecommendations(const QVector<PriorityRecommendation> &recs,
@@ -102,6 +128,7 @@ void Top3ListWidget::setRecommendations(const QVector<PriorityRecommendation> &r
                              : reason);
         addItem(item);
     }
+    applyRowHeights();
     viewport()->update();
 }
 

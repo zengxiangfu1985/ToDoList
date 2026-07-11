@@ -64,6 +64,8 @@ public:
     QKeySequenceEdit *editTop3Hotkey;
     QLabel *labelQuickCaptureHotkey;
     QKeySequenceEdit *editQuickCaptureHotkey;
+    QLabel *labelFocus25Hotkey;
+    QKeySequenceEdit *editFocus25Hotkey;
     QCheckBox *checkQuickCaptureAutoAnalyze;
     QLabel *labelHotkeyHint;
     QGroupBox *groupFocus;
@@ -244,17 +246,27 @@ public:
 
         formHotkeys->setWidget(2, QFormLayout::FieldRole, editQuickCaptureHotkey);
 
+        labelFocus25Hotkey = new QLabel(groupHotkeys);
+        labelFocus25Hotkey->setObjectName(QString::fromUtf8("labelFocus25Hotkey"));
+
+        formHotkeys->setWidget(3, QFormLayout::LabelRole, labelFocus25Hotkey);
+
+        editFocus25Hotkey = new QKeySequenceEdit(groupHotkeys);
+        editFocus25Hotkey->setObjectName(QString::fromUtf8("editFocus25Hotkey"));
+
+        formHotkeys->setWidget(3, QFormLayout::FieldRole, editFocus25Hotkey);
+
         checkQuickCaptureAutoAnalyze = new QCheckBox(groupHotkeys);
         checkQuickCaptureAutoAnalyze->setObjectName(QString::fromUtf8("checkQuickCaptureAutoAnalyze"));
         checkQuickCaptureAutoAnalyze->setChecked(true);
 
-        formHotkeys->setWidget(3, QFormLayout::SpanningRole, checkQuickCaptureAutoAnalyze);
+        formHotkeys->setWidget(4, QFormLayout::SpanningRole, checkQuickCaptureAutoAnalyze);
 
         labelHotkeyHint = new QLabel(groupHotkeys);
         labelHotkeyHint->setObjectName(QString::fromUtf8("labelHotkeyHint"));
         labelHotkeyHint->setWordWrap(true);
 
-        formHotkeys->setWidget(4, QFormLayout::SpanningRole, labelHotkeyHint);
+        formHotkeys->setWidget(5, QFormLayout::SpanningRole, labelHotkeyHint);
 
 
         scrollContentLayout->addWidget(groupHotkeys);
@@ -398,6 +410,7 @@ public:
         labelTodayTasksHotkey->setText(QCoreApplication::translate("AppSettingsDialog", "\344\273\212\346\227\245\344\273\273\345\212\241", nullptr));
         labelTop3Hotkey->setText(QCoreApplication::translate("AppSettingsDialog", "Top 3 \345\274\271\347\252\227", nullptr));
         labelQuickCaptureHotkey->setText(QCoreApplication::translate("AppSettingsDialog", "\351\227\252\350\256\260", nullptr));
+        labelFocus25Hotkey->setText(QCoreApplication::translate("AppSettingsDialog", "Focus 25", nullptr));
         checkQuickCaptureAutoAnalyze->setText(QCoreApplication::translate("AppSettingsDialog", "\351\227\252\350\256\260\344\277\235\345\255\230\345\220\216\350\207\252\345\212\250 AI \345\210\206\346\236\220\344\274\230\345\205\210\347\272\247", nullptr));
         labelHotkeyHint->setText(QCoreApplication::translate("AppSettingsDialog", "\345\205\250\345\261\200\345\277\253\346\215\267\351\224\256\351\234\200\345\214\205\345\220\253 Win / Ctrl / Alt / Shift \344\271\213\344\270\200\343\200\202\347\202\271\345\207\273\350\276\223\345\205\245\346\241\206\345\220\216\346\214\211\344\270\213\347\273\204\345\220\210\351\224\256\345\215\263\345\217\257\345\275\225\345\210\266\343\200\202", nullptr));
         groupFocus->setTitle(QCoreApplication::translate("AppSettingsDialog", "Focus 25", nullptr));

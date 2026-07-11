@@ -1,4 +1,4 @@
-﻿{
+{
     "schema":  1,
     "channel":  "stable",
     "latest":  {
@@ -10,8 +10,8 @@
                    "db_schema":  1,
                    "package":  {
                                    "file_name":  "ToDoList-Portable-1.0.9.zip",
-                                   "size":  16748254,
-                                   "sha256":  "b6096da4e34c91f3f07336543333f641ae5e91a8c70f191eaaa0bffffea80ccb",
+                                   "size":  16749732,
+                                   "sha256":  "cf62e3ee9256d674b4a11fc683d5ce79dd8acee4f7b686204dab1bb5b57bc7fb",
                                    "url":  "https://github.com/zengxiangfu1985/ToDoList/releases/download/v1.0.9/ToDoList-Portable-1.0.9.zip"
                                }
                }

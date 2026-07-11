@@ -316,18 +316,26 @@ void MainWindow::setupResponsiveLayout()
     ui->gridQuadrants->setColumnStretch(0, 1);
     ui->gridQuadrants->setColumnStretch(1, 1);
 
-    ui->aiLayout->setStretch(0, 2);
-    ui->aiLayout->setStretch(1, 1);
+    ui->aiLayout->setAlignment(Qt::AlignTop);
+    ui->aiLayout->setStretch(0, 0);
+    ui->aiLayout->setStretch(1, 0);
+    ui->aiLayout->setStretch(2, 0);
 
     const QSizePolicy expanding(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    const QSizePolicy top3Policy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    const QSizePolicy compactPolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     ui->groupQuadrants->setSizePolicy(expanding);
     ui->groupAi->setSizePolicy(expanding);
     ui->quadrantQ1->setSizePolicy(expanding);
     ui->quadrantQ2->setSizePolicy(expanding);
     ui->quadrantQ3->setSizePolicy(expanding);
     ui->quadrantQ4->setSizePolicy(expanding);
-    ui->listTop3->setSizePolicy(expanding);
-    ui->textAiReason->setSizePolicy(expanding);
+    ui->listTop3->setSizePolicy(top3Policy);
+    ui->btnFocus25->setSizePolicy(compactPolicy);
+    ui->btnFocus25->setFixedHeight(qMax(30, AppTheme::metrics().buttonHeight - 4));
+    ui->textAiReason->setSizePolicy(compactPolicy);
+    ui->textAiReason->setMinimumHeight(40);
+    ui->textAiReason->setMaximumHeight(56);
 
     updateToolbarScroll();
 }

@@ -28,6 +28,8 @@ signals:
     void focusRequested(qint64 taskId);
 
 private:
+    int preferredRowHeight() const;
+    void applyRowHeights();
     void toggleItemCompleted(QListWidgetItem *item);
     void showItemContextMenu(const QPoint &pos);
 

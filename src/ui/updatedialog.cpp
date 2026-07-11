@@ -5,7 +5,6 @@
 #include "../core/telemetry/usage_report_service.h"
 #include "../utils/app_theme.h"
 #include "../utils/app_version.h"
-#include "../utils/app_version.h"
 #include "../utils/window_fit.h"
 
 #include <QApplication>
@@ -186,9 +185,17 @@ void UpdateDialog::onCheckFinished(bool hasUpdate)
         }
         const UpdatePackageInfo remote = m_service ? m_service->latestPackage() : UpdatePackageInfo{};
         if (remote.valid) {
-            setStatusText(tr("当前版本: %1\n服务器版本: %2 (build %3)\n已是最新版本。")
-                              .arg(AppVersion::displayString(), remote.version)
-                              .arg(remote.build));
+            if (AppVersion::isOlderThanCurrent(remote.version, remote.build)) {
+                setStatusText(tr("当前版本: %1\n服务器记录: %2 (build %3)\n"
+                                 "当前版本已高于服务器记录，无需升级。\n"
+                                 "（部分更新源可能尚未同步至最新版本）")
+                                  .arg(AppVersion::displayString(), remote.version)
+                                  .arg(remote.build));
+            } else {
+                setStatusText(tr("当前版本: %1\n服务器版本: %2 (build %3)\n已是最新版本。")
+                                  .arg(AppVersion::displayString(), remote.version)
+                                  .arg(remote.build));
+            }
         } else {
             setStatusText(tr("当前版本: %1\n已是最新版本。").arg(AppVersion::displayString()));
         }

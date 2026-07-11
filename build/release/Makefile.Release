@@ -2839,6 +2839,13 @@ release/moc_daily_evaluation_dialog.cpp: ../../src/ui/daily_evaluation_dialog.h 
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
+		../../src/core/task_repository.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
+		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -2848,10 +2855,6 @@ release/moc_daily_evaluation_dialog.cpp: ../../src/ui/daily_evaluation_dialog.h 
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs_win.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qmargins.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qpaintdevice.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qrect.h \
@@ -7814,6 +7817,7 @@ release/mainwindow.o: ../../src/ui/mainwindow.cpp ../../src/ui/mainwindow.h \
 		../../src/ui/todaytasksdialog.h \
 		../../src/ui/quick_capture_dialog.h \
 		../../src/ui/daily_evaluation_dialog.h \
+		../../src/core/task_repository.h \
 		../../src/ui/weekly_report_dialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QSet \
 		../../src/ui/aianalysistracedialog.h \
@@ -7825,7 +7829,6 @@ release/mainwindow.o: ../../src/ui/mainwindow.cpp ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/QIcon \
 		../../src/core/app_settings.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/QKeySequence \
-		../../src/core/task_repository.h \
 		../../src/core/task_archive.h \
 		../../src/core/ai/ai_prompts.h \
 		../../src/core/priority_engine.h \
@@ -8315,6 +8318,44 @@ release/quick_capture_dialog.o: ../../src/ui/quick_capture_dialog.cpp ../../src/
 		../../../../5.15.2/mingw81_64/include/QtGui/qvector2d.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qtouchdevice.h \
 		ui_quick_capture_dialog.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QVariant \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QApplication \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qapplication.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreapplication.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qeventloop.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qdesktopwidget.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qguiapplication.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qinputmethod.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QCheckBox \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qcheckbox.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qabstractbutton.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qicon.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QHBoxLayout \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qboxlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlayoutitem.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qgridlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QLabel \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlabel.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qframe.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QPlainTextEdit \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qplaintextedit.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qtextedit.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtextdocument.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtextoption.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtextcursor.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtextformat.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpen.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qabstracttextdocumentlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtextlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qglyphrun.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qrawfont.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qfontdatabase.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QPushButton \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qpushbutton.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QSpacerItem \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QVBoxLayout \
 		../../src/core/quick_capture_service.h \
 		../../src/utils/app_logger.h \
 		../../src/utils/app_theme.h \
@@ -8453,14 +8494,44 @@ release/focus_session_dialog.o: ../../src/ui/focus_session_dialog.cpp ../../src/
 		../../../../5.15.2/mingw81_64/include/QtGui/qvector2d.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qtouchdevice.h \
 		ui_focus_session_dialog.h \
-		../../src/utils/app_theme.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
-		../../src/utils/window_fit.h \
-		../../../../5.15.2/mingw81_64/include/QtGui/QFont \
+		../../../../5.15.2/mingw81_64/include/QtCore/QVariant \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QApplication \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qapplication.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreapplication.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qeventloop.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qdesktopwidget.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qguiapplication.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qinputmethod.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QHBoxLayout \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qboxlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlayoutitem.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qgridlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QLabel \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlabel.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qframe.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QPushButton \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qpushbutton.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qabstractbutton.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qicon.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QStackedWidget \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qstackedwidget.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QVBoxLayout \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QWidget \
+		../../src/utils/app_theme.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
+		../../src/utils/window_fit.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QEvent \
+		../../../../5.15.2/mingw81_64/include/QtGui/QFont \
+		../../../../5.15.2/mingw81_64/include/QtGui/QFontMetrics \
+		../../../../5.15.2/mingw81_64/include/QtGui/QMouseEvent \
+		../../../../5.15.2/mingw81_64/include/QtGui/QScreen \
+		../../../../5.15.2/mingw81_64/include/QtGui/qscreen.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QList \
+		../../../../5.15.2/mingw81_64/include/QtCore/QRect \
+		../../../../5.15.2/mingw81_64/include/QtCore/QSize \
+		../../../../5.15.2/mingw81_64/include/QtCore/QSizeF \
+		../../../../5.15.2/mingw81_64/include/QtGui/QTransform \
 		../../../../5.15.2/mingw81_64/include/QtGui/QShowEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/focus_session_dialog.o ../../src/ui/focus_session_dialog.cpp
 
@@ -9052,6 +9123,8 @@ release/top3listwidget.o: ../../src/ui/top3listwidget.cpp ../../src/ui/top3listw
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qrubberband.h \
 		../../src/core/ai/ai_prompts.h \
+		../../src/utils/app_theme.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
 		../../src/ui/task_checkbox_utils.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/QPainter \
 		../../../../5.15.2/mingw81_64/include/QtGui/qpainter.h \
@@ -9061,6 +9134,7 @@ release/top3listwidget.o: ../../src/ui/top3listwidget.cpp ../../src/ui/top3listw
 		../../../../5.15.2/mingw81_64/include/QtGui/qpainterpath.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QRect \
 		../../../../5.15.2/mingw81_64/include/QtGui/QContextMenuEvent \
+		../../../../5.15.2/mingw81_64/include/QtGui/QFontMetrics \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QMenu \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qmenu.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qaction.h \
@@ -9450,6 +9524,13 @@ release/daily_evaluation_dialog.o: ../../src/ui/daily_evaluation_dialog.cpp ../.
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
+		../../src/core/task_repository.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
+		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -9459,10 +9540,6 @@ release/daily_evaluation_dialog.o: ../../src/ui/daily_evaluation_dialog.cpp ../.
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs_win.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qmargins.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qpaintdevice.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qrect.h \
@@ -9506,9 +9583,6 @@ release/daily_evaluation_dialog.o: ../../src/ui/daily_evaluation_dialog.cpp ../.
 		../../../../5.15.2/mingw81_64/include/QtGui/qtouchdevice.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
 		../../src/core/daily_evaluation_service.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
-		../../src/core/task_repository.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
 		../../src/utils/app_theme.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDateEdit \
@@ -10877,6 +10951,7 @@ release/appsettingsdialog.o: ../../src/ui/appsettingsdialog.cpp ../../src/ui/app
 		../../../../5.15.2/mingw81_64/include/QtCore/QCoreApplication \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QMessageBox \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qmessagebox.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QSet \
 		../../../../5.15.2/mingw81_64/include/QtGui/QShowEvent \
 		../../../../5.15.2/mingw81_64/include/QtCore/QEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/appsettingsdialog.o ../../src/ui/appsettingsdialog.cpp

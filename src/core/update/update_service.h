@@ -64,6 +64,7 @@ private:
     QNetworkReply *m_reply = nullptr;
     State m_state = State::Idle;
     UpdatePackageInfo m_latest;
+    UpdatePackageInfo m_bestRemote;
     QString m_lastError;
     QStringList m_pendingManifestUrls;
     QStringList m_pendingDownloadUrls;

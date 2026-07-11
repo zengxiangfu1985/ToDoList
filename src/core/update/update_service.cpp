@@ -69,6 +69,29 @@ QString friendlyNetworkError(QNetworkReply *reply, bool forDownload)
                      : QStringLiteral("无法检查更新，请检查网络或稍后重试。");
 }
 
+bool isNewerPackage(const UpdatePackageInfo &candidate, const UpdatePackageInfo &baseline)
+{
+    if (!candidate.valid)
+        return false;
+    if (!baseline.valid)
+        return true;
+
+    const int cmp = AppVersion::compareVersion(candidate.version, baseline.version);
+    if (cmp > 0)
+        return true;
+    if (cmp < 0)
+        return false;
+    return candidate.build > baseline.build;
+}
+
+void rememberBestRemote(UpdatePackageInfo *best, const UpdatePackageInfo &candidate)
+{
+    if (!candidate.valid)
+        return;
+    if (!best->valid || isNewerPackage(candidate, *best))
+        *best = candidate;
+}
+
 } // namespace
 
 UpdateService::UpdateService(QObject *parent)
@@ -127,6 +150,7 @@ void UpdateService::checkForUpdates()
 
     setState(State::Checking);
     m_lastError.clear();
+    m_bestRemote = {};
     m_pendingManifestUrls = UpdateConfigStore::manifestUrls();
     startNextManifestRequest();
 }
@@ -167,6 +191,9 @@ void UpdateService::startNextManifestRequest()
 
 void UpdateService::finishCheckNoUpdate()
 {
+    if (m_bestRemote.valid)
+        m_latest = m_bestRemote;
+
     setState(State::Idle);
     m_lastError.clear();
     AppLogger::info("UPDATE",
@@ -217,6 +244,8 @@ void UpdateService::onCheckFinished()
         startNextManifestRequest();
         return;
     }
+
+    rememberBestRemote(&m_bestRemote, m_latest);
 
     if (!AppVersion::isNewerThanCurrent(m_latest.version, m_latest.build)) {
         if (!m_pendingManifestUrls.isEmpty()) {

@@ -141,11 +141,11 @@ QStringList UpdateConfigStore::manifestUrls()
         return url.contains(QStringLiteral("cdn.jsdelivr.net"));
     };
 
-    appendUnique(releaseLatestManifestUrl());
     appendUnique(ghProxyManifestUrl());
     appendUnique(ghProxyMirrorManifestUrl());
-    appendUnique(defaultManifestUrl());
     appendUnique(fallbackManifestUrl());
+    appendUnique(defaultManifestUrl());
+    appendUnique(releaseLatestManifestUrl());
     for (const UpdateSource &source : config.sources) {
         if (isJsDelivr(source.url))
             appendUnique(source.url);

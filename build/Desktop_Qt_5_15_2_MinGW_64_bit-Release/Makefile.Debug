@@ -9123,6 +9123,8 @@ debug/top3listwidget.o: ../../src/ui/top3listwidget.cpp ../../src/ui/top3listwid
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qrubberband.h \
 		../../src/core/ai/ai_prompts.h \
+		../../src/utils/app_theme.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
 		../../src/ui/task_checkbox_utils.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/QPainter \
 		../../../../5.15.2/mingw81_64/include/QtGui/qpainter.h \
@@ -9132,6 +9134,7 @@ debug/top3listwidget.o: ../../src/ui/top3listwidget.cpp ../../src/ui/top3listwid
 		../../../../5.15.2/mingw81_64/include/QtGui/qpainterpath.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QRect \
 		../../../../5.15.2/mingw81_64/include/QtGui/QContextMenuEvent \
+		../../../../5.15.2/mingw81_64/include/QtGui/QFontMetrics \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QMenu \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qmenu.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qaction.h \
