@@ -21,6 +21,10 @@
   <a href="#模型llm配置">配置 AI</a>
 </p>
 
+<p align="center">
+  <img src="docs/screenshots/02-main-window.png" alt="主界面：任务列表 + 四象限看板 + AI Top 3" width="900">
+</p>
+
 ---
 
 ## 和常见待办工具有什么不同？
@@ -53,8 +57,7 @@
 
 支持 **Ollama 本地模型**（推荐 `qwen2.5:3b`）或 **DeepSeek / Kimi / OpenAI 兼容 API**。无网络或无 API 时，程序自动 **降级为规则层评分**，基本功能不中断。
 
-> 📷 **截图占位** · [`docs/screenshots/07-ai-analyze.png`](docs/screenshots/07-ai-analyze.png)  
-> *AI 分析完成：四象限看板 + Top 3 推荐 + 推荐理由*
+![AI 分析完成：四象限看板 + Top 3 推荐 + 推荐理由](docs/screenshots/07-ai-analyze.png)
 
 ---
 
@@ -69,8 +72,7 @@
 
 任务可在四象限间 **拖拽调整**；列表、象限、Top 3 **三处勾选状态实时同步**。
 
-> 📷 **截图占位** · [`docs/screenshots/02-main-window.png`](docs/screenshots/02-main-window.png)  
-> *主界面：任务列表 + 四象限看板 + AI Top 3*
+![主界面：任务列表 + 四象限看板 + AI Top 3](docs/screenshots/02-main-window.png)
 
 ---
 
@@ -84,8 +86,7 @@
 
 保存后 AI 自动拆成多条任务，并可选择 **保存后立即分析优先级**。适合走路、开会间隙的 **零摩擦录入**。
 
-> 📷 **截图占位** · [`docs/screenshots/05-quick-capture.png`](docs/screenshots/05-quick-capture.png)  
-> *闪记居中小窗：自然语言 → 多条任务*
+![闪记居中小窗：自然语言 → 多条任务](docs/screenshots/05-quick-capture.png)
 
 ---
 
@@ -98,8 +99,7 @@
 - 结束后可选 **完成 / 再来一轮 / 跳过**
 - 专注数据纳入 **每日评估**（专注分钟 · 完成轮数）
 
-> 📷 **截图占位** · [`docs/screenshots/06-focus-25.png`](docs/screenshots/06-focus-25.png)  
-> *Focus 25 专注倒计时（右下角极简浮窗）*
+![Focus 25 专注倒计时（右下角极简浮窗）](docs/screenshots/06-focus-25.png)
 
 ---
 
@@ -109,8 +109,7 @@
 - **生成周报**：勾选本周任务，一键生成 AI 工作周报
 - 启动时自动补评遗漏日期
 
-> 📷 **截图占位** · [`docs/screenshots/12-daily-evaluation.png`](docs/screenshots/12-daily-evaluation.png)  
-> *每日评估历史：任务统计 + 专注 X 分 · Y/Z 轮*
+![每日评估历史：任务统计 + 专注 X 分 · Y/Z 轮](docs/screenshots/12-daily-evaluation.png)
 
 ---
 
@@ -125,8 +124,7 @@
 
 关闭主窗口默认 **最小化到托盘**，右键菜单可快速添加任务、查看 Top 3、启动专注。
 
-> 📷 **截图占位** · [`docs/screenshots/09-tray-menu.png`](docs/screenshots/09-tray-menu.png)  
-> *系统托盘右键菜单*
+![系统托盘右键菜单](docs/screenshots/09-tray-menu.png)
 
 ---
 
@@ -134,11 +132,11 @@
 
 | | |
 |:---:|:---:|
-| 📷 [`01-quick-start.png`](docs/screenshots/01-quick-start.png)<br>*便携版目录，解压即用* | 📷 [`04-today-tasks.png`](docs/screenshots/04-today-tasks.png)<br>*今日任务批量录入* |
-| 📷 [`03-add-task.png`](docs/screenshots/03-add-task.png)<br>*添加任务* | 📷 [`08-top3-popup.png`](docs/screenshots/08-top3-popup.png)<br>*Top 3 弹窗* |
-| 📷 [`13-llm-settings.png`](docs/screenshots/13-llm-settings.png)<br>*LLM 设置* | 📷 [`10-settings.png`](docs/screenshots/10-settings.png)<br>*设置（快捷键 / Focus）* |
+| ![便携版目录，解压即用](docs/screenshots/01-quick-start.png)<br>*便携版目录* | ![今日任务批量录入](docs/screenshots/04-today-tasks.png)<br>*今日任务* |
+| ![添加任务](docs/screenshots/03-add-task.png)<br>*添加任务* | ![Top 3 弹窗](docs/screenshots/08-top3-popup.png)<br>*Top 3 弹窗* |
+| ![LLM 设置](docs/screenshots/13-llm-settings.png)<br>*LLM 设置* | ![设置（快捷键 / Focus）](docs/screenshots/10-settings.png)<br>*设置* |
 
-> 将 PNG 保存到 [`docs/screenshots/`](docs/screenshots/) 并 push 后，上表占位会自动变为可点击预览。完整清单见 [`docs/screenshots/README.md`](docs/screenshots/README.md)。
+完整截图清单见 [`docs/screenshots/README.md`](docs/screenshots/README.md)。
 
 ---
 
@@ -153,8 +151,7 @@
 
 **[⬇️ 前往 Releases 下载](https://github.com/zengxiangfu1985/ToDoList/releases)**
 
-> 📷 **截图占位** · [`docs/screenshots/01-quick-start.png`](docs/screenshots/01-quick-start.png)  
-> *解压后的便携版目录（含 `ToDoList.exe`、`data/`、`使用说明.txt`）*
+![解压后的便携版目录（含 ToDoList.exe、data/、使用说明.txt）](docs/screenshots/01-quick-start.png)
 
 | 项目 | 说明 |
 |------|------|
@@ -187,11 +184,9 @@ ollama pull qwen2.5:3b
 # 3. 测试连接 → 保存 → 点击「AI 分析优先级」
 ```
 
-> 📷 **截图占位** · [`docs/screenshots/13-llm-settings.png`](docs/screenshots/13-llm-settings.png)  
-> *LLM 设置对话框*
+![LLM 设置对话框](docs/screenshots/13-llm-settings.png)
 
-> 📷 **截图占位** · [`docs/screenshots/14-llm-ollama.png`](docs/screenshots/14-llm-ollama.png)  
-> *Ollama 本地配置（测试连接成功）*
+![Ollama 本地配置（测试连接成功）](docs/screenshots/14-llm-ollama.png)
 
 <details>
 <summary><strong>云端 API 配置与常见问题</strong></summary>
@@ -229,7 +224,7 @@ ollama pull qwen2.5:3b
 **关于 → 检查更新**：自动拉取清单、下载 zip、SHA256 校验后一键升级，`data/` 目录保留不动。  
 也可 **导入离线更新包**（`.zip`）手动升级。
 
-> 📷 **截图占位** · [`docs/screenshots/11-about-update.png`](docs/screenshots/11-about-update.png)
+![关于 · 检查更新](docs/screenshots/11-about-update.png)
 
 </details>
 
