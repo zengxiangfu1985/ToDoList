@@ -47,7 +47,7 @@ inline void paint(QPainter *p, const QRect &rect, bool checked, bool hover)
     p->drawRoundedRect(rect.adjusted(0, 0, -1, -1), 6, 6);
 
     if (checked) {
-        QPen tickPen(Qt::white, 2.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+        QPen tickPen(QColor(0x4a, 0xd4, 0x8a), 2.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
         p->setPen(tickPen);
         const QPoint c = rect.center();
         QPainterPath tick;

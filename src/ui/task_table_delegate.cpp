@@ -1,5 +1,8 @@
 #include "task_table_delegate.h"
 
+#include "task_checkbox_utils.h"
+
+#include <QMouseEvent>
 #include <QPainter>
 #include <QStyleOptionButton>
 
@@ -7,6 +10,13 @@ TaskTableDelegate::TaskTableDelegate(TaskTableModel *model, QObject *parent)
     : QStyledItemDelegate(parent)
     , m_model(model)
 {
+}
+
+QRect TaskTableDelegate::centeredCheckboxRect(const QRect &cellRect)
+{
+    QRect checkR(0, 0, TaskCheckbox::kSize, TaskCheckbox::kSize);
+    checkR.moveCenter(cellRect.center());
+    return checkR;
 }
 
 QColor TaskTableDelegate::quadrantGlowColor(EisenhowerQuadrant q)
@@ -103,10 +113,28 @@ void TaskTableDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt
     }
 
     if (index.column() == TaskTableModel::ColDue || index.column() == TaskTableModel::ColScore
-        || index.column() == TaskTableModel::ColIndex) {
+        || index.column() == TaskTableModel::ColIndex
+        || index.column() == TaskTableModel::ColCompleted) {
         painter->save();
         if (opt.state & QStyle::State_Selected)
             painter->fillRect(opt.rect, opt.palette.highlight());
+        if (index.column() == TaskTableModel::ColCompleted) {
+            if (m_model->readOnly()) {
+                const QString text = index.data(Qt::DisplayRole).toString();
+                if (!text.isEmpty()) {
+                    painter->setPen(task.completed ? QColor(0x6d, 0x98, 0x73) : QColor(0x9a, 0xab, 0xc8));
+                    painter->drawText(opt.rect, Qt::AlignCenter, text);
+                    painter->restore();
+                    return;
+                }
+            } else {
+                const bool completed = index.data(Qt::CheckStateRole).toInt() == Qt::Checked;
+                const bool hover = opt.state & QStyle::State_MouseOver;
+                TaskCheckbox::paint(painter, centeredCheckboxRect(opt.rect), completed, hover);
+                painter->restore();
+                return;
+            }
+        }
         painter->setPen(QColor(0x9a, 0xab, 0xc8));
         painter->drawText(opt.rect, Qt::AlignCenter, index.data(Qt::DisplayRole).toString());
         painter->restore();
@@ -114,4 +142,26 @@ void TaskTableDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt
     }
 
     QStyledItemDelegate::paint(painter, option, index);
+}
+
+bool TaskTableDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
+                                      const QStyleOptionViewItem &option, const QModelIndex &index)
+{
+    if (!m_model || m_model->readOnly() || index.column() != TaskTableModel::ColCompleted)
+        return QStyledItemDelegate::editorEvent(event, model, option, index);
+
+    if (event->type() == QEvent::MouseButtonRelease) {
+        const auto *mouseEvent = static_cast<QMouseEvent *>(event);
+        if (mouseEvent->button() != Qt::LeftButton)
+            return false;
+
+        if (!centeredCheckboxRect(option.rect).contains(mouseEvent->pos()))
+            return false;
+
+        const Qt::CheckState newState =
+            index.data(Qt::CheckStateRole).toInt() == Qt::Checked ? Qt::Unchecked : Qt::Checked;
+        return model->setData(index, newState, Qt::CheckStateRole);
+    }
+
+    return QStyledItemDelegate::editorEvent(event, model, option, index);
 }

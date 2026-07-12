@@ -4,6 +4,7 @@
 #include "../core/task_types.h"
 
 #include <QAbstractTableModel>
+#include <QDateTime>
 #include <QSet>
 #include <QVector>
 
@@ -30,6 +31,9 @@ public:
 
     void setDeleteMode(bool enabled);
     bool deleteMode() const;
+    void setReadOnly(bool readOnly);
+    bool readOnly() const;
+    void updateLocalCompletion(int row, bool completed, const QDateTime &completedAt = QDateTime());
     QVector<qint64> selectedTaskIdsForDelete() const;
     void clearDeleteSelection();
 
@@ -49,6 +53,7 @@ private:
 
     QVector<TaskItem> m_tasks;
     bool m_deleteMode = false;
+    bool m_readOnly = false;
     QSet<qint64> m_deleteSelected;
 };
 

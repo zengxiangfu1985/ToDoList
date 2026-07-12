@@ -4,6 +4,7 @@
 #include "task_types.h"
 
 #include <QDate>
+#include <QDateTime>
 #include <QString>
 #include <QVector>
 
@@ -25,6 +26,8 @@ public:
     static bool appendExpiredTasks(const QVector<TaskItem> &tasks, const QDate &dueDate,
                                    QString *errorMsg = nullptr);
     static QVector<TaskItem> loadExpiredTasks(const QDate &dueDate, QString *errorMsg = nullptr);
+    static bool updateTaskCompletionInArchives(qint64 taskId, bool completed, const QDateTime &completedAt,
+                                               QString *errorMsg = nullptr);
 
     static QString dailyTop3Path(const QDate &date = QDate::currentDate());
     static QString top3ModelKey(const LlmConfig &config);

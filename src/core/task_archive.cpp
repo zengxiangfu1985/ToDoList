@@ -369,3 +369,79 @@ QVector<TaskItem> TaskArchive::loadSnapshot(const QDate &date, QString *errorMsg
         items.append(taskFromJson(v.toObject()));
     return items;
 }
+
+static bool writeTasksArrayToFile(const QString &path, const QJsonObject &root, const QJsonArray &arr,
+                                  QString *errorMsg)
+{
+    QJsonObject updated = root;
+    updated.insert(QStringLiteral("tasks"), arr);
+
+    QFile file(path);
+    if (!file.open(QIODevice::WriteOnly)) {
+        if (errorMsg)
+            *errorMsg = file.errorString();
+        return false;
+    }
+    file.write(QJsonDocument(updated).toJson(QJsonDocument::Indented));
+    return true;
+}
+
+static bool updateCompletionInTaskFile(const QString &path, qint64 taskId, bool completed,
+                                       const QDateTime &completedAt, QString *errorMsg)
+{
+    QFile file(path);
+    if (!file.exists())
+        return true;
+    if (!file.open(QIODevice::ReadOnly)) {
+        if (errorMsg)
+            *errorMsg = file.errorString();
+        return false;
+    }
+
+    const QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+    const QJsonObject root = doc.object();
+    QJsonArray arr = root.value(QStringLiteral("tasks")).toArray();
+    bool changed = false;
+
+    for (int i = 0; i < arr.size(); ++i) {
+        QJsonObject o = arr.at(i).toObject();
+        if (static_cast<qint64>(o.value(QStringLiteral("id")).toDouble()) != taskId)
+            continue;
+
+        const bool wasCompleted = o.value(QStringLiteral("completed")).toBool();
+        const QString prevCompletedAt = o.value(QStringLiteral("completed_at")).toString();
+        const QString nextCompletedAt =
+            completed && completedAt.isValid() ? completedAt.toString(Qt::ISODate) : QString();
+        if (wasCompleted == completed && prevCompletedAt == nextCompletedAt)
+            continue;
+
+        o.insert(QStringLiteral("completed"), completed);
+        if (completed && completedAt.isValid())
+            o.insert(QStringLiteral("completed_at"), nextCompletedAt);
+        else
+            o.remove(QStringLiteral("completed_at"));
+        arr.replace(i, o);
+        changed = true;
+    }
+
+    if (!changed)
+        return true;
+
+    return writeTasksArrayToFile(path, root, arr, errorMsg);
+}
+
+bool TaskArchive::updateTaskCompletionInArchives(qint64 taskId, bool completed, const QDateTime &completedAt,
+                                                 QString *errorMsg)
+{
+    if (!ensureDataDirectory(errorMsg))
+        return false;
+
+    QDir dir(defaultDataDirectory());
+    const QStringList files = dir.entryList({QStringLiteral("tasks-*.json"), QStringLiteral("expired-*.json")},
+                                            QDir::Files);
+    for (const QString &name : files) {
+        if (!updateCompletionInTaskFile(dir.filePath(name), taskId, completed, completedAt, errorMsg))
+            return false;
+    }
+    return true;
+}

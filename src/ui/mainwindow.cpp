@@ -1030,6 +1030,13 @@ void MainWindow::onTaskCompletedToggled(qint64 taskId, bool completed)
         scheduleReloadTasks();
         return;
     }
+
+    const int updatedRow = m_model->rowForTaskId(taskId);
+    if (updatedRow >= 0) {
+        const QDateTime completedAt = completed ? QDateTime::currentDateTimeUtc() : QDateTime();
+        m_model->updateLocalCompletion(updatedRow, completed, completedAt);
+    }
+
     if (completed && isQuadrantAssigned(quadrant))
         m_learning->recordEvent(BehaviorEventType::TaskCompleted, taskId, quadrant);
     statusBar()->showMessage(completed ? tr("任务已完成") : tr("任务标记为未完成"), 2000);
@@ -1037,8 +1044,9 @@ void MainWindow::onTaskCompletedToggled(qint64 taskId, bool completed)
 
 void MainWindow::onViewHistory()
 {
-    TaskHistoryDialog dlg(this);
+    TaskHistoryDialog dlg(m_repo, this);
     dlg.exec();
+    scheduleReloadTasks();
 }
 
 void MainWindow::onViewDailyEvaluations()

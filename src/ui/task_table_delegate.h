@@ -13,8 +13,11 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option,
                const QModelIndex &index) const override;
+    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option,
+                     const QModelIndex &index) override;
 
 private:
+    static QRect centeredCheckboxRect(const QRect &cellRect);
     static QColor quadrantGlowColor(EisenhowerQuadrant q);
     void paintQuadrantBadge(QPainter *p, const QStyleOptionViewItem &option, const QString &text,
                             EisenhowerQuadrant q) const;

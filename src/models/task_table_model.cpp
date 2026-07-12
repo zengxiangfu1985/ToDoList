@@ -46,6 +46,33 @@ bool TaskTableModel::deleteMode() const
     return m_deleteMode;
 }
 
+void TaskTableModel::setReadOnly(bool readOnly)
+{
+    if (m_readOnly == readOnly)
+        return;
+    m_readOnly = readOnly;
+    if (rowCount() > 0)
+        emit dataChanged(index(0, ColCompleted), index(rowCount() - 1, ColCompleted),
+                         {Qt::CheckStateRole, Qt::DisplayRole, Qt::ToolTipRole});
+}
+
+bool TaskTableModel::readOnly() const
+{
+    return m_readOnly;
+}
+
+void TaskTableModel::updateLocalCompletion(int row, bool completed, const QDateTime &completedAt)
+{
+    if (row < 0 || row >= m_tasks.size())
+        return;
+
+    m_tasks[row].completed = completed;
+    m_tasks[row].completedAt = completedAt;
+    const QModelIndex completedIdx = index(row, ColCompleted);
+    emit dataChanged(completedIdx, completedIdx, {Qt::CheckStateRole, Qt::DisplayRole, Qt::ToolTipRole});
+    emit dataChanged(index(row, ColTitle), index(row, ColTitle), {Qt::DisplayRole});
+}
+
 QVector<qint64> TaskTableModel::selectedTaskIdsForDelete() const
 {
     QVector<qint64> ids;
@@ -111,7 +138,10 @@ QVariant TaskTableModel::data(const QModelIndex &index, int role) const
                        : QStringLiteral("-");
         case ColQuadrant: return quadrantText(t.quadrant);
         case ColScore: return QString::number(t.ruleScore, 'f', 1);
-        case ColCompleted: return {};
+        case ColCompleted:
+            if (m_readOnly)
+                return t.completed ? QObject::tr("已完成") : QObject::tr("未完成");
+            return {};
         default: return {};
         }
     }
@@ -122,8 +152,12 @@ QVariant TaskTableModel::data(const QModelIndex &index, int role) const
     if (role == Qt::ToolTipRole) {
         if (index.column() == ColTitle)
             return t.title;
-        if (index.column() == ColCompleted && t.completed && t.completedAt.isValid())
-            return QObject::tr("完成于 %1").arg(t.completedAt.toLocalTime().toString(QStringLiteral("yyyy-MM-dd HH:mm:ss")));
+        if (index.column() == ColCompleted) {
+            if (m_readOnly)
+                return t.completed ? QObject::tr("已完成") : QObject::tr("未完成");
+            if (t.completed && t.completedAt.isValid())
+                return QObject::tr("完成于 %1").arg(t.completedAt.toLocalTime().toString(QStringLiteral("yyyy-MM-dd HH:mm:ss")));
+        }
     }
 
     return {};
@@ -137,6 +171,8 @@ bool TaskTableModel::setData(const QModelIndex &index, const QVariant &value, in
     const qint64 taskId = m_tasks.at(index.row()).id;
 
     if (index.column() == ColCompleted && role == Qt::CheckStateRole) {
+        if (m_readOnly)
+            return false;
         const bool completed = value.toInt() == Qt::Checked;
         if (m_tasks[index.row()].completed == completed)
             return true;
@@ -165,7 +201,7 @@ Qt::ItemFlags TaskTableModel::flags(const QModelIndex &index) const
         return Qt::NoItemFlags;
 
     Qt::ItemFlags f = QAbstractTableModel::flags(index);
-    if (index.column() == ColCompleted)
+    if (index.column() == ColCompleted && !m_readOnly)
         f |= Qt::ItemIsUserCheckable;
     if (index.column() == ColSelect && m_deleteMode)
         f |= Qt::ItemIsUserCheckable;

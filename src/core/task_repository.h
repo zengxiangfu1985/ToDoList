@@ -39,6 +39,7 @@ public:
     bool updateTask(const TaskItem &task, QString *errorMsg = nullptr);
     bool updateTaskQuadrant(qint64 id, EisenhowerQuadrant quadrant, QString *errorMsg = nullptr);
     bool updateTaskCompleted(qint64 id, bool completed, QString *errorMsg = nullptr);
+    bool applyTaskCompletionGlobally(qint64 id, bool completed, QString *errorMsg = nullptr);
     bool deleteTask(qint64 id, QString *errorMsg = nullptr);
     bool resetAllQuadrants(int *affectedCount = nullptr, QString *errorMsg = nullptr);
     TaskItem findByExternal(const QString &source, const QString &externalId) const;

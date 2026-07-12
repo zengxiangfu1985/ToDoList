@@ -212,9 +212,9 @@ QVector<TaskItem> TaskRepository::yesterdayUnfinishedTasks() const
     QVector<TaskItem> result;
 
     QString err;
-    const QVector<TaskItem> snapshot = TaskArchive::loadSnapshot(yesterday, &err);
-    if (!snapshot.isEmpty()) {
-        for (const TaskItem &t : snapshot) {
+    const QVector<TaskItem> history = TaskArchive::loadHistoryForDate(yesterday, &err);
+    if (!history.isEmpty()) {
+        for (const TaskItem &t : history) {
             if (!t.completed)
                 result.append(t);
         }
@@ -373,6 +373,26 @@ bool TaskRepository::updateTaskCompleted(qint64 id, bool completed, QString *err
                         .arg(id)
                         .arg(completed)
                         .arg(completed ? now.toString(Qt::ISODate) : QStringLiteral("(cleared)")));
+    emit tasksChanged();
+    return true;
+}
+
+bool TaskRepository::applyTaskCompletionGlobally(qint64 id, bool completed, QString *errorMsg)
+{
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    const QDateTime completedAt = completed ? now : QDateTime();
+
+    if (!TaskArchive::updateTaskCompletionInArchives(id, completed, completedAt, errorMsg))
+        return false;
+
+    QSqlQuery existsQ(d->db);
+    existsQ.prepare(QStringLiteral("SELECT 1 FROM tasks WHERE id=? LIMIT 1"));
+    existsQ.addBindValue(id);
+    const bool inDb = existsQ.exec() && existsQ.next();
+
+    if (inDb)
+        return updateTaskCompleted(id, completed, errorMsg);
+
     emit tasksChanged();
     return true;
 }
