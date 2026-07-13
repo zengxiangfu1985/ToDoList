@@ -211,12 +211,35 @@ QVector<TaskItem> TaskRepository::yesterdayUnfinishedTasks() const
     const QDate yesterday = QDate::currentDate().addDays(-1);
     QVector<TaskItem> result;
 
+    QHash<qint64, TaskItem> dbById;
+    QSet<QString> completedTitles;
+    for (const TaskItem &t : allTasks()) {
+        dbById.insert(t.id, t);
+        if (t.completed)
+            completedTitles.insert(t.title.trimmed());
+    }
+
     QString err;
     const QVector<TaskItem> history = TaskArchive::loadHistoryForDate(yesterday, &err);
     if (!history.isEmpty()) {
+        QSet<qint64> addedIds;
         for (const TaskItem &t : history) {
-            if (!t.completed)
-                result.append(t);
+            const auto it = dbById.constFind(t.id);
+            if (it != dbById.constEnd()) {
+                if (it->completed)
+                    continue;
+                if (addedIds.contains(it->id))
+                    continue;
+                result.append(*it);
+                addedIds.insert(it->id);
+                continue;
+            }
+            if (t.completed || completedTitles.contains(t.title.trimmed()))
+                continue;
+            if (addedIds.contains(t.id))
+                continue;
+            result.append(t);
+            addedIds.insert(t.id);
         }
         return result;
     }

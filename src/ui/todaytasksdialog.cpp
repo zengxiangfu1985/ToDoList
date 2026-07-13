@@ -158,8 +158,12 @@ void TodayTasksDialog::styleTextEdit(LineNumberPlainTextEdit *edit, const char *
 void TodayTasksDialog::preloadExistingTodayTasks()
 {
     m_existingTasks.clear();
-    if (m_repo)
-        m_existingTasks = m_repo->activeTasksDueOnDate(QDate::currentDate());
+    if (m_repo) {
+        for (const TaskItem &t : m_repo->activeTasksDueOnDate(QDate::currentDate())) {
+            if (!t.completed)
+                m_existingTasks.append(t);
+        }
+    }
 
     QStringList lines;
     lines.reserve(m_existingTasks.size());

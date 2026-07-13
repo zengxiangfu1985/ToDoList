@@ -985,6 +985,15 @@ void MainWindow::archiveTodaySnapshot()
 {
     QString err;
     TaskArchive::exportDailySnapshot(m_repo->activeTasks(), QDate::currentDate(), &err);
+
+    const QDate yesterday = QDate::currentDate().addDays(-1);
+    QVector<TaskItem> yesterdayTasks;
+    for (const TaskItem &t : m_repo->allTasks()) {
+        if (t.dueAt.isValid() && t.dueAt.toLocalTime().date() == yesterday)
+            yesterdayTasks.append(t);
+    }
+    if (!yesterdayTasks.isEmpty())
+        TaskArchive::exportDailySnapshot(yesterdayTasks, yesterday, &err);
 }
 
 void MainWindow::onTaskDoubleClicked(const QModelIndex &index)
@@ -1025,7 +1034,7 @@ void MainWindow::onTaskCompletedToggled(qint64 taskId, bool completed)
         quadrant = m_model->taskAt(row).quadrant;
 
     QString err;
-    if (!m_repo->updateTaskCompleted(taskId, completed, &err)) {
+    if (!m_repo->applyTaskCompletionGlobally(taskId, completed, &err)) {
         QMessageBox::warning(this, tr("完成状态"), err);
         scheduleReloadTasks();
         return;
@@ -1036,6 +1045,8 @@ void MainWindow::onTaskCompletedToggled(qint64 taskId, bool completed)
         const QDateTime completedAt = completed ? QDateTime::currentDateTimeUtc() : QDateTime();
         m_model->updateLocalCompletion(updatedRow, completed, completedAt);
     }
+
+    archiveTodaySnapshot();
 
     if (completed && isQuadrantAssigned(quadrant))
         m_learning->recordEvent(BehaviorEventType::TaskCompleted, taskId, quadrant);

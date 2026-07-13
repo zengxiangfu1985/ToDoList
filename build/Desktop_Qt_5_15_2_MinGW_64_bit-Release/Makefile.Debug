@@ -2674,10 +2674,10 @@ debug/moc_m365settingsdialog.cpp: ../../src/ui/m365settingsdialog.h \
 	'D:\Qt\5.15.2\mingw81_64\bin\moc.exe' $(DEFINES) --include D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/debug/moc_predefs.h -ID:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++ -ID:/Qt/QtProjects/ToDoList -ID:/Qt/QtProjects/ToDoList/src -ID:/Qt/5.15.2/mingw81_64/include -ID:/Qt/5.15.2/mingw81_64/include/QtSvg -ID:/Qt/5.15.2/mingw81_64/include/QtWidgets -ID:/Qt/5.15.2/mingw81_64/include/QtWinExtras -ID:/Qt/5.15.2/mingw81_64/include/QtGui -ID:/Qt/5.15.2/mingw81_64/include/QtANGLE -ID:/Qt/5.15.2/mingw81_64/include/QtSql -ID:/Qt/5.15.2/mingw81_64/include/QtNetwork -ID:/Qt/5.15.2/mingw81_64/include/QtConcurrent -ID:/Qt/5.15.2/mingw81_64/include/QtCore -I. -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -Id:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ../../src/ui/m365settingsdialog.h -o debug/moc_m365settingsdialog.cpp
 
 debug/moc_taskhistorydialog.cpp: ../../src/ui/taskhistorydialog.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
-		../../../../5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstring.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qchar.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qglobal.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qconfig.h \
@@ -2699,27 +2699,19 @@ debug/moc_taskhistorydialog.cpp: ../../src/ui/taskhistorydialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qmutex.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qnumeric.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qversiontagging.h \
-		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgets-config.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qwidget.h \
-		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qnamespace.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
-		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs_win.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qstring.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qchar.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qbytearray.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qrefcount.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnamespace.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qarraydata.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringliteral.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringalgorithms.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringview.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringbuilder.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiterator.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qlist.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qalgorithms.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qiterator.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qhashfunctions.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qpair.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qvector.h \
@@ -2729,6 +2721,18 @@ debug/moc_taskhistorydialog.cpp: ../../src/ui/taskhistorydialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringlist.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qregexp.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringmatcher.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qwidget.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs_win.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qmetatype.h \
@@ -2755,8 +2759,6 @@ debug/moc_taskhistorydialog.cpp: ../../src/ui/taskhistorydialog.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qpixelformat.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qpixmap.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qfont.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qfontmetrics.h \
@@ -9309,10 +9311,10 @@ debug/m365settingsdialog.o: ../../src/ui/m365settingsdialog.cpp ../../src/ui/m36
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/m365settingsdialog.o ../../src/ui/m365settingsdialog.cpp
 
 debug/taskhistorydialog.o: ../../src/ui/taskhistorydialog.cpp ../../src/ui/taskhistorydialog.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
-		../../../../5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstring.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qchar.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qglobal.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qconfig.h \
@@ -9334,27 +9336,19 @@ debug/taskhistorydialog.o: ../../src/ui/taskhistorydialog.cpp ../../src/ui/taskh
 		../../../../5.15.2/mingw81_64/include/QtCore/qmutex.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qnumeric.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qversiontagging.h \
-		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgets-config.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qwidget.h \
-		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qnamespace.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
-		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs_win.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qstring.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qchar.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qbytearray.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qrefcount.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnamespace.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qarraydata.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringliteral.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringalgorithms.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringview.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringbuilder.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiterator.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qlist.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qalgorithms.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qiterator.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qhashfunctions.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qpair.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qvector.h \
@@ -9364,6 +9358,18 @@ debug/taskhistorydialog.o: ../../src/ui/taskhistorydialog.cpp ../../src/ui/taskh
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringlist.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qregexp.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qstringmatcher.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qwidget.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs_win.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qmetatype.h \
@@ -9390,8 +9396,6 @@ debug/taskhistorydialog.o: ../../src/ui/taskhistorydialog.cpp ../../src/ui/taskh
 		../../../../5.15.2/mingw81_64/include/QtGui/qpixelformat.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qpixmap.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qfont.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qfontmetrics.h \
@@ -9417,27 +9421,18 @@ debug/taskhistorydialog.o: ../../src/ui/taskhistorydialog.cpp ../../src/ui/taskh
 		../../src/core/task_types.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QString \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
-		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
-		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
+		../../src/core/task_repository.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
+		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../src/models/task_table_model.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QAbstractTableModel \
 		../../../../5.15.2/mingw81_64/include/QtCore/qabstractitemmodel.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QSet \
-		../../src/utils/app_theme.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/QHBoxLayout \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qboxlayout.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qlayout.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qlayoutitem.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qgridlayout.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/QHeaderView \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qheaderview.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qabstractitemview.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qframe.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/qitemselectionmodel.h \
+		../../src/ui/task_table_delegate.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QStyledItemDelegate \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qstyleditemdelegate.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qstyleoption.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qabstractspinbox.h \
@@ -9450,6 +9445,19 @@ debug/taskhistorydialog.o: ../../src/ui/taskhistorydialog.cpp ../../src/ui/taskh
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabbar.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qrubberband.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qframe.h \
+		../../src/utils/app_theme.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QHBoxLayout \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qboxlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlayoutitem.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qgridlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QHeaderView \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qheaderview.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qitemselectionmodel.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QLabel \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qlabel.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QListWidget \
@@ -10645,10 +10653,15 @@ debug/task_table_delegate.o: ../../src/ui/task_table_delegate.cpp ../../src/ui/t
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qrubberband.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qframe.h \
+		../../src/ui/task_checkbox_utils.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/QPainter \
 		../../../../5.15.2/mingw81_64/include/QtGui/qpainter.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qtextoption.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qpen.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/QPainterPath \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpainterpath.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QRect \
+		../../../../5.15.2/mingw81_64/include/QtGui/QMouseEvent \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QStyleOptionButton
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/task_table_delegate.o ../../src/ui/task_table_delegate.cpp
 
