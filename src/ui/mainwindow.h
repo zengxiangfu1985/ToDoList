@@ -9,6 +9,7 @@
 #include <QDate>
 #include <QHash>
 #include <QMainWindow>
+#include <QQueue>
 #include <QSystemTrayIcon>
 #include <QTimer>
 
@@ -37,6 +38,9 @@ class UpdateDialog;
 class UsageReportService;
 class FocusSessionService;
 class FocusSessionDialog;
+class HabitReminderRepository;
+class HabitReminderService;
+class HabitReminderPopup;
 
 namespace Ui {
 class MainWindow;
@@ -127,6 +131,10 @@ private:
     void syncTop3WithTasks(const QVector<TaskItem> &tasks);
     void removeTaskFromSyncedViews(qint64 taskId);
     void setupFocusSession();
+    void setupHabitReminders();
+    void updateTrayHabitMenu();
+    void showNextHabitReminder();
+    void onHabitReminderDue(const HabitReminder &habit);
     void onFocus25Clicked();
     void onFocusTick(int remainingSec);
     void onFocusSessionEnded();
@@ -180,6 +188,12 @@ private:
     UsageReportService *m_usageReport = nullptr;
     FocusSessionService *m_focusService = nullptr;
     FocusSessionDialog *m_focusDialog = nullptr;
+    HabitReminderRepository *m_habitRepo = nullptr;
+    HabitReminderService *m_habitService = nullptr;
+    HabitReminderPopup *m_habitPopup = nullptr;
+    QMenu *m_trayHabitMenu = nullptr;
+    QHash<qint64, QAction *> m_trayHabitActions;
+    QQueue<HabitReminder> m_pendingHabitReminders;
     QTimer *m_usageHeartbeatTimer = nullptr;
     WindowsSessionMonitor *m_sessionMonitor = nullptr;
     QTimer *m_systemLockTimer = nullptr;

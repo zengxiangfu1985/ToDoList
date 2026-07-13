@@ -188,6 +188,41 @@ bool SchemaMigrator::migrateFrom1To2(QSqlDatabase db, QString *errorMsg)
     return true;
 }
 
+bool SchemaMigrator::migrateFrom2To3(QSqlDatabase db, QString *errorMsg)
+{
+    QSqlQuery q(db);
+    if (!q.exec(QStringLiteral(
+            "CREATE TABLE IF NOT EXISTS habit_reminders ("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            "title TEXT NOT NULL,"
+            "message TEXT,"
+            "kind INTEGER NOT NULL DEFAULT 0,"
+            "enabled INTEGER NOT NULL DEFAULT 0,"
+            "interval_minutes INTEGER NOT NULL DEFAULT 45,"
+            "last_triggered_at TEXT,"
+            "next_trigger_at TEXT,"
+            "sort_order INTEGER NOT NULL DEFAULT 0"
+            ")"))) {
+        if (errorMsg)
+            *errorMsg = q.lastError().text();
+        return false;
+    }
+
+    if (!q.exec(QStringLiteral(
+            "CREATE TABLE IF NOT EXISTS habit_reminder_logs ("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            "habit_id INTEGER NOT NULL,"
+            "triggered_at TEXT NOT NULL,"
+            "acknowledged_at TEXT,"
+            "snoozed INTEGER NOT NULL DEFAULT 0"
+            ")"))) {
+        if (errorMsg)
+            *errorMsg = q.lastError().text();
+        return false;
+    }
+    return true;
+}
+
 bool SchemaMigrator::migrateStep(QSqlDatabase db, int fromVersion, QString *errorMsg)
 {
     switch (fromVersion) {
@@ -195,6 +230,8 @@ bool SchemaMigrator::migrateStep(QSqlDatabase db, int fromVersion, QString *erro
         return migrateFrom0To1(db, errorMsg);
     case 1:
         return migrateFrom1To2(db, errorMsg);
+    case 2:
+        return migrateFrom2To3(db, errorMsg);
     default:
         if (errorMsg)
             *errorMsg = QStringLiteral("未知 schema 版本: %1").arg(fromVersion);

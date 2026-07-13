@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_AppSettingsDialog_t {
-    QByteArrayData data[11];
-    char stringdata0[153];
+    QByteArrayData data[12];
+    char stringdata0[167];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,17 +38,19 @@ QT_MOC_LITERAL(2, 32, 0), // ""
 QT_MOC_LITERAL(3, 33, 20), // "viewAiTraceRequested"
 QT_MOC_LITERAL(4, 54, 21), // "m365SettingsRequested"
 QT_MOC_LITERAL(5, 76, 14), // "hotkeysChanged"
-QT_MOC_LITERAL(6, 91, 6), // "onSave"
-QT_MOC_LITERAL(7, 98, 15), // "onClearPassword"
-QT_MOC_LITERAL(8, 114, 9), // "onLockNow"
-QT_MOC_LITERAL(9, 124, 13), // "onViewAiTrace"
-QT_MOC_LITERAL(10, 138, 14) // "onM365Settings"
+QT_MOC_LITERAL(6, 91, 13), // "habitsChanged"
+QT_MOC_LITERAL(7, 105, 6), // "onSave"
+QT_MOC_LITERAL(8, 112, 15), // "onClearPassword"
+QT_MOC_LITERAL(9, 128, 9), // "onLockNow"
+QT_MOC_LITERAL(10, 138, 13), // "onViewAiTrace"
+QT_MOC_LITERAL(11, 152, 14) // "onM365Settings"
 
     },
     "AppSettingsDialog\0lockRequested\0\0"
     "viewAiTraceRequested\0m365SettingsRequested\0"
-    "hotkeysChanged\0onSave\0onClearPassword\0"
-    "onLockNow\0onViewAiTrace\0onM365Settings"
+    "hotkeysChanged\0habitsChanged\0onSave\0"
+    "onClearPassword\0onLockNow\0onViewAiTrace\0"
+    "onM365Settings"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,27 +60,29 @@ static const uint qt_meta_data_AppSettingsDialog[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x06 /* Public */,
-       3,    0,   60,    2, 0x06 /* Public */,
-       4,    0,   61,    2, 0x06 /* Public */,
-       5,    0,   62,    2, 0x06 /* Public */,
+       1,    0,   64,    2, 0x06 /* Public */,
+       3,    0,   65,    2, 0x06 /* Public */,
+       4,    0,   66,    2, 0x06 /* Public */,
+       5,    0,   67,    2, 0x06 /* Public */,
+       6,    0,   68,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    0,   63,    2, 0x08 /* Private */,
-       7,    0,   64,    2, 0x08 /* Private */,
-       8,    0,   65,    2, 0x08 /* Private */,
-       9,    0,   66,    2, 0x08 /* Private */,
-      10,    0,   67,    2, 0x08 /* Private */,
+       7,    0,   69,    2, 0x08 /* Private */,
+       8,    0,   70,    2, 0x08 /* Private */,
+       9,    0,   71,    2, 0x08 /* Private */,
+      10,    0,   72,    2, 0x08 /* Private */,
+      11,    0,   73,    2, 0x08 /* Private */,
 
  // signals: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -104,11 +108,12 @@ void AppSettingsDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 1: _t->viewAiTraceRequested(); break;
         case 2: _t->m365SettingsRequested(); break;
         case 3: _t->hotkeysChanged(); break;
-        case 4: _t->onSave(); break;
-        case 5: _t->onClearPassword(); break;
-        case 6: _t->onLockNow(); break;
-        case 7: _t->onViewAiTrace(); break;
-        case 8: _t->onM365Settings(); break;
+        case 4: _t->habitsChanged(); break;
+        case 5: _t->onSave(); break;
+        case 6: _t->onClearPassword(); break;
+        case 7: _t->onLockNow(); break;
+        case 8: _t->onViewAiTrace(); break;
+        case 9: _t->onM365Settings(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -138,6 +143,13 @@ void AppSettingsDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
             using _t = void (AppSettingsDialog::*)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&AppSettingsDialog::hotkeysChanged)) {
                 *result = 3;
+                return;
+            }
+        }
+        {
+            using _t = void (AppSettingsDialog::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&AppSettingsDialog::habitsChanged)) {
+                *result = 4;
                 return;
             }
         }
@@ -174,13 +186,13 @@ int AppSettingsDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }
@@ -207,6 +219,12 @@ void AppSettingsDialog::m365SettingsRequested()
 void AppSettingsDialog::hotkeysChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
+}
+
+// SIGNAL 4
+void AppSettingsDialog::habitsChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 4, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

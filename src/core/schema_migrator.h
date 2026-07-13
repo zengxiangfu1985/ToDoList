@@ -7,7 +7,7 @@
 class SchemaMigrator
 {
 public:
-    static constexpr int kCurrentSchemaVersion = 2;
+    static constexpr int kCurrentSchemaVersion = 3;
 
     static bool migrate(QSqlDatabase db, int targetVersion, QString *errorMsg = nullptr);
 
@@ -18,6 +18,7 @@ private:
     static bool migrateStep(QSqlDatabase db, int fromVersion, QString *errorMsg);
     static bool migrateFrom0To1(QSqlDatabase db, QString *errorMsg);
     static bool migrateFrom1To2(QSqlDatabase db, QString *errorMsg);
+    static bool migrateFrom2To3(QSqlDatabase db, QString *errorMsg);
 };
 
 #endif // SCHEMA_MIGRATOR_H

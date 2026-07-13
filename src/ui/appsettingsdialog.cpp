@@ -2,6 +2,9 @@
 #include "ui_appsettingsdialog.h"
 
 #include "../core/app_settings.h"
+#include "../core/habit_reminder_repository.h"
+#include "../core/habit_reminder_service.h"
+#include "../core/task_types.h"
 #include "../utils/global_hotkey.h"
 #include "../utils/app_theme.h"
 #include "../utils/app_translations.h"
@@ -68,6 +71,13 @@ void AppSettingsDialog::changeEvent(QEvent *event)
     QDialog::changeEvent(event);
 }
 
+void AppSettingsDialog::setHabitDependencies(HabitReminderRepository *repo, HabitReminderService *service)
+{
+    m_habitRepo = repo;
+    m_habitService = service;
+    loadHabitsToUi();
+}
+
 void AppSettingsDialog::setViewAiTraceEnabled(bool enabled)
 {
     ui->btnViewAiTrace->setEnabled(enabled);
@@ -110,6 +120,61 @@ void AppSettingsDialog::loadToUi()
     const QString lang = AppSettings::uiLanguage();
     const int langIdx = ui->comboLanguage->findData(lang);
     ui->comboLanguage->setCurrentIndex(langIdx >= 0 ? langIdx : 0);
+
+    ui->timeHabitActiveStart->setTime(AppSettings::habitActiveStart());
+    ui->timeHabitActiveEnd->setTime(AppSettings::habitActiveEnd());
+    ui->checkHabitPauseDuringFocus->setChecked(AppSettings::habitPauseDuringFocus());
+    ui->checkHabitWeekdaysOnly->setChecked(AppSettings::habitWeekdaysOnly());
+    loadHabitsToUi();
+}
+
+void AppSettingsDialog::loadHabitsToUi()
+{
+    if (!m_habitRepo)
+        return;
+
+    const HabitReminder stand = m_habitRepo->habitByKind(HabitKind::StandUp);
+    if (stand.id > 0) {
+        ui->checkHabitStand->setChecked(stand.enabled);
+        ui->spinHabitStandInterval->setValue(qMax(5, stand.intervalMinutes));
+    }
+
+    const HabitReminder eye = m_habitRepo->habitByKind(HabitKind::EyeRest);
+    if (eye.id > 0) {
+        ui->checkHabitEye->setChecked(eye.enabled);
+        ui->spinHabitEyeInterval->setValue(qMax(5, eye.intervalMinutes));
+    }
+
+    const HabitReminder water = m_habitRepo->habitByKind(HabitKind::DrinkWater);
+    if (water.id > 0) {
+        ui->checkHabitWater->setChecked(water.enabled);
+        ui->spinHabitWaterInterval->setValue(qMax(5, water.intervalMinutes));
+    }
+}
+
+bool AppSettingsDialog::saveHabits(QString *error)
+{
+    if (!m_habitRepo)
+        return true;
+
+    auto saveOne = [&](HabitKind kind, bool enabled, int interval) -> bool {
+        HabitReminder habit = m_habitRepo->habitByKind(kind);
+        if (habit.id <= 0)
+            return true;
+        habit.enabled = enabled;
+        habit.intervalMinutes = interval;
+        return m_habitRepo->updateHabit(habit, error);
+    };
+
+    if (!saveOne(HabitKind::StandUp, ui->checkHabitStand->isChecked(),
+                 ui->spinHabitStandInterval->value()))
+        return false;
+    if (!saveOne(HabitKind::EyeRest, ui->checkHabitEye->isChecked(), ui->spinHabitEyeInterval->value()))
+        return false;
+    if (!saveOne(HabitKind::DrinkWater, ui->checkHabitWater->isChecked(),
+                 ui->spinHabitWaterInterval->value()))
+        return false;
+    return true;
 }
 
 bool AppSettingsDialog::applyPasswordChange(QString *error)
@@ -199,12 +264,22 @@ void AppSettingsDialog::onSave()
     AppSettings::setQuickCaptureAutoAnalyze(ui->checkQuickCaptureAutoAnalyze->isChecked());
     AppSettings::setFocusDurationMinutes(ui->comboFocusDuration->currentData().toInt());
     AppSettings::setFocusTrayCountdown(ui->checkFocusTrayCountdown->isChecked());
+    AppSettings::setHabitActiveStart(ui->timeHabitActiveStart->time());
+    AppSettings::setHabitActiveEnd(ui->timeHabitActiveEnd->time());
+    AppSettings::setHabitPauseDuringFocus(ui->checkHabitPauseDuringFocus->isChecked());
+    AppSettings::setHabitWeekdaysOnly(ui->checkHabitWeekdaysOnly->isChecked());
+
+    if (!saveHabits(&err)) {
+        QMessageBox::warning(this, tr("设置"), err);
+        return;
+    }
 
     const QString selectedLanguage = ui->comboLanguage->currentData().toString();
     AppSettings::setUiLanguage(selectedLanguage);
 
     accept();
     emit hotkeysChanged();
+    emit habitsChanged();
 
     if (selectedLanguage != previousLanguage) {
         AppTranslations::installForApplication(qobject_cast<QApplication *>(QCoreApplication::instance()));

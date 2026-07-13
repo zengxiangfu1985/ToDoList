@@ -3,6 +3,9 @@
 
 #include <QDialog>
 
+class HabitReminderRepository;
+class HabitReminderService;
+
 class QShowEvent;
 
 namespace Ui {
@@ -17,6 +20,7 @@ public:
     ~AppSettingsDialog() override;
 
     void setViewAiTraceEnabled(bool enabled);
+    void setHabitDependencies(HabitReminderRepository *repo, HabitReminderService *service);
 
 protected:
     void showEvent(QShowEvent *event) override;
@@ -27,6 +31,7 @@ signals:
     void viewAiTraceRequested();
     void m365SettingsRequested();
     void hotkeysChanged();
+    void habitsChanged();
 
 private slots:
     void onSave();
@@ -37,9 +42,13 @@ private slots:
 
 private:
     void loadToUi();
+    void loadHabitsToUi();
+    bool saveHabits(QString *error);
     bool applyPasswordChange(QString *error);
 
     Ui::AppSettingsDialog *ui;
+    HabitReminderRepository *m_habitRepo = nullptr;
+    HabitReminderService *m_habitService = nullptr;
 };
 
 #endif // APPSETTINGSDIALOG_H

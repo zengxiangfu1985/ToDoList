@@ -10,6 +10,8 @@ release/app_settings.o
 release/quick_capture_service.o
 release/focus_session_service.o
 release/schema_migrator.o
+release/habit_reminder_repository.o
+release/habit_reminder_service.o
 release/update_manifest.o
 release/update_config.o
 release/update_apply.o
@@ -46,6 +48,7 @@ release/cyber_ai_panel.o
 release/task_table_delegate.o
 release/windowtitlebar.o
 release/appsettingsdialog.o
+release/habit_reminder_popup.o
 release/aboutdialog.o
 release/updatedialog.o
 release/lock_screen_widget.o
@@ -70,6 +73,8 @@ release/moc_behavior_learning_engine.o
 release/moc_daily_evaluation_service.o
 release/moc_weekly_report_service.o
 release/moc_focus_session_service.o
+release/moc_habit_reminder_repository.o
+release/moc_habit_reminder_service.o
 release/moc_update_service.o
 release/moc_usage_report_service.o
 release/moc_llm_provider.o
@@ -101,6 +106,7 @@ release/moc_cyber_ai_panel.o
 release/moc_task_table_delegate.o
 release/moc_windowtitlebar.o
 release/moc_appsettingsdialog.o
+release/moc_habit_reminder_popup.o
 release/moc_aboutdialog.o
 release/moc_updatedialog.o
 release/moc_lock_screen_widget.o

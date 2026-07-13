@@ -10,6 +10,8 @@ debug/app_settings.o
 debug/quick_capture_service.o
 debug/focus_session_service.o
 debug/schema_migrator.o
+debug/habit_reminder_repository.o
+debug/habit_reminder_service.o
 debug/update_manifest.o
 debug/update_config.o
 debug/update_apply.o
@@ -46,6 +48,7 @@ debug/cyber_ai_panel.o
 debug/task_table_delegate.o
 debug/windowtitlebar.o
 debug/appsettingsdialog.o
+debug/habit_reminder_popup.o
 debug/aboutdialog.o
 debug/updatedialog.o
 debug/lock_screen_widget.o
@@ -70,6 +73,8 @@ debug/moc_behavior_learning_engine.o
 debug/moc_daily_evaluation_service.o
 debug/moc_weekly_report_service.o
 debug/moc_focus_session_service.o
+debug/moc_habit_reminder_repository.o
+debug/moc_habit_reminder_service.o
 debug/moc_update_service.o
 debug/moc_usage_report_service.o
 debug/moc_llm_provider.o
@@ -101,6 +106,7 @@ debug/moc_cyber_ai_panel.o
 debug/moc_task_table_delegate.o
 debug/moc_windowtitlebar.o
 debug/moc_appsettingsdialog.o
+debug/moc_habit_reminder_popup.o
 debug/moc_aboutdialog.o
 debug/moc_updatedialog.o
 debug/moc_lock_screen_widget.o

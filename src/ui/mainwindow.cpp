@@ -18,8 +18,12 @@
 #include "lock_screen_widget.h"
 #include "windowtitlebar.h"
 
+#include "habit_reminder_popup.h"
+
 #include "../core/app_settings.h"
 
+#include "../core/habit_reminder_repository.h"
+#include "../core/habit_reminder_service.h"
 #include "../core/task_repository.h"
 #include "../core/task_archive.h"
 #include "../core/ai/ai_prompts.h"
@@ -147,10 +151,15 @@ MainWindow::MainWindow(QWidget *parent)
     if (!m_repo->open(dbPath, &err))
         QMessageBox::critical(this, tr("数据库"), err);
 
+    m_habitRepo = new HabitReminderRepository(this);
+    if (!m_habitRepo->open(dbPath, &err))
+        QMessageBox::warning(this, tr("健康习惯"), err);
+
     setupQuadrantBoard();
     applyPanelElevation();
     setupConnections();
     setupFocusSession();
+    setupHabitReminders();
     setupTrayIcon();
     setupSecurity();
     m_aiBusyOverlay = new AiBusyOverlay(this);
@@ -506,6 +515,8 @@ void MainWindow::lockApp(bool startupLogin)
     m_locked = true;
     m_idleTimer->stop();
     m_systemLockTimer->stop();
+    if (m_habitService)
+        m_habitService->setAppLocked(true);
     m_lockScreen->setLoginMode(startupLogin);
     ui->centralwidget->setVisible(false);
     if (statusBar())
@@ -524,6 +535,8 @@ void MainWindow::unlockApp()
 
     m_locked = false;
     m_lockScreen->onUnlockAccepted();
+    if (m_habitService)
+        m_habitService->setAppLocked(false);
     ui->centralwidget->setVisible(true);
     if (statusBar())
         statusBar()->show();
@@ -546,10 +559,16 @@ void MainWindow::onAppSettings()
     const bool hasTrace = !m_lastAnalysis.trace.isEmpty() || !m_lastAnalysis.quadrantAssignments.isEmpty()
                           || !m_lastAnalysis.top3.isEmpty();
     dlg.setViewAiTraceEnabled(hasTrace);
+    dlg.setHabitDependencies(m_habitRepo, m_habitService);
     connect(&dlg, &AppSettingsDialog::lockRequested, this, [this]() { lockApp(false); });
     connect(&dlg, &AppSettingsDialog::viewAiTraceRequested, this, &MainWindow::onViewAiTrace);
     connect(&dlg, &AppSettingsDialog::m365SettingsRequested, this, &MainWindow::onM365Settings);
     connect(&dlg, &AppSettingsDialog::hotkeysChanged, this, [this]() { reloadGlobalHotkeys(true); });
+    connect(&dlg, &AppSettingsDialog::habitsChanged, this, [this]() {
+        if (m_habitService)
+            m_habitService->reload();
+        updateTrayHabitMenu();
+    });
     if (dlg.exec() == QDialog::Accepted)
         resetIdleTimer();
 }
@@ -707,6 +726,9 @@ void MainWindow::setupTrayIcon()
     m_trayQuickCaptureAction = menu->addAction(QString(), this, &MainWindow::showQuickCapture);
     m_trayTop3Action = menu->addAction(QString(), this, &MainWindow::showTop3Popup);
     m_trayFocus25Action = menu->addAction(QString(), this, &MainWindow::onFocus25Clicked);
+    menu->addSeparator();
+    m_trayHabitMenu = menu->addMenu(tr("健康提醒"));
+    updateTrayHabitMenu();
     menu->addSeparator();
     menu->addAction(tr("退出"), this, &MainWindow::quitApplication);
     m_trayIcon->setContextMenu(menu);
@@ -1598,6 +1620,8 @@ void MainWindow::setupFocusSession()
 
     connect(m_focusService, &FocusSessionService::tick, this, &MainWindow::onFocusTick);
     connect(m_focusService, &FocusSessionService::stateChanged, this, [this]() {
+        if (m_habitService)
+            m_habitService->setFocusActive(m_focusService && m_focusService->isActive());
         if (m_focusDialog)
             m_focusDialog->refreshUi();
     });
@@ -1659,6 +1683,90 @@ void MainWindow::setupFocusSession()
             m_focusDialog->refreshUi();
         statusBar()->showMessage(tr("已开始新一轮 Focus 25"), 3000);
     });
+}
+
+void MainWindow::setupHabitReminders()
+{
+    if (!m_habitRepo)
+        return;
+
+    m_habitService = new HabitReminderService(m_habitRepo, this);
+    m_habitPopup = new HabitReminderPopup(nullptr);
+
+    connect(m_habitService, &HabitReminderService::reminderDue, this, &MainWindow::onHabitReminderDue);
+    connect(m_habitPopup, &HabitReminderPopup::acknowledged, m_habitService, &HabitReminderService::acknowledge);
+    connect(m_habitPopup, &HabitReminderPopup::snoozed, this, [this](qint64 habitId) {
+        if (m_habitService)
+            m_habitService->snooze(habitId, 5);
+    });
+    connect(m_habitPopup, &HabitReminderPopup::disabledForToday, m_habitService,
+            &HabitReminderService::disableForToday);
+    connect(m_habitPopup, &HabitReminderPopup::acknowledged, this, [this](qint64) {
+        if (!m_pendingHabitReminders.isEmpty())
+            m_pendingHabitReminders.dequeue();
+        showNextHabitReminder();
+    });
+    connect(m_habitPopup, &HabitReminderPopup::snoozed, this, [this](qint64) {
+        if (!m_pendingHabitReminders.isEmpty())
+            m_pendingHabitReminders.dequeue();
+        showNextHabitReminder();
+    });
+    connect(m_habitPopup, &HabitReminderPopup::disabledForToday, this, [this](qint64) {
+        if (!m_pendingHabitReminders.isEmpty())
+            m_pendingHabitReminders.dequeue();
+        showNextHabitReminder();
+    });
+    connect(m_habitRepo, &HabitReminderRepository::habitsChanged, this, &MainWindow::updateTrayHabitMenu);
+
+    m_habitService->start();
+}
+
+void MainWindow::updateTrayHabitMenu()
+{
+    if (!m_trayHabitMenu || !m_habitRepo)
+        return;
+
+    m_trayHabitMenu->clear();
+    m_trayHabitActions.clear();
+
+    for (const HabitReminder &habit : m_habitRepo->allHabits()) {
+        QAction *action = m_trayHabitMenu->addAction(
+            QStringLiteral("%1 %2").arg(habit.enabled ? QStringLiteral("✓") : QStringLiteral("○"), habit.title));
+        action->setCheckable(true);
+        action->setChecked(habit.enabled);
+        m_trayHabitActions.insert(habit.id, action);
+        connect(action, &QAction::toggled, this, [this, habitId = habit.id](bool checked) {
+            if (!m_habitService)
+                return;
+            m_habitService->setHabitEnabled(habitId, checked);
+        });
+    }
+
+    if (m_trayHabitActions.isEmpty())
+        m_trayHabitMenu->addAction(tr("（暂无）"))->setEnabled(false);
+}
+
+void MainWindow::onHabitReminderDue(const HabitReminder &habit)
+{
+    m_pendingHabitReminders.enqueue(habit);
+    if (m_trayIcon && m_trayIcon->isVisible()) {
+        m_trayIcon->showMessage(habit.title, habit.message, QSystemTrayIcon::Information, 5000);
+    }
+    if (!m_habitPopup || !m_habitPopup->isVisible())
+        showNextHabitReminder();
+}
+
+void MainWindow::showNextHabitReminder()
+{
+    if (!m_habitPopup)
+        return;
+
+    if (m_pendingHabitReminders.isEmpty()) {
+        m_habitPopup->hide();
+        return;
+    }
+
+    m_habitPopup->showReminder(m_pendingHabitReminders.head());
 }
 
 int MainWindow::focusDurationSeconds() const

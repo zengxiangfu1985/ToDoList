@@ -5,6 +5,7 @@
 
 #include <QDateTime>
 #include <QKeySequence>
+#include <QTime>
 
 class AppSettings
 {
@@ -42,6 +43,15 @@ public:
     static void setFocusDurationMinutes(int minutes);
     static bool focusTrayCountdown();
     static void setFocusTrayCountdown(bool enabled);
+
+    static bool habitPauseDuringFocus();
+    static void setHabitPauseDuringFocus(bool enabled);
+    static bool habitWeekdaysOnly();
+    static void setHabitWeekdaysOnly(bool enabled);
+    static QTime habitActiveStart();
+    static void setHabitActiveStart(const QTime &time);
+    static QTime habitActiveEnd();
+    static void setHabitActiveEnd(const QTime &time);
 
     static QString uiLanguage();
     static void setUiLanguage(const QString &code);

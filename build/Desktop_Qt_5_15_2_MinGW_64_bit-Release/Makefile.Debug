@@ -62,6 +62,8 @@ SOURCES       = ../../main.cpp \
 		../../src/core/quick_capture_service.cpp \
 		../../src/core/focus/focus_session_service.cpp \
 		../../src/core/schema_migrator.cpp \
+		../../src/core/habit_reminder_repository.cpp \
+		../../src/core/habit_reminder_service.cpp \
 		../../src/core/update/update_manifest.cpp \
 		../../src/core/update/update_config.cpp \
 		../../src/core/update/update_apply.cpp \
@@ -98,6 +100,7 @@ SOURCES       = ../../main.cpp \
 		../../src/ui/task_table_delegate.cpp \
 		../../src/ui/windowtitlebar.cpp \
 		../../src/ui/appsettingsdialog.cpp \
+		../../src/ui/habit_reminder_popup.cpp \
 		../../src/ui/aboutdialog.cpp \
 		../../src/ui/updatedialog.cpp \
 		../../src/ui/lock_screen_widget.cpp \
@@ -121,6 +124,8 @@ SOURCES       = ../../main.cpp \
 		debug/moc_daily_evaluation_service.cpp \
 		debug/moc_weekly_report_service.cpp \
 		debug/moc_focus_session_service.cpp \
+		debug/moc_habit_reminder_repository.cpp \
+		debug/moc_habit_reminder_service.cpp \
 		debug/moc_update_service.cpp \
 		debug/moc_usage_report_service.cpp \
 		debug/moc_llm_provider.cpp \
@@ -152,6 +157,7 @@ SOURCES       = ../../main.cpp \
 		debug/moc_task_table_delegate.cpp \
 		debug/moc_windowtitlebar.cpp \
 		debug/moc_appsettingsdialog.cpp \
+		debug/moc_habit_reminder_popup.cpp \
 		debug/moc_aboutdialog.cpp \
 		debug/moc_updatedialog.cpp \
 		debug/moc_lock_screen_widget.cpp \
@@ -170,6 +176,8 @@ OBJECTS       = debug/main.o \
 		debug/quick_capture_service.o \
 		debug/focus_session_service.o \
 		debug/schema_migrator.o \
+		debug/habit_reminder_repository.o \
+		debug/habit_reminder_service.o \
 		debug/update_manifest.o \
 		debug/update_config.o \
 		debug/update_apply.o \
@@ -206,6 +214,7 @@ OBJECTS       = debug/main.o \
 		debug/task_table_delegate.o \
 		debug/windowtitlebar.o \
 		debug/appsettingsdialog.o \
+		debug/habit_reminder_popup.o \
 		debug/aboutdialog.o \
 		debug/updatedialog.o \
 		debug/lock_screen_widget.o \
@@ -230,6 +239,8 @@ OBJECTS       = debug/main.o \
 		debug/moc_daily_evaluation_service.o \
 		debug/moc_weekly_report_service.o \
 		debug/moc_focus_session_service.o \
+		debug/moc_habit_reminder_repository.o \
+		debug/moc_habit_reminder_service.o \
 		debug/moc_update_service.o \
 		debug/moc_usage_report_service.o \
 		debug/moc_llm_provider.o \
@@ -261,6 +272,7 @@ OBJECTS       = debug/main.o \
 		debug/moc_task_table_delegate.o \
 		debug/moc_windowtitlebar.o \
 		debug/moc_appsettingsdialog.o \
+		debug/moc_habit_reminder_popup.o \
 		debug/moc_aboutdialog.o \
 		debug/moc_updatedialog.o \
 		debug/moc_lock_screen_widget.o \
@@ -279,6 +291,8 @@ DIST          =  ../../src/core/task_types.h \
 		../../src/core/quick_capture_service.h \
 		../../src/core/focus/focus_session_service.h \
 		../../src/core/schema_migrator.h \
+		../../src/core/habit_reminder_repository.h \
+		../../src/core/habit_reminder_service.h \
 		../../src/core/update/update_manifest.h \
 		../../src/core/update/update_config.h \
 		../../src/core/update/update_apply.h \
@@ -316,6 +330,7 @@ DIST          =  ../../src/core/task_types.h \
 		../../src/ui/task_table_delegate.h \
 		../../src/ui/windowtitlebar.h \
 		../../src/ui/appsettingsdialog.h \
+		../../src/ui/habit_reminder_popup.h \
 		../../src/ui/aboutdialog.h \
 		../../src/ui/updatedialog.h \
 		../../src/ui/lock_screen_widget.h \
@@ -345,6 +360,8 @@ DIST          =  ../../src/core/task_types.h \
 		../../src/core/quick_capture_service.cpp \
 		../../src/core/focus/focus_session_service.cpp \
 		../../src/core/schema_migrator.cpp \
+		../../src/core/habit_reminder_repository.cpp \
+		../../src/core/habit_reminder_service.cpp \
 		../../src/core/update/update_manifest.cpp \
 		../../src/core/update/update_config.cpp \
 		../../src/core/update/update_apply.cpp \
@@ -381,6 +398,7 @@ DIST          =  ../../src/core/task_types.h \
 		../../src/ui/task_table_delegate.cpp \
 		../../src/ui/windowtitlebar.cpp \
 		../../src/ui/appsettingsdialog.cpp \
+		../../src/ui/habit_reminder_popup.cpp \
 		../../src/ui/aboutdialog.cpp \
 		../../src/ui/updatedialog.cpp \
 		../../src/ui/lock_screen_widget.cpp \
@@ -424,11 +442,11 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) ToDoList.zip $(SOURCES) $(DIST) ../../ToDoList.pro ../../../../5.15.2/mingw81_64/mkspecs/features/spec_pre.prf ../../../../5.15.2/mingw81_64/mkspecs/qdevice.pri ../../../../5.15.2/mingw81_64/mkspecs/features/device_config.prf ../../../../5.15.2/mingw81_64/mkspecs/common/sanitize.conf ../../../../5.15.2/mingw81_64/mkspecs/common/gcc-base.conf ../../../../5.15.2/mingw81_64/mkspecs/common/g++-base.conf ../../../../5.15.2/mingw81_64/mkspecs/common/angle.conf ../../../../5.15.2/mingw81_64/mkspecs/features/win32/windows_vulkan_sdk.prf ../../../../5.15.2/mingw81_64/mkspecs/common/windows-vulkan.conf ../../../../5.15.2/mingw81_64/mkspecs/common/g++-win32.conf ../../../../5.15.2/mingw81_64/mkspecs/common/windows-desktop.conf ../../../../5.15.2/mingw81_64/mkspecs/qconfig.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3danimation.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3danimation_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dcore.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dcore_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dextras.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dextras_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dinput.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dinput_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dlogic.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dlogic_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquick.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquick_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickanimation.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickanimation_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickextras.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickextras_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickinput.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickinput_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickrender.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickrender_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickscene2d.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickscene2d_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3drender.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3drender_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_accessibility_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axbase.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axbase_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axcontainer.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axcontainer_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axserver.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axserver_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_bluetooth.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_bluetooth_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_bodymovin_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_bootstrap_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_charts.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_charts_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_concurrent.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_concurrent_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_core.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_core_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_datavisualization.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_datavisualization_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_dbus.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_dbus_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_designer.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_designer_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_designercomponents_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_devicediscovery_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_edid_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_egl_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_fb_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_fontdatabase_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_gamepad.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_gamepad_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_gui.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_gui_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_help.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_help_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_insighttracker.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_insighttracker_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_insighttrackerqml.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_insighttrackerqml_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_location.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_location_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimedia.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimedia_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimediawidgets.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimediawidgets_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_network.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_network_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_networkauth.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_networkauth_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_nfc.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_nfc_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_opengl.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_opengl_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_openglextensions.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_openglextensions_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_packetprotocol_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_platformcompositor_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_positioning.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_positioning_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_positioningquick.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_positioningquick_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_printsupport.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_printsupport_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_purchasing.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_purchasing_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qml.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qml_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmldebug_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmldevtools_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlmodels.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlmodels_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmltest.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmltest_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlworkerscript.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlworkerscript_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3d.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3d_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dassetimport.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dassetimport_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3drender.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3drender_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3druntimerender.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3druntimerender_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dutils.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dutils_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickcontrols2.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickcontrols2_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickparticles_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickshapes_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quicktemplates2.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quicktemplates2_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickwidgets.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickwidgets_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_remoteobjects.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_remoteobjects_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_repparser.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_repparser_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_script.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_script_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_scripttools.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_scripttools_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_scxml.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_scxml_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_sensors.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_sensors_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_serialbus.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_serialbus_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_serialport.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_serialport_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_sql.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_sql_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_svg.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_svg_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_testlib.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_testlib_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_texttospeech.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_texttospeech_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_theme_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_uiplugin.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_uitools.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_uitools_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_virtualkeyboard.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_virtualkeyboard_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_vulkan_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_webchannel.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_webchannel_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_websockets.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_websockets_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_widgets.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_widgets_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_windowsuiautomation_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_winextras.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_winextras_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_xml.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_xml_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_xmlpatterns.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_xmlpatterns_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_zlib_private.pri ../../../../5.15.2/mingw81_64/mkspecs/features/qt_functions.prf ../../../../5.15.2/mingw81_64/mkspecs/features/qt_config.prf ../../../../5.15.2/mingw81_64/mkspecs/win32-g++/qmake.conf ../../../../5.15.2/mingw81_64/mkspecs/features/spec_post.prf ../.qmake.stash ../../../../5.15.2/mingw81_64/mkspecs/features/exclusive_builds.prf ../../../../5.15.2/mingw81_64/mkspecs/features/toolchain.prf ../../../../5.15.2/mingw81_64/mkspecs/features/default_pre.prf ../../../../5.15.2/mingw81_64/mkspecs/features/win32/default_pre.prf ../../../../5.15.2/mingw81_64/mkspecs/features/resolve_config.prf ../../../../5.15.2/mingw81_64/mkspecs/features/exclusive_builds_post.prf ../../../../5.15.2/mingw81_64/mkspecs/features/default_post.prf ../../../../5.15.2/mingw81_64/mkspecs/features/build_pass.prf ../../../../5.15.2/mingw81_64/mkspecs/features/qtquickcompiler.prf ../../../../5.15.2/mingw81_64/mkspecs/features/precompile_header.prf ../../../../5.15.2/mingw81_64/mkspecs/features/warn_on.prf ../../../../5.15.2/mingw81_64/mkspecs/features/qt.prf ../../../../5.15.2/mingw81_64/mkspecs/features/resources_functions.prf ../../../../5.15.2/mingw81_64/mkspecs/features/resources.prf ../../../../5.15.2/mingw81_64/mkspecs/features/moc.prf ../../../../5.15.2/mingw81_64/mkspecs/features/win32/opengl.prf ../../../../5.15.2/mingw81_64/mkspecs/features/uic.prf ../../../../5.15.2/mingw81_64/mkspecs/features/qmake_use.prf ../../../../5.15.2/mingw81_64/mkspecs/features/file_copies.prf ../../../../5.15.2/mingw81_64/mkspecs/features/win32/windows.prf ../../../../5.15.2/mingw81_64/mkspecs/features/testcase_targets.prf ../../../../5.15.2/mingw81_64/mkspecs/features/exceptions.prf ../../../../5.15.2/mingw81_64/mkspecs/features/yacc.prf ../../../../5.15.2/mingw81_64/mkspecs/features/lex.prf ../../ToDoList.pro ../../resources/resources.qrc ../../../../5.15.2/mingw81_64/lib/Qt5Svg.prl ../../../../5.15.2/mingw81_64/lib/Qt5Widgets.prl ../../../../5.15.2/mingw81_64/lib/Qt5WinExtras.prl ../../../../5.15.2/mingw81_64/lib/Qt5Gui.prl ../../../../5.15.2/mingw81_64/lib/Qt5Sql.prl ../../../../5.15.2/mingw81_64/lib/Qt5Network.prl ../../../../5.15.2/mingw81_64/lib/Qt5Concurrent.prl ../../../../5.15.2/mingw81_64/lib/Qt5Core.prl ../../../../5.15.2/mingw81_64/lib/qtmain.prl translations/todolist_en.ts translations/todolist_en.ts  ../../resources/resources.qrc ../../../../5.15.2/mingw81_64/mkspecs/features/data/dummy.cpp ../../src/core/task_types.h ../../src/core/task_repository.h ../../src/core/priority_engine.h ../../src/core/behavior_learning_engine.h ../../src/core/task_archive.h ../../src/core/daily_evaluation_service.h ../../src/core/weekly_report_service.h ../../src/core/app_settings.h ../../src/core/quick_capture_service.h ../../src/core/focus/focus_session_service.h ../../src/core/schema_migrator.h ../../src/core/update/update_manifest.h ../../src/core/update/update_config.h ../../src/core/update/update_apply.h ../../src/core/update/update_service.h ../../src/core/telemetry/usage_report_config.h ../../src/core/telemetry/usage_report_service.h ../../src/core/ai/llm_provider.h ../../src/core/ai/ai_prompts.h ../../src/core/ai/ollama_llm_provider.h ../../src/core/ai/openai_compatible_provider.h ../../src/core/ai/llm_service.h ../../src/core/m365/m365_auth_service.h ../../src/core/m365/microsoft_graph_client.h ../../src/core/m365/m365_sync_service.h ../../src/models/task_table_model.h ../../src/ui/mainwindow.h ../../src/ui/addtaskdialog.h ../../src/ui/todaytasksdialog.h ../../src/ui/quick_capture_dialog.h ../../src/ui/focus_session_dialog.h ../../src/ui/line_number_plain_text_edit.h ../../src/ui/llmsettingsdialog.h ../../src/ui/top3popupdialog.h ../../src/ui/top3listwidget.h ../../src/ui/task_checkbox_utils.h ../../src/ui/m365settingsdialog.h ../../src/ui/taskhistorydialog.h ../../src/ui/daily_evaluation_dialog.h ../../src/ui/weekly_report_dialog.h ../../src/ui/aianalysistracedialog.h ../../src/ui/quadrantlistwidget.h ../../src/ui/quadrantboard.h ../../src/ui/cyber_quadrant_box.h ../../src/ui/cyber_ai_panel.h ../../src/ui/task_table_delegate.h ../../src/ui/windowtitlebar.h ../../src/ui/appsettingsdialog.h ../../src/ui/aboutdialog.h ../../src/ui/updatedialog.h ../../src/ui/lock_screen_widget.h ../../src/ui/ai_busy_overlay.h ../../src/utils/windows_hotkey_manager.h ../../src/utils/global_hotkey.h ../../src/utils/window_fit.h ../../src/utils/app_icon.h ../../src/utils/single_instance.h ../../src/utils/windows_session_monitor.h ../../src/utils/app_theme.h ../../src/utils/ssl_support.h ../../src/utils/app_logger.h ../../src/utils/app_translations.h ../../src/utils/app_version.h ../../src/utils/portable_settings.h ../../src/utils/llm_json_utils.h ../../src/utils/ai_analysis_trace.h  ../../main.cpp ../../src/core/task_types.cpp ../../src/core/task_repository.cpp ../../src/core/priority_engine.cpp ../../src/core/behavior_learning_engine.cpp ../../src/core/task_archive.cpp ../../src/core/daily_evaluation_service.cpp ../../src/core/weekly_report_service.cpp ../../src/core/app_settings.cpp ../../src/core/quick_capture_service.cpp ../../src/core/focus/focus_session_service.cpp ../../src/core/schema_migrator.cpp ../../src/core/update/update_manifest.cpp ../../src/core/update/update_config.cpp ../../src/core/update/update_apply.cpp ../../src/core/update/update_service.cpp ../../src/core/telemetry/usage_report_config.cpp ../../src/core/telemetry/usage_report_service.cpp ../../src/core/ai/llm_provider.cpp ../../src/core/ai/ai_prompts.cpp ../../src/core/ai/ollama_llm_provider.cpp ../../src/core/ai/openai_compatible_provider.cpp ../../src/core/ai/llm_service.cpp ../../src/core/m365/m365_auth_service.cpp ../../src/core/m365/microsoft_graph_client.cpp ../../src/core/m365/m365_sync_service.cpp ../../src/models/task_table_model.cpp ../../src/ui/mainwindow.cpp ../../src/ui/addtaskdialog.cpp ../../src/ui/todaytasksdialog.cpp ../../src/ui/quick_capture_dialog.cpp ../../src/ui/focus_session_dialog.cpp ../../src/ui/line_number_plain_text_edit.cpp ../../src/ui/llmsettingsdialog.cpp ../../src/ui/top3popupdialog.cpp ../../src/ui/top3listwidget.cpp ../../src/ui/m365settingsdialog.cpp ../../src/ui/taskhistorydialog.cpp ../../src/ui/daily_evaluation_dialog.cpp ../../src/ui/weekly_report_dialog.cpp ../../src/ui/aianalysistracedialog.cpp ../../src/ui/quadrantlistwidget.cpp ../../src/ui/quadrantboard.cpp ../../src/ui/cyber_quadrant_box.cpp ../../src/ui/cyber_ai_panel.cpp ../../src/ui/task_table_delegate.cpp ../../src/ui/windowtitlebar.cpp ../../src/ui/appsettingsdialog.cpp ../../src/ui/aboutdialog.cpp ../../src/ui/updatedialog.cpp ../../src/ui/lock_screen_widget.cpp ../../src/ui/ai_busy_overlay.cpp ../../src/utils/windows_hotkey_manager.cpp ../../src/utils/global_hotkey.cpp ../../src/utils/window_fit.cpp ../../src/utils/app_icon.cpp ../../src/utils/single_instance.cpp ../../src/utils/windows_session_monitor.cpp ../../src/utils/app_theme.cpp ../../src/utils/ssl_support.cpp ../../src/utils/app_logger.cpp ../../src/utils/app_translations.cpp ../../src/utils/app_version.cpp ../../src/utils/portable_settings.cpp ../../src/utils/llm_json_utils.cpp ../../src/utils/ai_analysis_trace.cpp ../../src/ui/mainwindow.ui ../../src/ui/addtaskdialog.ui ../../src/ui/quick_capture_dialog.ui ../../src/ui/focus_session_dialog.ui ../../src/ui/llmsettingsdialog.ui ../../src/ui/top3popupdialog.ui ../../src/ui/m365settingsdialog.ui ../../src/ui/appsettingsdialog.ui ../../src/ui/aboutdialog.ui ../../src/ui/updatedialog.ui    
+	$(ZIP) ToDoList.zip $(SOURCES) $(DIST) ../../ToDoList.pro ../../../../5.15.2/mingw81_64/mkspecs/features/spec_pre.prf ../../../../5.15.2/mingw81_64/mkspecs/qdevice.pri ../../../../5.15.2/mingw81_64/mkspecs/features/device_config.prf ../../../../5.15.2/mingw81_64/mkspecs/common/sanitize.conf ../../../../5.15.2/mingw81_64/mkspecs/common/gcc-base.conf ../../../../5.15.2/mingw81_64/mkspecs/common/g++-base.conf ../../../../5.15.2/mingw81_64/mkspecs/common/angle.conf ../../../../5.15.2/mingw81_64/mkspecs/features/win32/windows_vulkan_sdk.prf ../../../../5.15.2/mingw81_64/mkspecs/common/windows-vulkan.conf ../../../../5.15.2/mingw81_64/mkspecs/common/g++-win32.conf ../../../../5.15.2/mingw81_64/mkspecs/common/windows-desktop.conf ../../../../5.15.2/mingw81_64/mkspecs/qconfig.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3danimation.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3danimation_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dcore.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dcore_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dextras.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dextras_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dinput.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dinput_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dlogic.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dlogic_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquick.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquick_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickanimation.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickanimation_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickextras.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickextras_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickinput.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickinput_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickrender.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickrender_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickscene2d.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3dquickscene2d_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3drender.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_3drender_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_accessibility_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axbase.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axbase_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axcontainer.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axcontainer_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axserver.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_axserver_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_bluetooth.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_bluetooth_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_bodymovin_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_bootstrap_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_charts.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_charts_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_concurrent.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_concurrent_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_core.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_core_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_datavisualization.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_datavisualization_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_dbus.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_dbus_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_designer.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_designer_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_designercomponents_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_devicediscovery_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_edid_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_egl_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_fb_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_fontdatabase_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_gamepad.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_gamepad_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_gui.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_gui_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_help.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_help_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_insighttracker.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_insighttracker_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_insighttrackerqml.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_insighttrackerqml_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_location.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_location_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimedia.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimedia_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimediawidgets.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimediawidgets_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_network.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_network_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_networkauth.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_networkauth_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_nfc.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_nfc_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_opengl.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_opengl_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_openglextensions.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_openglextensions_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_packetprotocol_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_platformcompositor_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_positioning.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_positioning_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_positioningquick.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_positioningquick_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_printsupport.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_printsupport_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_purchasing.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_purchasing_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qml.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qml_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmldebug_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmldevtools_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlmodels.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlmodels_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmltest.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmltest_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlworkerscript.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlworkerscript_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3d.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3d_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dassetimport.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dassetimport_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3drender.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3drender_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3druntimerender.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3druntimerender_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dutils.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dutils_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickcontrols2.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickcontrols2_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickparticles_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickshapes_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quicktemplates2.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quicktemplates2_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickwidgets.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickwidgets_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_remoteobjects.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_remoteobjects_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_repparser.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_repparser_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_script.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_script_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_scripttools.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_scripttools_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_scxml.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_scxml_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_sensors.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_sensors_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_serialbus.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_serialbus_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_serialport.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_serialport_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_sql.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_sql_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_svg.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_svg_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_testlib.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_testlib_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_texttospeech.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_texttospeech_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_theme_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_uiplugin.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_uitools.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_uitools_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_virtualkeyboard.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_virtualkeyboard_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_vulkan_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_webchannel.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_webchannel_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_websockets.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_websockets_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_widgets.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_widgets_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_windowsuiautomation_support_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_winextras.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_winextras_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_xml.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_xml_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_xmlpatterns.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_xmlpatterns_private.pri ../../../../5.15.2/mingw81_64/mkspecs/modules/qt_lib_zlib_private.pri ../../../../5.15.2/mingw81_64/mkspecs/features/qt_functions.prf ../../../../5.15.2/mingw81_64/mkspecs/features/qt_config.prf ../../../../5.15.2/mingw81_64/mkspecs/win32-g++/qmake.conf ../../../../5.15.2/mingw81_64/mkspecs/features/spec_post.prf ../.qmake.stash ../../../../5.15.2/mingw81_64/mkspecs/features/exclusive_builds.prf ../../../../5.15.2/mingw81_64/mkspecs/features/toolchain.prf ../../../../5.15.2/mingw81_64/mkspecs/features/default_pre.prf ../../../../5.15.2/mingw81_64/mkspecs/features/win32/default_pre.prf ../../../../5.15.2/mingw81_64/mkspecs/features/resolve_config.prf ../../../../5.15.2/mingw81_64/mkspecs/features/exclusive_builds_post.prf ../../../../5.15.2/mingw81_64/mkspecs/features/default_post.prf ../../../../5.15.2/mingw81_64/mkspecs/features/build_pass.prf ../../../../5.15.2/mingw81_64/mkspecs/features/qtquickcompiler.prf ../../../../5.15.2/mingw81_64/mkspecs/features/precompile_header.prf ../../../../5.15.2/mingw81_64/mkspecs/features/warn_on.prf ../../../../5.15.2/mingw81_64/mkspecs/features/qt.prf ../../../../5.15.2/mingw81_64/mkspecs/features/resources_functions.prf ../../../../5.15.2/mingw81_64/mkspecs/features/resources.prf ../../../../5.15.2/mingw81_64/mkspecs/features/moc.prf ../../../../5.15.2/mingw81_64/mkspecs/features/win32/opengl.prf ../../../../5.15.2/mingw81_64/mkspecs/features/uic.prf ../../../../5.15.2/mingw81_64/mkspecs/features/qmake_use.prf ../../../../5.15.2/mingw81_64/mkspecs/features/file_copies.prf ../../../../5.15.2/mingw81_64/mkspecs/features/win32/windows.prf ../../../../5.15.2/mingw81_64/mkspecs/features/testcase_targets.prf ../../../../5.15.2/mingw81_64/mkspecs/features/exceptions.prf ../../../../5.15.2/mingw81_64/mkspecs/features/yacc.prf ../../../../5.15.2/mingw81_64/mkspecs/features/lex.prf ../../ToDoList.pro ../../resources/resources.qrc ../../../../5.15.2/mingw81_64/lib/Qt5Svg.prl ../../../../5.15.2/mingw81_64/lib/Qt5Widgets.prl ../../../../5.15.2/mingw81_64/lib/Qt5WinExtras.prl ../../../../5.15.2/mingw81_64/lib/Qt5Gui.prl ../../../../5.15.2/mingw81_64/lib/Qt5Sql.prl ../../../../5.15.2/mingw81_64/lib/Qt5Network.prl ../../../../5.15.2/mingw81_64/lib/Qt5Concurrent.prl ../../../../5.15.2/mingw81_64/lib/Qt5Core.prl ../../../../5.15.2/mingw81_64/lib/qtmain.prl translations/todolist_en.ts translations/todolist_en.ts  ../../resources/resources.qrc ../../../../5.15.2/mingw81_64/mkspecs/features/data/dummy.cpp ../../src/core/task_types.h ../../src/core/task_repository.h ../../src/core/priority_engine.h ../../src/core/behavior_learning_engine.h ../../src/core/task_archive.h ../../src/core/daily_evaluation_service.h ../../src/core/weekly_report_service.h ../../src/core/app_settings.h ../../src/core/quick_capture_service.h ../../src/core/focus/focus_session_service.h ../../src/core/schema_migrator.h ../../src/core/habit_reminder_repository.h ../../src/core/habit_reminder_service.h ../../src/core/update/update_manifest.h ../../src/core/update/update_config.h ../../src/core/update/update_apply.h ../../src/core/update/update_service.h ../../src/core/telemetry/usage_report_config.h ../../src/core/telemetry/usage_report_service.h ../../src/core/ai/llm_provider.h ../../src/core/ai/ai_prompts.h ../../src/core/ai/ollama_llm_provider.h ../../src/core/ai/openai_compatible_provider.h ../../src/core/ai/llm_service.h ../../src/core/m365/m365_auth_service.h ../../src/core/m365/microsoft_graph_client.h ../../src/core/m365/m365_sync_service.h ../../src/models/task_table_model.h ../../src/ui/mainwindow.h ../../src/ui/addtaskdialog.h ../../src/ui/todaytasksdialog.h ../../src/ui/quick_capture_dialog.h ../../src/ui/focus_session_dialog.h ../../src/ui/line_number_plain_text_edit.h ../../src/ui/llmsettingsdialog.h ../../src/ui/top3popupdialog.h ../../src/ui/top3listwidget.h ../../src/ui/task_checkbox_utils.h ../../src/ui/m365settingsdialog.h ../../src/ui/taskhistorydialog.h ../../src/ui/daily_evaluation_dialog.h ../../src/ui/weekly_report_dialog.h ../../src/ui/aianalysistracedialog.h ../../src/ui/quadrantlistwidget.h ../../src/ui/quadrantboard.h ../../src/ui/cyber_quadrant_box.h ../../src/ui/cyber_ai_panel.h ../../src/ui/task_table_delegate.h ../../src/ui/windowtitlebar.h ../../src/ui/appsettingsdialog.h ../../src/ui/habit_reminder_popup.h ../../src/ui/aboutdialog.h ../../src/ui/updatedialog.h ../../src/ui/lock_screen_widget.h ../../src/ui/ai_busy_overlay.h ../../src/utils/windows_hotkey_manager.h ../../src/utils/global_hotkey.h ../../src/utils/window_fit.h ../../src/utils/app_icon.h ../../src/utils/single_instance.h ../../src/utils/windows_session_monitor.h ../../src/utils/app_theme.h ../../src/utils/ssl_support.h ../../src/utils/app_logger.h ../../src/utils/app_translations.h ../../src/utils/app_version.h ../../src/utils/portable_settings.h ../../src/utils/llm_json_utils.h ../../src/utils/ai_analysis_trace.h  ../../main.cpp ../../src/core/task_types.cpp ../../src/core/task_repository.cpp ../../src/core/priority_engine.cpp ../../src/core/behavior_learning_engine.cpp ../../src/core/task_archive.cpp ../../src/core/daily_evaluation_service.cpp ../../src/core/weekly_report_service.cpp ../../src/core/app_settings.cpp ../../src/core/quick_capture_service.cpp ../../src/core/focus/focus_session_service.cpp ../../src/core/schema_migrator.cpp ../../src/core/habit_reminder_repository.cpp ../../src/core/habit_reminder_service.cpp ../../src/core/update/update_manifest.cpp ../../src/core/update/update_config.cpp ../../src/core/update/update_apply.cpp ../../src/core/update/update_service.cpp ../../src/core/telemetry/usage_report_config.cpp ../../src/core/telemetry/usage_report_service.cpp ../../src/core/ai/llm_provider.cpp ../../src/core/ai/ai_prompts.cpp ../../src/core/ai/ollama_llm_provider.cpp ../../src/core/ai/openai_compatible_provider.cpp ../../src/core/ai/llm_service.cpp ../../src/core/m365/m365_auth_service.cpp ../../src/core/m365/microsoft_graph_client.cpp ../../src/core/m365/m365_sync_service.cpp ../../src/models/task_table_model.cpp ../../src/ui/mainwindow.cpp ../../src/ui/addtaskdialog.cpp ../../src/ui/todaytasksdialog.cpp ../../src/ui/quick_capture_dialog.cpp ../../src/ui/focus_session_dialog.cpp ../../src/ui/line_number_plain_text_edit.cpp ../../src/ui/llmsettingsdialog.cpp ../../src/ui/top3popupdialog.cpp ../../src/ui/top3listwidget.cpp ../../src/ui/m365settingsdialog.cpp ../../src/ui/taskhistorydialog.cpp ../../src/ui/daily_evaluation_dialog.cpp ../../src/ui/weekly_report_dialog.cpp ../../src/ui/aianalysistracedialog.cpp ../../src/ui/quadrantlistwidget.cpp ../../src/ui/quadrantboard.cpp ../../src/ui/cyber_quadrant_box.cpp ../../src/ui/cyber_ai_panel.cpp ../../src/ui/task_table_delegate.cpp ../../src/ui/windowtitlebar.cpp ../../src/ui/appsettingsdialog.cpp ../../src/ui/habit_reminder_popup.cpp ../../src/ui/aboutdialog.cpp ../../src/ui/updatedialog.cpp ../../src/ui/lock_screen_widget.cpp ../../src/ui/ai_busy_overlay.cpp ../../src/utils/windows_hotkey_manager.cpp ../../src/utils/global_hotkey.cpp ../../src/utils/window_fit.cpp ../../src/utils/app_icon.cpp ../../src/utils/single_instance.cpp ../../src/utils/windows_session_monitor.cpp ../../src/utils/app_theme.cpp ../../src/utils/ssl_support.cpp ../../src/utils/app_logger.cpp ../../src/utils/app_translations.cpp ../../src/utils/app_version.cpp ../../src/utils/portable_settings.cpp ../../src/utils/llm_json_utils.cpp ../../src/utils/ai_analysis_trace.cpp ../../src/ui/mainwindow.ui ../../src/ui/addtaskdialog.ui ../../src/ui/quick_capture_dialog.ui ../../src/ui/focus_session_dialog.ui ../../src/ui/llmsettingsdialog.ui ../../src/ui/top3popupdialog.ui ../../src/ui/m365settingsdialog.ui ../../src/ui/appsettingsdialog.ui ../../src/ui/aboutdialog.ui ../../src/ui/updatedialog.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug/main.o debug/task_types.o debug/task_repository.o debug/priority_engine.o debug/behavior_learning_engine.o debug/task_archive.o debug/daily_evaluation_service.o debug/weekly_report_service.o debug/app_settings.o debug/quick_capture_service.o debug/focus_session_service.o debug/schema_migrator.o debug/update_manifest.o debug/update_config.o debug/update_apply.o debug/update_service.o debug/usage_report_config.o debug/usage_report_service.o debug/llm_provider.o debug/ai_prompts.o debug/ollama_llm_provider.o debug/openai_compatible_provider.o debug/llm_service.o debug/m365_auth_service.o debug/microsoft_graph_client.o debug/m365_sync_service.o debug/task_table_model.o debug/mainwindow.o debug/addtaskdialog.o debug/todaytasksdialog.o debug/quick_capture_dialog.o debug/focus_session_dialog.o debug/line_number_plain_text_edit.o debug/llmsettingsdialog.o debug/top3popupdialog.o debug/top3listwidget.o debug/m365settingsdialog.o debug/taskhistorydialog.o debug/daily_evaluation_dialog.o debug/weekly_report_dialog.o debug/aianalysistracedialog.o debug/quadrantlistwidget.o debug/quadrantboard.o debug/cyber_quadrant_box.o debug/cyber_ai_panel.o debug/task_table_delegate.o debug/windowtitlebar.o debug/appsettingsdialog.o debug/aboutdialog.o debug/updatedialog.o debug/lock_screen_widget.o debug/ai_busy_overlay.o debug/windows_hotkey_manager.o debug/global_hotkey.o debug/window_fit.o debug/app_icon.o debug/single_instance.o debug/windows_session_monitor.o debug/app_theme.o debug/ssl_support.o debug/app_logger.o debug/app_translations.o debug/app_version.o debug/portable_settings.o debug/llm_json_utils.o debug/ai_analysis_trace.o debug/qrc_resources.o debug/moc_task_repository.o debug/moc_behavior_learning_engine.o debug/moc_daily_evaluation_service.o debug/moc_weekly_report_service.o debug/moc_focus_session_service.o debug/moc_update_service.o debug/moc_usage_report_service.o debug/moc_llm_provider.o debug/moc_ollama_llm_provider.o debug/moc_openai_compatible_provider.o debug/moc_llm_service.o
-	-$(DEL_FILE) debug/moc_m365_auth_service.o debug/moc_microsoft_graph_client.o debug/moc_m365_sync_service.o debug/moc_task_table_model.o debug/moc_mainwindow.o debug/moc_addtaskdialog.o debug/moc_todaytasksdialog.o debug/moc_quick_capture_dialog.o debug/moc_focus_session_dialog.o debug/moc_line_number_plain_text_edit.o debug/moc_llmsettingsdialog.o debug/moc_top3popupdialog.o debug/moc_top3listwidget.o debug/moc_m365settingsdialog.o debug/moc_taskhistorydialog.o debug/moc_daily_evaluation_dialog.o debug/moc_weekly_report_dialog.o debug/moc_aianalysistracedialog.o debug/moc_quadrantlistwidget.o debug/moc_quadrantboard.o debug/moc_cyber_quadrant_box.o debug/moc_cyber_ai_panel.o debug/moc_task_table_delegate.o debug/moc_windowtitlebar.o debug/moc_appsettingsdialog.o debug/moc_aboutdialog.o debug/moc_updatedialog.o debug/moc_lock_screen_widget.o debug/moc_windows_hotkey_manager.o debug/moc_single_instance.o debug/moc_windows_session_monitor.o
+	-$(DEL_FILE) debug/main.o debug/task_types.o debug/task_repository.o debug/priority_engine.o debug/behavior_learning_engine.o debug/task_archive.o debug/daily_evaluation_service.o debug/weekly_report_service.o debug/app_settings.o debug/quick_capture_service.o debug/focus_session_service.o debug/schema_migrator.o debug/habit_reminder_repository.o debug/habit_reminder_service.o debug/update_manifest.o debug/update_config.o debug/update_apply.o debug/update_service.o debug/usage_report_config.o debug/usage_report_service.o debug/llm_provider.o debug/ai_prompts.o debug/ollama_llm_provider.o debug/openai_compatible_provider.o debug/llm_service.o debug/m365_auth_service.o debug/microsoft_graph_client.o debug/m365_sync_service.o debug/task_table_model.o debug/mainwindow.o debug/addtaskdialog.o debug/todaytasksdialog.o debug/quick_capture_dialog.o debug/focus_session_dialog.o debug/line_number_plain_text_edit.o debug/llmsettingsdialog.o debug/top3popupdialog.o debug/top3listwidget.o debug/m365settingsdialog.o debug/taskhistorydialog.o debug/daily_evaluation_dialog.o debug/weekly_report_dialog.o debug/aianalysistracedialog.o debug/quadrantlistwidget.o debug/quadrantboard.o debug/cyber_quadrant_box.o debug/cyber_ai_panel.o debug/task_table_delegate.o debug/windowtitlebar.o debug/appsettingsdialog.o debug/habit_reminder_popup.o debug/aboutdialog.o debug/updatedialog.o debug/lock_screen_widget.o debug/ai_busy_overlay.o debug/windows_hotkey_manager.o debug/global_hotkey.o debug/window_fit.o debug/app_icon.o debug/single_instance.o debug/windows_session_monitor.o debug/app_theme.o debug/ssl_support.o debug/app_logger.o debug/app_translations.o debug/app_version.o debug/portable_settings.o debug/llm_json_utils.o debug/ai_analysis_trace.o debug/qrc_resources.o debug/moc_task_repository.o debug/moc_behavior_learning_engine.o debug/moc_daily_evaluation_service.o debug/moc_weekly_report_service.o debug/moc_focus_session_service.o debug/moc_habit_reminder_repository.o debug/moc_habit_reminder_service.o debug/moc_update_service.o
+	-$(DEL_FILE) debug/moc_usage_report_service.o debug/moc_llm_provider.o debug/moc_ollama_llm_provider.o debug/moc_openai_compatible_provider.o debug/moc_llm_service.o debug/moc_m365_auth_service.o debug/moc_microsoft_graph_client.o debug/moc_m365_sync_service.o debug/moc_task_table_model.o debug/moc_mainwindow.o debug/moc_addtaskdialog.o debug/moc_todaytasksdialog.o debug/moc_quick_capture_dialog.o debug/moc_focus_session_dialog.o debug/moc_line_number_plain_text_edit.o debug/moc_llmsettingsdialog.o debug/moc_top3popupdialog.o debug/moc_top3listwidget.o debug/moc_m365settingsdialog.o debug/moc_taskhistorydialog.o debug/moc_daily_evaluation_dialog.o debug/moc_weekly_report_dialog.o debug/moc_aianalysistracedialog.o debug/moc_quadrantlistwidget.o debug/moc_quadrantboard.o debug/moc_cyber_quadrant_box.o debug/moc_cyber_ai_panel.o debug/moc_task_table_delegate.o debug/moc_windowtitlebar.o debug/moc_appsettingsdialog.o debug/moc_habit_reminder_popup.o debug/moc_aboutdialog.o debug/moc_updatedialog.o debug/moc_lock_screen_widget.o debug/moc_windows_hotkey_manager.o debug/moc_single_instance.o debug/moc_windows_session_monitor.o
 	-$(DEL_FILE) debug/ToDoList_resource_res.o
 
 distclean: clean 
@@ -469,9 +487,9 @@ compiler_moc_predefs_clean:
 debug/moc_predefs.h: ../../../../5.15.2/mingw81_64/mkspecs/features/data/dummy.cpp
 	g++ -fno-keep-inline-dllexport -g -std=gnu++1z -Wall -Wextra -Wextra -dM -E -o debug/moc_predefs.h ../../../../5.15.2/mingw81_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: debug/moc_task_repository.cpp debug/moc_behavior_learning_engine.cpp debug/moc_daily_evaluation_service.cpp debug/moc_weekly_report_service.cpp debug/moc_focus_session_service.cpp debug/moc_update_service.cpp debug/moc_usage_report_service.cpp debug/moc_llm_provider.cpp debug/moc_ollama_llm_provider.cpp debug/moc_openai_compatible_provider.cpp debug/moc_llm_service.cpp debug/moc_m365_auth_service.cpp debug/moc_microsoft_graph_client.cpp debug/moc_m365_sync_service.cpp debug/moc_task_table_model.cpp debug/moc_mainwindow.cpp debug/moc_addtaskdialog.cpp debug/moc_todaytasksdialog.cpp debug/moc_quick_capture_dialog.cpp debug/moc_focus_session_dialog.cpp debug/moc_line_number_plain_text_edit.cpp debug/moc_llmsettingsdialog.cpp debug/moc_top3popupdialog.cpp debug/moc_top3listwidget.cpp debug/moc_m365settingsdialog.cpp debug/moc_taskhistorydialog.cpp debug/moc_daily_evaluation_dialog.cpp debug/moc_weekly_report_dialog.cpp debug/moc_aianalysistracedialog.cpp debug/moc_quadrantlistwidget.cpp debug/moc_quadrantboard.cpp debug/moc_cyber_quadrant_box.cpp debug/moc_cyber_ai_panel.cpp debug/moc_task_table_delegate.cpp debug/moc_windowtitlebar.cpp debug/moc_appsettingsdialog.cpp debug/moc_aboutdialog.cpp debug/moc_updatedialog.cpp debug/moc_lock_screen_widget.cpp debug/moc_windows_hotkey_manager.cpp debug/moc_single_instance.cpp debug/moc_windows_session_monitor.cpp
+compiler_moc_header_make_all: debug/moc_task_repository.cpp debug/moc_behavior_learning_engine.cpp debug/moc_daily_evaluation_service.cpp debug/moc_weekly_report_service.cpp debug/moc_focus_session_service.cpp debug/moc_habit_reminder_repository.cpp debug/moc_habit_reminder_service.cpp debug/moc_update_service.cpp debug/moc_usage_report_service.cpp debug/moc_llm_provider.cpp debug/moc_ollama_llm_provider.cpp debug/moc_openai_compatible_provider.cpp debug/moc_llm_service.cpp debug/moc_m365_auth_service.cpp debug/moc_microsoft_graph_client.cpp debug/moc_m365_sync_service.cpp debug/moc_task_table_model.cpp debug/moc_mainwindow.cpp debug/moc_addtaskdialog.cpp debug/moc_todaytasksdialog.cpp debug/moc_quick_capture_dialog.cpp debug/moc_focus_session_dialog.cpp debug/moc_line_number_plain_text_edit.cpp debug/moc_llmsettingsdialog.cpp debug/moc_top3popupdialog.cpp debug/moc_top3listwidget.cpp debug/moc_m365settingsdialog.cpp debug/moc_taskhistorydialog.cpp debug/moc_daily_evaluation_dialog.cpp debug/moc_weekly_report_dialog.cpp debug/moc_aianalysistracedialog.cpp debug/moc_quadrantlistwidget.cpp debug/moc_quadrantboard.cpp debug/moc_cyber_quadrant_box.cpp debug/moc_cyber_ai_panel.cpp debug/moc_task_table_delegate.cpp debug/moc_windowtitlebar.cpp debug/moc_appsettingsdialog.cpp debug/moc_habit_reminder_popup.cpp debug/moc_aboutdialog.cpp debug/moc_updatedialog.cpp debug/moc_lock_screen_widget.cpp debug/moc_windows_hotkey_manager.cpp debug/moc_single_instance.cpp debug/moc_windows_session_monitor.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug/moc_task_repository.cpp debug/moc_behavior_learning_engine.cpp debug/moc_daily_evaluation_service.cpp debug/moc_weekly_report_service.cpp debug/moc_focus_session_service.cpp debug/moc_update_service.cpp debug/moc_usage_report_service.cpp debug/moc_llm_provider.cpp debug/moc_ollama_llm_provider.cpp debug/moc_openai_compatible_provider.cpp debug/moc_llm_service.cpp debug/moc_m365_auth_service.cpp debug/moc_microsoft_graph_client.cpp debug/moc_m365_sync_service.cpp debug/moc_task_table_model.cpp debug/moc_mainwindow.cpp debug/moc_addtaskdialog.cpp debug/moc_todaytasksdialog.cpp debug/moc_quick_capture_dialog.cpp debug/moc_focus_session_dialog.cpp debug/moc_line_number_plain_text_edit.cpp debug/moc_llmsettingsdialog.cpp debug/moc_top3popupdialog.cpp debug/moc_top3listwidget.cpp debug/moc_m365settingsdialog.cpp debug/moc_taskhistorydialog.cpp debug/moc_daily_evaluation_dialog.cpp debug/moc_weekly_report_dialog.cpp debug/moc_aianalysistracedialog.cpp debug/moc_quadrantlistwidget.cpp debug/moc_quadrantboard.cpp debug/moc_cyber_quadrant_box.cpp debug/moc_cyber_ai_panel.cpp debug/moc_task_table_delegate.cpp debug/moc_windowtitlebar.cpp debug/moc_appsettingsdialog.cpp debug/moc_aboutdialog.cpp debug/moc_updatedialog.cpp debug/moc_lock_screen_widget.cpp debug/moc_windows_hotkey_manager.cpp debug/moc_single_instance.cpp debug/moc_windows_session_monitor.cpp
+	-$(DEL_FILE) debug/moc_task_repository.cpp debug/moc_behavior_learning_engine.cpp debug/moc_daily_evaluation_service.cpp debug/moc_weekly_report_service.cpp debug/moc_focus_session_service.cpp debug/moc_habit_reminder_repository.cpp debug/moc_habit_reminder_service.cpp debug/moc_update_service.cpp debug/moc_usage_report_service.cpp debug/moc_llm_provider.cpp debug/moc_ollama_llm_provider.cpp debug/moc_openai_compatible_provider.cpp debug/moc_llm_service.cpp debug/moc_m365_auth_service.cpp debug/moc_microsoft_graph_client.cpp debug/moc_m365_sync_service.cpp debug/moc_task_table_model.cpp debug/moc_mainwindow.cpp debug/moc_addtaskdialog.cpp debug/moc_todaytasksdialog.cpp debug/moc_quick_capture_dialog.cpp debug/moc_focus_session_dialog.cpp debug/moc_line_number_plain_text_edit.cpp debug/moc_llmsettingsdialog.cpp debug/moc_top3popupdialog.cpp debug/moc_top3listwidget.cpp debug/moc_m365settingsdialog.cpp debug/moc_taskhistorydialog.cpp debug/moc_daily_evaluation_dialog.cpp debug/moc_weekly_report_dialog.cpp debug/moc_aianalysistracedialog.cpp debug/moc_quadrantlistwidget.cpp debug/moc_quadrantboard.cpp debug/moc_cyber_quadrant_box.cpp debug/moc_cyber_ai_panel.cpp debug/moc_task_table_delegate.cpp debug/moc_windowtitlebar.cpp debug/moc_appsettingsdialog.cpp debug/moc_habit_reminder_popup.cpp debug/moc_aboutdialog.cpp debug/moc_updatedialog.cpp debug/moc_lock_screen_widget.cpp debug/moc_windows_hotkey_manager.cpp debug/moc_single_instance.cpp debug/moc_windows_session_monitor.cpp
 debug/moc_task_repository.cpp: ../../src/core/task_repository.h \
 		../../src/core/task_types.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QString \
@@ -528,6 +546,7 @@ debug/moc_task_repository.cpp: ../../src/core/task_repository.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
@@ -595,6 +614,7 @@ debug/moc_behavior_learning_engine.cpp: ../../src/core/behavior_learning_engine.
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -661,6 +681,7 @@ debug/moc_daily_evaluation_service.cpp: ../../src/core/daily_evaluation_service.
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
@@ -728,6 +749,7 @@ debug/moc_weekly_report_service.cpp: ../../src/core/weekly_report_service.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
@@ -795,6 +817,7 @@ debug/moc_focus_session_service.cpp: ../../src/core/focus/focus_session_service.
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -807,6 +830,147 @@ debug/moc_focus_session_service.cpp: ../../src/core/focus/focus_session_service.
 		debug/moc_predefs.h \
 		../../../../5.15.2/mingw81_64/bin/moc.exe
 	'D:\Qt\5.15.2\mingw81_64\bin\moc.exe' $(DEFINES) --include D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/debug/moc_predefs.h -ID:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++ -ID:/Qt/QtProjects/ToDoList -ID:/Qt/QtProjects/ToDoList/src -ID:/Qt/5.15.2/mingw81_64/include -ID:/Qt/5.15.2/mingw81_64/include/QtSvg -ID:/Qt/5.15.2/mingw81_64/include/QtWidgets -ID:/Qt/5.15.2/mingw81_64/include/QtWinExtras -ID:/Qt/5.15.2/mingw81_64/include/QtGui -ID:/Qt/5.15.2/mingw81_64/include/QtANGLE -ID:/Qt/5.15.2/mingw81_64/include/QtSql -ID:/Qt/5.15.2/mingw81_64/include/QtNetwork -ID:/Qt/5.15.2/mingw81_64/include/QtConcurrent -ID:/Qt/5.15.2/mingw81_64/include/QtCore -I. -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -Id:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ../../src/core/focus/focus_session_service.h -o debug/moc_focus_session_service.cpp
+
+debug/moc_habit_reminder_repository.cpp: ../../src/core/habit_reminder_repository.h \
+		../../src/core/task_types.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QString \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstring.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qchar.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtcore-config.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsystemdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qprocessordetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcompilerdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtypeinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsysinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlogging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qflags.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbasicatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qgenericatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_cxx11.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_msvc.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobalstatic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmutex.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnumeric.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qversiontagging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qrefcount.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnamespace.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qarraydata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringliteral.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringview.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringbuilder.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiterator.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhashfunctions.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpair.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvector.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainertools_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpoint.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearraylist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qregexp.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringmatcher.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmetatype.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvarlengtharray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
+		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
+		debug/moc_predefs.h \
+		../../../../5.15.2/mingw81_64/bin/moc.exe
+	'D:\Qt\5.15.2\mingw81_64\bin\moc.exe' $(DEFINES) --include D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/debug/moc_predefs.h -ID:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++ -ID:/Qt/QtProjects/ToDoList -ID:/Qt/QtProjects/ToDoList/src -ID:/Qt/5.15.2/mingw81_64/include -ID:/Qt/5.15.2/mingw81_64/include/QtSvg -ID:/Qt/5.15.2/mingw81_64/include/QtWidgets -ID:/Qt/5.15.2/mingw81_64/include/QtWinExtras -ID:/Qt/5.15.2/mingw81_64/include/QtGui -ID:/Qt/5.15.2/mingw81_64/include/QtANGLE -ID:/Qt/5.15.2/mingw81_64/include/QtSql -ID:/Qt/5.15.2/mingw81_64/include/QtNetwork -ID:/Qt/5.15.2/mingw81_64/include/QtConcurrent -ID:/Qt/5.15.2/mingw81_64/include/QtCore -I. -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -Id:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ../../src/core/habit_reminder_repository.h -o debug/moc_habit_reminder_repository.cpp
+
+debug/moc_habit_reminder_service.cpp: ../../src/core/habit_reminder_service.h \
+		../../src/core/task_types.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QString \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstring.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qchar.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtcore-config.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsystemdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qprocessordetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcompilerdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtypeinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsysinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlogging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qflags.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbasicatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qgenericatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_cxx11.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_msvc.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobalstatic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmutex.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnumeric.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qversiontagging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qrefcount.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnamespace.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qarraydata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringliteral.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringview.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringbuilder.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiterator.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhashfunctions.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpair.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvector.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainertools_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpoint.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearraylist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qregexp.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringmatcher.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmetatype.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvarlengtharray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
+		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
+		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QSet \
+		../../../../5.15.2/mingw81_64/include/QtCore/qset.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTimer \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtimer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbasictimer.h \
+		debug/moc_predefs.h \
+		../../../../5.15.2/mingw81_64/bin/moc.exe
+	'D:\Qt\5.15.2\mingw81_64\bin\moc.exe' $(DEFINES) --include D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/debug/moc_predefs.h -ID:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++ -ID:/Qt/QtProjects/ToDoList -ID:/Qt/QtProjects/ToDoList/src -ID:/Qt/5.15.2/mingw81_64/include -ID:/Qt/5.15.2/mingw81_64/include/QtSvg -ID:/Qt/5.15.2/mingw81_64/include/QtWidgets -ID:/Qt/5.15.2/mingw81_64/include/QtWinExtras -ID:/Qt/5.15.2/mingw81_64/include/QtGui -ID:/Qt/5.15.2/mingw81_64/include/QtANGLE -ID:/Qt/5.15.2/mingw81_64/include/QtSql -ID:/Qt/5.15.2/mingw81_64/include/QtNetwork -ID:/Qt/5.15.2/mingw81_64/include/QtConcurrent -ID:/Qt/5.15.2/mingw81_64/include/QtCore -I. -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -Id:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ../../src/core/habit_reminder_service.h -o debug/moc_habit_reminder_service.cpp
 
 debug/moc_update_service.cpp: ../../src/core/update/update_service.h \
 		../../src/core/update/update_manifest.h \
@@ -984,6 +1148,7 @@ debug/moc_llm_provider.cpp: ../../src/core/ai/llm_provider.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -1052,6 +1217,7 @@ debug/moc_ollama_llm_provider.cpp: ../../src/core/ai/ollama_llm_provider.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -1120,6 +1286,7 @@ debug/moc_openai_compatible_provider.cpp: ../../src/core/ai/openai_compatible_pr
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -1187,6 +1354,7 @@ debug/moc_llm_service.cpp: ../../src/core/ai/llm_service.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -1253,6 +1421,7 @@ debug/moc_m365_auth_service.cpp: ../../src/core/m365/m365_auth_service.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -1319,6 +1488,7 @@ debug/moc_microsoft_graph_client.cpp: ../../src/core/m365/microsoft_graph_client
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -1385,6 +1555,7 @@ debug/moc_m365_sync_service.cpp: ../../src/core/m365/m365_sync_service.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -1451,6 +1622,7 @@ debug/moc_task_table_model.cpp: ../../src/models/task_table_model.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QAbstractTableModel \
 		../../../../5.15.2/mingw81_64/include/QtCore/qabstractitemmodel.h \
@@ -1529,6 +1701,7 @@ debug/moc_mainwindow.cpp: ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../src/core/weekly_report_service.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
@@ -1596,6 +1769,8 @@ debug/moc_mainwindow.cpp: ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qmainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qicon.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QQueue \
+		../../../../5.15.2/mingw81_64/include/QtCore/qqueue.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSystemTrayIcon \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qsystemtrayicon.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QTimer \
@@ -1661,6 +1836,7 @@ debug/moc_addtaskdialog.cpp: ../../src/ui/addtaskdialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -1776,6 +1952,7 @@ debug/moc_todaytasksdialog.cpp: ../../src/ui/todaytasksdialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -1891,6 +2068,7 @@ debug/moc_quick_capture_dialog.cpp: ../../src/ui/quick_capture_dialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -2007,6 +2185,7 @@ debug/moc_focus_session_dialog.cpp: ../../src/ui/focus_session_dialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -2248,6 +2427,7 @@ debug/moc_llmsettingsdialog.cpp: ../../src/ui/llmsettingsdialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -2364,6 +2544,7 @@ debug/moc_top3popupdialog.cpp: ../../src/ui/top3popupdialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -2480,6 +2661,7 @@ debug/moc_top3listwidget.cpp: ../../src/ui/top3listwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QListWidget \
@@ -2614,6 +2796,7 @@ debug/moc_m365settingsdialog.cpp: ../../src/ui/m365settingsdialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -2840,6 +3023,7 @@ debug/moc_daily_evaluation_dialog.cpp: ../../src/ui/daily_evaluation_dialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../src/core/task_repository.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
@@ -2959,6 +3143,7 @@ debug/moc_weekly_report_dialog.cpp: ../../src/ui/weekly_report_dialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../src/core/weekly_report_service.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
@@ -3078,6 +3263,7 @@ debug/moc_aianalysistracedialog.cpp: ../../src/ui/aianalysistracedialog.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -3193,6 +3379,7 @@ debug/moc_quadrantlistwidget.cpp: ../../src/ui/quadrantlistwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QListWidget \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qlistwidget.h \
@@ -3326,6 +3513,7 @@ debug/moc_quadrantboard.cpp: ../../src/ui/quadrantboard.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QGroupBox \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qgroupbox.h \
@@ -3443,6 +3631,7 @@ debug/moc_cyber_quadrant_box.cpp: ../../src/ui/cyber_quadrant_box.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QGroupBox \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qgroupbox.h \
@@ -3670,6 +3859,7 @@ debug/moc_task_table_delegate.cpp: ../../src/ui/task_table_delegate.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QAbstractTableModel \
 		../../../../5.15.2/mingw81_64/include/QtCore/qabstractitemmodel.h \
@@ -3963,6 +4153,122 @@ debug/moc_appsettingsdialog.cpp: ../../src/ui/appsettingsdialog.h \
 		debug/moc_predefs.h \
 		../../../../5.15.2/mingw81_64/bin/moc.exe
 	'D:\Qt\5.15.2\mingw81_64\bin\moc.exe' $(DEFINES) --include D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/debug/moc_predefs.h -ID:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++ -ID:/Qt/QtProjects/ToDoList -ID:/Qt/QtProjects/ToDoList/src -ID:/Qt/5.15.2/mingw81_64/include -ID:/Qt/5.15.2/mingw81_64/include/QtSvg -ID:/Qt/5.15.2/mingw81_64/include/QtWidgets -ID:/Qt/5.15.2/mingw81_64/include/QtWinExtras -ID:/Qt/5.15.2/mingw81_64/include/QtGui -ID:/Qt/5.15.2/mingw81_64/include/QtANGLE -ID:/Qt/5.15.2/mingw81_64/include/QtSql -ID:/Qt/5.15.2/mingw81_64/include/QtNetwork -ID:/Qt/5.15.2/mingw81_64/include/QtConcurrent -ID:/Qt/5.15.2/mingw81_64/include/QtCore -I. -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -Id:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ../../src/ui/appsettingsdialog.h -o debug/moc_appsettingsdialog.cpp
+
+debug/moc_habit_reminder_popup.cpp: ../../src/ui/habit_reminder_popup.h \
+		../../src/core/task_types.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QString \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstring.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qchar.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtcore-config.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsystemdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qprocessordetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcompilerdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtypeinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsysinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlogging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qflags.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbasicatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qgenericatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_cxx11.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_msvc.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobalstatic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmutex.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnumeric.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qversiontagging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qrefcount.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnamespace.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qarraydata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringliteral.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringview.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringbuilder.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiterator.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhashfunctions.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpair.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvector.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainertools_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpoint.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearraylist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qregexp.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringmatcher.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmetatype.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvarlengtharray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qwidget.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs_win.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmargins.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpaintdevice.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qrect.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsize.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpalette.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qcolor.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qrgb.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qrgba64.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qbrush.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qmatrix.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpolygon.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qregion.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatastream.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiodevice.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qline.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtransform.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qimage.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpixelformat.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpixmap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qfont.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qfontmetrics.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qfontinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qsizepolicy.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qcursor.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qkeysequence.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qevent.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvariant.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdebug.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtextstream.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlocale.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qset.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontiguouscache.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qurl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qurlquery.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qfile.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qfiledevice.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qvector2d.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtouchdevice.h \
+		debug/moc_predefs.h \
+		../../../../5.15.2/mingw81_64/bin/moc.exe
+	'D:\Qt\5.15.2\mingw81_64\bin\moc.exe' $(DEFINES) --include D:/Qt/QtProjects/ToDoList/build/Desktop_Qt_5_15_2_MinGW_64_bit-Release/debug/moc_predefs.h -ID:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++ -ID:/Qt/QtProjects/ToDoList -ID:/Qt/QtProjects/ToDoList/src -ID:/Qt/5.15.2/mingw81_64/include -ID:/Qt/5.15.2/mingw81_64/include/QtSvg -ID:/Qt/5.15.2/mingw81_64/include/QtWidgets -ID:/Qt/5.15.2/mingw81_64/include/QtWinExtras -ID:/Qt/5.15.2/mingw81_64/include/QtGui -ID:/Qt/5.15.2/mingw81_64/include/QtANGLE -ID:/Qt/5.15.2/mingw81_64/include/QtSql -ID:/Qt/5.15.2/mingw81_64/include/QtNetwork -ID:/Qt/5.15.2/mingw81_64/include/QtConcurrent -ID:/Qt/5.15.2/mingw81_64/include/QtCore -I. -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -Id:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -Id:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ../../src/ui/habit_reminder_popup.h -o debug/moc_habit_reminder_popup.cpp
 
 debug/moc_aboutdialog.cpp: ../../src/ui/aboutdialog.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
@@ -4541,6 +4847,7 @@ ui_mainwindow.h: ../../src/ui/mainwindow.ui \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QGroupBox \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qgroupbox.h \
@@ -4757,6 +5064,7 @@ ui_mainwindow.h: ../../src/ui/mainwindow.ui \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QListWidget \
@@ -4907,6 +5215,7 @@ ui_top3popupdialog.h: ../../src/ui/top3popupdialog.ui \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QListWidget \
@@ -5067,6 +5376,7 @@ debug/main.o: ../../main.cpp ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../src/core/weekly_report_service.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
@@ -5134,6 +5444,8 @@ debug/main.o: ../../main.cpp ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qmainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qicon.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QQueue \
+		../../../../5.15.2/mingw81_64/include/QtCore/qqueue.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSystemTrayIcon \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qsystemtrayicon.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QTimer \
@@ -5216,6 +5528,7 @@ debug/task_types.o: ../../src/core/task_types.cpp ../../src/core/task_types.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QtMath \
 		../../../../5.15.2/mingw81_64/include/QtCore/qmath.h
@@ -5277,6 +5590,7 @@ debug/task_repository.o: ../../src/core/task_repository.cpp ../../src/core/task_
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
@@ -5366,6 +5680,7 @@ debug/priority_engine.o: ../../src/core/priority_engine.cpp ../../src/core/prior
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QJsonArray \
 		../../../../5.15.2/mingw81_64/include/QtCore/qjsonarray.h \
@@ -5452,6 +5767,7 @@ debug/behavior_learning_engine.o: ../../src/core/behavior_learning_engine.cpp ..
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -5518,6 +5834,7 @@ debug/task_archive.o: ../../src/core/task_archive.cpp ../../src/core/task_archiv
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
 		../../src/core/ai/ai_prompts.h \
@@ -5617,6 +5934,7 @@ debug/daily_evaluation_service.o: ../../src/core/daily_evaluation_service.cpp ..
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
@@ -5725,6 +6043,7 @@ debug/weekly_report_service.o: ../../src/core/weekly_report_service.cpp ../../sr
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
@@ -5830,6 +6149,7 @@ debug/app_settings.o: ../../src/core/app_settings.cpp ../../src/core/app_setting
 		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../src/core/task_archive.h \
 		../../src/core/task_types.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
@@ -5872,8 +6192,7 @@ debug/app_settings.o: ../../src/core/app_settings.cpp ../../src/core/app_setting
 		../../../../5.15.2/mingw81_64/include/QtCore/QJsonObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qjsonobject.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QRandomGenerator \
-		../../../../5.15.2/mingw81_64/include/QtCore/qrandom.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QUuid
+		../../../../5.15.2/mingw81_64/include/QtCore/qrandom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/app_settings.o ../../src/core/app_settings.cpp
 
 debug/quick_capture_service.o: ../../src/core/quick_capture_service.cpp ../../src/core/quick_capture_service.h \
@@ -5932,6 +6251,7 @@ debug/quick_capture_service.o: ../../src/core/quick_capture_service.cpp ../../sr
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../src/core/ai/ai_prompts.h \
 		../../src/core/ai/llm_provider.h \
@@ -5967,8 +6287,7 @@ debug/quick_capture_service.o: ../../src/core/quick_capture_service.cpp ../../sr
 		../../../../5.15.2/mingw81_64/include/QtCore/quuid.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QJsonObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qjsonobject.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QRegularExpression \
-		../../../../5.15.2/mingw81_64/include/QtCore/QTime
+		../../../../5.15.2/mingw81_64/include/QtCore/QRegularExpression
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/quick_capture_service.o ../../src/core/quick_capture_service.cpp
 
 debug/focus_session_service.o: ../../src/core/focus/focus_session_service.cpp ../../src/core/focus/focus_session_service.h \
@@ -6027,6 +6346,7 @@ debug/focus_session_service.o: ../../src/core/focus/focus_session_service.cpp ..
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -6125,6 +6445,171 @@ debug/schema_migrator.o: ../../src/core/schema_migrator.cpp ../../src/core/schem
 		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/schema_migrator.o ../../src/core/schema_migrator.cpp
+
+debug/habit_reminder_repository.o: ../../src/core/habit_reminder_repository.cpp ../../src/core/habit_reminder_repository.h \
+		../../src/core/task_types.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QString \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstring.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qchar.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtcore-config.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsystemdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qprocessordetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcompilerdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtypeinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsysinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlogging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qflags.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbasicatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qgenericatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_cxx11.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_msvc.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobalstatic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmutex.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnumeric.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qversiontagging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qrefcount.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnamespace.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qarraydata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringliteral.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringview.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringbuilder.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiterator.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhashfunctions.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpair.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvector.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainertools_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpoint.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearraylist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qregexp.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringmatcher.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmetatype.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvarlengtharray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
+		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
+		../../src/utils/app_logger.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
+		../../../../5.15.2/mingw81_64/include/QtSql/QSqlDatabase \
+		../../../../5.15.2/mingw81_64/include/QtSql/qsqldatabase.h \
+		../../../../5.15.2/mingw81_64/include/QtSql/qtsqlglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtSql/qtsql-config.h \
+		../../../../5.15.2/mingw81_64/include/QtSql/QSqlError \
+		../../../../5.15.2/mingw81_64/include/QtSql/qsqlerror.h \
+		../../../../5.15.2/mingw81_64/include/QtSql/QSqlQuery \
+		../../../../5.15.2/mingw81_64/include/QtSql/qsqlquery.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QVariant \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvariant.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdebug.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtextstream.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiodevice.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlocale.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qset.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontiguouscache.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer_impl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/habit_reminder_repository.o ../../src/core/habit_reminder_repository.cpp
+
+debug/habit_reminder_service.o: ../../src/core/habit_reminder_service.cpp ../../src/core/habit_reminder_service.h \
+		../../src/core/task_types.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QString \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstring.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qchar.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtcore-config.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsystemdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qprocessordetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcompilerdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtypeinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsysinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlogging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qflags.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbasicatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qgenericatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_cxx11.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_msvc.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobalstatic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmutex.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnumeric.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qversiontagging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qrefcount.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnamespace.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qarraydata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringliteral.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringview.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringbuilder.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiterator.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhashfunctions.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpair.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvector.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainertools_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpoint.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearraylist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qregexp.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringmatcher.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmetatype.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvarlengtharray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
+		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
+		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QSet \
+		../../../../5.15.2/mingw81_64/include/QtCore/qset.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTimer \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtimer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbasictimer.h \
+		../../src/core/app_settings.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/QKeySequence \
+		../../../../5.15.2/mingw81_64/include/QtGui/qkeysequence.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
+		../../src/core/habit_reminder_repository.h \
+		../../src/utils/app_logger.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/habit_reminder_service.o ../../src/core/habit_reminder_service.cpp
 
 debug/update_manifest.o: ../../src/core/update/update_manifest.cpp ../../src/core/update/update_manifest.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QString \
@@ -6575,6 +7060,7 @@ debug/usage_report_config.o: ../../src/core/telemetry/usage_report_config.cpp ..
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
 		../../../../5.15.2/mingw81_64/include/QtCore/QCoreApplication \
@@ -6678,6 +7164,7 @@ debug/usage_report_service.o: ../../src/core/telemetry/usage_report_service.cpp 
 		../../../../5.15.2/mingw81_64/include/QtGui/qkeysequence.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../src/utils/app_logger.h \
 		../../src/utils/app_version.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QJsonDocument \
@@ -6787,6 +7274,7 @@ debug/llm_provider.o: ../../src/core/ai/llm_provider.cpp ../../src/core/ai/llm_p
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -6867,6 +7355,7 @@ debug/ai_prompts.o: ../../src/core/ai/ai_prompts.cpp ../../src/core/ai/ai_prompt
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QRegularExpression \
 		../../../../5.15.2/mingw81_64/include/QtCore/qregularexpression.h \
@@ -6957,6 +7446,7 @@ debug/ollama_llm_provider.o: ../../src/core/ai/ollama_llm_provider.cpp ../../src
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -7079,6 +7569,7 @@ debug/openai_compatible_provider.o: ../../src/core/ai/openai_compatible_provider
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -7198,6 +7689,7 @@ debug/llm_service.o: ../../src/core/ai/llm_service.cpp ../../src/core/ai/llm_ser
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -7303,6 +7795,7 @@ debug/m365_auth_service.o: ../../src/core/m365/m365_auth_service.cpp ../../src/c
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -7418,6 +7911,7 @@ debug/microsoft_graph_client.o: ../../src/core/m365/microsoft_graph_client.cpp .
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -7532,6 +8026,7 @@ debug/m365_sync_service.o: ../../src/core/m365/m365_sync_service.cpp ../../src/c
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -7600,6 +8095,7 @@ debug/task_table_model.o: ../../src/models/task_table_model.cpp ../../src/models
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QAbstractTableModel \
 		../../../../5.15.2/mingw81_64/include/QtCore/qabstractitemmodel.h \
@@ -7676,6 +8172,7 @@ debug/mainwindow.o: ../../src/ui/mainwindow.cpp ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../src/core/weekly_report_service.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
@@ -7743,6 +8240,8 @@ debug/mainwindow.o: ../../src/ui/mainwindow.cpp ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qmainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qicon.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QQueue \
+		../../../../5.15.2/mingw81_64/include/QtCore/qqueue.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSystemTrayIcon \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qsystemtrayicon.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QTimer \
@@ -7829,8 +8328,11 @@ debug/mainwindow.o: ../../src/ui/mainwindow.cpp ../../src/ui/mainwindow.h \
 		../../src/ui/lock_screen_widget.h \
 		../../src/ui/windowtitlebar.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/QIcon \
+		../../src/ui/habit_reminder_popup.h \
 		../../src/core/app_settings.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/QKeySequence \
+		../../src/core/habit_reminder_repository.h \
+		../../src/core/habit_reminder_service.h \
 		../../src/core/task_archive.h \
 		../../src/core/ai/ai_prompts.h \
 		../../src/core/priority_engine.h \
@@ -7883,7 +8385,6 @@ debug/mainwindow.o: ../../src/ui/mainwindow.cpp ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSizePolicy \
 		../../../../5.15.2/mingw81_64/include/QtCore/QStandardPaths \
 		../../../../5.15.2/mingw81_64/include/QtGui/QResizeEvent \
-		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QUrl \
 		../../src/core/update/update_config.h \
 		../../src/core/telemetry/usage_report_service.h \
@@ -7947,6 +8448,7 @@ debug/addtaskdialog.o: ../../src/ui/addtaskdialog.cpp ../../src/ui/addtaskdialog
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -8053,8 +8555,7 @@ debug/addtaskdialog.o: ../../src/ui/addtaskdialog.cpp ../../src/ui/addtaskdialog
 		../../src/utils/app_theme.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QMessageBox \
-		../../../../5.15.2/mingw81_64/include/QtWidgets/qmessagebox.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QTime
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/addtaskdialog.o ../../src/ui/addtaskdialog.cpp
 
 debug/todaytasksdialog.o: ../../src/ui/todaytasksdialog.cpp ../../src/ui/todaytasksdialog.h \
@@ -8113,6 +8614,7 @@ debug/todaytasksdialog.o: ../../src/ui/todaytasksdialog.cpp ../../src/ui/todayta
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -8264,6 +8766,7 @@ debug/quick_capture_dialog.o: ../../src/ui/quick_capture_dialog.cpp ../../src/ui
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -8436,6 +8939,7 @@ debug/focus_session_dialog.o: ../../src/ui/focus_session_dialog.cpp ../../src/ui
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
@@ -8726,6 +9230,7 @@ debug/llmsettingsdialog.o: ../../src/ui/llmsettingsdialog.cpp ../../src/ui/llmse
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -8894,6 +9399,7 @@ debug/top3popupdialog.o: ../../src/ui/top3popupdialog.cpp ../../src/ui/top3popup
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -9050,6 +9556,7 @@ debug/top3listwidget.o: ../../src/ui/top3listwidget.cpp ../../src/ui/top3listwid
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QListWidget \
@@ -9204,6 +9711,7 @@ debug/m365settingsdialog.o: ../../src/ui/m365settingsdialog.cpp ../../src/ui/m36
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -9422,6 +9930,7 @@ debug/taskhistorydialog.o: ../../src/ui/taskhistorydialog.cpp ../../src/ui/taskh
 		../../../../5.15.2/mingw81_64/include/QtCore/QString \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../src/core/task_repository.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
@@ -9531,6 +10040,7 @@ debug/daily_evaluation_dialog.o: ../../src/ui/daily_evaluation_dialog.cpp ../../
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../src/core/task_repository.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
@@ -9696,6 +10206,7 @@ debug/weekly_report_dialog.o: ../../src/ui/weekly_report_dialog.cpp ../../src/ui
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../src/core/weekly_report_service.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
@@ -9882,6 +10393,7 @@ debug/aianalysistracedialog.o: ../../src/ui/aianalysistracedialog.cpp ../../src/
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
@@ -10025,6 +10537,7 @@ debug/quadrantlistwidget.o: ../../src/ui/quadrantlistwidget.cpp ../../src/ui/qua
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QListWidget \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qlistwidget.h \
@@ -10177,6 +10690,7 @@ debug/quadrantboard.o: ../../src/ui/quadrantboard.cpp ../../src/ui/quadrantboard
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QGroupBox \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qgroupbox.h \
@@ -10321,6 +10835,7 @@ debug/cyber_quadrant_box.o: ../../src/ui/cyber_quadrant_box.cpp ../../src/ui/cyb
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QGroupBox \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qgroupbox.h \
@@ -10582,6 +11097,7 @@ debug/task_table_delegate.o: ../../src/ui/task_table_delegate.cpp ../../src/ui/t
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QAbstractTableModel \
 		../../../../5.15.2/mingw81_64/include/QtCore/qabstractitemmodel.h \
@@ -10949,13 +11465,29 @@ debug/appsettingsdialog.o: ../../src/ui/appsettingsdialog.cpp ../../src/ui/appse
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSpacerItem \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSpinBox \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qspinbox.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QTimeEdit \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qdatetimeedit.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcalendar.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QVBoxLayout \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QWidget \
 		../../src/core/app_settings.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QString \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
-		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/QKeySequence \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
+		../../src/core/habit_reminder_repository.h \
+		../../src/core/task_types.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
+		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
+		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
+		../../src/core/habit_reminder_service.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
+		../../../../5.15.2/mingw81_64/include/QtCore/QHash \
+		../../../../5.15.2/mingw81_64/include/QtCore/QSet \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTimer \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtimer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbasictimer.h \
 		../../src/utils/global_hotkey.h \
 		../../src/utils/app_theme.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
@@ -10964,10 +11496,157 @@ debug/appsettingsdialog.o: ../../src/ui/appsettingsdialog.cpp ../../src/ui/appse
 		../../../../5.15.2/mingw81_64/include/QtCore/QCoreApplication \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QMessageBox \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qmessagebox.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QSet \
 		../../../../5.15.2/mingw81_64/include/QtGui/QShowEvent \
 		../../../../5.15.2/mingw81_64/include/QtCore/QEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/appsettingsdialog.o ../../src/ui/appsettingsdialog.cpp
+
+debug/habit_reminder_popup.o: ../../src/ui/habit_reminder_popup.cpp ../../src/ui/habit_reminder_popup.h \
+		../../src/core/task_types.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QString \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstring.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qchar.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qconfig.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtcore-config.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsystemdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qprocessordetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcompilerdetection.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtypeinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsysinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlogging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qflags.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbasicatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qgenericatomic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_cxx11.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qatomic_msvc.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qglobalstatic.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmutex.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnumeric.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qversiontagging.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qrefcount.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qnamespace.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qarraydata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringliteral.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringview.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringbuilder.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhash.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiterator.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qalgorithms.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qhashfunctions.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpair.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvector.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainertools_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qpoint.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qbytearraylist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringlist.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qregexp.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qstringmatcher.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmetatype.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvarlengtharray.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
+		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qdialog.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qwidget.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qwindowdefs_win.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreevent.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qscopedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmargins.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpaintdevice.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qrect.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsize.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpalette.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qcolor.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qrgb.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qrgba64.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qbrush.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qmatrix.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpolygon.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qregion.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatastream.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiodevice.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qline.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtransform.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qimage.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpixelformat.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qpixmap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qfont.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qfontmetrics.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qfontinfo.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qsizepolicy.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qcursor.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qkeysequence.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qevent.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvariant.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdebug.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtextstream.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlocale.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qset.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontiguouscache.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qurl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qurlquery.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qfile.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qfiledevice.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qvector2d.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qtouchdevice.h \
+		../../src/utils/app_theme.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
+		../../../../5.15.2/mingw81_64/include/QtGui/QGuiApplication \
+		../../../../5.15.2/mingw81_64/include/QtGui/qguiapplication.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcoreapplication.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qeventloop.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qinputmethod.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QLabel \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlabel.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qframe.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QPushButton \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qpushbutton.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qabstractbutton.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qicon.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/QScreen \
+		../../../../5.15.2/mingw81_64/include/QtGui/qscreen.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QList \
+		../../../../5.15.2/mingw81_64/include/QtCore/QObject \
+		../../../../5.15.2/mingw81_64/include/QtCore/QRect \
+		../../../../5.15.2/mingw81_64/include/QtCore/QSize \
+		../../../../5.15.2/mingw81_64/include/QtCore/QSizeF \
+		../../../../5.15.2/mingw81_64/include/QtGui/QTransform \
+		../../../../5.15.2/mingw81_64/include/QtGui/QShowEvent \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QVBoxLayout \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qboxlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qlayoutitem.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qgridlayout.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/QWindow \
+		../../../../5.15.2/mingw81_64/include/QtGui/qwindow.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QEvent \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMargins \
+		../../../../5.15.2/mingw81_64/include/QtGui/qsurface.h \
+		../../../../5.15.2/mingw81_64/include/QtGui/qsurfaceformat.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/habit_reminder_popup.o ../../src/ui/habit_reminder_popup.cpp
 
 debug/aboutdialog.o: ../../src/ui/aboutdialog.cpp ../../src/ui/aboutdialog.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QDialog \
@@ -11376,6 +12055,7 @@ debug/lock_screen_widget.o: ../../src/ui/lock_screen_widget.cpp ../../src/ui/loc
 		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/QKeySequence \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../src/utils/app_theme.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QtGlobal \
 		../../src/utils/app_version.h \
@@ -12320,6 +13000,7 @@ debug/app_logger.o: ../../src/utils/app_logger.cpp ../../src/utils/app_logger.h 
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
 		../../../../5.15.2/mingw81_64/include/QtCore/QCoreApplication \
@@ -12407,6 +13088,7 @@ debug/app_translations.o: ../../src/utils/app_translations.cpp ../../src/utils/a
 		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QApplication \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qapplication.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -12624,6 +13306,7 @@ debug/portable_settings.o: ../../src/utils/portable_settings.cpp ../../src/utils
 		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QMetaType \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
 		../../src/utils/app_logger.h \
@@ -12779,6 +13462,7 @@ debug/ai_analysis_trace.o: ../../src/utils/ai_analysis_trace.cpp ../../src/utils
 		../../../../5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../../../5.15.2/mingw81_64/include/QtCore/QVector \
 		../../src/core/task_archive.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDate \
@@ -12823,6 +13507,12 @@ debug/moc_weekly_report_service.o: debug/moc_weekly_report_service.cpp
 
 debug/moc_focus_session_service.o: debug/moc_focus_session_service.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/moc_focus_session_service.o debug/moc_focus_session_service.cpp
+
+debug/moc_habit_reminder_repository.o: debug/moc_habit_reminder_repository.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/moc_habit_reminder_repository.o debug/moc_habit_reminder_repository.cpp
+
+debug/moc_habit_reminder_service.o: debug/moc_habit_reminder_service.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/moc_habit_reminder_service.o debug/moc_habit_reminder_service.cpp
 
 debug/moc_update_service.o: debug/moc_update_service.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/moc_update_service.o debug/moc_update_service.cpp
@@ -12916,6 +13606,9 @@ debug/moc_windowtitlebar.o: debug/moc_windowtitlebar.cpp
 
 debug/moc_appsettingsdialog.o: debug/moc_appsettingsdialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/moc_appsettingsdialog.o debug/moc_appsettingsdialog.cpp
+
+debug/moc_habit_reminder_popup.o: debug/moc_habit_reminder_popup.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/moc_habit_reminder_popup.o debug/moc_habit_reminder_popup.cpp
 
 debug/moc_aboutdialog.o: debug/moc_aboutdialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/moc_aboutdialog.o debug/moc_aboutdialog.cpp

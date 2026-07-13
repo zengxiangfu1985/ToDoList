@@ -20,6 +20,8 @@ SOURCES += \
     src/core/quick_capture_service.cpp \
     src/core/focus/focus_session_service.cpp \
     src/core/schema_migrator.cpp \
+    src/core/habit_reminder_repository.cpp \
+    src/core/habit_reminder_service.cpp \
     src/core/update/update_manifest.cpp \
     src/core/update/update_config.cpp \
     src/core/update/update_apply.cpp \
@@ -56,6 +58,7 @@ SOURCES += \
     src/ui/task_table_delegate.cpp \
     src/ui/windowtitlebar.cpp \
     src/ui/appsettingsdialog.cpp \
+    src/ui/habit_reminder_popup.cpp \
     src/ui/aboutdialog.cpp \
     src/ui/updatedialog.cpp \
     src/ui/lock_screen_widget.cpp \
@@ -87,6 +90,8 @@ HEADERS += \
     src/core/quick_capture_service.h \
     src/core/focus/focus_session_service.h \
     src/core/schema_migrator.h \
+    src/core/habit_reminder_repository.h \
+    src/core/habit_reminder_service.h \
     src/core/update/update_manifest.h \
     src/core/update/update_config.h \
     src/core/update/update_apply.h \
@@ -124,6 +129,7 @@ HEADERS += \
     src/ui/task_table_delegate.h \
     src/ui/windowtitlebar.h \
     src/ui/appsettingsdialog.h \
+    src/ui/habit_reminder_popup.h \
     src/ui/aboutdialog.h \
     src/ui/updatedialog.h \
     src/ui/lock_screen_widget.h \

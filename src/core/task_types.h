@@ -4,6 +4,7 @@
 #include <QString>
 #include <QDateTime>
 #include <QMetaType>
+#include <QTime>
 #include <QVector>
 
 enum class EisenhowerQuadrant {
@@ -188,6 +189,27 @@ struct SavedDailyTop3 {
     QVector<AnalysisTraceEntry> trace;
     bool valid = false;
 };
+
+enum class HabitKind {
+    Custom = 0,
+    StandUp,
+    EyeRest,
+    DrinkWater
+};
+
+struct HabitReminder {
+    qint64 id = 0;
+    QString title;
+    QString message;
+    HabitKind kind = HabitKind::Custom;
+    bool enabled = false;
+    int intervalMinutes = 45;
+    QDateTime lastTriggeredAt;
+    QDateTime nextTriggerAt;
+    int sortOrder = 0;
+};
+
+Q_DECLARE_METATYPE(HabitReminder)
 
 Q_DECLARE_METATYPE(SavedDailyTop3)
 Q_DECLARE_METATYPE(WeeklyReportRecord)
