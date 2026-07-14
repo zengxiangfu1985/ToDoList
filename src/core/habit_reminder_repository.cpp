@@ -16,6 +16,20 @@ public:
     QString connectionName;
 };
 
+static QDateTime parseUtcIso(const QString &raw)
+{
+    if (raw.isEmpty())
+        return {};
+    QDateTime dt = QDateTime::fromString(raw, Qt::ISODate);
+    if (!dt.isValid())
+        return {};
+    // Stored values are UTC (with Z). Treat bare local parses as UTC to avoid
+    // doubling the timezone offset in countdown math.
+    if (dt.timeSpec() != Qt::UTC)
+        dt = QDateTime(dt.date(), dt.time(), Qt::UTC);
+    return dt.toUTC();
+}
+
 static HabitReminder habitFromQuery(const QSqlQuery &q)
 {
     HabitReminder h;
@@ -25,12 +39,8 @@ static HabitReminder habitFromQuery(const QSqlQuery &q)
     h.kind = static_cast<HabitKind>(q.value(QStringLiteral("kind")).toInt());
     h.enabled = q.value(QStringLiteral("enabled")).toInt() != 0;
     h.intervalMinutes = q.value(QStringLiteral("interval_minutes")).toInt();
-    const QString lastTriggered = q.value(QStringLiteral("last_triggered_at")).toString();
-    if (!lastTriggered.isEmpty())
-        h.lastTriggeredAt = QDateTime::fromString(lastTriggered, Qt::ISODate);
-    const QString nextTrigger = q.value(QStringLiteral("next_trigger_at")).toString();
-    if (!nextTrigger.isEmpty())
-        h.nextTriggerAt = QDateTime::fromString(nextTrigger, Qt::ISODate);
+    h.lastTriggeredAt = parseUtcIso(q.value(QStringLiteral("last_triggered_at")).toString());
+    h.nextTriggerAt = parseUtcIso(q.value(QStringLiteral("next_trigger_at")).toString());
     h.sortOrder = q.value(QStringLiteral("sort_order")).toInt();
     return h;
 }
@@ -158,7 +168,8 @@ bool HabitReminderRepository::ensureDefaults(QString *errorMsg)
         q.addBindValue(static_cast<int>(preset.kind));
         q.addBindValue(preset.enabled ? 1 : 0);
         q.addBindValue(preset.intervalMinutes);
-        q.addBindValue(now.toString(Qt::ISODate));
+        // Disabled presets must not get a due next_trigger, or they may resurface after toggles.
+        q.addBindValue(preset.enabled ? QVariant(now.toString(Qt::ISODate)) : QVariant());
         q.addBindValue(preset.sortOrder);
         if (!q.exec()) {
             if (errorMsg)
@@ -188,9 +199,9 @@ bool HabitReminderRepository::updateHabit(const HabitReminder &habit, QString *e
     q.addBindValue(habit.message);
     q.addBindValue(habit.enabled ? 1 : 0);
     q.addBindValue(habit.intervalMinutes);
-    q.addBindValue(habit.lastTriggeredAt.isValid() ? habit.lastTriggeredAt.toString(Qt::ISODate)
+    q.addBindValue(habit.lastTriggeredAt.isValid() ? habit.lastTriggeredAt.toUTC().toString(Qt::ISODate)
                                                      : QVariant());
-    q.addBindValue(habit.nextTriggerAt.isValid() ? habit.nextTriggerAt.toString(Qt::ISODate)
+    q.addBindValue(habit.nextTriggerAt.isValid() ? habit.nextTriggerAt.toUTC().toString(Qt::ISODate)
                                                  : QVariant());
     q.addBindValue(habit.sortOrder);
     q.addBindValue(habit.id);
@@ -210,8 +221,8 @@ bool HabitReminderRepository::updateSchedule(qint64 id, const QDateTime &lastTri
     QSqlQuery q(d->db);
     q.prepare(QStringLiteral(
         "UPDATE habit_reminders SET last_triggered_at=?, next_trigger_at=? WHERE id=?"));
-    q.addBindValue(lastTriggered.isValid() ? lastTriggered.toString(Qt::ISODate) : QVariant());
-    q.addBindValue(nextTrigger.isValid() ? nextTrigger.toString(Qt::ISODate) : QVariant());
+    q.addBindValue(lastTriggered.isValid() ? lastTriggered.toUTC().toString(Qt::ISODate) : QVariant());
+    q.addBindValue(nextTrigger.isValid() ? nextTrigger.toUTC().toString(Qt::ISODate) : QVariant());
     q.addBindValue(id);
     if (!q.exec()) {
         if (errorMsg)

@@ -397,7 +397,7 @@
               </property>
               <property name="time">
                <time>
-                <hour>9</hour>
+                <hour>0</hour>
                 <minute>0</minute>
                 <second>0</second>
                </time>
@@ -418,8 +418,8 @@
               </property>
               <property name="time">
                <time>
-                <hour>18</hour>
-                <minute>0</minute>
+                <hour>23</hour>
+                <minute>59</minute>
                 <second>0</second>
                </time>
               </property>
@@ -428,6 +428,19 @@
            </layout>
           </item>
           <item row="7" column="0" colspan="2">
+           <widget class="QLabel" name="labelHabitActiveHint">
+            <property name="text">
+             <string>提示：仅在此刻时段内弹窗。默认 00:00–23:59（全天候），可自行收窄。</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: #8a9bb8; font-size: 12px;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0" colspan="2">
            <widget class="QCheckBox" name="checkHabitPauseDuringFocus">
             <property name="text">
              <string>Focus 25 期间暂停健康提醒</string>
@@ -437,7 +450,7 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="0" colspan="2">
+          <item row="9" column="0" colspan="2">
            <widget class="QCheckBox" name="checkHabitWeekdaysOnly">
             <property name="text">
              <string>仅工作日提醒（周一至周五）</string>

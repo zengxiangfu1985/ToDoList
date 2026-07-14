@@ -567,6 +567,12 @@ void MainWindow::onAppSettings()
     connect(&dlg, &AppSettingsDialog::habitsChanged, this, [this]() {
         if (m_habitService)
             m_habitService->reload();
+        if (m_habitRepo) {
+            for (const HabitReminder &habit : m_habitRepo->allHabits()) {
+                if (!habit.enabled)
+                    purgeHabitReminder(habit.id);
+            }
+        }
         updateTrayHabitMenu();
     });
     if (dlg.exec() == QDialog::Accepted)
@@ -1694,6 +1700,8 @@ void MainWindow::setupHabitReminders()
     m_habitPopup = new HabitReminderPopup(nullptr);
 
     connect(m_habitService, &HabitReminderService::reminderDue, this, &MainWindow::onHabitReminderDue);
+    connect(m_habitService, &HabitReminderService::reminderCancelled, this, &MainWindow::purgeHabitReminder);
+    connect(m_habitService, &HabitReminderService::statusTick, this, &MainWindow::refreshTrayHabitCountdowns);
     connect(m_habitPopup, &HabitReminderPopup::acknowledged, m_habitService, &HabitReminderService::acknowledge);
     connect(m_habitPopup, &HabitReminderPopup::snoozed, this, [this](qint64 habitId) {
         if (m_habitService)
@@ -1719,6 +1727,7 @@ void MainWindow::setupHabitReminders()
     connect(m_habitRepo, &HabitReminderRepository::habitsChanged, this, &MainWindow::updateTrayHabitMenu);
 
     m_habitService->start();
+    updateTrayHabitMenu();
 }
 
 void MainWindow::updateTrayHabitMenu()
@@ -1729,9 +1738,12 @@ void MainWindow::updateTrayHabitMenu()
     m_trayHabitMenu->clear();
     m_trayHabitActions.clear();
 
-    for (const HabitReminder &habit : m_habitRepo->allHabits()) {
+    const QVector<HabitReminder> habits = m_habitRepo->allHabits();
+    for (const HabitReminder &habit : habits) {
+        const QString countdown = m_habitService ? m_habitService->countdownText(habit) : QStringLiteral("--:--");
         QAction *action = m_trayHabitMenu->addAction(
-            QStringLiteral("%1 %2").arg(habit.enabled ? QStringLiteral("✓") : QStringLiteral("○"), habit.title));
+            QStringLiteral("%1 %2  %3")
+                .arg(habit.enabled ? QStringLiteral("✓") : QStringLiteral("○"), habit.title, countdown));
         action->setCheckable(true);
         action->setChecked(habit.enabled);
         m_trayHabitActions.insert(habit.id, action);
@@ -1744,10 +1756,90 @@ void MainWindow::updateTrayHabitMenu()
 
     if (m_trayHabitActions.isEmpty())
         m_trayHabitMenu->addAction(tr("（暂无）"))->setEnabled(false);
+
+    const QTime start = AppSettings::habitActiveStart();
+    const QTime end = AppSettings::habitActiveEnd();
+    m_trayHabitMenu->addSeparator();
+    QAction *hoursAction = m_trayHabitMenu->addAction(
+        tr("活跃时段 %1–%2")
+            .arg(start.toString(QStringLiteral("HH:mm")))
+            .arg(end.toString(QStringLiteral("HH:mm"))));
+    hoursAction->setEnabled(false);
+
+    updateHabitTrayTooltip();
+}
+
+void MainWindow::refreshTrayHabitCountdowns()
+{
+    if (!m_trayHabitMenu || !m_habitRepo || !m_habitService)
+        return;
+
+    // Focus countdown owns the tooltip while active.
+    if (m_focusService && m_focusService->isActive())
+        return;
+
+    const QVector<HabitReminder> habits = m_habitRepo->allHabits();
+    if (habits.size() != m_trayHabitActions.size()) {
+        updateTrayHabitMenu();
+        return;
+    }
+
+    for (const HabitReminder &habit : habits) {
+        QAction *action = m_trayHabitActions.value(habit.id);
+        if (!action) {
+            updateTrayHabitMenu();
+            return;
+        }
+        action->blockSignals(true);
+        action->setChecked(habit.enabled);
+        action->setText(QStringLiteral("%1 %2  %3")
+                            .arg(habit.enabled ? QStringLiteral("✓") : QStringLiteral("○"), habit.title,
+                                 m_habitService->countdownText(habit)));
+        action->blockSignals(false);
+    }
+
+    updateHabitTrayTooltip();
+}
+
+void MainWindow::updateHabitTrayTooltip()
+{
+    if (!m_trayIcon || !m_habitRepo || !m_habitService)
+        return;
+    if (m_focusService && m_focusService->isActive())
+        return;
+
+    QStringList lines;
+    lines << tr("ToDoList — 健康提醒");
+    for (const HabitReminder &habit : m_habitRepo->allHabits()) {
+        lines << QStringLiteral("%1  %2").arg(habit.title, m_habitService->countdownText(habit));
+    }
+    const QString pause = m_habitService->pauseReason();
+    if (!pause.isEmpty())
+        lines << pause;
+    else {
+        lines << tr("活跃时段 %1–%2")
+                     .arg(AppSettings::habitActiveStart().toString(QStringLiteral("HH:mm")))
+                     .arg(AppSettings::habitActiveEnd().toString(QStringLiteral("HH:mm")));
+    }
+    m_trayIcon->setToolTip(lines.join(QLatin1Char('\n')));
 }
 
 void MainWindow::onHabitReminderDue(const HabitReminder &habit)
 {
+    if (!habit.enabled || habit.id <= 0)
+        return;
+    if (m_habitRepo) {
+        const HabitReminder latest = [&]() {
+            for (const HabitReminder &h : m_habitRepo->allHabits()) {
+                if (h.id == habit.id)
+                    return h;
+            }
+            return HabitReminder{};
+        }();
+        if (latest.id <= 0 || !latest.enabled)
+            return;
+    }
+
     m_pendingHabitReminders.enqueue(habit);
     if (m_trayIcon && m_trayIcon->isVisible()) {
         m_trayIcon->showMessage(habit.title, habit.message, QSystemTrayIcon::Information, 5000);
@@ -1756,17 +1848,53 @@ void MainWindow::onHabitReminderDue(const HabitReminder &habit)
         showNextHabitReminder();
 }
 
+void MainWindow::purgeHabitReminder(qint64 habitId)
+{
+    if (habitId <= 0)
+        return;
+
+    QQueue<HabitReminder> remaining;
+    while (!m_pendingHabitReminders.isEmpty()) {
+        const HabitReminder h = m_pendingHabitReminders.dequeue();
+        if (h.id != habitId)
+            remaining.enqueue(h);
+    }
+    m_pendingHabitReminders = remaining;
+
+    if (m_habitPopup)
+        m_habitPopup->dismissIfHabit(habitId);
+
+    if (!m_pendingHabitReminders.isEmpty() && m_habitPopup && !m_habitPopup->isVisible())
+        showNextHabitReminder();
+}
+
 void MainWindow::showNextHabitReminder()
 {
     if (!m_habitPopup)
         return;
 
-    if (m_pendingHabitReminders.isEmpty()) {
-        m_habitPopup->hide();
+    while (!m_pendingHabitReminders.isEmpty()) {
+        HabitReminder next = m_pendingHabitReminders.head();
+        bool stillEnabled = next.enabled;
+        if (m_habitRepo) {
+            stillEnabled = false;
+            for (const HabitReminder &h : m_habitRepo->allHabits()) {
+                if (h.id == next.id) {
+                    stillEnabled = h.enabled;
+                    next = h;
+                    break;
+                }
+            }
+        }
+        if (!stillEnabled) {
+            m_pendingHabitReminders.dequeue();
+            continue;
+        }
+        m_habitPopup->showReminder(next);
         return;
     }
 
-    m_habitPopup->showReminder(m_pendingHabitReminders.head());
+    m_habitPopup->hide();
 }
 
 int MainWindow::focusDurationSeconds() const
@@ -1886,6 +2014,10 @@ void MainWindow::updateTrayTooltipForFocus(int remainingSec)
 
 void MainWindow::restoreDefaultTrayTooltip()
 {
+    if (m_habitService) {
+        updateHabitTrayTooltip();
+        return;
+    }
     if (m_trayIcon)
         m_trayIcon->setToolTip(tr("ToDoList — AI 智能待办"));
 }

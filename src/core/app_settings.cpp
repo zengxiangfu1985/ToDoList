@@ -387,7 +387,7 @@ void AppSettings::setFocusTrayCountdown(bool enabled)
 
 bool AppSettings::habitPauseDuringFocus()
 {
-    QSettings s;
+    QSettings s = settings();
     s.beginGroup(kHabitGroup);
     const bool enabled = s.value(kHabitPauseDuringFocus, true).toBool();
     s.endGroup();
@@ -396,7 +396,7 @@ bool AppSettings::habitPauseDuringFocus()
 
 void AppSettings::setHabitPauseDuringFocus(bool enabled)
 {
-    QSettings s;
+    QSettings s = settings();
     s.beginGroup(kHabitGroup);
     s.setValue(kHabitPauseDuringFocus, enabled);
     s.endGroup();
@@ -404,7 +404,7 @@ void AppSettings::setHabitPauseDuringFocus(bool enabled)
 
 bool AppSettings::habitWeekdaysOnly()
 {
-    QSettings s;
+    QSettings s = settings();
     s.beginGroup(kHabitGroup);
     const bool enabled = s.value(kHabitWeekdaysOnly, false).toBool();
     s.endGroup();
@@ -413,7 +413,7 @@ bool AppSettings::habitWeekdaysOnly()
 
 void AppSettings::setHabitWeekdaysOnly(bool enabled)
 {
-    QSettings s;
+    QSettings s = settings();
     s.beginGroup(kHabitGroup);
     s.setValue(kHabitWeekdaysOnly, enabled);
     s.endGroup();
@@ -421,17 +421,17 @@ void AppSettings::setHabitWeekdaysOnly(bool enabled)
 
 QTime AppSettings::habitActiveStart()
 {
-    QSettings s;
+    QSettings s = settings();
     s.beginGroup(kHabitGroup);
-    const QTime time = QTime::fromString(s.value(kHabitActiveStart, QStringLiteral("09:00")).toString(),
+    const QTime time = QTime::fromString(s.value(kHabitActiveStart, QStringLiteral("00:00")).toString(),
                                          QStringLiteral("HH:mm"));
     s.endGroup();
-    return time.isValid() ? time : QTime(9, 0);
+    return time.isValid() ? time : QTime(0, 0);
 }
 
 void AppSettings::setHabitActiveStart(const QTime &time)
 {
-    QSettings s;
+    QSettings s = settings();
     s.beginGroup(kHabitGroup);
     s.setValue(kHabitActiveStart, time.toString(QStringLiteral("HH:mm")));
     s.endGroup();
@@ -439,17 +439,17 @@ void AppSettings::setHabitActiveStart(const QTime &time)
 
 QTime AppSettings::habitActiveEnd()
 {
-    QSettings s;
+    QSettings s = settings();
     s.beginGroup(kHabitGroup);
-    const QTime time = QTime::fromString(s.value(kHabitActiveEnd, QStringLiteral("18:00")).toString(),
+    const QTime time = QTime::fromString(s.value(kHabitActiveEnd, QStringLiteral("23:59")).toString(),
                                          QStringLiteral("HH:mm"));
     s.endGroup();
-    return time.isValid() ? time : QTime(18, 0);
+    return time.isValid() ? time : QTime(23, 59);
 }
 
 void AppSettings::setHabitActiveEnd(const QTime &time)
 {
-    QSettings s;
+    QSettings s = settings();
     s.beginGroup(kHabitGroup);
     s.setValue(kHabitActiveEnd, time.toString(QStringLiteral("HH:mm")));
     s.endGroup();

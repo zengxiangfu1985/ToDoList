@@ -13,15 +13,39 @@ HabitReminderService::HabitReminderService(HabitReminderRepository *repo, QObjec
     : QObject(parent)
     , m_repo(repo)
 {
-    m_timer.setInterval(30000);
+    m_timer.setInterval(1000);
     connect(&m_timer, &QTimer::timeout, this, &HabitReminderService::onTick);
+}
+
+void HabitReminderService::ensureAllDayActiveHoursDefault()
+{
+    const QTime start = AppSettings::habitActiveStart();
+    const QTime end = AppSettings::habitActiveEnd();
+    // Migrate previous restricted defaults that pushed next fire to "tomorrow 09:00"
+    // (shown as ~11h countdown in the evening).
+    const bool oldDefault = (start == QTime(9, 0)
+                             && (end == QTime(18, 0) || end == QTime(22, 0)));
+    if (oldDefault) {
+        AppSettings::setHabitActiveStart(QTime(0, 0));
+        AppSettings::setHabitActiveEnd(QTime(23, 59));
+        AppLogger::info("Habit", QStringLiteral("活跃时段已调整为全天候 00:00–23:59"));
+    }
 }
 
 void HabitReminderService::start()
 {
-    reload();
+    ensureAllDayActiveHoursDefault();
+
+    // Do not re-show popups left over from a previous run.
+    const QList<qint64> leftover = m_awaitingAck.values();
+    m_awaitingAck.clear();
+    for (const qint64 id : leftover)
+        emit reminderCancelled(id);
+
+    // Exit/restart always starts a fresh cycle (do not resume remaining countdown).
+    resetAllCyclesFromNow();
     m_timer.start();
-    QTimer::singleShot(2000, this, &HabitReminderService::onTick);
+    AppLogger::info("Habit", QStringLiteral("健康提醒已启动：倒计时已按间隔重置（全天候）"));
 }
 
 void HabitReminderService::reload()
@@ -37,18 +61,81 @@ void HabitReminderService::reload()
             ++it;
     }
 
+    deferOverdueToNextCycle();
+}
+
+void HabitReminderService::deferOverdueToNextCycle()
+{
+    if (!m_repo || !m_repo->isOpen())
+        return;
+
+    const QDate today = QDate::currentDate();
     const QDateTime now = QDateTime::currentDateTimeUtc();
+
     for (HabitReminder habit : m_repo->allHabits()) {
         if (!habit.enabled) {
+            const bool wasAwaiting = m_awaitingAck.remove(habit.id);
             if (habit.nextTriggerAt.isValid()) {
                 habit.nextTriggerAt = QDateTime();
                 QString err;
                 m_repo->updateHabit(habit, &err);
             }
+            if (wasAwaiting)
+                emit reminderCancelled(habit.id);
             continue;
         }
-        if (!habit.nextTriggerAt.isValid())
+
+        if (m_awaitingAck.contains(habit.id))
+            continue;
+        if (m_disabledForDay.value(habit.id) == today)
+            continue;
+
+        const bool overdue = !habit.nextTriggerAt.isValid()
+            || habit.nextTriggerAt.toUTC() <= now;
+
+        if (overdue) {
+            // Wait one full cycle from now (clamped into active hours).
             scheduleHabit(habit, computeNextTrigger(habit, now));
+            continue;
+        }
+
+        // Future schedule: keep if still inside active hours / weekday rules.
+        const QDateTime localNext = habit.nextTriggerAt.toLocalTime();
+        const bool weekdayOk = !AppSettings::habitWeekdaysOnly()
+            || (localNext.date().dayOfWeek() >= 1 && localNext.date().dayOfWeek() <= 5);
+        if (weekdayOk && isTimeWithinActiveHours(localNext.time()))
+            continue;
+
+        scheduleHabit(habit, computeNextTrigger(habit, now));
+    }
+}
+
+void HabitReminderService::resetAllCyclesFromNow()
+{
+    if (!m_repo || !m_repo->isOpen())
+        return;
+
+    const QDate today = QDate::currentDate();
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+
+    for (HabitReminder habit : m_repo->allHabits()) {
+        if (!habit.enabled) {
+            const bool wasAwaiting = m_awaitingAck.remove(habit.id);
+            if (habit.nextTriggerAt.isValid()) {
+                habit.nextTriggerAt = QDateTime();
+                QString err;
+                m_repo->updateHabit(habit, &err);
+            }
+            if (wasAwaiting)
+                emit reminderCancelled(habit.id);
+            continue;
+        }
+
+        if (m_disabledForDay.value(habit.id) == today)
+            continue;
+
+        // Fresh full interval from process start (ignores leftover countdown in DB).
+        scheduleHabit(habit, computeNextTrigger(habit, now));
     }
 }
 
@@ -60,6 +147,58 @@ void HabitReminderService::setFocusActive(bool active)
 void HabitReminderService::setAppLocked(bool locked)
 {
     m_appLocked = locked;
+}
+
+QString HabitReminderService::pauseReason() const
+{
+    if (m_appLocked)
+        return QObject::tr("已锁定");
+    if (m_focusActive && AppSettings::habitPauseDuringFocus())
+        return QObject::tr("专注暂停");
+    if (!isAllowedWeekday())
+        return QObject::tr("仅工作日");
+    if (!isWithinActiveHours()) {
+        const QTime start = AppSettings::habitActiveStart();
+        const QTime end = AppSettings::habitActiveEnd();
+        return QObject::tr("时段外 %1–%2")
+            .arg(start.toString(QStringLiteral("HH:mm")))
+            .arg(end.toString(QStringLiteral("HH:mm")));
+    }
+    return QString();
+}
+
+QString HabitReminderService::countdownText(const HabitReminder &habit) const
+{
+    if (!habit.enabled)
+        return QObject::tr("已关闭");
+    if (m_disabledForDay.value(habit.id) == QDate::currentDate())
+        return QObject::tr("今日不再");
+    if (m_awaitingAck.contains(habit.id))
+        return QObject::tr("待处理");
+
+    if (!habit.nextTriggerAt.isValid()) {
+        const QString paused = pauseReason();
+        return paused.isEmpty() ? QStringLiteral("--:--") : paused;
+    }
+
+    const qint64 secs = QDateTime::currentDateTimeUtc().secsTo(habit.nextTriggerAt.toUTC());
+    if (secs <= 0) {
+        const QString paused = pauseReason();
+        return paused.isEmpty() ? QObject::tr("即将提醒") : paused;
+    }
+
+    const int hours = static_cast<int>(secs / 3600);
+    const int minutes = static_cast<int>((secs % 3600) / 60);
+    const int seconds = static_cast<int>(secs % 60);
+    if (hours > 0) {
+        return QStringLiteral("%1:%2:%3")
+            .arg(hours)
+            .arg(minutes, 2, 10, QLatin1Char('0'))
+            .arg(seconds, 2, 10, QLatin1Char('0'));
+    }
+    return QStringLiteral("%1:%2")
+        .arg(minutes, 2, 10, QLatin1Char('0'))
+        .arg(seconds, 2, 10, QLatin1Char('0'));
 }
 
 void HabitReminderService::acknowledge(qint64 habitId)
@@ -137,40 +276,56 @@ void HabitReminderService::setHabitEnabled(qint64 habitId, bool enabled)
         if (habit.id != habitId)
             continue;
         habit.enabled = enabled;
+        if (!enabled)
+            habit.nextTriggerAt = QDateTime();
         QString err;
         if (!m_repo->updateHabit(habit, &err))
             return;
         if (enabled) {
             const QDateTime now = QDateTime::currentDateTimeUtc();
+            // Newly enabled: first reminder after one full interval, not immediately.
             scheduleHabit(habit, computeNextTrigger(habit, now));
+        } else {
+            m_awaitingAck.remove(habitId);
+            emit reminderCancelled(habitId);
         }
         return;
     }
 }
 
+bool HabitReminderService::isAwaitingAck(qint64 habitId) const
+{
+    return m_awaitingAck.contains(habitId);
+}
+
 bool HabitReminderService::canTriggerNow() const
 {
-    if (m_appLocked)
-        return false;
-    if (m_focusActive && AppSettings::habitPauseDuringFocus())
-        return false;
-    if (!isWithinActiveHours())
-        return false;
-    if (!isAllowedWeekday())
-        return false;
-    return true;
+    return pauseReason().isEmpty();
 }
 
 bool HabitReminderService::isWithinActiveHours() const
 {
-    const QTime now = QTime::currentTime();
+    return isTimeWithinActiveHours(QTime::currentTime());
+}
+
+bool HabitReminderService::isTimeWithinActiveHours(const QTime &time) const
+{
+    if (isAllDayActiveHours())
+        return true;
     const QTime start = AppSettings::habitActiveStart();
     const QTime end = AppSettings::habitActiveEnd();
     if (!start.isValid() || !end.isValid())
         return true;
     if (start <= end)
-        return now >= start && now <= end;
-    return now >= start || now <= end;
+        return time >= start && time <= end;
+    return time >= start || time <= end;
+}
+
+bool HabitReminderService::isAllDayActiveHours() const
+{
+    const QTime start = AppSettings::habitActiveStart();
+    const QTime end = AppSettings::habitActiveEnd();
+    return start == QTime(0, 0) && end.hour() == 23 && end.minute() >= 59;
 }
 
 bool HabitReminderService::isAllowedWeekday() const
@@ -197,7 +352,11 @@ bool HabitReminderService::isDue(const HabitReminder &habit) const
 QDateTime HabitReminderService::computeNextTrigger(const HabitReminder &habit,
                                                    const QDateTime &from) const
 {
+    // Always: base next = from + interval (UTC). Avoid pushing into "tomorrow 09:00".
     QDateTime candidate = from.toUTC().addSecs(qMax(1, habit.intervalMinutes) * 60);
+
+    if (isAllDayActiveHours() && !AppSettings::habitWeekdaysOnly())
+        return candidate;
 
     for (int guard = 0; guard < 366; ++guard) {
         const QDate localDate = candidate.toLocalTime().date();
@@ -213,7 +372,7 @@ QDateTime HabitReminderService::computeNextTrigger(const HabitReminder &habit,
             }
         }
 
-        if (start.isValid() && end.isValid()) {
+        if (!isAllDayActiveHours() && start.isValid() && end.isValid()) {
             if (start <= end) {
                 if (localTime < start) {
                     candidate = QDateTime(localDate, start, Qt::LocalTime).toUTC();
@@ -279,6 +438,7 @@ void HabitReminderService::dispatchDueReminders()
 
 void HabitReminderService::onTick()
 {
+    emit statusTick();
     if (!canTriggerNow())
         return;
     dispatchDueReminders();

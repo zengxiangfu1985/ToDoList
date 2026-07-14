@@ -81,6 +81,14 @@ void HabitReminderPopup::showReminder(const HabitReminder &habit)
     activateWindow();
 }
 
+void HabitReminderPopup::dismissIfHabit(qint64 habitId)
+{
+    if (habitId <= 0 || m_habitId != habitId)
+        return;
+    m_habitId = 0;
+    hide();
+}
+
 void HabitReminderPopup::showEvent(QShowEvent *event)
 {
     QDialog::showEvent(event);

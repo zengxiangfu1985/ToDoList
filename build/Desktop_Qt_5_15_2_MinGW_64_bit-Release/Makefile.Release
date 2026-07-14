@@ -6608,7 +6608,19 @@ release/habit_reminder_service.o: ../../src/core/habit_reminder_service.cpp ../.
 		../../../../5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
 		../../src/core/habit_reminder_repository.h \
-		../../src/utils/app_logger.h
+		../../src/utils/app_logger.h \
+		../../src/utils/portable_settings.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QSettings \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsettings.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qvariant.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qmap.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdebug.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qtextstream.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qiodevice.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qlocale.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcontiguouscache.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qsharedpointer_impl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/habit_reminder_service.o ../../src/core/habit_reminder_service.cpp
 
 release/update_manifest.o: ../../src/core/update/update_manifest.cpp ../../src/core/update/update_manifest.h \

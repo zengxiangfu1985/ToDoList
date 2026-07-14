@@ -12,6 +12,7 @@
 
 #include <QApplication>
 #include <QCoreApplication>
+#include <QDateTime>
 #include <QMessageBox>
 #include <QSet>
 #include <QShowEvent>
@@ -163,6 +164,8 @@ bool AppSettingsDialog::saveHabits(QString *error)
             return true;
         habit.enabled = enabled;
         habit.intervalMinutes = interval;
+        if (!enabled)
+            habit.nextTriggerAt = QDateTime();
         return m_habitRepo->updateHabit(habit, error);
     };
 

@@ -24,6 +24,7 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
+#include <QtWidgets/QTimeEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -73,6 +74,25 @@ public:
     QLabel *labelFocusDuration;
     QComboBox *comboFocusDuration;
     QCheckBox *checkFocusTrayCountdown;
+    QGroupBox *groupHealthHabits;
+    QFormLayout *formHealthHabits;
+    QCheckBox *checkHabitStand;
+    QLabel *labelHabitStandInterval;
+    QSpinBox *spinHabitStandInterval;
+    QCheckBox *checkHabitEye;
+    QLabel *labelHabitEyeInterval;
+    QSpinBox *spinHabitEyeInterval;
+    QCheckBox *checkHabitWater;
+    QLabel *labelHabitWaterInterval;
+    QSpinBox *spinHabitWaterInterval;
+    QLabel *labelHabitActiveStart;
+    QHBoxLayout *layoutHabitActiveHours;
+    QTimeEdit *timeHabitActiveStart;
+    QLabel *labelHabitActiveTo;
+    QTimeEdit *timeHabitActiveEnd;
+    QLabel *labelHabitActiveHint;
+    QCheckBox *checkHabitPauseDuringFocus;
+    QCheckBox *checkHabitWeekdaysOnly;
     QGroupBox *groupTools;
     QVBoxLayout *toolsLayout;
     QPushButton *btnViewAiTrace;
@@ -294,6 +314,114 @@ public:
 
         scrollContentLayout->addWidget(groupFocus);
 
+        groupHealthHabits = new QGroupBox(scrollContent);
+        groupHealthHabits->setObjectName(QString::fromUtf8("groupHealthHabits"));
+        formHealthHabits = new QFormLayout(groupHealthHabits);
+        formHealthHabits->setObjectName(QString::fromUtf8("formHealthHabits"));
+        checkHabitStand = new QCheckBox(groupHealthHabits);
+        checkHabitStand->setObjectName(QString::fromUtf8("checkHabitStand"));
+        checkHabitStand->setChecked(true);
+
+        formHealthHabits->setWidget(0, QFormLayout::SpanningRole, checkHabitStand);
+
+        labelHabitStandInterval = new QLabel(groupHealthHabits);
+        labelHabitStandInterval->setObjectName(QString::fromUtf8("labelHabitStandInterval"));
+
+        formHealthHabits->setWidget(1, QFormLayout::LabelRole, labelHabitStandInterval);
+
+        spinHabitStandInterval = new QSpinBox(groupHealthHabits);
+        spinHabitStandInterval->setObjectName(QString::fromUtf8("spinHabitStandInterval"));
+        spinHabitStandInterval->setMinimum(5);
+        spinHabitStandInterval->setMaximum(240);
+        spinHabitStandInterval->setValue(45);
+
+        formHealthHabits->setWidget(1, QFormLayout::FieldRole, spinHabitStandInterval);
+
+        checkHabitEye = new QCheckBox(groupHealthHabits);
+        checkHabitEye->setObjectName(QString::fromUtf8("checkHabitEye"));
+        checkHabitEye->setChecked(true);
+
+        formHealthHabits->setWidget(2, QFormLayout::SpanningRole, checkHabitEye);
+
+        labelHabitEyeInterval = new QLabel(groupHealthHabits);
+        labelHabitEyeInterval->setObjectName(QString::fromUtf8("labelHabitEyeInterval"));
+
+        formHealthHabits->setWidget(3, QFormLayout::LabelRole, labelHabitEyeInterval);
+
+        spinHabitEyeInterval = new QSpinBox(groupHealthHabits);
+        spinHabitEyeInterval->setObjectName(QString::fromUtf8("spinHabitEyeInterval"));
+        spinHabitEyeInterval->setMinimum(5);
+        spinHabitEyeInterval->setMaximum(120);
+        spinHabitEyeInterval->setValue(20);
+
+        formHealthHabits->setWidget(3, QFormLayout::FieldRole, spinHabitEyeInterval);
+
+        checkHabitWater = new QCheckBox(groupHealthHabits);
+        checkHabitWater->setObjectName(QString::fromUtf8("checkHabitWater"));
+
+        formHealthHabits->setWidget(4, QFormLayout::SpanningRole, checkHabitWater);
+
+        labelHabitWaterInterval = new QLabel(groupHealthHabits);
+        labelHabitWaterInterval->setObjectName(QString::fromUtf8("labelHabitWaterInterval"));
+
+        formHealthHabits->setWidget(5, QFormLayout::LabelRole, labelHabitWaterInterval);
+
+        spinHabitWaterInterval = new QSpinBox(groupHealthHabits);
+        spinHabitWaterInterval->setObjectName(QString::fromUtf8("spinHabitWaterInterval"));
+        spinHabitWaterInterval->setMinimum(5);
+        spinHabitWaterInterval->setMaximum(240);
+        spinHabitWaterInterval->setValue(60);
+
+        formHealthHabits->setWidget(5, QFormLayout::FieldRole, spinHabitWaterInterval);
+
+        labelHabitActiveStart = new QLabel(groupHealthHabits);
+        labelHabitActiveStart->setObjectName(QString::fromUtf8("labelHabitActiveStart"));
+
+        formHealthHabits->setWidget(6, QFormLayout::LabelRole, labelHabitActiveStart);
+
+        layoutHabitActiveHours = new QHBoxLayout();
+        layoutHabitActiveHours->setObjectName(QString::fromUtf8("layoutHabitActiveHours"));
+        timeHabitActiveStart = new QTimeEdit(groupHealthHabits);
+        timeHabitActiveStart->setObjectName(QString::fromUtf8("timeHabitActiveStart"));
+        timeHabitActiveStart->setTime(QTime(0, 0, 0));
+
+        layoutHabitActiveHours->addWidget(timeHabitActiveStart);
+
+        labelHabitActiveTo = new QLabel(groupHealthHabits);
+        labelHabitActiveTo->setObjectName(QString::fromUtf8("labelHabitActiveTo"));
+
+        layoutHabitActiveHours->addWidget(labelHabitActiveTo);
+
+        timeHabitActiveEnd = new QTimeEdit(groupHealthHabits);
+        timeHabitActiveEnd->setObjectName(QString::fromUtf8("timeHabitActiveEnd"));
+        timeHabitActiveEnd->setTime(QTime(23, 59, 0));
+
+        layoutHabitActiveHours->addWidget(timeHabitActiveEnd);
+
+
+        formHealthHabits->setLayout(6, QFormLayout::FieldRole, layoutHabitActiveHours);
+
+        labelHabitActiveHint = new QLabel(groupHealthHabits);
+        labelHabitActiveHint->setObjectName(QString::fromUtf8("labelHabitActiveHint"));
+        labelHabitActiveHint->setWordWrap(true);
+        labelHabitActiveHint->setStyleSheet(QString::fromUtf8("color: #8a9bb8; font-size: 12px;"));
+
+        formHealthHabits->setWidget(7, QFormLayout::SpanningRole, labelHabitActiveHint);
+
+        checkHabitPauseDuringFocus = new QCheckBox(groupHealthHabits);
+        checkHabitPauseDuringFocus->setObjectName(QString::fromUtf8("checkHabitPauseDuringFocus"));
+        checkHabitPauseDuringFocus->setChecked(true);
+
+        formHealthHabits->setWidget(8, QFormLayout::SpanningRole, checkHabitPauseDuringFocus);
+
+        checkHabitWeekdaysOnly = new QCheckBox(groupHealthHabits);
+        checkHabitWeekdaysOnly->setObjectName(QString::fromUtf8("checkHabitWeekdaysOnly"));
+
+        formHealthHabits->setWidget(9, QFormLayout::SpanningRole, checkHabitWeekdaysOnly);
+
+
+        scrollContentLayout->addWidget(groupHealthHabits);
+
         groupTools = new QGroupBox(scrollContent);
         groupTools->setObjectName(QString::fromUtf8("groupTools"));
         toolsLayout = new QVBoxLayout(groupTools);
@@ -416,6 +544,23 @@ public:
         groupFocus->setTitle(QCoreApplication::translate("AppSettingsDialog", "Focus 25", nullptr));
         labelFocusDuration->setText(QCoreApplication::translate("AppSettingsDialog", "\347\225\252\350\214\204\346\227\266\351\225\277", nullptr));
         checkFocusTrayCountdown->setText(QCoreApplication::translate("AppSettingsDialog", "\346\211\230\347\233\230\346\217\220\347\244\272\346\230\276\347\244\272\344\270\223\346\263\250\345\200\222\350\256\241\346\227\266", nullptr));
+        groupHealthHabits->setTitle(QCoreApplication::translate("AppSettingsDialog", "\345\201\245\345\272\267\344\271\240\346\203\257\346\217\220\351\206\222", nullptr));
+        checkHabitStand->setText(QCoreApplication::translate("AppSettingsDialog", "\350\265\267\350\272\253\346\264\273\345\212\250", nullptr));
+        labelHabitStandInterval->setText(QCoreApplication::translate("AppSettingsDialog", "\351\227\264\351\232\224", nullptr));
+        spinHabitStandInterval->setSuffix(QCoreApplication::translate("AppSettingsDialog", " \345\210\206\351\222\237", nullptr));
+        checkHabitEye->setText(QCoreApplication::translate("AppSettingsDialog", "\346\212\244\347\234\274\344\274\221\346\201\257\357\274\21020-20-20\357\274\211", nullptr));
+        labelHabitEyeInterval->setText(QCoreApplication::translate("AppSettingsDialog", "\351\227\264\351\232\224", nullptr));
+        spinHabitEyeInterval->setSuffix(QCoreApplication::translate("AppSettingsDialog", " \345\210\206\351\222\237", nullptr));
+        checkHabitWater->setText(QCoreApplication::translate("AppSettingsDialog", "\345\226\235\346\260\264\346\217\220\351\206\222", nullptr));
+        labelHabitWaterInterval->setText(QCoreApplication::translate("AppSettingsDialog", "\351\227\264\351\232\224", nullptr));
+        spinHabitWaterInterval->setSuffix(QCoreApplication::translate("AppSettingsDialog", " \345\210\206\351\222\237", nullptr));
+        labelHabitActiveStart->setText(QCoreApplication::translate("AppSettingsDialog", "\346\264\273\350\267\203\346\227\266\346\256\265", nullptr));
+        timeHabitActiveStart->setDisplayFormat(QCoreApplication::translate("AppSettingsDialog", "HH:mm", nullptr));
+        labelHabitActiveTo->setText(QCoreApplication::translate("AppSettingsDialog", "\350\207\263", nullptr));
+        timeHabitActiveEnd->setDisplayFormat(QCoreApplication::translate("AppSettingsDialog", "HH:mm", nullptr));
+        labelHabitActiveHint->setText(QCoreApplication::translate("AppSettingsDialog", "\346\217\220\347\244\272\357\274\232\344\273\205\345\234\250\346\255\244\345\210\273\346\227\266\346\256\265\345\206\205\345\274\271\347\252\227\343\200\202\351\273\230\350\256\244 00:00\342\200\22323:59\357\274\210\345\205\250\345\244\251\345\200\231\357\274\211\357\274\214\345\217\257\350\207\252\350\241\214\346\224\266\347\252\204\343\200\202", nullptr));
+        checkHabitPauseDuringFocus->setText(QCoreApplication::translate("AppSettingsDialog", "Focus 25 \346\234\237\351\227\264\346\232\202\345\201\234\345\201\245\345\272\267\346\217\220\351\206\222", nullptr));
+        checkHabitWeekdaysOnly->setText(QCoreApplication::translate("AppSettingsDialog", "\344\273\205\345\267\245\344\275\234\346\227\245\346\217\220\351\206\222\357\274\210\345\221\250\344\270\200\350\207\263\345\221\250\344\272\224\357\274\211", nullptr));
         groupTools->setTitle(QCoreApplication::translate("AppSettingsDialog", "\345\267\245\345\205\267", nullptr));
         btnViewAiTrace->setText(QCoreApplication::translate("AppSettingsDialog", "AI \345\210\206\346\236\220\350\277\207\347\250\213", nullptr));
 #if QT_CONFIG(tooltip)

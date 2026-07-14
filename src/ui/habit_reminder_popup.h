@@ -15,6 +15,8 @@ public:
     explicit HabitReminderPopup(QWidget *parent = nullptr);
 
     void showReminder(const HabitReminder &habit);
+    qint64 currentHabitId() const { return m_habitId; }
+    void dismissIfHabit(qint64 habitId);
 
 signals:
     void acknowledged(qint64 habitId);

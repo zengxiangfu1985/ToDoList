@@ -90,6 +90,7 @@ public:
     QTimeEdit *timeHabitActiveStart;
     QLabel *labelHabitActiveTo;
     QTimeEdit *timeHabitActiveEnd;
+    QLabel *labelHabitActiveHint;
     QCheckBox *checkHabitPauseDuringFocus;
     QCheckBox *checkHabitWeekdaysOnly;
     QGroupBox *groupTools;
@@ -382,7 +383,7 @@ public:
         layoutHabitActiveHours->setObjectName(QString::fromUtf8("layoutHabitActiveHours"));
         timeHabitActiveStart = new QTimeEdit(groupHealthHabits);
         timeHabitActiveStart->setObjectName(QString::fromUtf8("timeHabitActiveStart"));
-        timeHabitActiveStart->setTime(QTime(9, 0, 0));
+        timeHabitActiveStart->setTime(QTime(0, 0, 0));
 
         layoutHabitActiveHours->addWidget(timeHabitActiveStart);
 
@@ -393,23 +394,30 @@ public:
 
         timeHabitActiveEnd = new QTimeEdit(groupHealthHabits);
         timeHabitActiveEnd->setObjectName(QString::fromUtf8("timeHabitActiveEnd"));
-        timeHabitActiveEnd->setTime(QTime(18, 0, 0));
+        timeHabitActiveEnd->setTime(QTime(23, 59, 0));
 
         layoutHabitActiveHours->addWidget(timeHabitActiveEnd);
 
 
         formHealthHabits->setLayout(6, QFormLayout::FieldRole, layoutHabitActiveHours);
 
+        labelHabitActiveHint = new QLabel(groupHealthHabits);
+        labelHabitActiveHint->setObjectName(QString::fromUtf8("labelHabitActiveHint"));
+        labelHabitActiveHint->setWordWrap(true);
+        labelHabitActiveHint->setStyleSheet(QString::fromUtf8("color: #8a9bb8; font-size: 12px;"));
+
+        formHealthHabits->setWidget(7, QFormLayout::SpanningRole, labelHabitActiveHint);
+
         checkHabitPauseDuringFocus = new QCheckBox(groupHealthHabits);
         checkHabitPauseDuringFocus->setObjectName(QString::fromUtf8("checkHabitPauseDuringFocus"));
         checkHabitPauseDuringFocus->setChecked(true);
 
-        formHealthHabits->setWidget(7, QFormLayout::SpanningRole, checkHabitPauseDuringFocus);
+        formHealthHabits->setWidget(8, QFormLayout::SpanningRole, checkHabitPauseDuringFocus);
 
         checkHabitWeekdaysOnly = new QCheckBox(groupHealthHabits);
         checkHabitWeekdaysOnly->setObjectName(QString::fromUtf8("checkHabitWeekdaysOnly"));
 
-        formHealthHabits->setWidget(8, QFormLayout::SpanningRole, checkHabitWeekdaysOnly);
+        formHealthHabits->setWidget(9, QFormLayout::SpanningRole, checkHabitWeekdaysOnly);
 
 
         scrollContentLayout->addWidget(groupHealthHabits);
@@ -550,6 +558,7 @@ public:
         timeHabitActiveStart->setDisplayFormat(QCoreApplication::translate("AppSettingsDialog", "HH:mm", nullptr));
         labelHabitActiveTo->setText(QCoreApplication::translate("AppSettingsDialog", "\350\207\263", nullptr));
         timeHabitActiveEnd->setDisplayFormat(QCoreApplication::translate("AppSettingsDialog", "HH:mm", nullptr));
+        labelHabitActiveHint->setText(QCoreApplication::translate("AppSettingsDialog", "\346\217\220\347\244\272\357\274\232\344\273\205\345\234\250\346\255\244\345\210\273\346\227\266\346\256\265\345\206\205\345\274\271\347\252\227\343\200\202\351\273\230\350\256\244 00:00\342\200\22323:59\357\274\210\345\205\250\345\244\251\345\200\231\357\274\211\357\274\214\345\217\257\350\207\252\350\241\214\346\224\266\347\252\204\343\200\202", nullptr));
         checkHabitPauseDuringFocus->setText(QCoreApplication::translate("AppSettingsDialog", "Focus 25 \346\234\237\351\227\264\346\232\202\345\201\234\345\201\245\345\272\267\346\217\220\351\206\222", nullptr));
         checkHabitWeekdaysOnly->setText(QCoreApplication::translate("AppSettingsDialog", "\344\273\205\345\267\245\344\275\234\346\227\245\346\217\220\351\206\222\357\274\210\345\221\250\344\270\200\350\207\263\345\221\250\344\272\224\357\274\211", nullptr));
         groupTools->setTitle(QCoreApplication::translate("AppSettingsDialog", "\345\267\245\345\205\267", nullptr));

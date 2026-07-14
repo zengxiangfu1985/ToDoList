@@ -133,7 +133,10 @@ private:
     void setupFocusSession();
     void setupHabitReminders();
     void updateTrayHabitMenu();
+    void refreshTrayHabitCountdowns();
+    void updateHabitTrayTooltip();
     void showNextHabitReminder();
+    void purgeHabitReminder(qint64 habitId);
     void onHabitReminderDue(const HabitReminder &habit);
     void onFocus25Clicked();
     void onFocusTick(int remainingSec);
