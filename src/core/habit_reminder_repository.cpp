@@ -270,3 +270,8 @@ int HabitReminderRepository::completedCountForDate(const QDate &date) const
         return q.value(0).toInt();
     return 0;
 }
+
+void HabitReminderRepository::notifyHabitsChanged()
+{
+    emit habitsChanged();
+}

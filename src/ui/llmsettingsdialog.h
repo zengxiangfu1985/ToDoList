@@ -32,7 +32,7 @@ private:
     LlmProviderType currentProviderType() const;
     void loadConfigToUi(const LlmConfig &config);
     LlmConfig configFromUi() const;
-    void stashCurrentProfileToCache();
+    void stashCurrentProfileToCache(LlmProviderType provider);
     void refreshSavedModelsCombo(LlmProviderType type, const QString &selectModel = QString());
     void loadProviderProfile(LlmProviderType type, const QString &model = QString());
 
@@ -40,6 +40,7 @@ private:
     LlmService *m_service;
     LlmConfig m_config;
     QHash<QString, LlmConfig> m_profileCache;
+    LlmProviderType m_uiProviderType = LlmProviderType::Ollama;
     bool m_loadingUi = false;
 };
 

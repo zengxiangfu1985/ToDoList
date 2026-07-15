@@ -31,8 +31,10 @@ LlmSettingsDialog::LlmSettingsDialog(LlmService *service, QWidget *parent)
     ui->comboProvider->addItem(tr("Kimi (Moonshot)"), static_cast<int>(LlmProviderType::Kimi));
     ui->comboProvider->addItem(tr("Custom OpenAI"), static_cast<int>(LlmProviderType::CustomOpenAI));
 
+    m_uiProviderType = m_config.provider;
     m_loadingUi = true;
     loadProviderProfile(m_config.provider, m_config.model);
+    m_uiProviderType = currentProviderType();
     m_loadingUi = false;
 
     connect(ui->comboProvider, QOverload<int>::of(&QComboBox::currentIndexChanged),
@@ -67,12 +69,14 @@ LlmConfig LlmSettingsDialog::config() const
 void LlmSettingsDialog::loadConfigToUi(const LlmConfig &config)
 {
     m_config = config;
+    ui->comboProvider->blockSignals(true);
     for (int i = 0; i < ui->comboProvider->count(); ++i) {
         if (ui->comboProvider->itemData(i).toInt() == static_cast<int>(config.provider)) {
             ui->comboProvider->setCurrentIndex(i);
             break;
         }
     }
+    ui->comboProvider->blockSignals(false);
     ui->editBaseUrl->setText(config.baseUrl);
     ui->editApiKey->setText(config.apiKey);
     ui->editModel->setText(config.model);
@@ -95,24 +99,42 @@ LlmConfig LlmSettingsDialog::configFromUi() const
     return cfg;
 }
 
-void LlmSettingsDialog::stashCurrentProfileToCache()
+void LlmSettingsDialog::stashCurrentProfileToCache(LlmProviderType provider)
 {
-    const LlmConfig cfg = configFromUi();
+    LlmConfig cfg = configFromUi();
+    cfg.provider = provider;
     if (cfg.model.trimmed().isEmpty())
         return;
-    m_profileCache.insert(profileCacheKey(cfg.provider, cfg.model), cfg);
+    m_profileCache.insert(profileCacheKey(provider, cfg.model), cfg);
 }
 
 void LlmSettingsDialog::refreshSavedModelsCombo(LlmProviderType type, const QString &selectModel)
 {
     QSet<QString> models;
+    for (const QString &model : LlmProviderFactory::suggestedModels(type))
+        models.insert(model);
     for (const QString &model : LlmProviderFactory::savedModels(type))
         models.insert(model);
 
     for (auto it = m_profileCache.constBegin(); it != m_profileCache.constEnd(); ++it) {
         const LlmConfig &cfg = it.value();
-        if (cfg.provider == type && !cfg.model.trimmed().isEmpty())
-            models.insert(cfg.model.trimmed());
+        if (cfg.provider != type || cfg.model.trimmed().isEmpty())
+            continue;
+        // 避免把其它提供商的默认模型误显示在当前列表
+        const QString name = cfg.model.trimmed();
+        bool foreign = false;
+        for (int i = 0; i < 4; ++i) {
+            const auto other = static_cast<LlmProviderType>(i);
+            if (other == type)
+                continue;
+            if (LlmProviderFactory::suggestedModels(other).contains(name)
+                && !LlmProviderFactory::suggestedModels(type).contains(name)) {
+                foreign = true;
+                break;
+            }
+        }
+        if (!foreign)
+            models.insert(name);
     }
 
     QStringList sorted = models.values();
@@ -125,8 +147,12 @@ void LlmSettingsDialog::refreshSavedModelsCombo(LlmProviderType type, const QStr
 
     const QString target = selectModel.trimmed();
     int index = target.isEmpty() ? -1 : ui->comboSavedModels->findData(target);
+    if (index < 0) {
+        const QString fallback = LlmProviderFactory::defaultConfig(type).model;
+        index = ui->comboSavedModels->findData(fallback);
+    }
     if (index < 0 && !sorted.isEmpty())
-        index = ui->comboSavedModels->findData(sorted.first());
+        index = 0;
     ui->comboSavedModels->setCurrentIndex(index);
     ui->comboSavedModels->setEnabled(!sorted.isEmpty());
     ui->comboSavedModels->blockSignals(false);
@@ -149,6 +175,11 @@ void LlmSettingsDialog::loadProviderProfile(LlmProviderType type, const QString 
             cfg = m_profileCache.value(key);
     }
 
+    // 缓存里也可能混入错配项，强制校正 provider
+    cfg.provider = type;
+    if (cfg.model.trimmed().isEmpty())
+        cfg = LlmProviderFactory::defaultConfig(type);
+
     loadConfigToUi(cfg);
     refreshSavedModelsCombo(type, cfg.model);
 }
@@ -159,10 +190,12 @@ void LlmSettingsDialog::onProviderChanged(int index)
     if (m_loadingUi)
         return;
 
-    stashCurrentProfileToCache();
+    // combo 已切到新提供商，必须按「切换前」的提供商暂存当前表单
+    stashCurrentProfileToCache(m_uiProviderType);
 
     m_loadingUi = true;
     loadProviderProfile(currentProviderType());
+    m_uiProviderType = currentProviderType();
     m_loadingUi = false;
 }
 
@@ -171,7 +204,7 @@ void LlmSettingsDialog::onSavedModelChanged(int index)
     if (m_loadingUi || index < 0)
         return;
 
-    stashCurrentProfileToCache();
+    stashCurrentProfileToCache(currentProviderType());
 
     const QString model = ui->comboSavedModels->itemData(index).toString();
     const auto type = currentProviderType();
@@ -180,6 +213,7 @@ void LlmSettingsDialog::onSavedModelChanged(int index)
     LlmConfig cfg = m_profileCache.contains(key)
         ? m_profileCache.value(key)
         : LlmProviderFactory::loadProfile(type, model);
+    cfg.provider = type;
 
     m_loadingUi = true;
     loadConfigToUi(cfg);
@@ -212,11 +246,26 @@ void LlmSettingsDialog::onTestConnection()
 
 void LlmSettingsDialog::onSave()
 {
-    stashCurrentProfileToCache();
+    stashCurrentProfileToCache(currentProviderType());
     m_config = configFromUi();
 
-    for (auto it = m_profileCache.constBegin(); it != m_profileCache.constEnd(); ++it)
-        LlmProviderFactory::saveProfile(it.value());
+    for (auto it = m_profileCache.constBegin(); it != m_profileCache.constEnd(); ++it) {
+        LlmConfig cfg = it.value();
+        // 跳过明显错配：模型名属于其它提供商建议列表
+        bool foreign = false;
+        for (int i = 0; i < 4; ++i) {
+            const auto other = static_cast<LlmProviderType>(i);
+            if (other == cfg.provider)
+                continue;
+            if (LlmProviderFactory::suggestedModels(other).contains(cfg.model)
+                && !LlmProviderFactory::suggestedModels(cfg.provider).contains(cfg.model)) {
+                foreign = true;
+                break;
+            }
+        }
+        if (!foreign)
+            LlmProviderFactory::saveProfile(cfg);
+    }
 
     LlmProviderFactory::saveToSettings(m_config);
     if (m_service)

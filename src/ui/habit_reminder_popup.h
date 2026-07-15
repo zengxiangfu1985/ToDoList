@@ -6,7 +6,6 @@
 #include <QDialog>
 
 class QLabel;
-class QPushButton;
 
 class HabitReminderPopup : public QDialog
 {
@@ -17,6 +16,8 @@ public:
     void showReminder(const HabitReminder &habit);
     qint64 currentHabitId() const { return m_habitId; }
     void dismissIfHabit(qint64 habitId);
+    void setStackIndex(int index);
+    int stackIndex() const { return m_stackIndex; }
 
 signals:
     void acknowledged(qint64 habitId);
@@ -32,6 +33,7 @@ private:
     QLabel *m_titleLabel = nullptr;
     QLabel *m_messageLabel = nullptr;
     qint64 m_habitId = 0;
+    int m_stackIndex = 0;
 };
 
 #endif // HABIT_REMINDER_POPUP_H

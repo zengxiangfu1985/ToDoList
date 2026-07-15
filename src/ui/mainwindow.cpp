@@ -197,6 +197,13 @@ void MainWindow::applyPanelElevation()
 MainWindow::~MainWindow()
 {
     m_hotkeyManager->uninstall();
+    for (HabitReminderPopup *popup : m_habitPopups) {
+        if (popup) {
+            popup->hide();
+            popup->deleteLater();
+        }
+    }
+    m_habitPopups.clear();
     delete ui;
 }
 
@@ -573,7 +580,9 @@ void MainWindow::onAppSettings()
                     purgeHabitReminder(habit.id);
             }
         }
+        // Force tray to re-read DB after reschedule (reload may emit before menus refresh).
         updateTrayHabitMenu();
+        refreshTrayHabitCountdowns();
     });
     if (dlg.exec() == QDialog::Accepted)
         resetIdleTimer();
@@ -1697,33 +1706,10 @@ void MainWindow::setupHabitReminders()
         return;
 
     m_habitService = new HabitReminderService(m_habitRepo, this);
-    m_habitPopup = new HabitReminderPopup(nullptr);
 
     connect(m_habitService, &HabitReminderService::reminderDue, this, &MainWindow::onHabitReminderDue);
     connect(m_habitService, &HabitReminderService::reminderCancelled, this, &MainWindow::purgeHabitReminder);
     connect(m_habitService, &HabitReminderService::statusTick, this, &MainWindow::refreshTrayHabitCountdowns);
-    connect(m_habitPopup, &HabitReminderPopup::acknowledged, m_habitService, &HabitReminderService::acknowledge);
-    connect(m_habitPopup, &HabitReminderPopup::snoozed, this, [this](qint64 habitId) {
-        if (m_habitService)
-            m_habitService->snooze(habitId, 5);
-    });
-    connect(m_habitPopup, &HabitReminderPopup::disabledForToday, m_habitService,
-            &HabitReminderService::disableForToday);
-    connect(m_habitPopup, &HabitReminderPopup::acknowledged, this, [this](qint64) {
-        if (!m_pendingHabitReminders.isEmpty())
-            m_pendingHabitReminders.dequeue();
-        showNextHabitReminder();
-    });
-    connect(m_habitPopup, &HabitReminderPopup::snoozed, this, [this](qint64) {
-        if (!m_pendingHabitReminders.isEmpty())
-            m_pendingHabitReminders.dequeue();
-        showNextHabitReminder();
-    });
-    connect(m_habitPopup, &HabitReminderPopup::disabledForToday, this, [this](qint64) {
-        if (!m_pendingHabitReminders.isEmpty())
-            m_pendingHabitReminders.dequeue();
-        showNextHabitReminder();
-    });
     connect(m_habitRepo, &HabitReminderRepository::habitsChanged, this, &MainWindow::updateTrayHabitMenu);
 
     m_habitService->start();
@@ -1829,72 +1815,83 @@ void MainWindow::onHabitReminderDue(const HabitReminder &habit)
     if (!habit.enabled || habit.id <= 0)
         return;
     if (m_habitRepo) {
-        const HabitReminder latest = [&]() {
-            for (const HabitReminder &h : m_habitRepo->allHabits()) {
-                if (h.id == habit.id)
-                    return h;
+        bool stillEnabled = false;
+        for (const HabitReminder &h : m_habitRepo->allHabits()) {
+            if (h.id == habit.id) {
+                stillEnabled = h.enabled;
+                break;
             }
-            return HabitReminder{};
-        }();
-        if (latest.id <= 0 || !latest.enabled)
+        }
+        if (!stillEnabled)
             return;
     }
 
-    m_pendingHabitReminders.enqueue(habit);
     if (m_trayIcon && m_trayIcon->isVisible()) {
         m_trayIcon->showMessage(habit.title, habit.message, QSystemTrayIcon::Information, 5000);
     }
-    if (!m_habitPopup || !m_habitPopup->isVisible())
-        showNextHabitReminder();
+    showHabitReminderPopup(habit);
+}
+
+void MainWindow::showHabitReminderPopup(const HabitReminder &habit)
+{
+    if (habit.id <= 0)
+        return;
+
+    if (HabitReminderPopup *existing = m_habitPopups.value(habit.id, nullptr)) {
+        existing->showReminder(habit);
+        reflowHabitPopups();
+        return;
+    }
+
+    auto *popup = new HabitReminderPopup(nullptr);
+    m_habitPopups.insert(habit.id, popup);
+
+    connect(popup, &HabitReminderPopup::acknowledged, this, [this](qint64 habitId) {
+        if (m_habitService)
+            m_habitService->acknowledge(habitId);
+        closeHabitReminderPopup(habitId);
+    });
+    connect(popup, &HabitReminderPopup::snoozed, this, [this](qint64 habitId) {
+        if (m_habitService)
+            m_habitService->snooze(habitId, 5);
+        closeHabitReminderPopup(habitId);
+    });
+    connect(popup, &HabitReminderPopup::disabledForToday, this, [this](qint64 habitId) {
+        if (m_habitService)
+            m_habitService->disableForToday(habitId);
+        closeHabitReminderPopup(habitId);
+    });
+
+    popup->showReminder(habit);
+    reflowHabitPopups();
+}
+
+void MainWindow::closeHabitReminderPopup(qint64 habitId)
+{
+    HabitReminderPopup *popup = m_habitPopups.take(habitId);
+    if (!popup)
+        return;
+    popup->hide();
+    popup->deleteLater();
+    reflowHabitPopups();
+}
+
+void MainWindow::reflowHabitPopups()
+{
+    int index = 0;
+    for (auto it = m_habitPopups.cbegin(); it != m_habitPopups.cend(); ++it) {
+        if (HabitReminderPopup *popup = it.value()) {
+            popup->setStackIndex(index++);
+            popup->raise();
+        }
+    }
 }
 
 void MainWindow::purgeHabitReminder(qint64 habitId)
 {
     if (habitId <= 0)
         return;
-
-    QQueue<HabitReminder> remaining;
-    while (!m_pendingHabitReminders.isEmpty()) {
-        const HabitReminder h = m_pendingHabitReminders.dequeue();
-        if (h.id != habitId)
-            remaining.enqueue(h);
-    }
-    m_pendingHabitReminders = remaining;
-
-    if (m_habitPopup)
-        m_habitPopup->dismissIfHabit(habitId);
-
-    if (!m_pendingHabitReminders.isEmpty() && m_habitPopup && !m_habitPopup->isVisible())
-        showNextHabitReminder();
-}
-
-void MainWindow::showNextHabitReminder()
-{
-    if (!m_habitPopup)
-        return;
-
-    while (!m_pendingHabitReminders.isEmpty()) {
-        HabitReminder next = m_pendingHabitReminders.head();
-        bool stillEnabled = next.enabled;
-        if (m_habitRepo) {
-            stillEnabled = false;
-            for (const HabitReminder &h : m_habitRepo->allHabits()) {
-                if (h.id == next.id) {
-                    stillEnabled = h.enabled;
-                    next = h;
-                    break;
-                }
-            }
-        }
-        if (!stillEnabled) {
-            m_pendingHabitReminders.dequeue();
-            continue;
-        }
-        m_habitPopup->showReminder(next);
-        return;
-    }
-
-    m_habitPopup->hide();
+    closeHabitReminderPopup(habitId);
 }
 
 int MainWindow::focusDurationSeconds() const

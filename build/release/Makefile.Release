@@ -1769,8 +1769,7 @@ release/moc_mainwindow.cpp: ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qmainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qicon.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QQueue \
-		../../../../5.15.2/mingw81_64/include/QtCore/qqueue.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMap \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSystemTrayIcon \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qsystemtrayicon.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QTimer \
@@ -5444,8 +5443,7 @@ release/main.o: ../../main.cpp ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qmainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qicon.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QQueue \
-		../../../../5.15.2/mingw81_64/include/QtCore/qqueue.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMap \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSystemTrayIcon \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qsystemtrayicon.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QTimer \
@@ -8240,8 +8238,7 @@ release/mainwindow.o: ../../src/ui/mainwindow.cpp ../../src/ui/mainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qmainwindow.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qtabwidget.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/qicon.h \
-		../../../../5.15.2/mingw81_64/include/QtCore/QQueue \
-		../../../../5.15.2/mingw81_64/include/QtCore/qqueue.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/QMap \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSystemTrayIcon \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qsystemtrayicon.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QTimer \
@@ -11465,12 +11462,15 @@ release/appsettingsdialog.o: ../../src/ui/appsettingsdialog.cpp ../../src/ui/app
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSpacerItem \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QSpinBox \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/qspinbox.h \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/QTimeEdit \
+		../../../../5.15.2/mingw81_64/include/QtWidgets/qdatetimeedit.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
+		../../../../5.15.2/mingw81_64/include/QtCore/qcalendar.h \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QVBoxLayout \
 		../../../../5.15.2/mingw81_64/include/QtWidgets/QWidget \
 		../../src/core/app_settings.h \
 		../../../../5.15.2/mingw81_64/include/QtCore/QString \
 		../../../../5.15.2/mingw81_64/include/QtCore/QDateTime \
-		../../../../5.15.2/mingw81_64/include/QtCore/qdatetime.h \
 		../../../../5.15.2/mingw81_64/include/QtGui/QKeySequence \
 		../../../../5.15.2/mingw81_64/include/QtCore/QTime \
 		../../src/core/habit_reminder_repository.h \

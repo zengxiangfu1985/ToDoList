@@ -158,26 +158,28 @@ bool AppSettingsDialog::saveHabits(QString *error)
     if (!m_habitRepo)
         return true;
 
+    const bool blocked = m_habitRepo->blockSignals(true);
+
     auto saveOne = [&](HabitKind kind, bool enabled, int interval) -> bool {
         HabitReminder habit = m_habitRepo->habitByKind(kind);
         if (habit.id <= 0)
             return true;
         habit.enabled = enabled;
-        habit.intervalMinutes = interval;
-        if (!enabled)
-            habit.nextTriggerAt = QDateTime();
+        habit.intervalMinutes = qMax(5, interval);
+        // Clear schedule here; HabitReminderService::reload() will start a fresh countdown.
+        habit.nextTriggerAt = QDateTime();
+        habit.lastTriggeredAt = QDateTime();
         return m_habitRepo->updateHabit(habit, error);
     };
 
-    if (!saveOne(HabitKind::StandUp, ui->checkHabitStand->isChecked(),
-                 ui->spinHabitStandInterval->value()))
-        return false;
-    if (!saveOne(HabitKind::EyeRest, ui->checkHabitEye->isChecked(), ui->spinHabitEyeInterval->value()))
-        return false;
-    if (!saveOne(HabitKind::DrinkWater, ui->checkHabitWater->isChecked(),
-                 ui->spinHabitWaterInterval->value()))
-        return false;
-    return true;
+    const bool ok = saveOne(HabitKind::StandUp, ui->checkHabitStand->isChecked(),
+                            ui->spinHabitStandInterval->value())
+        && saveOne(HabitKind::EyeRest, ui->checkHabitEye->isChecked(), ui->spinHabitEyeInterval->value())
+        && saveOne(HabitKind::DrinkWater, ui->checkHabitWater->isChecked(),
+                   ui->spinHabitWaterInterval->value());
+
+    m_habitRepo->blockSignals(blocked);
+    return ok;
 }
 
 bool AppSettingsDialog::applyPasswordChange(QString *error)

@@ -34,6 +34,7 @@ class LlmProviderFactory
 public:
     static LlmProviderPtr create(const LlmConfig &config, QObject *parent = nullptr);
     static LlmConfig defaultConfig(LlmProviderType type);
+    static QStringList suggestedModels(LlmProviderType type);
     static QString sanitizeModelKey(const QString &model);
     static LlmConfig loadProfile(LlmProviderType type, const QString &model = QString());
     static void saveProfile(const LlmConfig &config);

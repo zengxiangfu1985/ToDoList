@@ -132,6 +132,27 @@ LlmConfig LlmProviderFactory::defaultConfig(LlmProviderType type)
     return cfg;
 }
 
+QStringList LlmProviderFactory::suggestedModels(LlmProviderType type)
+{
+    switch (type) {
+    case LlmProviderType::Ollama:
+        return {QStringLiteral("qwen2.5:3b"),
+                QStringLiteral("qwen2.5:7b"),
+                QStringLiteral("qwen2.5:14b")};
+    case LlmProviderType::DeepSeek:
+        return {QStringLiteral("deepseek-chat"),
+                QStringLiteral("deepseek-reasoner")};
+    case LlmProviderType::Kimi:
+        return {QStringLiteral("moonshot-v1-8k"),
+                QStringLiteral("moonshot-v1-32k"),
+                QStringLiteral("moonshot-v1-128k")};
+    case LlmProviderType::CustomOpenAI:
+        return {QStringLiteral("gpt-4o-mini"),
+                QStringLiteral("gpt-4o")};
+    }
+    return {};
+}
+
 QString LlmProviderFactory::sanitizeModelKey(const QString &model)
 {
     QString key = model.trimmed();
@@ -139,6 +160,26 @@ QString LlmProviderFactory::sanitizeModelKey(const QString &model)
     key.replace(QLatin1Char('/'), QLatin1Char('_'));
     key.replace(QLatin1Char('\\'), QLatin1Char('_'));
     return key;
+}
+
+static bool isForeignSuggestedModel(LlmProviderType type, const QString &model)
+{
+    static const LlmProviderType kAllTypes[] = {
+        LlmProviderType::Ollama,
+        LlmProviderType::DeepSeek,
+        LlmProviderType::Kimi,
+        LlmProviderType::CustomOpenAI,
+    };
+    const QStringList own = LlmProviderFactory::suggestedModels(type);
+    if (own.contains(model))
+        return false;
+    for (LlmProviderType other : kAllTypes) {
+        if (other == type)
+            continue;
+        if (LlmProviderFactory::suggestedModels(other).contains(model))
+            return true;
+    }
+    return false;
 }
 
 LlmConfig LlmProviderFactory::loadProfile(LlmProviderType type, const QString &model)
@@ -154,9 +195,19 @@ LlmConfig LlmProviderFactory::loadProfile(LlmProviderType type, const QString &m
     if (modelName.isEmpty())
         return cfg;
 
-    const QString prefix = profilePrefix(type, modelName);
-    if (!s.contains(prefix + QStringLiteral("model")))
+    // 其它提供商的默认模型名被误写到本提供商时，回退到本提供商默认配置
+    if (isForeignSuggestedModel(type, modelName))
         return cfg;
+
+    const QString prefix = profilePrefix(type, modelName);
+    if (!s.contains(prefix + QStringLiteral("model"))) {
+        // 无存档但仍是本提供商建议模型时，用默认 URL + 该模型名
+        if (LlmProviderFactory::suggestedModels(type).contains(modelName)) {
+            cfg.model = modelName;
+            return cfg;
+        }
+        return cfg;
+    }
 
     cfg.provider = type;
     cfg.model = s.value(prefix + QStringLiteral("model"), modelName).toString();
@@ -172,6 +223,8 @@ void LlmProviderFactory::saveProfile(const LlmConfig &config)
 {
     const QString modelName = config.model.trimmed();
     if (modelName.isEmpty())
+        return;
+    if (isForeignSuggestedModel(config.provider, modelName))
         return;
 
     LlmConfig toSave = config;
@@ -198,7 +251,25 @@ QStringList LlmProviderFactory::savedModels(LlmProviderType type)
 {
     QSettings s = appSettings();
     migrateLegacySettings(s);
-    return s.value(providerModelsKey(type)).toStringList();
+
+    const QString modelsKey = providerModelsKey(type);
+    QStringList models = s.value(modelsKey).toStringList();
+    QStringList cleaned;
+    cleaned.reserve(models.size());
+    for (const QString &model : models) {
+        const QString name = model.trimmed();
+        if (name.isEmpty() || isForeignSuggestedModel(type, name))
+            continue;
+        cleaned.append(name);
+    }
+    if (cleaned != models)
+        s.setValue(modelsKey, cleaned);
+
+    const QString lastModel = s.value(providerLastModelKey(type)).toString().trimmed();
+    if (!lastModel.isEmpty() && isForeignSuggestedModel(type, lastModel))
+        s.setValue(providerLastModelKey(type), defaultConfig(type).model);
+
+    return cleaned;
 }
 
 LlmConfig LlmProviderFactory::loadFromSettings()

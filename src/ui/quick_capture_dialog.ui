@@ -9,7 +9,7 @@
    <item>
     <widget class="QLabel" name="labelHint">
      <property name="text">
-      <string>粘贴或输入待办内容，支持多行。AI 将自动拆分为多条任务。</string>
+      <string>粘贴或输入待办内容。多行时按行一条任务；单行自然语言可由 AI 拆分。</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -25,7 +25,7 @@
       </size>
      </property>
      <property name="placeholderText">
-      <string>例如：明天下午三点前交月报，顺便提醒老王审批预算</string>
+      <string>单行：明天下午三点前交月报，顺便提醒老王审批预算&#xa;或多行：&#xa;上午改PPT&#xa;下午交报销&#xa;晚上健身</string>
      </property>
     </widget>
    </item>

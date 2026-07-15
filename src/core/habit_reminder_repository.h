@@ -24,6 +24,7 @@ public:
                         QString *errorMsg = nullptr);
     bool insertLog(qint64 habitId, bool snoozed, QString *errorMsg = nullptr);
     int completedCountForDate(const QDate &date) const;
+    void notifyHabitsChanged();
 
 signals:
     void habitsChanged();

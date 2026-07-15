@@ -47,6 +47,48 @@ QDateTime parseDueValue(const QString &raw)
     return dt;
 }
 
+QString stripListPrefix(const QString &line)
+{
+    QString s = line.trimmed();
+    if (s.isEmpty())
+        return s;
+
+    // "- xxx" / "* xxx" / "1. xxx" / "1、xxx" / "(1) xxx" / "（1）xxx"
+    static const QRegularExpression prefixRe(
+        QStringLiteral(R"(^(?:[-*•·․‧]|\d+\s*[.、)）]|[（(]\s*\d+\s*[）)]|[一二三四五六七八九十]+\s*[.、)）])\s*)"));
+    s.remove(prefixRe);
+    return s.trimmed();
+}
+
+/** 用户已按换行分好任务（≥2 行非空）时，不再用 AI / 标点二次拆分。 */
+bool looksLikeLineSeparatedTasks(const QString &text)
+{
+    int nonEmpty = 0;
+    const QStringList rawLines = text.split(QRegularExpression(QStringLiteral("[\r\n]+")),
+                                            Qt::SkipEmptyParts);
+    for (const QString &raw : rawLines) {
+        if (!raw.trimmed().isEmpty()) {
+            ++nonEmpty;
+            if (nonEmpty >= 2)
+                return true;
+        }
+    }
+    return false;
+}
+
+QStringList splitByUserLines(const QString &text)
+{
+    QStringList lines;
+    const QStringList rawLines = text.split(QRegularExpression(QStringLiteral("[\r\n]+")),
+                                            Qt::SkipEmptyParts);
+    for (const QString &raw : rawLines) {
+        const QString line = stripListPrefix(raw);
+        if (!line.isEmpty())
+            lines.append(line);
+    }
+    return lines;
+}
+
 QStringList splitRuleLines(const QString &text)
 {
     QString normalized = text;
@@ -78,21 +120,17 @@ QStringList splitRuleLines(const QString &text)
     return lines;
 }
 
-} // namespace
-
-QuickCaptureParseResult QuickCaptureService::parseWithRules(const QString &text)
+QuickCaptureParseResult draftsFromLines(const QStringList &lines, bool usedLlm)
 {
     QuickCaptureParseResult result;
-    result.success = true;
-    result.usedLlm = false;
-
-    const QStringList lines = splitRuleLines(text);
+    result.usedLlm = usedLlm;
     if (lines.isEmpty()) {
         result.success = false;
         result.errorMessage = QStringLiteral("没有可解析的任务内容");
         return result;
     }
 
+    result.success = true;
     const QDateTime dueDefault = defaultDueTodayEnd();
     for (const QString &line : lines) {
         QuickCaptureDraft draft;
@@ -104,6 +142,15 @@ QuickCaptureParseResult QuickCaptureService::parseWithRules(const QString &text)
     return result;
 }
 
+} // namespace
+
+QuickCaptureParseResult QuickCaptureService::parseWithRules(const QString &text)
+{
+    if (looksLikeLineSeparatedTasks(text))
+        return draftsFromLines(splitByUserLines(text), false);
+    return draftsFromLines(splitRuleLines(text), false);
+}
+
 QuickCaptureParseResult QuickCaptureService::parse(const QString &text, const LlmConfig &config)
 {
     const QString trimmed = text.trimmed();
@@ -111,6 +158,12 @@ QuickCaptureParseResult QuickCaptureService::parse(const QString &text, const Ll
         QuickCaptureParseResult empty;
         empty.errorMessage = QStringLiteral("输入内容为空");
         return empty;
+    }
+
+    // 用户已按行分好：一行一条任务，跳过 AI 与标点拆分。
+    if (looksLikeLineSeparatedTasks(trimmed)) {
+        AppLogger::debug("QUICK_CAPTURE", QStringLiteral("检测到多行输入，按行解析"));
+        return draftsFromLines(splitByUserLines(trimmed), false);
     }
 
     auto provider = LlmProviderFactory::create(config);

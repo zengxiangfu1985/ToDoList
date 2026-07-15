@@ -9,7 +9,7 @@
 #include <QDate>
 #include <QHash>
 #include <QMainWindow>
-#include <QQueue>
+#include <QMap>
 #include <QSystemTrayIcon>
 #include <QTimer>
 
@@ -135,7 +135,9 @@ private:
     void updateTrayHabitMenu();
     void refreshTrayHabitCountdowns();
     void updateHabitTrayTooltip();
-    void showNextHabitReminder();
+    void showHabitReminderPopup(const HabitReminder &habit);
+    void closeHabitReminderPopup(qint64 habitId);
+    void reflowHabitPopups();
     void purgeHabitReminder(qint64 habitId);
     void onHabitReminderDue(const HabitReminder &habit);
     void onFocus25Clicked();
@@ -193,10 +195,9 @@ private:
     FocusSessionDialog *m_focusDialog = nullptr;
     HabitReminderRepository *m_habitRepo = nullptr;
     HabitReminderService *m_habitService = nullptr;
-    HabitReminderPopup *m_habitPopup = nullptr;
+    QMap<qint64, HabitReminderPopup *> m_habitPopups;
     QMenu *m_trayHabitMenu = nullptr;
     QHash<qint64, QAction *> m_trayHabitActions;
-    QQueue<HabitReminder> m_pendingHabitReminders;
     QTimer *m_usageHeartbeatTimer = nullptr;
     WindowsSessionMonitor *m_sessionMonitor = nullptr;
     QTimer *m_systemLockTimer = nullptr;

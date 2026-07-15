@@ -14,6 +14,7 @@ namespace {
 
 constexpr int kPopupWidth = 320;
 constexpr int kCornerMargin = 16;
+constexpr int kStackGap = 12;
 
 } // namespace
 
@@ -24,6 +25,7 @@ HabitReminderPopup::HabitReminderPopup(QWidget *parent)
     setWindowTitle(tr("健康提醒"));
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
     setFixedWidth(kPopupWidth);
+    setAttribute(Qt::WA_DeleteOnClose, false);
     AppTheme::styleDialog(this);
 
     auto *root = new QVBoxLayout(this);
@@ -76,9 +78,11 @@ void HabitReminderPopup::showReminder(const HabitReminder &habit)
     m_habitId = habit.id;
     m_titleLabel->setText(habit.title);
     m_messageLabel->setText(habit.message);
+    adjustSize();
     show();
     raise();
     activateWindow();
+    positionBottomRight();
 }
 
 void HabitReminderPopup::dismissIfHabit(qint64 habitId)
@@ -87,6 +91,13 @@ void HabitReminderPopup::dismissIfHabit(qint64 habitId)
         return;
     m_habitId = 0;
     hide();
+}
+
+void HabitReminderPopup::setStackIndex(int index)
+{
+    m_stackIndex = qMax(0, index);
+    if (isVisible())
+        positionBottomRight();
 }
 
 void HabitReminderPopup::showEvent(QShowEvent *event)
@@ -102,7 +113,8 @@ void HabitReminderPopup::positionBottomRight()
         return;
 
     const QRect avail = screen->availableGeometry();
+    const int stackedOffset = m_stackIndex * (height() + kStackGap);
     const int x = avail.right() - width() - kCornerMargin;
-    const int y = avail.bottom() - height() - kCornerMargin - 80;
+    const int y = avail.bottom() - height() - kCornerMargin - 80 - stackedOffset;
     move(x, qMax(avail.top() + kCornerMargin, y));
 }

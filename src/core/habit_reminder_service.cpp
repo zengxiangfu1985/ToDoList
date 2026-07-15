@@ -61,7 +61,14 @@ void HabitReminderService::reload()
             ++it;
     }
 
-    deferOverdueToNextCycle();
+    // Drop unfinished popups — settings/tray changes start a fresh cycle.
+    const QList<qint64> leftover = m_awaitingAck.values();
+    m_awaitingAck.clear();
+    for (const qint64 id : leftover)
+        emit reminderCancelled(id);
+
+    // Always reschedule from new enabled/interval settings (do not keep old next_trigger).
+    resetAllCyclesFromNow();
 }
 
 void HabitReminderService::deferOverdueToNextCycle()
@@ -94,12 +101,10 @@ void HabitReminderService::deferOverdueToNextCycle()
             || habit.nextTriggerAt.toUTC() <= now;
 
         if (overdue) {
-            // Wait one full cycle from now (clamped into active hours).
             scheduleHabit(habit, computeNextTrigger(habit, now));
             continue;
         }
 
-        // Future schedule: keep if still inside active hours / weekday rules.
         const QDateTime localNext = habit.nextTriggerAt.toLocalTime();
         const bool weekdayOk = !AppSettings::habitWeekdaysOnly()
             || (localNext.date().dayOfWeek() >= 1 && localNext.date().dayOfWeek() <= 5);
@@ -117,26 +122,28 @@ void HabitReminderService::resetAllCyclesFromNow()
 
     const QDate today = QDate::currentDate();
     const QDateTime now = QDateTime::currentDateTimeUtc();
+    const bool blocked = m_repo->blockSignals(true);
 
     for (HabitReminder habit : m_repo->allHabits()) {
         if (!habit.enabled) {
-            const bool wasAwaiting = m_awaitingAck.remove(habit.id);
+            m_awaitingAck.remove(habit.id);
             if (habit.nextTriggerAt.isValid()) {
                 habit.nextTriggerAt = QDateTime();
                 QString err;
                 m_repo->updateHabit(habit, &err);
             }
-            if (wasAwaiting)
-                emit reminderCancelled(habit.id);
             continue;
         }
 
         if (m_disabledForDay.value(habit.id) == today)
             continue;
 
-        // Fresh full interval from process start (ignores leftover countdown in DB).
+        // Fresh full interval from now (uses latest interval_minutes from DB).
         scheduleHabit(habit, computeNextTrigger(habit, now));
     }
+
+    m_repo->blockSignals(blocked);
+    m_repo->notifyHabitsChanged();
 }
 
 void HabitReminderService::setFocusActive(bool active)
@@ -275,20 +282,24 @@ void HabitReminderService::setHabitEnabled(qint64 habitId, bool enabled)
     for (HabitReminder habit : m_repo->allHabits()) {
         if (habit.id != habitId)
             continue;
+
         habit.enabled = enabled;
-        if (!enabled)
+        if (!enabled) {
             habit.nextTriggerAt = QDateTime();
+            QString err;
+            if (!m_repo->updateHabit(habit, &err))
+                return;
+            m_awaitingAck.remove(habitId);
+            emit reminderCancelled(habitId);
+            return;
+        }
+
+        // Enable: apply latest interval and start a fresh countdown immediately.
+        const QDateTime now = QDateTime::currentDateTimeUtc();
+        habit.nextTriggerAt = computeNextTrigger(habit, now);
         QString err;
         if (!m_repo->updateHabit(habit, &err))
             return;
-        if (enabled) {
-            const QDateTime now = QDateTime::currentDateTimeUtc();
-            // Newly enabled: first reminder after one full interval, not immediately.
-            scheduleHabit(habit, computeNextTrigger(habit, now));
-        } else {
-            m_awaitingAck.remove(habitId);
-            emit reminderCancelled(habitId);
-        }
         return;
     }
 }
